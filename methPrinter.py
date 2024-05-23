@@ -1,12 +1,15 @@
-"""
-Call MROpOCS from a method in a new style class to print the name of this class and method from
-were its being called from. Also prints a bunch of other related stuff run this file to find out, in python2.7 btw
-"""
-
 from inspect import stack
 
 
-def MROpOCS(MroDepth=True, callStackDepth=9999):
+def MROpOCS(MRO=True, callStackDepth=3):
+    """
+    :param MRO: If False will print name of the class in which the method definition lives only. If True it will also
+    print this definer class name followed by its descendants following MRO up to the descendant from which the
+    method that called MROpOCS was called.
+
+    :param callStackDepth: Just the depth of the call stack to print.
+    """
+
     frames, clsMethStrs = stack()[1:callStackDepth+1], []
 
     for frame in frames:
@@ -31,7 +34,7 @@ def MROpOCS(MroDepth=True, callStackDepth=9999):
                     startPrinting = True
                 if startPrinting:
                     clsNames.append(Class.__name__)
-                    if not MroDepth:
+                    if not MRO:
                         break
 
         clsMethStrs.append('.'.join(clsNames) + '.' + methName)
