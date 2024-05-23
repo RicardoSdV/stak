@@ -13,7 +13,7 @@ def MROpOCS(MRO=True, callStackDepth=999):
     frames, clsMethStrs = stack()[1:callStackDepth+1], []
 
     for frame in frames:
-        fInfo, methName, clsNames, startPrinting = frame[0], frame[3], [], False; fLocals = fInfo.f_locals
+        fInfo, methName, names, startPrinting = frame[0], frame[3], [], False; fLocals = fInfo.f_locals
 
         if 'self' in fLocals:
             revMRO = reversed(fLocals['self'].__class__.__mro__)
@@ -27,17 +27,18 @@ def MROpOCS(MRO=True, callStackDepth=999):
                     break
             else:
                 revMRO = None
+                names.append(frame[1].split('/')[-1])
 
         if revMRO is not None:
             for Class in revMRO:
                 if any(s.endswith(methName) for s in Class.__dict__):
                     startPrinting = True
                 if startPrinting:
-                    clsNames.append(Class.__name__)
+                    names.append(Class.__name__)
                     if not MRO:
                         break
 
-        clsMethStrs.append('.'.join(clsNames) + '.' + methName)
+        clsMethStrs.append('.'.join(names) + '.' + methName)
 
     print ' <- '.join(clsMethStrs)
 
