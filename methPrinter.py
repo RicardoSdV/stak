@@ -6,26 +6,35 @@ were its being called from. Also prints a bunch of other related stuff run this 
 from inspect import stack
 
 
-def MROpOCS(allMRO=False, CSD=2):
-    frames, clsMethStrs = stack()[1:CSD+1], []
+def MROpOCS(MroDepth=True, callStackDepth=9999):
+    frames, clsMethStrs = stack()[1:callStackDepth+1], []
 
     for frame in frames:
-        fLocals, methName = frame[0].f_locals, frame[3]
-        selfClass = fLocals.get('self')
+        fInfo, methName, clsNames, startPrinting = frame[0], frame[3], [], False; fLocals = fInfo.f_locals
 
-        if selfClass is None:
-            clsMethStr = methName
+        if 'self' in fLocals:
+            revMRO = reversed(fLocals['self'].__class__.__mro__)
+        elif 'cls' in fLocals:
+            revMRO = reversed(fLocals['cls'].__mro__)
         else:
-            clsNames, startPrinting = [], False
-            for ImroClass in reversed(selfClass.__class__.__mro__):
-                if any(s.endswith(methName) for s in ImroClass.__dict__):
+            fGlobals = fInfo.f_globals
+            for val in fGlobals.values():
+                if hasattr(val, '__dict__') and methName in val.__dict__:
+                    revMRO = reversed(val.__mro__)
+                    break
+            else:
+                revMRO = None
+
+        if revMRO is not None:
+            for Class in revMRO:
+                if any(s.endswith(methName) for s in Class.__dict__):
                     startPrinting = True
                 if startPrinting:
-                    clsNames.append(ImroClass.__name__)
-                    if not allMRO:
+                    clsNames.append(Class.__name__)
+                    if not MroDepth:
                         break
-            clsMethStr = '.'.join(clsNames) + '.' + methName
-        clsMethStrs.append(clsMethStr)
+
+        clsMethStrs.append('.'.join(clsNames) + '.' + methName)
 
     print ' <- '.join(clsMethStrs)
 
@@ -40,5 +49,12 @@ class Test(TestDaddy):
 class TestBro(TestDaddy): pass
 class TestDawg(Test): pass
 
+class TestOutcast(object):
+    @classmethod
+    def classMethTest(cls): TestDawg().testCallerOfCaller()
 
-TestDawg().testCallerOfCaller()
+    @staticmethod
+    def statMethTest(): TestOutcast.classMethTest()
+
+
+TestOutcast.statMethTest()
