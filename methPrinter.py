@@ -1,7 +1,7 @@
 from inspect import stack
 
 
-def MROpOCS(MRO=True, callStackDepth=3):
+def MROpOCS(MRO=True, callStackDepth=999):
     """
     :param MRO: If False will print name of the class in which the method definition lives only. If True it will also
     print this definer class name followed by its descendants following MRO up to the descendant from which the
@@ -22,7 +22,7 @@ def MROpOCS(MRO=True, callStackDepth=3):
         else:
             fGlobals = fInfo.f_globals
             for val in fGlobals.values():
-                if hasattr(val, '__dict__') and methName in val.__dict__:
+                if hasattr(val, '__dict__') and methName in val.__dict__ and hasattr(val, '__mro__'):
                     revMRO = reversed(val.__mro__)
                     break
             else:
@@ -60,4 +60,8 @@ class TestOutcast(object):
     def statMethTest(): TestOutcast.classMethTest()
 
 
-TestOutcast.statMethTest()
+def testFunc():
+    TestOutcast.statMethTest()
+
+
+testFunc()
