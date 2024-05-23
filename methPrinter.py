@@ -11,20 +11,27 @@ def MROpOCS(allMRO=False, CSD=2):
 
     for frame in frames:
         fLocals, methName = frame[0].f_locals, frame[3]
-        Class = fLocals['self'].__class__ if 'self' in fLocals else None
+
+        Class = fLocals.get('self').__class__ if 'self' in fLocals else None
 
         if Class is None:
             clsMethStr = methName
         else:
             clsNames, startPrinting = [], False
             for ImroClass in reversed(Class.__mro__):
-                if methName in ImroClass.__dict__:
+
+                print 'ImroClass.__dict__', ImroClass.__dict__
+                print 'ImroClass.__name__', ImroClass.__name__
+
+                if any(s.endswith(methName) for s in ImroClass.__dict__):
                     startPrinting = True
+                    print 'startPrinting'
                 if startPrinting:
                     clsNames.append(ImroClass.__name__)
                     if not allMRO:
                         break
             clsMethStr = '.'.join(clsNames) + '.' + methName
+            print
 
         clsMethStrs.append(clsMethStr)
 
@@ -34,7 +41,8 @@ def MROpOCS(allMRO=False, CSD=2):
 class TestGanny(object): pass
 class TestDaddy(TestGanny):
     def test(self): MROpOCS()
-    def testCaller(self): self.test()
+    def __testCaller(self): self.test()
+    def testCaller(self): self.__testCaller()
 class Test(TestDaddy):
     def testCallerOfCaller(self): self.testCaller()
 class TestBro(TestDaddy): pass

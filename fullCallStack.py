@@ -1,22 +1,17 @@
-""" Paste in meth to fugly print the callstack """
+""" Call STACK() from meth to fugly print, technically STACKs' callstack minus the first frame"""
 from inspect import stack
 
 def STACK():
-    frames, stackList = stack()[1:], []; OGMN = frames[0][3]
+    frames = stack()[1:]; OGMN = frames[0][3]
     OGCN = next((c.__name__ for c in frames[0][0].f_locals['self'].__class__.__mro__ if OGMN in c.__dict__), None)
-    localsExcl = ('localsExcl', 'frame', 'stack_info', '__builtins__', '__file__', 'Trak', '__package__')
-    for frame in frames:
-        frameObj, filePath, lineNum, methName, codeList = frame[0], frame[1], frame[2], frame[3], frame[4]
-        localVars = str(
-            {k: str(v).split(' at 0x')[0] for k, v in frameObj.f_locals.items() if k not in localsExcl and v})
-        codeStr = ' '.join(line.lstrip().rstrip('\n') for line in codeList) if codeList else ''
-        stackList.append(
-            '[STAK] {}{}{}{}{}'.format(filePath, ', ln ' + str(lineNum), ', ' + methName, ', ' + codeStr,
-                                       ', ' + localVars
-                                       ).lstrip(', '))
-    print 'START_CALLSTACK: {}.{} -----------------------------------------------------'.format(OGCN, OGMN)
-    print '\n'.join(stackList)
-    print 'END_CALLSTACK: {}.{} -------------------------------------------------------'.format(OGCN, OGMN)
+    p = ['START_CALLSTACK: {}.{} -----------------------------------------------------------'.format(OGCN, OGMN)]
+    excl = ('excl', 'f', '__builtins__', '__file__', '__package__', '__doc__')
+    for f in frames:
+        lV = str({k: str(v).split(' at 0x')[0] for k, v in f[0].f_locals.items() if k not in excl and v})
+        code = ' '.join(line.lstrip().rstrip('\n') for line in f[4]) if f[4] else ''
+        p.append('[STAK] {}{}{}{}{}{}{}{}{}'.format(f[1], ', ln ', str(f[2]), ', ', f[3], ', ', code, ', ', lV))
+    p.append('END_CALLSTACK: {}.{} ---------------------------------------------------------'.format(OGCN, OGMN))
+    print '\n'.join(p)
 
 
 class TestGanny(object): pass
