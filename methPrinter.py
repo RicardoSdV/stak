@@ -1,26 +1,23 @@
+import types
 from inspect import stack
-from types import ClassType, FunctionType
 
 from testCode import SomeClass
 
 
-def MROpOCS(printMRO=False, callStackDepth=4):
+def MROpOCS(pMRO=False, callStackDepth=999):
     frames, clsMethStrs = stack()[1:callStackDepth+1], []
 
     callChain = []
     for frame in frames:
         fObj, methName, = frame[0], frame[3]; fLocals = fObj.f_locals
 
-        isInsMeth = True if 'self' in fLocals else False
-        isClsMeth = True if 'cls' in fLocals else False
+        isInsMeth = True if 'self' in fLocals else False; isClsMeth = True if 'cls' in fLocals else False
         callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['cls'] if isClsMeth else None
 
-        if not (isInsMeth or isClsMeth) or isinstance(callerCls, ClassType):
-            callChain.append(frame[1] + '.' + methName)
-            continue
+        if not (isInsMeth or isClsMeth) or isinstance(callerCls, types.ClassType):
+            callChain.append(frame[1] + '.' + methName); continue
 
-        fCode = fObj.f_code
-        clsNs = []
+        fCode, clsNs = fObj.f_code, []
         isPrivate = True if methName.startswith('__') and not methName.endswith('__') else False
         if isInsMeth:
             if isPrivate:
@@ -28,14 +25,17 @@ def MROpOCS(printMRO=False, callStackDepth=4):
                 for cls in callerCls.__mro__:
                     clsNs.append(cls.__name__)
                     for attr in cls.__dict__.values():
-                        if isinstance(attr, FunctionType) and attr.__name__ == methName and attr.func_code is fCode:
+                        if isinstance(attr, types.FunctionType) and attr.__name__ == methName and attr.func_code is fCode:
                             found = True; break
                     if found: break
             else:
                 for cls in callerCls.__mro__:
                     clsNs.append(cls.__name__)
-                    if methName in cls.__dict__ and cls.__dict__[methName].func_code is fCode:
-                        break
+                    if methName in cls.__dict__:
+                        method = cls.__dict__[methName]
+                        if isinstance(method, property):
+                            if method.fget.func_code is fCode: break
+                        elif method.func_code is fCode: break
         elif isClsMeth:
             if isPrivate:
                 found = False
@@ -48,13 +48,10 @@ def MROpOCS(printMRO=False, callStackDepth=4):
             else:
                 for cls in callerCls.__mro__:
                     clsNs.append(cls.__name__)
-                    if methName in cls.__dict__ and cls.__dict__[methName].__func__.__code__ is fCode:
-                        break
+                    if methName in cls.__dict__ and cls.__dict__[methName].__func__.__code__ is fCode: break
 
-        if printMRO:
-            clsNs[-1] = clsNs[-1] + '.' + methName + ')' * (len(clsNs) -1); callChain.append('('.join(clsNs))
-        else:
-            callChain.append(clsNs[-1] + '.' + methName)
+        if pMRO: clsNs[-1] = clsNs[-1] + '.' + methName + ')' * (len(clsNs) -1); callChain.append('('.join(clsNs))
+        else: callChain.append(clsNs[-1] + '.' + methName)
 
     print ' <- '.join(callChain)
 
@@ -69,6 +66,8 @@ class TestDaddy(TestGanny):
         localVar = 1
         self.__testCaller()
 class Test(TestDaddy, ITest):
+    @property
+    def testPropCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
     def testCallerOfCaller(self): self.testCaller()
 class TestBro(TestDaddy): pass
 class TestDawg(Test): pass
@@ -89,8 +88,7 @@ class TestOutcast(ParentStatConf):
     def classMethTest(cls): cls.__classMethTest()
 
     @classmethod
-    def __classMethTest(cls): TestDawg().testCallerOfCaller()
-
+    def __classMethTest(cls): TestDawg().testPropCallerOfCallerOfCaller
 class TestSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
     @staticmethod
     def statMethTest(): pass

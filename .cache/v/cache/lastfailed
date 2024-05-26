@@ -1,3 +1,12 @@
 {
-  "methPrinter.py": true
+  "methPrinter.py::Test": true, 
+  "methPrinter.py::TestBro": true, 
+  "methPrinter.py::TestDaddy": true, 
+  "methPrinter.py::TestDawg": true, 
+  "methPrinter.py::TestGanny": true, 
+  "methPrinter.py::TestOldStyle": true, 
+  "methPrinter.py::TestOutcast": true, 
+  "methPrinter.py::TestOutcastSon": true, 
+  "methPrinter.py::TestSomeOtherClassWithSameNameStaticMeth": true, 
+  "methPrinter.py::TestSomeSomeOtherClassWithSameNameStaticMeth": true
 }
