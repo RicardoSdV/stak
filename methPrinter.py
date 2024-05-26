@@ -1,3 +1,10 @@
+"""
+How to use:
+    - Paste oMROpOCS in some high level utils type file
+    - Call oMROpOCS from the callable to debug
+    - Optionally set the printMRO and adjust the callStackDepth optionally at a global level or by passing the vals
+"""
+
 import types
 from inspect import stack
 
