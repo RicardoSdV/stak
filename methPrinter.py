@@ -15,6 +15,8 @@ Cool potential features:
     one copy of the MRO and substitute in the other frames by ... or something
 
     - Support static methods
+
+    - Support force passing the definer class as kwarg, to have good prints if there are static methods or wrappers
 """
 
 import types
@@ -23,8 +25,8 @@ from inspect import stack
 from testCode import SomeClass
 
 
-def oMROpOCS(pMRO=True, callStackDepth=999):
-    frames, clsMethStrs, callChain = stack()[1:callStackDepth+1], [], []
+def oMROpOCS(pMRO=False, callStackDepth=2, silence=True):
+    if silence: return; frames, clsMethStrs, callChain = stack()[1:callStackDepth+1], [], []
 
     for frame in frames:
         fObj, methName, = frame[0], frame[3]; fLocals = fObj.f_locals
@@ -70,8 +72,8 @@ def oMROpOCS(pMRO=True, callStackDepth=999):
         if not definerClsFound: callChain.append(frame[1].split('/')[-1] + '.' + methName); continue
         if pMRO: clsNs[-1] = clsNs[-1] + '.' + methName + ')' * (len(clsNs) -1); callChain.append('('.join(clsNs))
         else: callChain.append(clsNs[-1] + '.' + methName)
-    print ' <- '.join(callChain)
 
+    print ' <- '.join(callChain)
 
 def testWrapper(func):
     def wrapper(*args, **kwargs):
