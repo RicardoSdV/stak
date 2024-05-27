@@ -26,7 +26,8 @@ from testCode import SomeClass
 
 
 def oMROpOCS(pMRO=False, callStackDepth=2, silence=True):
-    if silence: return; frames, clsMethStrs, callChain = stack()[1:callStackDepth+1], [], []
+    if silence: return
+    frames, clsMethStrs, callChain = stack()[1:callStackDepth + 1], [], []
 
     for frame in frames:
         fObj, methName, = frame[0], frame[3]; fLocals = fObj.f_locals
