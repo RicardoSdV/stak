@@ -1,11 +1,20 @@
 """
 How to use:
-    - Paste oMROpOCS in some high level utils type file
-    - Call oMROpOCS from the callable to debug
-    - Optionally set the printMRO and adjust the callStackDepth optionally at a global level or by passing the vals
+    - Paste def oMROpOCS in some high level utils type file
+    - Call oMROpOCS() from the callable to debug
+    - Optionally set the printMRO and adjust the callStackDepth optionally at a global level or by passing the args
 
 Known issues:
     - Wrappers
+
+Unknown issues:
+    - How does this behave when a method overrides its predecessor and also calls it with super()?
+
+Cool potential features:
+    - If there are multiple methods in the call stack that have the same definer and caller class maybe print only
+    one copy of the MRO and substitute in the other frames by ... or something
+
+    - Support static methods
 """
 
 import types
@@ -14,7 +23,7 @@ from inspect import stack
 from testCode import SomeClass
 
 
-def MROpOCS(pMRO=True, callStackDepth=999):
+def oMROpOCS(pMRO=True, callStackDepth=999):
     frames, clsMethStrs, callChain = stack()[1:callStackDepth+1], [], []
 
     for frame in frames:
@@ -75,7 +84,7 @@ class ITest(object):
 class TestGanny(object): pass
 class TestDaddy(TestGanny):
     @testWrapper
-    def test(self): MROpOCS()
+    def test(self): oMROpOCS()
     def __testCaller(self): self.test()
     def testCaller(self): localVar = 1; self.__testCaller()
 class Test(TestDaddy, ITest):
