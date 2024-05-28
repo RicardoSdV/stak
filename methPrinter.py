@@ -17,6 +17,8 @@ Cool potential features:
     - Support static methods
 
     - Support force passing the definer class as kwarg, to have good prints if there are static methods or wrappers
+
+    - Add an option to print the stack in multiple lines with indentation
 """
 
 import types
@@ -25,9 +27,9 @@ from inspect import stack
 from testCode import SomeClass
 
 
-def oMROpOCS(pMRO=False, callStackDepth=2, silence=True):
+def oMROpOCS(pMRO=True, callStackDepth=999, silence=False):
     if silence: return
-    frames, clsMethStrs, callChain = stack()[1:callStackDepth + 1], [], []
+    frames, clsMethStrs, callChain = stack()[1:callStackDepth+1], [], []
 
     for frame in frames:
         fObj, methName, = frame[0], frame[3]; fLocals = fObj.f_locals
@@ -36,7 +38,7 @@ def oMROpOCS(pMRO=False, callStackDepth=2, silence=True):
         callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['cls'] if isClsMeth else None
 
         if not (isInsMeth or isClsMeth) or isinstance(callerCls, types.ClassType):
-            callChain.append(frame[1].split('/')[-1] + '.' + methName); continue
+            callChain.append(frame[1].split('/')[-1].replace('.py', str(frame[2])) + '.' + methName); continue
 
         definerClsFound, fCode, clsNs = False, fObj.f_code, []
         isPrivate = True if methName.startswith('__') and not methName.endswith('__') else False
@@ -70,11 +72,12 @@ def oMROpOCS(pMRO=False, callStackDepth=2, silence=True):
                     if methName in cls.__dict__ and cls.__dict__[methName].__func__.__code__ is fCode:
                         definerClsFound = True; break
 
-        if not definerClsFound: callChain.append(frame[1].split('/')[-1] + '.' + methName); continue
+        if not definerClsFound: callChain.append(frame[1].split('/')[-1].replace('.py', str(frame[2])) + '.' + methName); continue
         if pMRO: clsNs[-1] = clsNs[-1] + '.' + methName + ')' * (len(clsNs) -1); callChain.append('('.join(clsNs))
         else: callChain.append(clsNs[-1] + '.' + methName)
 
     print ' <- '.join(callChain)
+
 
 def testWrapper(func):
     def wrapper(*args, **kwargs):
