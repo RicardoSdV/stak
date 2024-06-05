@@ -5,7 +5,7 @@ How to use:
     - Optionally set the printMRO and adjust the callStackDepth optionally at a global level or by passing the args
 
 Known issues:
-    - Wrappers
+    - Wrappers & static methods
 
 Unknown issues:
     - How does this behave when a method overrides its predecessor and also calls it with super()?
@@ -14,11 +14,16 @@ Cool potential features:
     - If there are multiple methods in the call stack that have the same definer and caller class maybe print only
     one copy of the MRO and substitute in the other frames by ... or something
 
-    - Support static methods
+    - Support finding caller definer & mro classes for static methods
+
+    - Somehow better prints for wrappers, maybe skip? compress?
 
     - Support force passing the definer class as kwarg, to have good prints if there are static methods or wrappers
+    in the meanwhile
 
     - Add an option to print the stack in multiple lines with indentation
+
+    - Add option to print a trimmed version of the callstack, only the first and last frame
 """
 
 import types
