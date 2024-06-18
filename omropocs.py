@@ -1,7 +1,7 @@
 """
 How to use:
-    - Paste def oMROpOCS in some high level utils type file
-    - Call oMROpOCS() from the callable to debug
+    - Paste def omropocs in some high level utils type file
+    - Call omropocs() from the callable to debug
     - Optionally set the printMRO and adjust the callStackDepth optionally at a global level or by passing the args
 
 Known issues:
@@ -24,15 +24,17 @@ Cool potential features:
     - Add an option to print the stack in multiple lines with indentation
 
     - Add option to print a trimmed version of the callstack, only the first and last frame
+
+    - wrap long stacks
 """
 
 import types
 from inspect import stack
 
-from testCode import SomeClass
+from someCode import SomeClass
 
 
-def oMROpOCS(pMRO=True, callStackDepth=999, silence=False):
+def omropocs(pMRO=True, callStackDepth=999, silence=False):
     if silence: return
     frames, clsMethStrs, callChain = stack()[1:callStackDepth+1], [], []
 
@@ -77,64 +79,65 @@ def oMROpOCS(pMRO=True, callStackDepth=999, silence=False):
                     if methName in cls.__dict__ and cls.__dict__[methName].__func__.__code__ is fCode:
                         definerClsFound = True; break
 
-        if not definerClsFound: callChain.append(frame[1].split('/')[-1].replace('.py', str(frame[2])) + '.' + methName); continue
+        if not definerClsFound:
+            callChain.append(frame[1].split('/')[-1].replace('.py', str(frame[2])) + '.' + methName); continue
         if pMRO: clsNs[-1] = clsNs[-1] + '.' + methName + ')' * (len(clsNs) -1); callChain.append('('.join(clsNs))
         else: callChain.append(clsNs[-1] + '.' + methName)
 
     print ' <- '.join(callChain)
 
 
-def testWrapper(func):
+def decorator(func):
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
     return wrapper
 
 
-class ITest(object):
+class Interface(object):
     def testCallerOfCaller(self): raise NotImplementedError()
-class TestGanny(object): pass
-class TestDaddy(TestGanny):
-    @testWrapper
-    def test(self): oMROpOCS()
+class Ganny(object): pass
+class Daddy(Ganny):
+    @decorator
+    def test(self): omropocs()
     def __testCaller(self): self.test()
     def testCaller(self): localVar = 1; self.__testCaller()
-class Test(TestDaddy, ITest):
+class SomeCls(Daddy, Interface):
     @property
-    def testPropCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
+    def propCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
     def testCallerOfCaller(self): self.testCaller()
-class TestBro(TestDaddy): pass
-class TestDawg(Test): pass
+class Bro(Daddy): pass
+class Dawg(SomeCls): pass
 class ParentStatConf(object):
     @staticmethod
-    def statMethTest(): ParentStatConf.__statMethTest()
+    def statMeth(): ParentStatConf.__statMeth()
 
     @staticmethod
-    def __statMethTest(): TestOutcast.classMethTest()
-class TestSomeSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
+    def __statMeth(): Outcast.classMeth()
+class SomeSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
     @staticmethod
-    def statMethTest(): pass
+    def statMeth(): pass
 
-class TestOutcast(ParentStatConf):
-    def __init__(self): self.statMethTest()
+class Outcast(ParentStatConf):
+    def __init__(self): self.statMeth()
 
     @classmethod
-    def classMethTest(cls): cls.__classMethTest()
+    def classMeth(cls): cls.__classMeth()
 
     @classmethod
-    def __classMethTest(cls): TestDawg().testPropCallerOfCallerOfCaller
-class TestSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
+    def __classMeth(cls): Dawg().propCallerOfCallerOfCaller
+class SomeOtherClassWithSameNameStaticMeth(ParentStatConf):
     @staticmethod
-    def statMethTest(): pass
+    def statMeth(): pass
 
 SomeClass().someMeth()
 
-class TestOutcastSon(TestOutcast): pass
+class OutcastSon(Outcast): pass
 
-def testFunc(): TestOutcastSon()
+def func(): OutcastSon()
 
-class TestOldStyle:
+class OldStyle:
     @staticmethod
-    def oldStyleStaticMeth(): testFunc()
+    def oldStyleStaticMeth(): func()
 
     @classmethod
     def oldStyleClassMeth(cls): cls.oldStyleStaticMeth()
@@ -142,4 +145,4 @@ class TestOldStyle:
     def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
 
 
-TestOldStyle().oldStyleInstanceMeth()
+OldStyle().oldStyleInstanceMeth()
