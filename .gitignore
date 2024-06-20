@@ -1,3 +1,6 @@
 .idea/
 .cache/
 .benchmarks/
+__pycache__/
+
+*.pyc

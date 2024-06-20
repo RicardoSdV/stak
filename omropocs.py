@@ -5,10 +5,17 @@ How to use:
     - Optionally set the printMRO and adjust the callStackDepth optionally at a global level or by passing the args
 
 Known issues:
-    - Wrappers & static methods
+    - Caller class cannot be found for wrapped methods and therefore definer class neither (with custom wrappers,
+    not @property neither @classmethod, yes @staticmethod but for other reasons)
 
-Unknown issues:
-    - How does this behave when a method overrides its predecessor and also calls it with super()?
+    - A private property will make it default to filename & lineno,
+
+    - If the object object autopassed to an instance method is not called 'self' defaults to filename & lineno
+
+    - If the class object autopassed to a class method is not called 'cls' defaults to filename & lineno
+
+    - If the method is defined in an old style class, it defaults to filename & lineno
+
 
 Cool potential features:
     - If there are multiple methods in the call stack that have the same definer and caller class maybe print only
@@ -81,7 +88,10 @@ def omropocs(pMRO=True, callStackDepth=999, silence=False):
 
         if not definerClsFound:
             callChain.append(frame[1].split('/')[-1].replace('.py', str(frame[2])) + '.' + methName); continue
-        if pMRO: clsNs[-1] = clsNs[-1] + '.' + methName + ')' * (len(clsNs) -1); callChain.append('('.join(clsNs))
+        if pMRO:
+            clsNs[-1] = clsNs[-1] + '.' + methName + ')' * (len(clsNs) -1)
+            callChain.append('('.join(clsNs))
+
         else: callChain.append(clsNs[-1] + '.' + methName)
 
     print ' <- '.join(callChain)
