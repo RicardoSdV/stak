@@ -2,5 +2,8 @@
 .cache/
 .benchmarks/
 __pycache__/
+.venv/
+venv/
+pypyenv/
 
 *.pyc
