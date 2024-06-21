@@ -1,0 +1,17 @@
+omrolocs201.test
+    <- omrolocs192.wrapper
+        <- omrolocs203.__privProp
+            <- Dawg(SomeCls(Daddy.__testCaller))
+                <- Dawg(SomeCls(Daddy.testCaller))
+                    <- Dawg(SomeCls.testCallerOfCaller)
+                        <- Dawg(SomeCls.propCallerOfCallerOfCaller)
+                            <- Outcast.__classMeth
+                                <- Outcast.classMeth
+                                    <- omrolocs216.__statMeth
+                                        <- omrolocs214.statMeth
+                                            <- OutcastSon(Outcast.__init__)
+                                                <- omrolocs231.func
+                                                    <- omrolocs235.oldStyleStaticMeth
+                                                        <- omrolocs237.oldStyleClassMeth
+                                                            <- omrolocs238.oldStyleInstanceMeth
+                                                                <- omrolocs241.<module>
