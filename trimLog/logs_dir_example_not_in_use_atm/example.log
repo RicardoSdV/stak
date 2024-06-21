@@ -1,0 +1,37 @@
+Some other log
+A <- B <- B <- A <- B <- B <- C <- D <- A <- B <- B <- A <- B <- B <- C <- D
+A <- B <- B <- A <- B <- B <- C <- D <- A <- B <- B <- A <- B <- B <- C <- D
+A <- B <- B <- A <- B <- B <- C <- D <- A <- B <- B <- A <- B <- B <- C <- D
+
+C <- D <- A <- B <- B <- A <- B <- B <- C <- D <- A <- B <- B <- A <- B <- B
+C <- D <- A <- B <- B <- A <- B <- B <- C <- D <- A <- B <- B <- A <- B <- B
+C <- D <- A <- B <- B <- A <- B <- B <- C <- D <- A <- B <- B <- A <- B <- B
+
+B <- B <- B <- B <- B
+B <- B <- B <- B <- B
+B <- B <- B <- B <- B
+
+C
+C
+C
+C
+C
+C
+
+A
+B
+B
+A
+B
+B
+C
+D
+A
+B
+B
+A
+B
+B
+C
+D
+
