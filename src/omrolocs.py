@@ -34,10 +34,216 @@ Cool potential features:
 """
 
 import code
+import re
 import types
 from inspect import stack
 
-from someCode import SomeClass
+from pathlib import Path
+
+INDENT_STR = '    '
+
+
+def compress_stack_lines_by_trav_and_mod_in_place(cfl):
+    for i, el in enumerate(cfl):
+        if isinstance(el, str):
+            cfl[i] = compress(
+                format_line_for_callstack_comp(el)
+            )
+
+        elif isinstance(el, CompressionFormatList) and el.rep == 'lines':
+            compress_stack_lines_by_trav_and_mod_in_place(el)
+
+        else:
+            raise TypeError('Elements traversed in compress_stack_lines_by_trav_and_mod_in_place '
+                            "should only be str or CompressionFormatList with cfl.rep == 'lines'")
+
+
+def run(force_retrim=True, log_dir_path=r'C:\prjs\trimLog_develop\logs_dir_example'):
+    log_paths = find_read_and_write_log_paths(force_retrim, log_dir_path)
+
+    for read_path, write_path in log_paths:
+
+        print 'read_path, write_path', read_path, write_path
+
+        with open(read_path, 'r') as f:
+            lines = f.readlines()
+        if len(lines) < 1: continue
+
+        remove_datetime_and_log_type_prefixes_from_lines_in_place(lines)
+
+        lines_cfl = format_lines_for_lines_compression(lines)
+        lines_cfl = compress(lines_cfl)
+
+        compress_stack_lines_by_trav_and_mod_in_place(lines_cfl)
+        trav_lines_pretty_stack_in_place(lines_cfl)
+
+        pretty_lines = prettyfy_lines(lines_cfl)
+
+        with open(write_path, 'w') as f:
+            f.writelines(pretty_lines)
+
+
+
+def trav_lines_pretty_stack_in_place(lines_cfl):
+    for i, el in enumerate(lines_cfl):
+        if isinstance(el, CompressionFormatList):
+            if el.rep == 'line':
+                lines_cfl[i] = prettyfy_line(el).rstrip(' <- ') + '\n'
+            elif el.rep == 'lines':
+                trav_lines_pretty_stack_in_place(el)
+            else:
+                raise TypeError("At the moment of writing this error there was only "
+                                "two types of CompressionFormatList: 'line' & 'lines'")
+        else:
+            raise TypeError('In trav_lines_mod_cs_lines_in_place for loop there should only be CompressionFormatLists')
+
+
+def prettyfy_line(line_cfl):
+    result = ''
+
+    if line_cfl.cnt > 1:
+        result += '{}x['.format(line_cfl.cnt)
+
+    for el in line_cfl:
+        if isinstance(el, CompressionFormatList):
+            assert el.rep == 'line'
+            result += prettyfy_line(el)
+        elif isinstance(el, str):
+            result += (el + ' <- ')
+        else:
+            raise TypeError('Wrong type in compressed stack: type(el)', type(el))
+
+    if line_cfl.cnt > 1:
+        result = result.rstrip(' <- ')
+        result += (']' + ' <- ')
+
+    return result
+
+
+def prettyfy_lines(lines_cfl, depth=0):
+    indent = depth * INDENT_STR
+    result = []
+
+    if lines_cfl.cnt > 1:
+        result.append('{}{}x\n'.format((depth-1) * INDENT_STR, lines_cfl.cnt))
+
+    for el in lines_cfl:
+        if isinstance(el, CompressionFormatList):
+            assert el.rep == 'lines'
+            result.extend(prettyfy_lines(el, depth + 1))
+        elif isinstance(el, str):
+            result.append(indent + el)
+        else:
+            raise TypeError('Wrong type in compressed list: type(el)', type(el))
+    return result
+
+
+def format_line_for_callstack_comp(line):
+    return CompressionFormatList(
+        line.rstrip('\n').split(' <- '),
+        rep='line'
+    )
+
+
+def remove_datetime_and_log_type_prefixes_from_lines_in_place(lines):
+    prefix_pattern = r"(\d{4}-\d{2}-\d{2}) (\d{2}):(\d{2}):(\d{2}).(\d{3,4}): (DEBUG:|INFO:|WARNING:|ERROR:).*$"
+
+    for i, line in enumerate(lines):
+        match = re.match(prefix_pattern, line)
+        if match:
+            ymd, hour, minute, sec, msec, log_flag = match.groups()
+
+            line = line.replace(
+                '{}{}{}{}{}{}{}{}{}{}{}{}'.format(
+                    ymd, ' ', hour, ':', minute, ':', sec, '.', msec, ': ', log_flag, ' '
+                ), '')
+
+            lines[i] = line
+
+
+def format_lines_for_lines_compression(lines):
+    if not lines[-1].endswith('\n'):
+        lines[-1] += '\n'
+    return CompressionFormatList(lines, rep='lines')
+
+
+def find_read_and_write_log_paths(force_retrim, log_dir_path):
+
+    result = []
+    for log_path in Path(log_dir_path).rglob('**/*.log'):
+
+        if not log_path.name.startswith('t_'):
+            trimmed_log_path = log_path.with_name('t_' + log_path.name)
+
+            if not trimmed_log_path.exists() or force_retrim:
+                result.append((log_path, trimmed_log_path))
+
+    return result
+
+
+
+def compress(post_pass_cfl):
+    represents = post_pass_cfl.rep
+
+    for group_size in range(1, len(post_pass_cfl) // 2):
+
+        pre_pass_cfl = post_pass_cfl
+        post_pass_cfl = CompressionFormatList(cnt=pre_pass_cfl.cnt, rep=pre_pass_cfl.rep)
+
+        this_group_start_i = 0
+        this_group_end_i = group_size - 1
+
+        next_group_start_i = group_size
+        next_group_end_i = 2 * group_size - 1
+
+        this_group = pre_pass_cfl[this_group_start_i: this_group_end_i + 1]
+        next_group = pre_pass_cfl[next_group_start_i: next_group_end_i + 1]
+
+        groups_cnt = 1
+
+        while this_group:
+
+            if this_group == next_group:
+                groups_cnt += 1
+
+                next_group_start_i += group_size
+                next_group_end_i += group_size
+
+            else:
+                if groups_cnt == 1:
+                    post_pass_cfl.append(this_group[0])
+
+                    this_group_start_i += 1
+                    this_group_end_i += 1
+
+                    next_group_start_i += 1
+                    next_group_end_i += 1
+
+                else:  # There has been one or more repetitions of this_group
+
+                    compressed_group = CompressionFormatList(this_group, cnt=groups_cnt, rep=represents)
+                    post_pass_cfl.append(compressed_group)
+
+                    this_group_start_i = next_group_start_i
+                    this_group_end_i = next_group_end_i
+
+                    next_group_start_i += group_size
+                    next_group_end_i += group_size
+
+                    groups_cnt = 1
+
+            this_group = pre_pass_cfl[this_group_start_i: this_group_end_i + 1]
+            next_group = pre_pass_cfl[next_group_start_i: next_group_end_i + 1]
+
+    return post_pass_cfl
+
+
+
+class CompressionFormatList(list):
+    def __init__(self, cnt=1, rep='', *args):
+        super(CompressionFormatList).__init__(*args)
+        self.cnt = cnt
+        self.rep = rep
 
 
 class STAK(object):
@@ -187,58 +393,10 @@ class STAK(object):
 
 stak = STAK()
 
-def decorator(func):
-    def wrapper(*args, **kwargs):
-        return func(*args, **kwargs)
-    return wrapper
 
 
-class Interface(object):
-    def testCallerOfCaller(self): raise NotImplementedError()
-class Ganny(object): pass
-class Daddy(Ganny):
-    @decorator
-    def test(self): stak.omrolocs()
-    @property
-    def __privProp(self): return self.test()
-    def __testCaller(self): self.__privProp
-    def testCaller(self): localVar = 1; self.__testCaller()
-class SomeCls(Daddy, Interface):
-    @property
-    def propCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
-    def testCallerOfCaller(self): self.testCaller()
-class Bro(Daddy): pass
-class Dawg(SomeCls): pass
-class ParentStatConf(object):
-    @staticmethod
-    def statMeth(): ParentStatConf.__statMeth()
-    @staticmethod
-    def __statMeth(): Outcast.classMeth()
-class SomeSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
-    @staticmethod
-    def statMeth(): pass
-class Outcast(ParentStatConf):
-    def __init__(self): self.statMeth()
-    @classmethod
-    def classMeth(cls): cls.__classMeth()
-    @classmethod
-    def __classMeth(cls): Dawg().propCallerOfCallerOfCaller
-class SomeOtherClassWithSameNameStaticMeth(ParentStatConf):
-    @staticmethod
-    def statMeth(): pass
-SomeClass().someMeth()
-class OutcastSon(Outcast): pass
-def func(): OutcastSon()
-
-class OldStyle:
-    @staticmethod
-    def oldStyleStaticMeth(): func()
-    @classmethod
-    def oldStyleClassMeth(cls): cls.oldStyleStaticMeth()
-    def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
 
 
-OldStyle().oldStyleInstanceMeth()
 
 
 while True:
