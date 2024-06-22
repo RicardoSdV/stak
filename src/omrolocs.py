@@ -17,7 +17,9 @@ Known issues:
     - If the method is defined in an old style class, it defaults to filename & lineno
 
 
-Cool potential features:
+Cool potential features: (Rule: If I haven't thought that the new potential feature would be practical at least
+a couple times when solving real problem abstain from ejaculating it all over this document)
+
     - If there are multiple methods in the call stack that have the same definer and caller class maybe print only
     one copy of the MRO and substitute in the other frames by ... or something. Actually might need the entire MRO.
 
@@ -26,228 +28,61 @@ Cool potential features:
     - Somehow better prints for wrappers, would be cool to have CallerCls(DefinerCls.@decorator.methName)
     but im not sure there is a good way of getting the decorator, only the wrapper
 
-    - Add an option to print the stack in multiple lines with indentation
+    - Add an option to print the stack in multiple lines with indentation (Seems like this would be better after the fact)
 
     - wrap long stacks
 
-    - Write a class do
+Working on right now:
+    - Add support for time stamping to be able to splice into standard logs
+
+    - Path ops:
+        .STAK <- All logs produced by this class will be found in this dir
+            |
+            task_dir <- All task specific logs found here
+                |
+                print_dir <- Tasks require different prints, each print version should have one print_dir
+                    |
+                    .descr.txt <- Text file that should describe what is being printed in this print_dir
+                    |
+                    condition_specific_dir <- To solve a task different conditions have to be reproduced, for example,
+                    reproduce a bug and then do something similar that doesn't reproduce the bug, since they print the
+                    same things they should be found in the same print_dir, but since different things have happened
+                    to create said prints they should be in separate log files.
+                        |
+                        trimLog1Splice.log
+                        |                   <- The normal non_compromising.log a program may or may not produce spliced with stak.log & trimmed
+                        trimLog2Splice.log
+                        |
+                        primitives_dir <- Dir to hold all the data used to create the above logs
+                            |
+                            stak.log <- stak info by itself
+                            |
+                            non_compromising_1.log
+                            |                       <- The normal logs but only in the stak.log time period
+                            non_compromising_2.log
+
+        Since at the moment calling omrolocs requires modifying the code, and since modifying the code, at the moment
+        requires restarting the program, some pathops will be triggered in the __init__
+
 """
 
 import code
+import os
 import re
 import types
+from datetime import datetime
 from inspect import stack
-
 from pathlib import Path
 
 INDENT_STR = '    '
 
 
-def compress_stack_lines_by_trav_and_mod_in_place(cfl):
-    for i, el in enumerate(cfl):
-        if isinstance(el, str):
-            cfl[i] = compress(
-                format_line_for_callstack_comp(el)
-            )
-
-        elif isinstance(el, CompressionFormatList) and el.rep == 'lines':
-            compress_stack_lines_by_trav_and_mod_in_place(el)
-
-        else:
-            raise TypeError('Elements traversed in compress_stack_lines_by_trav_and_mod_in_place '
-                            "should only be str or CompressionFormatList with cfl.rep == 'lines'")
-
-
-def run(force_retrim=True, log_dir_path=r'C:\prjs\trimLog_develop\logs_dir_example'):
-    log_paths = find_read_and_write_log_paths(force_retrim, log_dir_path)
-
-    for read_path, write_path in log_paths:
-
-        print 'read_path, write_path', read_path, write_path
-
-        with open(read_path, 'r') as f:
-            lines = f.readlines()
-        if len(lines) < 1: continue
-
-        remove_datetime_and_log_type_prefixes_from_lines_in_place(lines)
-
-        lines_cfl = format_lines_for_lines_compression(lines)
-        lines_cfl = compress(lines_cfl)
-
-        compress_stack_lines_by_trav_and_mod_in_place(lines_cfl)
-        trav_lines_pretty_stack_in_place(lines_cfl)
-
-        pretty_lines = prettyfy_lines(lines_cfl)
-
-        with open(write_path, 'w') as f:
-            f.writelines(pretty_lines)
-
-
-
-def trav_lines_pretty_stack_in_place(lines_cfl):
-    for i, el in enumerate(lines_cfl):
-        if isinstance(el, CompressionFormatList):
-            if el.rep == 'line':
-                lines_cfl[i] = prettyfy_line(el).rstrip(' <- ') + '\n'
-            elif el.rep == 'lines':
-                trav_lines_pretty_stack_in_place(el)
-            else:
-                raise TypeError("At the moment of writing this error there was only "
-                                "two types of CompressionFormatList: 'line' & 'lines'")
-        else:
-            raise TypeError('In trav_lines_mod_cs_lines_in_place for loop there should only be CompressionFormatLists')
-
-
-def prettyfy_line(line_cfl):
-    result = ''
-
-    if line_cfl.cnt > 1:
-        result += '{}x['.format(line_cfl.cnt)
-
-    for el in line_cfl:
-        if isinstance(el, CompressionFormatList):
-            assert el.rep == 'line'
-            result += prettyfy_line(el)
-        elif isinstance(el, str):
-            result += (el + ' <- ')
-        else:
-            raise TypeError('Wrong type in compressed stack: type(el)', type(el))
-
-    if line_cfl.cnt > 1:
-        result = result.rstrip(' <- ')
-        result += (']' + ' <- ')
-
-    return result
-
-
-def prettyfy_lines(lines_cfl, depth=0):
-    indent = depth * INDENT_STR
-    result = []
-
-    if lines_cfl.cnt > 1:
-        result.append('{}{}x\n'.format((depth-1) * INDENT_STR, lines_cfl.cnt))
-
-    for el in lines_cfl:
-        if isinstance(el, CompressionFormatList):
-            assert el.rep == 'lines'
-            result.extend(prettyfy_lines(el, depth + 1))
-        elif isinstance(el, str):
-            result.append(indent + el)
-        else:
-            raise TypeError('Wrong type in compressed list: type(el)', type(el))
-    return result
-
-
-def format_line_for_callstack_comp(line):
-    return CompressionFormatList(
-        line.rstrip('\n').split(' <- '),
-        rep='line'
-    )
-
-
-def remove_datetime_and_log_type_prefixes_from_lines_in_place(lines):
-    prefix_pattern = r"(\d{4}-\d{2}-\d{2}) (\d{2}):(\d{2}):(\d{2}).(\d{3,4}): (DEBUG:|INFO:|WARNING:|ERROR:).*$"
-
-    for i, line in enumerate(lines):
-        match = re.match(prefix_pattern, line)
-        if match:
-            ymd, hour, minute, sec, msec, log_flag = match.groups()
-
-            line = line.replace(
-                '{}{}{}{}{}{}{}{}{}{}{}{}'.format(
-                    ymd, ' ', hour, ':', minute, ':', sec, '.', msec, ': ', log_flag, ' '
-                ), '')
-
-            lines[i] = line
-
-
-def format_lines_for_lines_compression(lines):
-    if not lines[-1].endswith('\n'):
-        lines[-1] += '\n'
-    return CompressionFormatList(lines, rep='lines')
-
-
-def find_read_and_write_log_paths(force_retrim, log_dir_path):
-
-    result = []
-    for log_path in Path(log_dir_path).rglob('**/*.log'):
-
-        if not log_path.name.startswith('t_'):
-            trimmed_log_path = log_path.with_name('t_' + log_path.name)
-
-            if not trimmed_log_path.exists() or force_retrim:
-                result.append((log_path, trimmed_log_path))
-
-    return result
-
-
-
-def compress(post_pass_cfl):
-    represents = post_pass_cfl.rep
-
-    for group_size in range(1, len(post_pass_cfl) // 2):
-
-        pre_pass_cfl = post_pass_cfl
-        post_pass_cfl = CompressionFormatList(cnt=pre_pass_cfl.cnt, rep=pre_pass_cfl.rep)
-
-        this_group_start_i = 0
-        this_group_end_i = group_size - 1
-
-        next_group_start_i = group_size
-        next_group_end_i = 2 * group_size - 1
-
-        this_group = pre_pass_cfl[this_group_start_i: this_group_end_i + 1]
-        next_group = pre_pass_cfl[next_group_start_i: next_group_end_i + 1]
-
-        groups_cnt = 1
-
-        while this_group:
-
-            if this_group == next_group:
-                groups_cnt += 1
-
-                next_group_start_i += group_size
-                next_group_end_i += group_size
-
-            else:
-                if groups_cnt == 1:
-                    post_pass_cfl.append(this_group[0])
-
-                    this_group_start_i += 1
-                    this_group_end_i += 1
-
-                    next_group_start_i += 1
-                    next_group_end_i += 1
-
-                else:  # There has been one or more repetitions of this_group
-
-                    compressed_group = CompressionFormatList(this_group, cnt=groups_cnt, rep=represents)
-                    post_pass_cfl.append(compressed_group)
-
-                    this_group_start_i = next_group_start_i
-                    this_group_end_i = next_group_end_i
-
-                    next_group_start_i += group_size
-                    next_group_end_i += group_size
-
-                    groups_cnt = 1
-
-            this_group = pre_pass_cfl[this_group_start_i: this_group_end_i + 1]
-            next_group = pre_pass_cfl[next_group_start_i: next_group_end_i + 1]
-
-    return post_pass_cfl
-
-
-
-class CompressionFormatList(list):
-    def __init__(self, cnt=1, rep='', *args):
-        super(CompressionFormatList).__init__(*args)
-        self.cnt = cnt
-        self.rep = rep
 
 
 class STAK(object):
     """
+    self.log = [(timeStr, callChain), ...]
+
     callChain = [link1, link2, ...] Every link represents a call or, frame in the inspect.stack
 
     link = (
@@ -260,25 +95,27 @@ class STAK(object):
     """
 
     def __init__(self):
-        self.log = []
-
-        # Capture Settings
-        None
+        self.__log = []
 
         # Save Settings (cwd == bin paths relative)
-        self.savePath = 'default.log'
-        self.saveFile = 'default.log'
-        self.saveFolder = ''
+        self.__root    = '.STAK'
+        self.__task    = 'task'
+        self.__prnt    = 'print'
+        self.__prim    = 'primitives'
+        self.__stdLogs = ('stdLog1.log', 'stdLog2.log')
 
+        self.__makeDirs()
 
     """============================================ CAPTURING LOGS PHASE ============================================"""
 
     def omrolocs(self, callStackDepth=999, silence=False, flags=()):
         if silence: return
+        now = datetime.now()
+        timeStr = now.strftime('%Y-%m-%d %H:%M:%S.%f')
 
-        callChain = [self.__linkCreator(*frame) for frame in stack()[1:callStackDepth]]
+        callChain = [(timeStr, self.__linkCreator(*frame)) for frame in stack()[1:callStackDepth]]
 
-        self.log.append(callChain)
+        self.__log.append(callChain)
 
     @classmethod
     def __linkCreator(cls, frameObj, filePath, lineNum, methName, _, __):
@@ -301,14 +138,12 @@ class STAK(object):
             link = (mroClsNs, methName, filePath.split('\\')[-1], lineNum)
 
         return link
-
     @staticmethod
     def __mroClsNsGenerator(callerCls, defClsCond, methName, fCode):
         for cls in callerCls.__mro__:
             yield cls.__name__
             if defClsCond(cls, methName, fCode):
                 return
-
     @staticmethod
     def __privInsMethCond(cls, methName, fCode):
         for attr in cls.__dict__.values():
@@ -319,7 +154,6 @@ class STAK(object):
             ):
                 return True
         return False
-
     @staticmethod
     def __pubInsMethCond(cls, methName, fCode):
         if methName in cls.__dict__:
@@ -331,7 +165,6 @@ class STAK(object):
             elif method.func_code is fCode:
                 return True
         return False
-
     @staticmethod
     def __privClsMethCond(cls, methName, fCode):
         for attr in cls.__dict__.values():
@@ -342,7 +175,6 @@ class STAK(object):
             ):
                 return True
         return False
-
     @staticmethod
     def __pubClsMethCond(cls, methName, fCode):
         if (
@@ -351,7 +183,6 @@ class STAK(object):
         ):
             return True
         return False
-
     @staticmethod
     def __isPrivate(methName):
         return methName.startswith('__') and not methName.endswith('__')
@@ -360,7 +191,7 @@ class STAK(object):
 
     """============================================= SAVING LOGS PHASE =============================================="""
 
-    def save(self, path=None, name=None, forceNewDepthOf=None, inclMRO=True):
+    def save(self, path=None, name=None, forceNewDepthOf=None, inclMRO=True, trim=False):
         if path is None:
             if name is None:
                 path = self.savePath
@@ -370,16 +201,17 @@ class STAK(object):
         with open(path, 'w') as f:
             f.writelines(self.__linesGenerator(forceNewDepthOf, inclMRO))
 
-    def __linesGenerator(self, forceNewDepthOf, inclMRO):
-        for callChain in self.log:
-            if isinstance(forceNewDepthOf, int):
-                callChain = callChain[:forceNewDepthOf]
+    def __linesGenerator(self, newDepth, inclMRO):
+        for callChain in self.__log:
+            if isinstance(newDepth, int):
+                callChain = callChain[:newDepth]
 
-            yield ' <- '.join(self.__lineGenerator(callChain, forceNewDepthOf, inclMRO))
+            yield ' <- '.join(self.__lineGenerator(callChain, inclMRO))
+
 
     @staticmethod
-    def __lineGenerator(callChain, forceNewDepthOf, inclMRO):
-        for mroClsNs, methName, fileName, lineNum in callChain[: forceNewDepthOf]:
+    def __lineGenerator(callChain, inclMRO):
+        for mroClsNs, methName, fileName, lineNum in callChain:
             if mroClsNs is None:
                 yield fileName.replace('.py', str(lineNum)) + '.' + methName
             elif inclMRO:
@@ -387,6 +219,213 @@ class STAK(object):
                 yield '('.join(mroClsNs)
             else:
                 yield mroClsNs[-1] + '.' + methName
+
+    """=============================================================================================================="""
+
+    """==================================================COMPRESSION================================================="""
+
+    class CompressionFormatList(list):
+        """ List that holds extra attributes for internal use in compression"""
+        def __init__(self, cnt=1, rep='', *args):
+            super(STAK.CompressionFormatList, self).__init__(*args)
+            self.cnt = cnt
+            self.rep = rep
+    @classmethod
+    def __compressStackLinesByTravAndModInPlace(cls, cfl):
+        for i, el in enumerate(cfl):
+            if isinstance(el, str):
+                cfl[i] = cls.__compress(
+                    cls.__formatLineForCallstackComp(el)
+                )
+
+            elif isinstance(el, cls.CompressionFormatList) and el.rep == 'lines':
+                cls.__compressStackLinesByTravAndModInPlace(el)
+
+            else:
+                raise TypeError('Elements traversed in compress_stack_lines_by_trav_and_mod_in_place '
+                                "should only be str or CompressionFormatList with cfl.rep == 'lines'")
+    @classmethod
+    def __run(cls, force_retrim=True, log_dir_path=r'C:\prjs\trimLog_develop\logs_dir_example'):
+        log_paths = cls.__findReadAndWriteLogPaths(force_retrim, log_dir_path)
+
+        for read_path, write_path in log_paths:
+
+            with open(read_path, 'r') as f:
+                lines = f.readlines()
+            if len(lines) < 1: continue
+
+            cls.__removeDatetimeAndLogTypePrefixesFromLinesInPlace(lines)
+
+            lines_cfl = cls.__formatLinesForLinesCompression(lines)
+            lines_cfl = cls.__compress(lines_cfl)
+
+            cls.__compressStackLinesByTravAndModInPlace(lines_cfl)
+            cls.__travLinesPrettyStackInPlace(lines_cfl)
+
+            prettyLines = cls.__prettyfyLines(lines_cfl)
+
+            with open(write_path, 'w') as f:
+                f.writelines(prettyLines)
+    @classmethod
+    def __travLinesPrettyStackInPlace(cls, linesCfl):
+        for i, el in enumerate(linesCfl):
+            if isinstance(el, cls.CompressionFormatList):
+                if el.rep == 'line':
+                    linesCfl[i] = cls.__prettyfyLine(el).rstrip(' <- ') + '\n'
+                elif el.rep == 'lines':
+                    cls.__travLinesPrettyStackInPlace(el)
+                else:
+                    raise TypeError("At the moment of writing this error there was only "
+                                    "two types of CompressionFormatList: 'line' & 'lines'")
+            else:
+                raise TypeError(
+                    'In trav_lines_mod_cs_lines_in_place for loop there should only be CompressionFormatLists')
+    @classmethod
+    def __prettyfyLine(cls, lineCfl):
+        result = ''
+
+        if lineCfl.cnt > 1:
+            result += '{}x['.format(lineCfl.cnt)
+
+        for el in lineCfl:
+            if isinstance(el, cls.CompressionFormatList):
+                assert el.rep == 'line'
+                result += cls.__prettyfyLine(el)
+            elif isinstance(el, str):
+                result += (el + ' <- ')
+            else:
+                raise TypeError('Wrong type in compressed stack: type(el)', type(el))
+
+        if lineCfl.cnt > 1:
+            result = result.rstrip(' <- ')
+            result += (']' + ' <- ')
+
+        return result
+    @classmethod
+    def __prettyfyLines(cls, lines_cfl, depth=0):
+        indent = depth * INDENT_STR
+        result = []
+
+        if lines_cfl.cnt > 1:
+            result.append('{}{}x\n'.format((depth - 1) * INDENT_STR, lines_cfl.cnt))
+
+        for el in lines_cfl:
+            if isinstance(el, cls.CompressionFormatList):
+                assert el.rep == 'lines'
+                result.extend(cls.__prettyfyLines(el, depth + 1))
+            elif isinstance(el, str):
+                result.append(indent + el)
+            else:
+                raise TypeError('Wrong type in compressed list: type(el)', type(el))
+        return result
+    @classmethod
+    def __formatLineForCallstackComp(cls, line):
+        return cls.CompressionFormatList(
+            line.rstrip('\n').split(' <- '),
+            rep='line'
+        )
+    @classmethod
+    def __removeDatetimeAndLogTypePrefixesFromLinesInPlace(cls, lines):
+        prefixPattern = r"(\d{4}-\d{2}-\d{2}) (\d{2}):(\d{2}):(\d{2}).(\d{3,4}): (DEBUG:|INFO:|WARNING:|ERROR:).*$"
+
+        for i, line in enumerate(lines):
+            match = re.match(prefixPattern, line)
+            if match:
+                ymd, hour, minute, sec, msec, log_flag = match.groups()
+
+                line = line.replace(
+                    '{}{}{}{}{}{}{}{}{}{}{}{}'.format(
+                        ymd, ' ', hour, ':', minute, ':', sec, '.', msec, ': ', log_flag, ' '
+                    ), '')
+
+                lines[i] = line
+    @classmethod
+    def __formatLinesForLinesCompression(cls, lines):
+        if not lines[-1].endswith('\n'):
+            lines[-1] += '\n'
+        return cls.CompressionFormatList(lines, rep='lines')
+    @classmethod
+    def __findReadAndWriteLogPaths(cls, forceRetrim, logDirPath):
+        result = []
+        for logPath in Path(logDirPath).rglob('**/*.log'):
+
+            if not logPath.name.startswith('t_'):
+                trimmedLogPath = logPath.with_name('t_' + logPath.name)
+
+                if not trimmedLogPath.exists() or forceRetrim:
+                    result.append((logPath, trimmedLogPath))
+        return result
+    @classmethod
+    def __compress(cls, postPassCfl):
+        represents = postPassCfl.rep
+
+        for groupSize in range(1, len(postPassCfl) // 2):
+
+            prePassCfl = postPassCfl
+            postPassCfl = cls.CompressionFormatList(cnt=prePassCfl.cnt, rep=prePassCfl.rep)
+
+            thisGroupStartI = 0
+            thisGroupEndI = groupSize - 1
+
+            nextGroupStartI = groupSize
+            nextGroupEndI = 2 * groupSize - 1
+
+            thisGroup = prePassCfl[thisGroupStartI: thisGroupEndI + 1]
+            nextGroup = prePassCfl[nextGroupStartI: nextGroupEndI + 1]
+
+            groups_cnt = 1
+
+            while thisGroup:
+
+                if thisGroup == nextGroup:
+                    groups_cnt += 1
+
+                    nextGroupStartI += groupSize
+                    nextGroupEndI += groupSize
+
+                else:
+                    if groups_cnt == 1:
+                        postPassCfl.append(thisGroup[0])
+
+                        thisGroupStartI += 1
+                        thisGroupEndI += 1
+
+                        nextGroupStartI += 1
+                        nextGroupEndI += 1
+
+                    else:  # There has been one or more repetitions of thisGroup
+
+                        compressed_group = cls.CompressionFormatList(cnt=groups_cnt, rep=represents, *thisGroup)
+                        postPassCfl.append(compressed_group)
+
+                        thisGroupStartI = nextGroupStartI
+                        thisGroupEndI = nextGroupEndI
+
+                        nextGroupStartI += groupSize
+                        nextGroupEndI += groupSize
+
+                        groups_cnt = 1
+
+                thisGroup = prePassCfl[thisGroupStartI: thisGroupEndI + 1]
+                nextGroup = prePassCfl[nextGroupStartI: nextGroupEndI + 1]
+
+        return postPassCfl
+
+    """=============================================================================================================="""
+
+    """=================================================== PATH OPS ================================================="""
+
+    def newPath(self, root=None, task=None, prnt=None, prim=None, stdLogs=None):
+        """ Can live change paths, new dirs are created if don't exist """
+        if root is not None: self.__root    = root
+        if task is not None: self.__task    = task
+        if prnt is not None: self.__prnt    = prnt
+        if prim is not None: self.__stdLogs = stdLogs
+        self.__makeDirs()
+    def __makeDirs(self):
+        fullPath = os.path.join(self.__root, self.__task, self.__prnt, self.__prim)
+        if not os.path.isdir(fullPath):
+            os.makedirs(fullPath)
 
     """=============================================================================================================="""
 
