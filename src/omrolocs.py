@@ -74,9 +74,7 @@ from datetime import datetime
 from inspect import stack
 from pathlib import Path
 
-INDENT_STR = '    '
-
-
+from src.funcs.someCode import SomeClass
 
 
 class STAK(object):
@@ -98,11 +96,11 @@ class STAK(object):
         self.__log = []
 
         # Save Settings (cwd == bin paths relative)
-        self.__root    = '.STAK'
-        self.__task    = 'task'
-        self.__prnt    = 'print'
-        self.__prim    = 'primitives'
-        self.__stdLogs = ('stdLog1.log', 'stdLog2.log')
+        self.__dirRoot    = '.STAK'
+        self.__dirTask    = 'task'
+        self.__dirPrnt    = 'print'
+        self.__dirPrim    = 'primitives'
+        self.__dirStdLogs = ('stdLog1.log', 'stdLog2.log')
 
         self.__makeDirs()
 
@@ -111,12 +109,11 @@ class STAK(object):
     def omrolocs(self, callStackDepth=999, silence=False, flags=()):
         if silence: return
         now = datetime.now()
-        timeStr = now.strftime('%Y-%m-%d %H:%M:%S.%f')
+        timeStr = now.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
 
-        callChain = [(timeStr, self.__linkCreator(*frame)) for frame in stack()[1:callStackDepth]]
+        callChain = [self.__linkCreator(*frame)for frame in stack()[1:callStackDepth]]
 
-        self.__log.append(callChain)
-
+        self.__log.append((timeStr, callChain))
     @classmethod
     def __linkCreator(cls, frameObj, filePath, lineNum, methName, _, __):
         fLocals = frameObj.f_locals
@@ -192,33 +189,29 @@ class STAK(object):
     """============================================= SAVING LOGS PHASE =============================================="""
 
     def save(self, path=None, name=None, forceNewDepthOf=None, inclMRO=True, trim=False):
-        if path is None:
-            if name is None:
-                path = self.savePath
-            else:
-                path = self.saveFolder + name
+        self.__saveRawStakLogToPrimitives()
+        self.__saveStdLogsInStakPeriodToPrimitives()
 
-        with open(path, 'w') as f:
-            f.writelines(self.__linesGenerator(forceNewDepthOf, inclMRO))
+    def __saveRawStakLogToPrimitives(self):
+        def linesGenerator():
+            for timeStr, callChain in self.__log:
+                yield timeStr + ': ' + ' <- '.join(lineGenerator(callChain))
+        def lineGenerator(callChain):
+            for mroClsNs, methName, fileName, lineNum in callChain:
+                if mroClsNs is None:
+                    yield fileName.replace('.py', str(lineNum)) + '.' + methName
+                else:
+                    mroClsNs = mroClsNs[:]
+                    mroClsNs[-1] = mroClsNs[-1] + '.' + methName + ')' * (len(mroClsNs) - 1)
+                    yield '('.join(mroClsNs)
 
-    def __linesGenerator(self, newDepth, inclMRO):
-        for callChain in self.__log:
-            if isinstance(newDepth, int):
-                callChain = callChain[:newDepth]
+        rawStakLogPath = os.path.join(self.__dirRoot, self.__dirTask, self.__dirPrnt, self.__dirPrim, 'stak.log')
+        rawStakLogPath = self.__ifPathExistsIncSuffix(rawStakLogPath)
 
-            yield ' <- '.join(self.__lineGenerator(callChain, inclMRO))
-
-
-    @staticmethod
-    def __lineGenerator(callChain, inclMRO):
-        for mroClsNs, methName, fileName, lineNum in callChain:
-            if mroClsNs is None:
-                yield fileName.replace('.py', str(lineNum)) + '.' + methName
-            elif inclMRO:
-                mroClsNs[-1] = mroClsNs[-1] + '.' + methName + ')' * (len(mroClsNs) - 1)
-                yield '('.join(mroClsNs)
-            else:
-                yield mroClsNs[-1] + '.' + methName
+        with open(rawStakLogPath, 'w') as f:
+            f.writelines(linesGenerator())
+    def __saveStdLogsInStakPeriodToPrimitives(self):
+        pass
 
     """=============================================================================================================="""
 
@@ -303,11 +296,11 @@ class STAK(object):
         return result
     @classmethod
     def __prettyfyLines(cls, lines_cfl, depth=0):
-        indent = depth * INDENT_STR
+        indent = depth * '    '
         result = []
 
         if lines_cfl.cnt > 1:
-            result.append('{}{}x\n'.format((depth - 1) * INDENT_STR, lines_cfl.cnt))
+            result.append('{}{}x\n'.format((depth - 1) * '    ', lines_cfl.cnt))
 
         for el in lines_cfl:
             if isinstance(el, cls.CompressionFormatList):
@@ -415,17 +408,26 @@ class STAK(object):
 
     """=================================================== PATH OPS ================================================="""
 
-    def newPath(self, root=None, task=None, prnt=None, prim=None, stdLogs=None):
+    def changePath(self, root=None, task=None, prnt=None, prim=None, stdLogs=None):
         """ Can live change paths, new dirs are created if don't exist """
-        if root is not None: self.__root    = root
-        if task is not None: self.__task    = task
-        if prnt is not None: self.__prnt    = prnt
-        if prim is not None: self.__stdLogs = stdLogs
+        if root is not None: self.__dirRoot    = root
+        if task is not None: self.__dirTask    = task
+        if prnt is not None: self.__dirPrnt    = prnt
+        if prim is not None: self.__dirStdLogs = stdLogs
         self.__makeDirs()
     def __makeDirs(self):
-        fullPath = os.path.join(self.__root, self.__task, self.__prnt, self.__prim)
+        fullPath = os.path.join(self.__dirRoot, self.__dirTask, self.__dirPrnt, self.__dirPrim)
         if not os.path.isdir(fullPath):
             os.makedirs(fullPath)
+    @staticmethod
+    def __ifPathExistsIncSuffix(path):
+        fileName, ext = os.path.splitext(os.path.basename(path))
+        dirPath = os.path.dirname(path)
+        cnt = 0
+        while os.path.isfile(path):
+            cnt += 1
+            path = os.path.join(dirPath, '{}{}{}'.format(fileName, cnt, ext))
+        return path
 
     """=============================================================================================================="""
 
@@ -434,7 +436,56 @@ stak = STAK()
 
 
 
+def decorator(func):
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    return wrapper
 
+
+class Interface(object):
+    def testCallerOfCaller(self): raise NotImplementedError()
+class Ganny(object): pass
+class Daddy(Ganny):
+    @decorator
+    def test(self): stak.omrolocs()
+    @property
+    def __privProp(self): return self.test()
+    def __testCaller(self): self.__privProp
+    def testCaller(self): localVar = 1; self.__testCaller()
+class SomeCls(Daddy, Interface):
+    @property
+    def propCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
+    def testCallerOfCaller(self): self.testCaller()
+class Bro(Daddy): pass
+class Dawg(SomeCls): pass
+class ParentStatConf(object):
+    @staticmethod
+    def statMeth(): ParentStatConf.__statMeth()
+    @staticmethod
+    def __statMeth(): Outcast.classMeth()
+class SomeSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
+    @staticmethod
+    def statMeth(): pass
+class Outcast(ParentStatConf):
+    def __init__(self): self.statMeth()
+    @classmethod
+    def classMeth(cls): cls.__classMeth()
+    @classmethod
+    def __classMeth(cls): Dawg().propCallerOfCallerOfCaller
+class SomeOtherClassWithSameNameStaticMeth(ParentStatConf):
+    @staticmethod
+    def statMeth(): pass
+SomeClass().someMeth()
+class OutcastSon(Outcast): pass
+def func(): OutcastSon()
+
+class OldStyle:
+    @staticmethod
+    def oldStyleStaticMeth(): func()
+    @classmethod
+    def oldStyleClassMeth(cls): cls.oldStyleStaticMeth()
+    def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
+OldStyle().oldStyleInstanceMeth()
 
 
 
