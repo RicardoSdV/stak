@@ -49,20 +49,43 @@ Working on right now:
                     same things they should be found in the same print_dir, but since different things have happened
                     to create said prints they should be in separate log files.
                         |
-                        trimLog1Splice.log
-                        |                   <- The normal non_compromising.log a program may or may not produce spliced with stak.log & trimmed
-                        trimLog2Splice.log
+                        trimStak.log
                         |
+                        trimNCL1Splice.log
+                        |                   <- The NCL.log a program may produce spliced with stak.log & trimmed
+                        trimNCL2Splice.log
+                        |
+                        variants_dir <- Different logs that might be needed only sometimes
+                            |
+                            NCL1Splice.log
+                            |               <- Untrimmed splices (with timestamps, flags & all)
+                            NCL2Splice.log
+                            |
+                            trimNCL1.log
+                            |           ----|
+                            trimNCL2.log    | <- Trimmed primitives, no splicing
+                            |           ----|
+                            trimStak
+                            |
+                            trimTimedNCL1.log
+                            |                   ----|
+                            trimTimedNCL2.log       | <- Trimmed primitives, no splicing, with timeStamps
+                            |                   ----|
+                            trimTimedStak
                         primitives_dir <- Dir to hold all the data used to create the above logs
                             |
-                            stak.log <- stak info by itself
+                            stak.log <- stak info by itself with timestamps
                             |
-                            non_compromising_1.log
-                            |                       <- The normal logs but only in the stak.log time period
-                            non_compromising_2.log
+                            NCL1.log
+                            |       <- The normal logs but only in the stak.log time period
+                            NCL2.log
 
         Since at the moment calling omrolocs requires modifying the code, and since modifying the code, at the moment
         requires restarting the program, some pathops will be triggered in the __init__
+
+
+    - Open & read the NCLs split, parse store in mem for stak period
+
 
 """
 
@@ -72,14 +95,18 @@ import re
 import types
 from datetime import datetime
 from inspect import stack
+from itertools import repeat
+from random import randint
+from time import sleep
 from pathlib import Path
+from typing import Tuple, Optional, List
 
 from src.funcs.someCode import SomeClass
 
 
 class STAK(object):
     """
-    self.log = [(timeStr, callChain), ...]
+    self.log = [(timeStamp, callChain), ...]
 
     callChain = [link1, link2, ...] Every link represents a call or, frame in the inspect.stack
 
@@ -93,14 +120,16 @@ class STAK(object):
     """
 
     def __init__(self):
-        self.__log = []
+        self.log = [(datetime.now(), None)]
 
         # Save Settings (cwd == bin paths relative)
-        self.__dirRoot    = '.STAK'
-        self.__dirTask    = 'task'
-        self.__dirPrnt    = 'print'
-        self.__dirPrim    = 'primitives'
-        self.__dirStdLogs = ('stdLog1.log', 'stdLog2.log')
+        self.__dirRoot = '.STAK'
+        self.__dirTask = 'task'
+        self.__dirPrnt = 'print'
+        self.__dirPrim = 'primitives'
+        self.__dirVari = 'variants'
+        self.__stakLogName = 'stak.log'
+        self.__stdLogNames = ('stdLog1.log', 'stdLog2.log')
 
         self.__makeDirs()
 
@@ -108,12 +137,11 @@ class STAK(object):
 
     def omrolocs(self, callStackDepth=999, silence=False, flags=()):
         if silence: return
-        now = datetime.now()
-        timeStr = now.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+        timeStamp = datetime.now()
 
-        callChain = [self.__linkCreator(*frame)for frame in stack()[1:callStackDepth]]
+        callChain = [self.__linkCreator(*frame) for frame in stack()[1:callStackDepth]]
 
-        self.__log.append((timeStr, callChain))
+        self.log.append((timeStamp, callChain))
     @classmethod
     def __linkCreator(cls, frameObj, filePath, lineNum, methName, _, __):
         fLocals = frameObj.f_locals
@@ -190,12 +218,13 @@ class STAK(object):
 
     def save(self, path=None, name=None, forceNewDepthOf=None, inclMRO=True, trim=False):
         self.__saveRawStakLogToPrimitives()
-        self.__saveStdLogsInStakPeriodToPrimitives()
+
+        stdLogsInStakPeriod = self.__parseStdLogs()
+
+        self.__saveStdLogsInStakPeriodToPrimitives(stdLogsInStakPeriod)
 
     def __saveRawStakLogToPrimitives(self):
-        def linesGenerator():
-            for timeStr, callChain in self.__log:
-                yield timeStr + ': ' + ' <- '.join(lineGenerator(callChain))
+
         def lineGenerator(callChain):
             for mroClsNs, methName, fileName, lineNum in callChain:
                 if mroClsNs is None:
@@ -205,13 +234,78 @@ class STAK(object):
                     mroClsNs[-1] = mroClsNs[-1] + '.' + methName + ')' * (len(mroClsNs) - 1)
                     yield '('.join(mroClsNs)
 
+        def linesGenerator():
+            for timeStamp, callChain in self.log:
+                if callChain is not None:
+                    yield self.__stampToStr(timeStamp) + ': ' + ' <- '.join(lineGenerator(callChain))
+
         rawStakLogPath = os.path.join(self.__dirRoot, self.__dirTask, self.__dirPrnt, self.__dirPrim, 'stak.log')
         rawStakLogPath = self.__ifPathExistsIncSuffix(rawStakLogPath)
 
         with open(rawStakLogPath, 'w') as f:
             f.writelines(linesGenerator())
-    def __saveStdLogsInStakPeriodToPrimitives(self):
-        pass
+
+    def __saveStdLogsInStakPeriodToPrimitives(self, stdLogs):
+
+        def linesGenerator(log):
+            for timeStamp, typeFlag, line in log:
+                yield self.__stampToStr(timeStamp) + typeFlag + line
+
+        for log, logName in zip(stdLogs, self.__stdLogNames):
+            path = self.__ifPathExistsIncSuffix(os.path.join(self.__pathPrim, logName))
+
+            with open(path, 'w') as f:
+                f.writelines(linesGenerator(log))
+
+    def __parseStdLogs(self):  # type: () -> List[List[Tuple[Optional[datetime], Optional[str], str]]]
+        """ stdLogs = [parsedLines = [(timeStamp, logType, lineStr), ...], ...] """
+
+        def splitTimeStampAndLogTypeFromLine(line):  # type: (str) -> Tuple[Optional[datetime], Optional[str], str]
+            colonCnt, timeStrEndI, typeFlagEndI, timeStamp, typeFlag = 0, 0, 0, None, None
+            for i, char in enumerate(line):
+                if char == ':':
+                    colonCnt += 1
+
+                    if colonCnt == 3:
+                        timeStamp = datetime.strptime(line[:i], '%Y-%m-%d %H:%M:%S.%f')
+                        timeStrEndI = i
+
+                    elif colonCnt == 4:
+                        typeFlagEndI = i + 2
+                        typeFlag = line[timeStrEndI: typeFlagEndI]
+                        line = line[typeFlagEndI:]
+                        break
+
+                if i > 34:
+                    break
+
+            return timeStamp, typeFlag, line
+
+        def parsedLinesGenerator(lines, start, end):
+            started = False
+            for line in lines:
+                timeStamp, typeFlag, line = splitTimeStampAndLogTypeFromLine(line)
+
+                if timeStamp is not None:
+                    if not started:
+                        if timeStamp >= start:
+                            started = True
+                    elif timeStamp >= end:
+                        break
+
+                if started:
+                    yield timeStamp, typeFlag, line
+
+        def parsedLogCreator(path, period):
+            with open(path, 'r') as f:
+                lines = f.readlines()
+            return list(parsedLinesGenerator(lines, *period))
+
+        return [parsedLogCreator(path, self.__stakPeriod) for path in self.__stdLogNames]
+    @property
+    def __stakPeriod(self): return self.log[0][0], self.log[-1][0]
+    @staticmethod
+    def __stampToStr(timeStamp): return timeStamp.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
 
     """=============================================================================================================="""
 
@@ -318,21 +412,6 @@ class STAK(object):
             rep='line'
         )
     @classmethod
-    def __removeDatetimeAndLogTypePrefixesFromLinesInPlace(cls, lines):
-        prefixPattern = r"(\d{4}-\d{2}-\d{2}) (\d{2}):(\d{2}):(\d{2}).(\d{3,4}): (DEBUG:|INFO:|WARNING:|ERROR:).*$"
-
-        for i, line in enumerate(lines):
-            match = re.match(prefixPattern, line)
-            if match:
-                ymd, hour, minute, sec, msec, log_flag = match.groups()
-
-                line = line.replace(
-                    '{}{}{}{}{}{}{}{}{}{}{}{}'.format(
-                        ymd, ' ', hour, ':', minute, ':', sec, '.', msec, ': ', log_flag, ' '
-                    ), '')
-
-                lines[i] = line
-    @classmethod
     def __formatLinesForLinesCompression(cls, lines):
         if not lines[-1].endswith('\n'):
             lines[-1] += '\n'
@@ -408,17 +487,25 @@ class STAK(object):
 
     """=================================================== PATH OPS ================================================="""
 
-    def changePath(self, root=None, task=None, prnt=None, prim=None, stdLogs=None):
+    def changePath(self, prnt=None, task=None, prim=None, vari=None, root=None,  stdLogs=None):
         """ Can live change paths, new dirs are created if don't exist """
-        if root is not None: self.__dirRoot    = root
-        if task is not None: self.__dirTask    = task
-        if prnt is not None: self.__dirPrnt    = prnt
-        if prim is not None: self.__dirStdLogs = stdLogs
+        if prnt is not None: self.__dirPrnt        = prnt
+        if task is not None: self.__dirTask        = task
+        if prim is not None: self.__dirPrim        = prim
+        if vari is not None: self.__dirVari        = vari
+        if root is not None: self.__dirRoot        = root
+        if stdLogs is not None: self.__stdLogNames = stdLogs
+
         self.__makeDirs()
+
     def __makeDirs(self):
-        fullPath = os.path.join(self.__dirRoot, self.__dirTask, self.__dirPrnt, self.__dirPrim)
-        if not os.path.isdir(fullPath):
-            os.makedirs(fullPath)
+        primitivesPath = self.__pathPrim
+        if not os.path.isdir(primitivesPath):
+            os.makedirs(primitivesPath)
+
+        variantsPath = self.__pathVari
+        if not os.path.isdir(variantsPath):
+            os.makedirs(variantsPath)
     @staticmethod
     def __ifPathExistsIncSuffix(path):
         fileName, ext = os.path.splitext(os.path.basename(path))
@@ -428,19 +515,22 @@ class STAK(object):
             cnt += 1
             path = os.path.join(dirPath, '{}{}{}'.format(fileName, cnt, ext))
         return path
+    @property
+    def __pathPrnt(self): return os.path.join(self.__dirRoot, self.__dirTask, self.__dirPrnt)
+    @property
+    def __pathPrim(self): return os.path.join(self.__pathPrnt, self.__dirPrim)
+    @property
+    def __pathVari(self): return os.path.join(self.__pathPrnt, self.__dirVari)
 
     """=============================================================================================================="""
 
-
 stak = STAK()
-
 
 
 def decorator(func):
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
     return wrapper
-
 
 class Interface(object):
     def testCallerOfCaller(self): raise NotImplementedError()
@@ -485,15 +575,49 @@ class OldStyle:
     @classmethod
     def oldStyleClassMeth(cls): cls.oldStyleStaticMeth()
     def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
-OldStyle().oldStyleInstanceMeth()
 
 
+stdLogPaths = ('stdLog1.log', 'stdLog2.log')
 
-while True:
-    variables = globals().copy()
-    variables.update(locals())
-    shell = code.InteractiveConsole(variables)
-    shell.interact()
+for stdLogPath in stdLogPaths:
+    with open(stdLogPath, 'w'): pass
+
+nonCompromisingLines = (
+    'INFO: None compromising logline 68\n',
+    'INFO: None compromising logline 67\n',
+    'INFO: None compromising logline 66\n',
+    'INFO: None compromising logline 65\n',
+    'INFO: None compromising logline 64\n',
+    'INFO: None compromising logline 63\n',
+    'INFO: None compromising logline 419\n',
+    'INFO: None compromising logline 418\n',
+    'INFO: None compromising logline 417\n',
+    'INFO: None compromising logline 416\n',
+)
+maxNonCompLogLines = 53
+maxOmrolocs = 7
+maxSleepTime = 250
+
+for _ in repeat(None, 40):
+    print 'Generating logs'
+
+    for _ in repeat(None, randint(1, maxNonCompLogLines)):
+        with open(stdLogPaths[0], 'a') as f:
+            l1 = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 5)]
+            f.writelines(l1)
+        with open(stdLogPaths[1], 'a') as f:
+            f.writelines((l1, datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 9)]))
+
+    for _ in repeat(None, randint(1, maxOmrolocs)):
+        OldStyle().oldStyleInstanceMeth()
+
+    sleep(randint(0, maxSleepTime)/1000.0)
+
+
+variables = globals().copy()
+variables.update(locals())
+shell = code.InteractiveConsole(variables)
+shell.interact()
 
 
 
