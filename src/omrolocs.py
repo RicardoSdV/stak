@@ -16,6 +16,8 @@ Known issues:
 
     - If the method is defined in an old style class, it defaults to filename & lineno
 
+    - The spliceGenerator raises an error if any of the spliced logs is empty, which they normally shouldn't but yeah
+
 
 Cool potential features: (Rule: If I haven't thought that the new potential feature would be practical at least
 a couple times when solving real problem abstain from ejaculating it all over this document)
@@ -91,7 +93,7 @@ Working on right now:
 
 import code
 import os
-import re
+import shutil
 import types
 from datetime import datetime
 from inspect import stack
@@ -100,7 +102,6 @@ from random import randint
 from time import sleep
 from pathlib import Path
 from typing import Tuple, Optional, List
-
 from src.funcs.someCode import SomeClass
 
 
@@ -120,16 +121,17 @@ class STAK(object):
     """
 
     def __init__(self):
-        self.log = [(datetime.now(), None)]
+        self.log = []
+        self.omrolocs()
 
         # Save Settings (cwd == bin paths relative)
         self.__dirRoot = '.STAK'
         self.__dirTask = 'task'
         self.__dirPrnt = 'print'
-        self.__dirPrim = 'primitives'
+        self.__dirPrimi = 'primitives'
         self.__dirVari = 'variants'
-        self.__stakLogName = 'stak.log'
-        self.__stdLogNames = ('stdLog1.log', 'stdLog2.log')
+        self.__nameLogStak = 'stak.log'
+        self.__namesLogStd = ('stdLog1.log', 'stdLog2.log')
 
         self.__makeDirs()
 
@@ -220,42 +222,26 @@ class STAK(object):
         self.__saveRawStakLogToPrimitives()
 
         stdLogsInStakPeriod = self.__parseStdLogs()
-
         self.__saveStdLogsInStakPeriodToPrimitives(stdLogsInStakPeriod)
+        self.__spliceStdWithStakLogsAndSaveToVariants(stdLogsInStakPeriod)
 
     def __saveRawStakLogToPrimitives(self):
+        with open(self.__ifPathExistsIncSuffix(self.__pathLogStak), 'w') as f:
+            f.writelines((self.__stakLineCreator(*el) for el in self.log))
 
-        def lineGenerator(callChain):
-            for mroClsNs, methName, fileName, lineNum in callChain:
-                if mroClsNs is None:
-                    yield fileName.replace('.py', str(lineNum)) + '.' + methName
-                else:
-                    mroClsNs = mroClsNs[:]
-                    mroClsNs[-1] = mroClsNs[-1] + '.' + methName + ')' * (len(mroClsNs) - 1)
-                    yield '('.join(mroClsNs)
+    @classmethod
+    def __stakLineCreator(cls, timeStamp, callChain):
+        return cls.__stampToStr(timeStamp) + ': ' + ' <- '.join(cls.__stakLineElGen(callChain)) + '\n'
 
-        def linesGenerator():
-            for timeStamp, callChain in self.log:
-                if callChain is not None:
-                    yield self.__stampToStr(timeStamp) + ': ' + ' <- '.join(lineGenerator(callChain))
-
-        rawStakLogPath = os.path.join(self.__dirRoot, self.__dirTask, self.__dirPrnt, self.__dirPrim, 'stak.log')
-        rawStakLogPath = self.__ifPathExistsIncSuffix(rawStakLogPath)
-
-        with open(rawStakLogPath, 'w') as f:
-            f.writelines(linesGenerator())
-
-    def __saveStdLogsInStakPeriodToPrimitives(self, stdLogs):
-
-        def linesGenerator(log):
-            for timeStamp, typeFlag, line in log:
-                yield self.__stampToStr(timeStamp) + typeFlag + line
-
-        for log, logName in zip(stdLogs, self.__stdLogNames):
-            path = self.__ifPathExistsIncSuffix(os.path.join(self.__pathPrim, logName))
-
-            with open(path, 'w') as f:
-                f.writelines(linesGenerator(log))
+    @staticmethod
+    def __stakLineElGen(callChain):
+        for mroClsNs, methName, fileName, lineNum in callChain:
+            if mroClsNs is None:
+                yield fileName.replace('.py', str(lineNum)) + '.' + methName
+            else:
+                mroClsNs = mroClsNs[:]
+                mroClsNs[-1] = mroClsNs[-1] + '.' + methName + ')' * (len(mroClsNs) - 1)
+                yield '('.join(mroClsNs)
 
     def __parseStdLogs(self):  # type: () -> List[List[Tuple[Optional[datetime], Optional[str], str]]]
         """ stdLogs = [parsedLines = [(timeStamp, logType, lineStr), ...], ...] """
@@ -301,7 +287,52 @@ class STAK(object):
                 lines = f.readlines()
             return list(parsedLinesGenerator(lines, *period))
 
-        return [parsedLogCreator(path, self.__stakPeriod) for path in self.__stdLogNames]
+        return [parsedLogCreator(path, self.__stakPeriod) for path in self.__namesLogStd]
+
+    def __saveStdLogsInStakPeriodToPrimitives(self, stdLogs):
+
+        for log, logName in zip(stdLogs, self.__namesLogStd):
+            path = self.__ifPathExistsIncSuffix(os.path.join(self.__pathDirPrimi, logName))
+
+            with open(path, 'w') as f:
+                f.writelines((self.__stdLogLineCreator(*el) for el in log))
+
+    @classmethod
+    def __stdLogLineCreator(cls, timeStamp, typeFlag, line): return cls.__stampToStr(timeStamp) + typeFlag + line
+
+    def __spliceStdWithStakLogsAndSaveToVariants(self, stdLogs):
+
+        def spliceGenerator(stdLog, stakLog):
+            stdI, stakI, stdElLeft, stakElLeft, lenStd, lenStak = 0, 0, True, True, len(stdLog), len(stakLog)
+
+            stdTimeStamp,  stdTypeFlag,  stdLine   = stdLog[stdI]
+            stakTimeStamp,               callChain = stakLog[stakI]
+
+            while stdElLeft or stakElLeft:
+
+                if stdElLeft is True and (stdTimeStamp <= stakTimeStamp or stakElLeft is False):
+                    yield self.__stdLogLineCreator(stdTimeStamp, stdTypeFlag, stdLine)
+                    stdI += 1
+                    if stdI == lenStd:
+                        stdElLeft = False
+                    else:
+                        stdTimeStamp, stdTypeFlag, stdLine = stdLog[stdI]
+
+                if stakElLeft is True and (stdTimeStamp > stakTimeStamp or stdElLeft is False):
+                    yield self.__stakLineCreator(stakTimeStamp, callChain)
+                    stakI += 1
+                    if stakI == lenStak:
+                        stakElLeft = False
+                    else:
+                        stakTimeStamp, callChain = stakLog[stakI]
+            return
+
+        for stdLog, logName in zip(stdLogs, self.__namesLogStd):
+            path = self.__ifPathExistsIncSuffix(os.path.join(self.__pathDirVari, logName.rstrip('.log') + 'Splice' + '.log'))
+
+            with open(path, 'w') as f:
+                f.writelines(spliceGenerator(stdLog, self.log))
+
     @property
     def __stakPeriod(self): return self.log[0][0], self.log[-1][0]
     @staticmethod
@@ -309,7 +340,7 @@ class STAK(object):
 
     """=============================================================================================================="""
 
-    """==================================================COMPRESSION================================================="""
+    """================================================= COMPRESSION ================================================"""
 
     class CompressionFormatList(list):
         """ List that holds extra attributes for internal use in compression"""
@@ -489,23 +520,26 @@ class STAK(object):
 
     def changePath(self, prnt=None, task=None, prim=None, vari=None, root=None,  stdLogs=None):
         """ Can live change paths, new dirs are created if don't exist """
-        if prnt is not None: self.__dirPrnt        = prnt
-        if task is not None: self.__dirTask        = task
-        if prim is not None: self.__dirPrim        = prim
-        if vari is not None: self.__dirVari        = vari
-        if root is not None: self.__dirRoot        = root
-        if stdLogs is not None: self.__stdLogNames = stdLogs
+        if prnt is not None:    self.__dirPrnt     = prnt
+        if task is not None:    self.__dirTask     = task
+        if prim is not None:    self.__dirPrimi    = prim
+        if vari is not None:    self.__dirVari     = vari
+        if root is not None:    self.__dirRoot     = root
+        if stdLogs is not None: self.__namesLogStd = stdLogs
 
         self.__makeDirs()
 
-    def __makeDirs(self):
-        primitivesPath = self.__pathPrim
-        if not os.path.isdir(primitivesPath):
-            os.makedirs(primitivesPath)
+    def rmPrint(self):
+        """ DANGER: Removes current print directory & all its logs """
+        shutil.rmtree(self.__pathDirPrint)
+        self.__makeDirs()
 
-        variantsPath = self.__pathVari
-        if not os.path.isdir(variantsPath):
-            os.makedirs(variantsPath)
+    def __makeDirs(self):
+        if not os.path.isdir(self.__pathDirPrimi):
+            os.makedirs(self.__pathDirPrimi)
+
+        if not os.path.isdir(self.__pathDirVari):
+            os.makedirs(self.__pathDirVari)
     @staticmethod
     def __ifPathExistsIncSuffix(path):
         fileName, ext = os.path.splitext(os.path.basename(path))
@@ -516,11 +550,13 @@ class STAK(object):
             path = os.path.join(dirPath, '{}{}{}'.format(fileName, cnt, ext))
         return path
     @property
-    def __pathPrnt(self): return os.path.join(self.__dirRoot, self.__dirTask, self.__dirPrnt)
+    def __pathDirPrint(self): return os.path.join(self.__dirRoot, self.__dirTask, self.__dirPrnt)
     @property
-    def __pathPrim(self): return os.path.join(self.__pathPrnt, self.__dirPrim)
+    def __pathDirPrimi(self): return os.path.join(self.__pathDirPrint, self.__dirPrimi)
     @property
-    def __pathVari(self): return os.path.join(self.__pathPrnt, self.__dirVari)
+    def __pathDirVari(self): return os.path.join(self.__pathDirPrint, self.__dirVari)
+    @property
+    def __pathLogStak(self): return os.path.join(self.__pathDirPrimi, self.__nameLogStak)
 
     """=============================================================================================================="""
 
@@ -577,43 +613,44 @@ class OldStyle:
     def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
 
 
-stdLogPaths = ('stdLog1.log', 'stdLog2.log')
+def genLogs():
+    stdLogPaths = ('stdLog1.log', 'stdLog2.log')
 
-for stdLogPath in stdLogPaths:
-    with open(stdLogPath, 'w'): pass
+    for stdLogPath in stdLogPaths:
+        with open(stdLogPath, 'w'): pass
 
-nonCompromisingLines = (
-    'INFO: None compromising logline 68\n',
-    'INFO: None compromising logline 67\n',
-    'INFO: None compromising logline 66\n',
-    'INFO: None compromising logline 65\n',
-    'INFO: None compromising logline 64\n',
-    'INFO: None compromising logline 63\n',
-    'INFO: None compromising logline 419\n',
-    'INFO: None compromising logline 418\n',
-    'INFO: None compromising logline 417\n',
-    'INFO: None compromising logline 416\n',
-)
-maxNonCompLogLines = 53
-maxOmrolocs = 7
-maxSleepTime = 250
+    nonCompromisingLines = (
+        'INFO: None compromising logline 68\n',
+        'INFO: None compromising logline 67\n',
+        'INFO: None compromising logline 66\n',
+        'INFO: None compromising logline 65\n',
+        'INFO: None compromising logline 64\n',
+        'INFO: None compromising logline 63\n',
+        'INFO: None compromising logline 419\n',
+        'INFO: None compromising logline 418\n',
+        'INFO: None compromising logline 417\n',
+        'INFO: None compromising logline 416\n',
+    )
+    maxNonCompLogLines = 53
+    maxOmrolocs = 10
+    maxSleepTime = 250
 
-for _ in repeat(None, 40):
-    print 'Generating logs'
+    for _ in repeat(None, 40):
+        print 'Generating logs'
 
-    for _ in repeat(None, randint(1, maxNonCompLogLines)):
-        with open(stdLogPaths[0], 'a') as f:
-            l1 = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 5)]
-            f.writelines(l1)
-        with open(stdLogPaths[1], 'a') as f:
-            f.writelines((l1, datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 9)]))
+        for _ in repeat(None, randint(1, maxNonCompLogLines)):
+            with open(stdLogPaths[0], 'a') as f:
+                l1 = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 5)]
+                f.writelines(l1)
+            with open(stdLogPaths[1], 'a') as f:
+                f.writelines((l1, datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 9)]))
 
-    for _ in repeat(None, randint(1, maxOmrolocs)):
-        OldStyle().oldStyleInstanceMeth()
+        for _ in repeat(None, randint(1, maxOmrolocs)):
+            OldStyle().oldStyleInstanceMeth()
 
-    sleep(randint(0, maxSleepTime)/1000.0)
+        sleep(randint(0, maxSleepTime)/1000.0)
 
-
+genLogs()
 variables = globals().copy()
 variables.update(locals())
 shell = code.InteractiveConsole(variables)
