@@ -97,7 +97,7 @@ from itertools import repeat
 from random import randint
 from time import sleep
 from pathlib import Path
-from typing import Tuple, Optional, List
+from typing import Tuple, Optional, List, Union
 from src.funcs.someCode import SomeClass
 
 
@@ -215,31 +215,25 @@ class STAK(object):
     """============================================= SAVING LOGS PHASE =============================================="""
 
     def save(self):
-
-        # callChainWithStrLinks = [callChain = ['link1', 'link2', ...], ...]
         callChainsWithStrLinks = [(timeStamp, list(self.__strLinkGen(callChain))) for timeStamp, callChain in self.log]
 
         self.__saveRawStakLogToPrimitives(callChainsWithStrLinks)
-
         stdLogsInStakPeriod = self.__parseStdLogs()
         self.__saveStdLogsInStakPeriodToPrimitives(stdLogsInStakPeriod)
-        self.__spliceStdWithStakLogsAndSaveToVariants(stdLogsInStakPeriod, callChainsWithStrLinks)
 
-        self.__saveCompressedStakLogToVariants(callChainsWithStrLinks)
+        callChainsWithCompressedStrLinks = self.__compressLinks(callChainsWithStrLinks)  # type: List[Tuple[datetime, str]]
 
-    def __saveCompressedStakLogToVariants(self, callChainsWithStrLinks):
-        callChainsWithCompressedStrLinks = self.__compressLinks(callChainsWithStrLinks)
-        compressedCallChains = self.__compressLines(callChainsWithCompressedStrLinks)
+        splicedLogs = self.__saveSplicedToVariants(stdLogsInStakPeriod, callChainsWithCompressedStrLinks)
+        self.__saveCompressedSplicedLogs(splicedLogs)
 
-        with open(self.__ifPathExistsIncSuffix(os.path.join(self.__pathDirVari, 'stakCompress.log')), 'w') as f:
-            f.writelines(compressedCallChains)
+        self.__saveCompressedStakLogToVariants(callChainsWithCompressedStrLinks)
 
     def __saveRawStakLogToPrimitives(self, callChainsWithStrLinks):
         with open(self.__ifPathExistsIncSuffix(self.__pathLogStak), 'w') as f:
-            f.writelines((self.__stakLineCreator(*el) for el in callChainsWithStrLinks))
+            f.writelines((self.__stakChainLinker(*el) for el in callChainsWithStrLinks))
 
     @classmethod
-    def __stakLineCreator(cls, timeStamp, callChainWithStrLinks):
+    def __stakChainLinker(cls, timeStamp, callChainWithStrLinks):
         return cls.__stampToStr(timeStamp) + ': ' + ' <- '.join(callChainWithStrLinks) + '\n'
 
     @staticmethod
@@ -308,8 +302,10 @@ class STAK(object):
 
     @classmethod
     def __stdLogLineCreator(cls, timeStamp, typeFlag, line): return cls.__stampToStr(timeStamp) + typeFlag + line
+    @classmethod
+    def __stakLogLineCreator(cls, timeStamp, line): return cls.__stampToStr(timeStamp) + ': ' + line
 
-    def __spliceStdWithStakLogsAndSaveToVariants(self, stdLogs, stakLogs):
+    def __saveSplicedToVariants(self, stdLogs, stakLog):
 
         def spliceGenerator(stdLog, stakLog):
             stdI, stakI, stdElLeft, stakElLeft, lenStd, lenStak = 0, 0, True, True, len(stdLog), len(stakLog)
@@ -320,7 +316,7 @@ class STAK(object):
             while stdElLeft or stakElLeft:
 
                 if stdElLeft is True and (stdTimeStamp <= stakTimeStamp or stakElLeft is False):
-                    yield self.__stdLogLineCreator(stdTimeStamp, stdTypeFlag, stdLine)
+                    yield stdTimeStamp, stdTypeFlag, stdLine
                     stdI += 1
                     if stdI == lenStd:
                         stdElLeft = False
@@ -328,7 +324,7 @@ class STAK(object):
                         stdTimeStamp, stdTypeFlag, stdLine = stdLog[stdI]
 
                 if stakElLeft is True and (stdTimeStamp > stakTimeStamp or stdElLeft is False):
-                    yield self.__stakLineCreator(stakTimeStamp, callChain)
+                    yield stakTimeStamp, callChain
                     stakI += 1
                     if stakI == lenStak:
                         stakElLeft = False
@@ -336,11 +332,41 @@ class STAK(object):
                         stakTimeStamp, callChain = stakLog[stakI]
             return
 
+        def jointGenerator(splicedLog):
+            for line in splicedLog:
+                if len(line) == 3:
+                    yield self.__stdLogLineCreator(*line)
+                else:
+                    yield self.__stakLogLineCreator(*line)
+            return
+
+        splicedLogs = []
         for stdLog, logName in zip(stdLogs, self.__namesLogStd):
-            path = self.__ifPathExistsIncSuffix(os.path.join(self.__pathDirVari, logName.rstrip('.log') + 'Splice' + '.log'))
+            path = self.__ifPathExistsIncSuffix(
+                os.path.join(
+                    self.__pathDirVari, self.__addSuffix(logName, 'Splice')
+                )
+            )
+
+            splicedLog = list(spliceGenerator(stdLog, stakLog))
+            splicedLogs.append(splicedLog)
 
             with open(path, 'w') as f:
-                f.writelines(spliceGenerator(stdLog, stakLogs))
+                f.writelines(jointGenerator(splicedLog))
+
+        return splicedLogs
+
+    def __saveCompressedStakLogToVariants(self, callChainsWithCompressedStrLinks):
+        with open(self.__ifPathExistsIncSuffix(os.path.join(self.__pathDirVari, 'stakCompress.log')), 'w') as f:
+            f.writelines(self.__compressLines([line for stamp, line in callChainsWithCompressedStrLinks]))
+
+    def __saveCompressedSplicedLogs(self, splicedLogs):
+        # type: (List[List[Union[Tuple[datetime, str], Tuple[datetime, str, str]]]]) -> None
+
+        for log, name in zip(splicedLogs, self.__namesLogStd):
+
+            with open(self.__ifPathExistsIncSuffix(os.path.join(self.__pathDirPrint, name)), 'w') as f:
+                f.writelines(self.__compressLines([el[-1] for el in log]))
 
     @property
     def __stakPeriod(self): return self.log[0][0], self.log[-1][0]
@@ -362,23 +388,20 @@ class STAK(object):
     @classmethod
     def __compressLinks(cls, callChainsWithStrLinks):
         return [
-            cls.__prettyfyLine(
-                cls.__compress(
-                    cls.CompressionFormatList(1, 'line', *callChain)
-                )
-            ).rstrip(' <- ')  + '\n'
-            for _, callChain in callChainsWithStrLinks
+            (
+                timeStamp,
+                cls.__prettyfyLine(
+                    cls.__compress(
+                        cls.CompressionFormatList(1, 'line', *callChain)
+                    )
+                ).rstrip(' <- ')  + '\n'
+            )
+            for timeStamp, callChain in callChainsWithStrLinks
         ]
 
     @classmethod
     def __compressLines(cls, lines):  # type: (List[str]) -> List[str]
-        linesCfl = cls.__formatLinesForLinesCompression(lines)
-
-        compressedLinesCfl = cls.__compress(linesCfl)
-
-        prettyLines = cls.__prettyfyLines(compressedLinesCfl)
-
-        return prettyLines
+        return cls.__prettyfyLines(cls.__compress(cls.__formatLinesForLinesCompression(lines)))
 
     @classmethod
     def __compressStackLinesByTravAndModInPlace(cls, cfl):
@@ -550,6 +573,12 @@ class STAK(object):
 
         if not os.path.isdir(self.__pathDirVari):
             os.makedirs(self.__pathDirVari)
+
+    @staticmethod
+    def __addSuffix(logName, suffix):
+        name, ext = os.path.splitext(logName)
+        return '{}{}{}'.format(name, suffix, ext)
+
     @staticmethod
     def __ifPathExistsIncSuffix(path):
         fileName, ext = os.path.splitext(os.path.basename(path))
