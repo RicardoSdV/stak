@@ -1,0 +1,20 @@
+STAK.__init__ <- omrolocs573.<module>
+236x
+    omrolocs586.test
+        <- omrolocs578.wrapper
+            <- omrolocs588.__privProp
+                <- Dawg(SomeCls(Daddy.__testCaller))
+                    <- Dawg(SomeCls(Daddy.testCaller))
+                        <- Dawg(SomeCls.testCallerOfCaller)
+                            <- Dawg(SomeCls.propCallerOfCallerOfCaller)
+                                <- Outcast.__classMeth
+                                    <- Outcast.classMeth
+                                        <- omrolocs601.__statMeth
+                                            <- omrolocs599.statMeth
+                                                <- OutcastSon(Outcast.__init__)
+                                                    <- omrolocs616.func
+                                                        <- omrolocs620.oldStyleStaticMeth
+                                                            <- omrolocs622.oldStyleClassMeth
+                                                                <- omrolocs623.oldStyleInstanceMeth
+                                                                    <- omrolocs659.genLogs
+                                                                        <- omrolocs663.<module>

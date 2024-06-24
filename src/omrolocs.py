@@ -37,6 +37,12 @@ a couple times when solving real problem abstain from ejaculating it all over th
 Working on right now:
     - Add support for time stamping to be able to splice into standard logs
 
+    - Definitions:
+        - Trim: A log without the timestamps & some or all log type flags
+        - Compress: A log losslessly compressed into a readable format
+        - Splice: A combination of two logs based on their time stamps
+
+
     - Path ops:
         .STAK <- All logs produced by this class will be found in this dir
             |
@@ -51,8 +57,6 @@ Working on right now:
                     same things they should be found in the same print_dir, but since different things have happened
                     to create said prints they should be in separate log files.
                         |
-                        trimStak.log
-                        |
                         trimNCL1Splice.log
                         |                   <- The NCL.log a program may produce spliced with stak.log & trimmed
                         trimNCL2Splice.log
@@ -63,17 +67,12 @@ Working on right now:
                             |               <- Untrimmed splices (with timestamps, flags & all)
                             NCL2Splice.log
                             |
-                            trimNCL1.log
+                            compNCL1.log
                             |           ----|
-                            trimNCL2.log    | <- Trimmed primitives, no splicing
+                            compNCL2.log    | <- Trimmed primitives, no splicing
                             |           ----|
-                            trimStak
-                            |
-                            trimTimedNCL1.log
-                            |                   ----|
-                            trimTimedNCL2.log       | <- Trimmed primitives, no splicing, with timeStamps
-                            |                   ----|
-                            trimTimedStak
+                            compStak.log
+
                         primitives_dir <- Dir to hold all the data used to create the above logs
                             |
                             stak.log <- stak info by itself with timestamps
@@ -84,9 +83,6 @@ Working on right now:
 
         Since at the moment calling omrolocs requires modifying the code, and since modifying the code, at the moment
         requires restarting the program, some pathops will be triggered in the __init__
-
-
-    - Open & read the NCLs split, parse store in mem for stak period
 
 
 """
@@ -125,13 +121,13 @@ class STAK(object):
         self.omrolocs()
 
         # Save Settings (cwd == bin paths relative)
-        self.__dirRoot = '.STAK'
-        self.__dirTask = 'task'
-        self.__dirPrnt = 'print'
-        self.__dirPrimi = 'primitives'
-        self.__dirVari = 'variants'
+        self.__dirRoot     = '.STAK'
+        self.__dirTask     = 'task'
+        self.__dirPrnt     = 'print'
+        self.__dirPrimi    = 'primitives'
+        self.__dirVari     = 'variants'
         self.__nameLogStak = 'stak.log'
-        self.__namesLogStd = ('stdLog1.log', 'stdLog2.log')
+        self.__namesLogStd = ('stdLogA.log', 'stdLogB.log')
 
         self.__makeDirs()
 
@@ -218,23 +214,36 @@ class STAK(object):
 
     """============================================= SAVING LOGS PHASE =============================================="""
 
-    def save(self, path=None, name=None, forceNewDepthOf=None, inclMRO=True, trim=False):
-        self.__saveRawStakLogToPrimitives()
+    def save(self):
+
+        # callChainWithStrLinks = [callChain = ['link1', 'link2', ...], ...]
+        callChainsWithStrLinks = [(timeStamp, list(self.__strLinkGen(callChain))) for timeStamp, callChain in self.log]
+
+        self.__saveRawStakLogToPrimitives(callChainsWithStrLinks)
 
         stdLogsInStakPeriod = self.__parseStdLogs()
         self.__saveStdLogsInStakPeriodToPrimitives(stdLogsInStakPeriod)
-        self.__spliceStdWithStakLogsAndSaveToVariants(stdLogsInStakPeriod)
+        self.__spliceStdWithStakLogsAndSaveToVariants(stdLogsInStakPeriod, callChainsWithStrLinks)
 
-    def __saveRawStakLogToPrimitives(self):
+        self.__saveCompressedStakLogToVariants(callChainsWithStrLinks)
+
+    def __saveCompressedStakLogToVariants(self, callChainsWithStrLinks):
+        callChainsWithCompressedStrLinks = self.__compressLinks(callChainsWithStrLinks)
+        compressedCallChains = self.__compressLines(callChainsWithCompressedStrLinks)
+
+        with open(self.__ifPathExistsIncSuffix(os.path.join(self.__pathDirVari, 'stakCompress.log')), 'w') as f:
+            f.writelines(compressedCallChains)
+
+    def __saveRawStakLogToPrimitives(self, callChainsWithStrLinks):
         with open(self.__ifPathExistsIncSuffix(self.__pathLogStak), 'w') as f:
-            f.writelines((self.__stakLineCreator(*el) for el in self.log))
+            f.writelines((self.__stakLineCreator(*el) for el in callChainsWithStrLinks))
 
     @classmethod
-    def __stakLineCreator(cls, timeStamp, callChain):
-        return cls.__stampToStr(timeStamp) + ': ' + ' <- '.join(cls.__stakLineElGen(callChain)) + '\n'
+    def __stakLineCreator(cls, timeStamp, callChainWithStrLinks):
+        return cls.__stampToStr(timeStamp) + ': ' + ' <- '.join(callChainWithStrLinks) + '\n'
 
     @staticmethod
-    def __stakLineElGen(callChain):
+    def __strLinkGen(callChain):
         for mroClsNs, methName, fileName, lineNum in callChain:
             if mroClsNs is None:
                 yield fileName.replace('.py', str(lineNum)) + '.' + methName
@@ -300,7 +309,7 @@ class STAK(object):
     @classmethod
     def __stdLogLineCreator(cls, timeStamp, typeFlag, line): return cls.__stampToStr(timeStamp) + typeFlag + line
 
-    def __spliceStdWithStakLogsAndSaveToVariants(self, stdLogs):
+    def __spliceStdWithStakLogsAndSaveToVariants(self, stdLogs, stakLogs):
 
         def spliceGenerator(stdLog, stakLog):
             stdI, stakI, stdElLeft, stakElLeft, lenStd, lenStak = 0, 0, True, True, len(stdLog), len(stakLog)
@@ -331,10 +340,11 @@ class STAK(object):
             path = self.__ifPathExistsIncSuffix(os.path.join(self.__pathDirVari, logName.rstrip('.log') + 'Splice' + '.log'))
 
             with open(path, 'w') as f:
-                f.writelines(spliceGenerator(stdLog, self.log))
+                f.writelines(spliceGenerator(stdLog, stakLogs))
 
     @property
     def __stakPeriod(self): return self.log[0][0], self.log[-1][0]
+
     @staticmethod
     def __stampToStr(timeStamp): return timeStamp.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
 
@@ -345,9 +355,31 @@ class STAK(object):
     class CompressionFormatList(list):
         """ List that holds extra attributes for internal use in compression"""
         def __init__(self, cnt=1, rep='', *args):
-            super(STAK.CompressionFormatList, self).__init__(*args)
+            super(STAK.CompressionFormatList, self).__init__(args)
             self.cnt = cnt
             self.rep = rep
+
+    @classmethod
+    def __compressLinks(cls, callChainsWithStrLinks):
+        return [
+            cls.__prettyfyLine(
+                cls.__compress(
+                    cls.CompressionFormatList(1, 'line', *callChain)
+                )
+            ).rstrip(' <- ')  + '\n'
+            for _, callChain in callChainsWithStrLinks
+        ]
+
+    @classmethod
+    def __compressLines(cls, lines):  # type: (List[str]) -> List[str]
+        linesCfl = cls.__formatLinesForLinesCompression(lines)
+
+        compressedLinesCfl = cls.__compress(linesCfl)
+
+        prettyLines = cls.__prettyfyLines(compressedLinesCfl)
+
+        return prettyLines
+
     @classmethod
     def __compressStackLinesByTravAndModInPlace(cls, cfl):
         for i, el in enumerate(cfl):
@@ -362,28 +394,7 @@ class STAK(object):
             else:
                 raise TypeError('Elements traversed in compress_stack_lines_by_trav_and_mod_in_place '
                                 "should only be str or CompressionFormatList with cfl.rep == 'lines'")
-    @classmethod
-    def __run(cls, force_retrim=True, log_dir_path=r'C:\prjs\trimLog_develop\logs_dir_example'):
-        log_paths = cls.__findReadAndWriteLogPaths(force_retrim, log_dir_path)
 
-        for read_path, write_path in log_paths:
-
-            with open(read_path, 'r') as f:
-                lines = f.readlines()
-            if len(lines) < 1: continue
-
-            cls.__removeDatetimeAndLogTypePrefixesFromLinesInPlace(lines)
-
-            lines_cfl = cls.__formatLinesForLinesCompression(lines)
-            lines_cfl = cls.__compress(lines_cfl)
-
-            cls.__compressStackLinesByTravAndModInPlace(lines_cfl)
-            cls.__travLinesPrettyStackInPlace(lines_cfl)
-
-            prettyLines = cls.__prettyfyLines(lines_cfl)
-
-            with open(write_path, 'w') as f:
-                f.writelines(prettyLines)
     @classmethod
     def __travLinesPrettyStackInPlace(cls, linesCfl):
         for i, el in enumerate(linesCfl):
@@ -398,6 +409,7 @@ class STAK(object):
             else:
                 raise TypeError(
                     'In trav_lines_mod_cs_lines_in_place for loop there should only be CompressionFormatLists')
+
     @classmethod
     def __prettyfyLine(cls, lineCfl):
         result = ''
@@ -419,6 +431,7 @@ class STAK(object):
             result += (']' + ' <- ')
 
         return result
+
     @classmethod
     def __prettyfyLines(cls, lines_cfl, depth=0):
         indent = depth * '    '
@@ -436,17 +449,13 @@ class STAK(object):
             else:
                 raise TypeError('Wrong type in compressed list: type(el)', type(el))
         return result
-    @classmethod
-    def __formatLineForCallstackComp(cls, line):
-        return cls.CompressionFormatList(
-            line.rstrip('\n').split(' <- '),
-            rep='line'
-        )
+
     @classmethod
     def __formatLinesForLinesCompression(cls, lines):
         if not lines[-1].endswith('\n'):
             lines[-1] += '\n'
-        return cls.CompressionFormatList(lines, rep='lines')
+        return cls.CompressionFormatList(1, 'lines', *lines)
+
     @classmethod
     def __findReadAndWriteLogPaths(cls, forceRetrim, logDirPath):
         result = []
@@ -458,6 +467,7 @@ class STAK(object):
                 if not trimmedLogPath.exists() or forceRetrim:
                     result.append((logPath, trimmedLogPath))
         return result
+
     @classmethod
     def __compress(cls, postPassCfl):
         represents = postPassCfl.rep
@@ -498,7 +508,7 @@ class STAK(object):
 
                     else:  # There has been one or more repetitions of thisGroup
 
-                        compressed_group = cls.CompressionFormatList(cnt=groups_cnt, rep=represents, *thisGroup)
+                        compressed_group = cls.CompressionFormatList(groups_cnt, represents, *thisGroup)
                         postPassCfl.append(compressed_group)
 
                         thisGroupStartI = nextGroupStartI
@@ -614,7 +624,7 @@ class OldStyle:
 
 
 def genLogs():
-    stdLogPaths = ('stdLog1.log', 'stdLog2.log')
+    stdLogPaths = ('stdLogA.log', 'stdLogB.log')
 
     for stdLogPath in stdLogPaths:
         with open(stdLogPath, 'w'): pass
@@ -633,7 +643,7 @@ def genLogs():
     )
     maxNonCompLogLines = 53
     maxOmrolocs = 10
-    maxSleepTime = 250
+    maxSleepTime = 150
 
     for _ in repeat(None, 40):
         print 'Generating logs'
