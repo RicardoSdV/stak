@@ -1,1031 +1,1035 @@
-STAK.__init__ <- omrolocs602.<module>
+STAK.__init__ <- omrolocs647.<module>
+None compromising logline 64
 None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-2x
-    None compromising logline 68
-None compromising logline 67
+None compromising logline 64
 2x
     None compromising logline 66
-None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 65
 None compromising logline 63
 None compromising logline 64
-None compromising logline 66
-2x
-    None compromising logline 67
+None compromising logline 67
+None compromising logline 63
 None compromising logline 64
 None compromising logline 65
-None compromising logline 64
-None compromising logline 63
 None compromising logline 67
 None compromising logline 65
-None compromising logline 67
 None compromising logline 64
-None compromising logline 66
-2x
-    None compromising logline 67
-None compromising logline 66
-None compromising logline 63
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 65
-None compromising logline 66
-None compromising logline 68
-None compromising logline 67
 None compromising logline 68
 None compromising logline 64
+None compromising logline 66
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
 None compromising logline 65
 2x
     None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-2x
-    None compromising logline 67
-None compromising logline 66
-None compromising logline 65
-None compromising logline 67
-6x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-None compromising logline 67
-None compromising logline 63
-None compromising logline 68
-None compromising logline 63
-2x
-    None compromising logline 65
-    None compromising logline 66
-None compromising logline 68
-None compromising logline 66
-None compromising logline 68
-None compromising logline 63
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 66
-None compromising logline 68
-None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 68
-None compromising logline 65
-3x
-    None compromising logline 66
-None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 67
-None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-2x
-    None compromising logline 64
-None compromising logline 66
-2x
-    None compromising logline 65
-    None compromising logline 68
-2x
-    None compromising logline 65
-8x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 68
-None compromising logline 64
-None compromising logline 68
-None compromising logline 63
-None compromising logline 65
-None compromising logline 64
-None compromising logline 66
-3x
-    None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-2x
-    None compromising logline 67
-2x
-    None compromising logline 66
-None compromising logline 68
-None compromising logline 67
-None compromising logline 68
-None compromising logline 64
-2x
-    None compromising logline 66
-    None compromising logline 65
-None compromising logline 68
-None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-2x
-    None compromising logline 63
-None compromising logline 66
-None compromising logline 64
-None compromising logline 66
-None compromising logline 67
-None compromising logline 63
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 64
-None compromising logline 67
-None compromising logline 63
-2x
-    None compromising logline 65
 9x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+None compromising logline 68
+None compromising logline 65
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 63
 None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+2x
+    None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 66
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+2x
+    None compromising logline 63
+2x
+    None compromising logline 66
+None compromising logline 65
+8x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+2x
+    None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 64
+None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+2x
+    None compromising logline 66
 None compromising logline 67
 None compromising logline 63
 2x
-    None compromising logline 67
+    None compromising logline 66
 None compromising logline 64
 None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 63
+None compromising logline 66
+None compromising logline 65
+5x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 67
+None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 67
+None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+None compromising logline 68
+None compromising logline 67
+None compromising logline 66
+None compromising logline 67
+None compromising logline 64
+None compromising logline 66
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+None compromising logline 64
+None compromising logline 66
+2x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 68
+2x
+    None compromising logline 63
 None compromising logline 66
 2x
     None compromising logline 65
-2x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 67
+None compromising logline 66
+None compromising logline 68
 None compromising logline 64
+None compromising logline 63
+None compromising logline 67
+None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+2x
+    None compromising logline 65
+None compromising logline 66
+2x
+    None compromising logline 67
+None compromising logline 64
+None compromising logline 67
+3x
+    None compromising logline 65
 2x
     None compromising logline 63
 None compromising logline 68
 None compromising logline 67
+2x
+    None compromising logline 66
+    None compromising logline 68
+None compromising logline 67
+None compromising logline 65
+None compromising logline 67
+None compromising logline 63
+None compromising logline 64
+None compromising logline 65
+None compromising logline 63
+None compromising logline 68
 None compromising logline 64
 None compromising logline 68
-2x
-    None compromising logline 64
 None compromising logline 67
+3x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+2x
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+3x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 68
+None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+None compromising logline 64
+2x
+    None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+10x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 63
+3x
+    None compromising logline 65
 None compromising logline 63
 2x
     None compromising logline 67
 None compromising logline 68
-None compromising logline 65
-None compromising logline 64
+2x
+    None compromising logline 65
 None compromising logline 68
+2x
+    None compromising logline 66
+None compromising logline 64
+3x
+    None compromising logline 68
+None compromising logline 63
 2x
     None compromising logline 65
 None compromising logline 63
+None compromising logline 64
+3x
+    None compromising logline 68
+None compromising logline 64
 None compromising logline 67
+2x
+    None compromising logline 68
 None compromising logline 66
+None compromising logline 65
+None compromising logline 63
 2x
     None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+6x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 63
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+2x
+    None compromising logline 64
+    None compromising logline 68
+2x
+    None compromising logline 63
+2x
+    None compromising logline 68
+None compromising logline 65
+None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 65
+    10x
+        omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 68
+None compromising logline 67
+None compromising logline 65
+None compromising logline 66
+None compromising logline 67
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 68
 None compromising logline 64
 None compromising logline 65
 None compromising logline 67
 None compromising logline 68
+2x
+    None compromising logline 67
+None compromising logline 66
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 66
+None compromising logline 68
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 67
+None compromising logline 66
+None compromising logline 63
+None compromising logline 66
+8x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 67
+None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 66
+None compromising logline 67
+None compromising logline 68
+None compromising logline 66
+None compromising logline 64
+10x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+None compromising logline 65
+None compromising logline 67
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
 None compromising logline 67
 None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+None compromising logline 63
+None compromising logline 66
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+None compromising logline 66
+3x
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 64
+None compromising logline 66
+2x
+    None compromising logline 67
+None compromising logline 64
+2x
+    None compromising logline 65
+None compromising logline 67
+2x
+    None compromising logline 65
+    2x
+        None compromising logline 63
+None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 67
+None compromising logline 65
+4x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+2x
+    None compromising logline 65
+None compromising logline 66
+2x
+    None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 64
+None compromising logline 67
+None compromising logline 65
+None compromising logline 66
+3x
+    None compromising logline 64
+None compromising logline 67
+9x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 67
+2x
+    None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+5x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+3x
+    None compromising logline 67
+None compromising logline 68
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 63
+None compromising logline 65
+2x
+    None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 63
+None compromising logline 67
+None compromising logline 68
+2x
+    None compromising logline 66
+None compromising logline 67
+None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+None compromising logline 66
+2x
+    None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+3x
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+2x
+    None compromising logline 68
+None compromising logline 64
+2x
+    None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+3x
+    None compromising logline 63
+2x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 64
+None compromising logline 63
+None compromising logline 67
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 63
+3x
+    None compromising logline 66
+None compromising logline 68
+None compromising logline 65
+None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+4x
+    None compromising logline 66
+None compromising logline 67
+2x
+    None compromising logline 64
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+9x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 64
+None compromising logline 65
+2x
+    None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 66
+None compromising logline 68
+2x
+    None compromising logline 63
+9x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+2x
+    None compromising logline 64
+    None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 67
+None compromising logline 66
+2x
+    None compromising logline 64
+None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 64
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 65
+None compromising logline 67
+2x
+    None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+None compromising logline 65
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+6x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 68
+None compromising logline 64
+4x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 64
+None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+2x
+    None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+None compromising logline 64
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 65
+None compromising logline 66
+None compromising logline 64
+3x
+    None compromising logline 66
+None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+2x
+    None compromising logline 68
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+2x
+    None compromising logline 67
+None compromising logline 65
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 63
+None compromising logline 68
+2x
+    None compromising logline 64
+2x
+    None compromising logline 63
+omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 68
+None compromising logline 65
+None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+2x
+    None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 63
+None compromising logline 64
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+None compromising logline 64
+6x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 64
+None compromising logline 63
+2x
+    None compromising logline 66
+None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 65
+None compromising logline 64
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+None compromising logline 66
+3x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 66
+None compromising logline 63
+2x
+    None compromising logline 65
+None compromising logline 67
+None compromising logline 65
+None compromising logline 68
+None compromising logline 67
+None compromising logline 66
+2x
+    None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+None compromising logline 67
+None compromising logline 68
+None compromising logline 65
+None compromising logline 64
+2x
+    None compromising logline 66
+    None compromising logline 65
+None compromising logline 66
 7x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 66
-5x
-    None compromising logline 63
-2x
-    None compromising logline 67
-2x
-    None compromising logline 63
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 67
 2x
     None compromising logline 64
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
 None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+None compromising logline 66
 2x
+    None compromising logline 63
+2x
+    None compromising logline 66
     None compromising logline 65
 None compromising logline 63
 None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 65
-5x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 66
-None compromising logline 63
-None compromising logline 66
-2x
-    None compromising logline 68
-3x
-    None compromising logline 64
 None compromising logline 68
 None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 63
-3x
-    None compromising logline 64
 None compromising logline 65
-None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-2x
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 63
-None compromising logline 66
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-None compromising logline 63
-None compromising logline 68
-3x
-    None compromising logline 64
-2x
-    None compromising logline 66
-    None compromising logline 67
-None compromising logline 65
-None compromising logline 68
-None compromising logline 63
-2x
-    None compromising logline 66
-None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-9x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
 2x
     None compromising logline 67
-4x
-    None compromising logline 66
-None compromising logline 63
-None compromising logline 66
-None compromising logline 64
-None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-None compromising logline 68
-2x
-    None compromising logline 66
-2x
-    None compromising logline 63
-2x
-    None compromising logline 67
-None compromising logline 66
-None compromising logline 64
-None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-3x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-2x
     None compromising logline 66
 None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-2x
-    None compromising logline 68
-3x
-    None compromising logline 66
 None compromising logline 63
-None compromising logline 68
+None compromising logline 64
 None compromising logline 65
 2x
     None compromising logline 64
-None compromising logline 67
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 66
-None compromising logline 64
-None compromising logline 63
-8x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 65
-None compromising logline 66
-None compromising logline 65
-None compromising logline 68
-None compromising logline 65
-None compromising logline 63
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-3x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 68
-None compromising logline 66
-None compromising logline 67
-None compromising logline 68
-None compromising logline 66
-None compromising logline 64
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-None compromising logline 65
-None compromising logline 68
-None compromising logline 65
-None compromising logline 63
-None compromising logline 67
-None compromising logline 65
-None compromising logline 66
-2x
-    None compromising logline 67
-2x
-    None compromising logline 66
-None compromising logline 68
-2x
-    None compromising logline 67
-None compromising logline 68
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-None compromising logline 68
-None compromising logline 67
-2x
-    None compromising logline 65
-None compromising logline 63
-2x
-    None compromising logline 67
-None compromising logline 66
-None compromising logline 64
-9x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 63
-None compromising logline 66
-None compromising logline 65
 None compromising logline 66
 None compromising logline 68
 2x
     None compromising logline 63
 None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+2x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 65
+None compromising logline 64
+None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+None compromising logline 64
+None compromising logline 66
+None compromising logline 64
+None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 65
+None compromising logline 64
+None compromising logline 65
+None compromising logline 63
 2x
     None compromising logline 66
 None compromising logline 64
 None compromising logline 63
-None compromising logline 68
-2x
-    None compromising logline 64
-None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-2x
-    None compromising logline 68
-None compromising logline 65
-None compromising logline 63
-None compromising logline 65
-2x
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 66
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-10x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-3x
-    None compromising logline 68
-5x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-2x
-    None compromising logline 65
-omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 68
-None compromising logline 66
-None compromising logline 67
-None compromising logline 66
-None compromising logline 63
-None compromising logline 68
-2x
-    None compromising logline 67
-2x
-    None compromising logline 63
-None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 67
-2x
-    None compromising logline 65
-None compromising logline 68
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-None compromising logline 63
-2x
-    None compromising logline 68
-None compromising logline 65
-None compromising logline 68
-None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-5x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-2x
-    None compromising logline 67
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 67
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 65
-2x
-    None compromising logline 63
-None compromising logline 67
-None compromising logline 65
-4x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 64
-None compromising logline 67
-None compromising logline 63
-2x
-    None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 64
-None compromising logline 65
-None compromising logline 63
-None compromising logline 66
-2x
-    None compromising logline 64
-None compromising logline 63
 None compromising logline 66
 None compromising logline 65
 None compromising logline 63
-None compromising logline 66
-None compromising logline 64
-None compromising logline 66
-None compromising logline 65
-None compromising logline 63
-3x
-    None compromising logline 64
-None compromising logline 68
-None compromising logline 63
-10x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 64
 None compromising logline 67
-None compromising logline 68
-3x
-    None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-None compromising logline 68
-None compromising logline 65
-2x
-    None compromising logline 67
-2x
-    None compromising logline 63
-None compromising logline 66
-2x
-    None compromising logline 64
-None compromising logline 68
-None compromising logline 64
-2x
-    None compromising logline 65
-None compromising logline 68
-None compromising logline 67
-None compromising logline 68
-2x
-    None compromising logline 64
-    None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-2x
-    None compromising logline 64
-None compromising logline 67
-None compromising logline 65
-None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-None compromising logline 65
-None compromising logline 64
-2x
-    None compromising logline 68
-8x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 67
-2x
-    None compromising logline 63
-None compromising logline 68
-None compromising logline 65
-None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-None compromising logline 66
-None compromising logline 68
-10x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 68
-None compromising logline 67
-None compromising logline 63
-2x
-    None compromising logline 68
-None compromising logline 64
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
 6x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 63
 None compromising logline 65
+None compromising logline 66
+None compromising logline 64
+10x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 66
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 66
+3x
+    None compromising logline 68
+    None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+None compromising logline 67
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 66
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+7x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 68
+2x
+    None compromising logline 64
+3x
+    None compromising logline 67
+None compromising logline 63
+None compromising logline 67
+omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+2x
+    None compromising logline 66
+None compromising logline 65
+2x
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 67
+None compromising logline 68
+None compromising logline 64
+2x
+    None compromising logline 63
+None compromising logline 65
+4x
+    None compromising logline 66
+3x
+    None compromising logline 63
+None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+5x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 68
+2x
+    None compromising logline 65
+None compromising logline 66
+None compromising logline 67
+2x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
 None compromising logline 64
 None compromising logline 63
 None compromising logline 66
-None compromising logline 63
+None compromising logline 68
 None compromising logline 65
 None compromising logline 66
+None compromising logline 67
+None compromising logline 64
+None compromising logline 68
+2x
+    None compromising logline 66
+None compromising logline 63
+None compromising logline 66
+None compromising logline 64
+4x
+    None compromising logline 66
 None compromising logline 63
 2x
-    None compromising logline 67
-2x
+    None compromising logline 64
+    None compromising logline 65
     None compromising logline 68
+None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 64
+None compromising logline 63
+2x
+    None compromising logline 65
+None compromising logline 64
+2x
+    None compromising logline 66
+    None compromising logline 64
+    None compromising logline 63
     3x
-        omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 63
-None compromising logline 66
-None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-2x
-    None compromising logline 63
-None compromising logline 67
-3x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-2x
-    None compromising logline 68
-None compromising logline 65
+        omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
 None compromising logline 68
-None compromising logline 63
-2x
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-2x
-    None compromising logline 64
-2x
-    None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-4x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 67
-None compromising logline 68
-None compromising logline 66
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-None compromising logline 68
-None compromising logline 66
-3x
-    None compromising logline 68
-None compromising logline 64
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-None compromising logline 63
-None compromising logline 67
-None compromising logline 68
-None compromising logline 67
-None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-None compromising logline 67
-None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-3x
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-3x
-    None compromising logline 68
-None compromising logline 66
-2x
-    None compromising logline 65
-None compromising logline 67
-None compromising logline 68
-2x
-    None compromising logline 65
-None compromising logline 68
-None compromising logline 64
-2x
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-None compromising logline 68
-6x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 63
-None compromising logline 68
-None compromising logline 65
-None compromising logline 66
-None compromising logline 64
-None compromising logline 68
-None compromising logline 65
-None compromising logline 67
-None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-5x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 67
-3x
-    None compromising logline 68
-omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-4x
-    None compromising logline 63
-None compromising logline 67
-None compromising logline 68
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 67
-None compromising logline 66
-None compromising logline 64
-None compromising logline 65
-None compromising logline 68
-None compromising logline 63
-None compromising logline 68
-None compromising logline 64
-3x
-    None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 68
-None compromising logline 64
-None compromising logline 68
-4x
-    None compromising logline 64
-2x
-    None compromising logline 63
-None compromising logline 66
-None compromising logline 64
-None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 64
-None compromising logline 66
-None compromising logline 65
-None compromising logline 68
-2x
-    None compromising logline 63
 2x
     None compromising logline 66
+    None compromising logline 67
 2x
-    None compromising logline 68
-3x
-    None compromising logline 63
+    None compromising logline 65
 None compromising logline 66
+None compromising logline 67
+None compromising logline 65
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 67
+None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 67
 4x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 64
-None compromising logline 66
-9x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
 2x
     None compromising logline 63
+None compromising logline 65
+None compromising logline 63
 None compromising logline 66
-None compromising logline 63
-None compromising logline 67
-2x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 64
+None compromising logline 65
 3x
-    None compromising logline 68
-3x
-    None compromising logline 65
-None compromising logline 63
-None compromising logline 64
-None compromising logline 67
-None compromising logline 63
-None compromising logline 67
-None compromising logline 64
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 67
-2x
-    None compromising logline 65
-2x
     None compromising logline 63
-None compromising logline 66
-None compromising logline 64
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-4x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-None compromising logline 65
-None compromising logline 64
-None compromising logline 63
-None compromising logline 66
-7x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 67
-None compromising logline 68
-2x
-    None compromising logline 67
-None compromising logline 65
-None compromising logline 66
-None compromising logline 65
-None compromising logline 68
-None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 68
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
 None compromising logline 64
 None compromising logline 65
 None compromising logline 63
-None compromising logline 66
-None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 66
-None compromising logline 68
-None compromising logline 64
-None compromising logline 66
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 65
-2x
-    None compromising logline 64
-2x
-    None compromising logline 66
-2x
-    None compromising logline 67
-    None compromising logline 65
-2x
-    None compromising logline 67
-2x
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 64
 None compromising logline 66
 10x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 64
-None compromising logline 68
-None compromising logline 67
-None compromising logline 64
-2x
-    None compromising logline 67
-None compromising logline 63
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
 None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-None compromising logline 68
-None compromising logline 66
-None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-None compromising logline 63
-None compromising logline 66
-None compromising logline 64
-None compromising logline 66
-None compromising logline 68
-2x
-    None compromising logline 65
-None compromising logline 63
-None compromising logline 67
-None compromising logline 65
-None compromising logline 68
-None compromising logline 63
-None compromising logline 67
-None compromising logline 65
-None compromising logline 63
-None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-None compromising logline 65
-None compromising logline 63
-None compromising logline 68
-None compromising logline 64
-None compromising logline 67
-None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-None compromising logline 67
-2x
-    None compromising logline 65
-None compromising logline 63
-None compromising logline 66
-2x
-    None compromising logline 63
-9x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 65
-None compromising logline 66
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 68
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-None compromising logline 66
-2x
-    None compromising logline 63
-3x
-    None compromising logline 65
-None compromising logline 66
-None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-None compromising logline 66
-2x
-    None compromising logline 68
-None compromising logline 65
-None compromising logline 67
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-None compromising logline 66
-None compromising logline 65
-None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-9x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 65
-2x
-    None compromising logline 68
-3x
-    None compromising logline 63
-2x
-    None compromising logline 67
-None compromising logline 66
-9x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 67
-2x
-    None compromising logline 63
-None compromising logline 65
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 66
-2x
-    None compromising logline 67
-None compromising logline 68
 2x
     None compromising logline 64
+None compromising logline 65
 2x
-    None compromising logline 67
-None compromising logline 63
+    None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 67
+3x
+    None compromising logline 65
+None compromising logline 66
+None compromising logline 64
+None compromising logline 65
 None compromising logline 66
 None compromising logline 68
+2x
+    None compromising logline 66
+None compromising logline 65
+None compromising logline 68
+None compromising logline 67
 None compromising logline 64
+None compromising logline 67
+None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 64
+3x
+    None compromising logline 63
 None compromising logline 67
 2x
     None compromising logline 65
-None compromising logline 67
-6x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 68
-None compromising logline 63
+None compromising logline 64
 None compromising logline 65
-2x
-    None compromising logline 63
-None compromising logline 67
-None compromising logline 66
 None compromising logline 68
-None compromising logline 66
-None compromising logline 64
-None compromising logline 67
-2x
-    None compromising logline 66
 None compromising logline 65
-2x
-    None compromising logline 68
-None compromising logline 64
-2x
-    None compromising logline 66
-3x
-    None compromising logline 68
-None compromising logline 64
 None compromising logline 63
 None compromising logline 64
-None compromising logline 65
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 63
 2x
     None compromising logline 67
+None compromising logline 63
 None compromising logline 66
+None compromising logline 68
 None compromising logline 65
-None compromising logline 64
-None compromising logline 66
-None compromising logline 67
 4x
-    None compromising logline 65
-None compromising logline 68
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 66
+None compromising logline 67
+None compromising logline 66
 None compromising logline 64
-None compromising logline 65
-None compromising logline 63
+None compromising logline 68
 None compromising logline 66
 2x
     None compromising logline 63
+    None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+9x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 64
 None compromising logline 68
 2x
-    None compromising logline 66
     None compromising logline 64
-9x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
-None compromising logline 68
+    None compromising logline 63
 None compromising logline 64
-None compromising logline 68
-None compromising logline 63
-None compromising logline 64
+None compromising logline 66
 None compromising logline 68
 None compromising logline 65
 3x
-    None compromising logline 63
+    None compromising logline 64
+None compromising logline 66
 None compromising logline 64
 None compromising logline 67
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
 None compromising logline 63
 None compromising logline 68
+2x
+    None compromising logline 63
+2x
+    None compromising logline 68
+None compromising logline 66
+2x
+    None compromising logline 68
 None compromising logline 63
+None compromising logline 64
+None compromising logline 65
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+3x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+None compromising logline 66
+None compromising logline 68
+None compromising logline 63
+2x
+    None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 64
+None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 64
+None compromising logline 65
+None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+None compromising logline 65
 2x
     None compromising logline 64
 None compromising logline 68
 None compromising logline 67
 None compromising logline 66
+None compromising logline 68
+None compromising logline 64
 2x
-    None compromising logline 64
+    None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 63
+2x
+    None compromising logline 66
+2x
     None compromising logline 68
 None compromising logline 64
 None compromising logline 65
+None compromising logline 67
+None compromising logline 63
+None compromising logline 65
 None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 66
+None compromising logline 63
+None compromising logline 66
+None compromising logline 67
 None compromising logline 68
 None compromising logline 65
-8x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
+None compromising logline 63
+2x
+    None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+3x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>

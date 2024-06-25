@@ -1,3 +1,3 @@
-STAK.__init__ <- omrolocs602.<module>
-245x
-    omrolocs615.test <- omrolocs607.wrapper <- omrolocs617.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- omrolocs630.__statMeth <- omrolocs628.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs645.func <- omrolocs649.oldStyleStaticMeth <- omrolocs651.oldStyleClassMeth <- omrolocs652.oldStyleInstanceMeth <- omrolocs688.genLogs <- omrolocs692.<module>
+STAK.__init__ <- omrolocs647.<module>
+220x
+    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>

@@ -90,8 +90,8 @@ def omropocs(pMRO=True, callStackDepth=999, silence=False):
         fCode = frameObj.f_code
 
         isInsMeth = True if 'self' in fLocals else False
-        isClsMeth = True if 'cls'  in fLocals else False
-        callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['cls'] if isClsMeth else None
+        isClsMeth = True if 'self'  in fLocals else False
+        callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['self'] if isClsMeth else None
 
         if not (isInsMeth or isClsMeth) or isinstance(callerCls, types.ClassType):
             callChain.append(filePath.split('/')[-1].replace('.py', str(lineNum)) + '.' + methName); continue
@@ -107,7 +107,7 @@ def omropocs(pMRO=True, callStackDepth=999, silence=False):
                     break
 
         if not definerClsFound:
-            print 'Definer cls not found'
+            print 'Definer self not found'
             callChain.append(filePath.split('/')[-1].replace('.py', str(lineNum)) + '.' + methName); continue
         if pMRO: clsNs[-1] = clsNs[-1] + '.' + methName + ')' * (len(clsNs) -1); callChain.append('('.join(clsNs))
         else: callChain.append(clsNs[-1] + '.' + methName)

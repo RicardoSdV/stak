@@ -12,7 +12,7 @@ Known issues:
 
     - If the object object autopassed to an instance method is not called 'self' defaults to filename & lineno
 
-    - If the class object autopassed to a class method is not called 'cls' defaults to filename & lineno
+    - If the class object autopassed to a class method is not called 'self' defaults to filename & lineno
 
     - If the method is defined in an old style class, it defaults to filename & lineno
 
@@ -48,8 +48,8 @@ def omropocs(pMRO=True, callStackDepth=999, silence=False):
     for frame in frames:
         fObj, methName, = frame[0], frame[3]; fLocals = fObj.f_locals
 
-        isInsMeth = True if 'self' in fLocals else False; isClsMeth = True if 'cls' in fLocals else False
-        callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['cls'] if isClsMeth else None
+        isInsMeth = True if 'self' in fLocals else False; isClsMeth = True if 'self' in fLocals else False
+        callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['self'] if isClsMeth else None
 
         if not (isInsMeth or isClsMeth) or isinstance(callerCls, types.ClassType):
             callChain.append(frame[1].split('/')[-1].replace('.py', str(frame[2])) + '.' + methName); continue
