@@ -16,6 +16,9 @@ Known issues:
 
     - If the method is defined in an old style class, it defaults to filename & lineno
 
+    - Can't handle 'wrapper_descriptor', Fixed for public instance methods, unknown how it would handle any other
+    type
+
 
 Cool potential features:
     - If there are multiple methods in the call stack that have the same definer and caller class maybe print only
@@ -33,10 +36,12 @@ Cool potential features:
     - Add option to print a trimmed version of the callstack, only the first and last frame
 
     - wrap long stacks
+
+DEPRECATED: New ideas and problems are written in omrolocs, although some apply to omropocs too
 """
 
 import types
-from inspect import stack
+from inspect import stack, isfunction
 
 from someCode import SomeClass
 
@@ -48,8 +53,8 @@ def omropocs(pMRO=True, callStackDepth=999, silence=False):
     for frame in frames:
         fObj, methName, = frame[0], frame[3]; fLocals = fObj.f_locals
 
-        isInsMeth = True if 'self' in fLocals else False; isClsMeth = True if 'self' in fLocals else False
-        callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['self'] if isClsMeth else None
+        isInsMeth = True if 'self' in fLocals else False; isClsMeth = True if 'cls' in fLocals else False
+        callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['cls'] if isClsMeth else None
 
         if not (isInsMeth or isClsMeth) or isinstance(callerCls, types.ClassType):
             callChain.append(frame[1].split('/')[-1].replace('.py', str(frame[2])) + '.' + methName); continue
@@ -71,7 +76,7 @@ def omropocs(pMRO=True, callStackDepth=999, silence=False):
                         method = cls.__dict__[methName]
                         if isinstance(method, property):
                             if method.fget.func_code is fCode: definerClsFound = True; break
-                        elif method.func_code is fCode: definerClsFound = True; break
+                        elif isfunction(method) and method.func_code is fCode: definerClsFound = True; break
         elif isClsMeth:
             if isPrivate:
                 for cls in callerCls.__mro__:

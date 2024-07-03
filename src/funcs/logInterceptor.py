@@ -9,7 +9,7 @@ import logging
 
 class LogInterceptor(object):
     def __init__(self):
-        self.logPath = 'example.log'
+        self.logPath = 'example.__log'
         self.logs = []
 
         self.log_handler = CapturingHandler(self.logs)

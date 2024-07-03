@@ -1,1035 +1,1192 @@
-STAK.__init__ <- omrolocs647.<module>
-None compromising logline 64
+STAK.omrolocs <- STAK.__init__ <- C:\prjs\stak\src\omrolocs768.<module>
+None compromising logline 67
+None compromising logline 68
 None compromising logline 66
-None compromising logline 64
-2x
-    None compromising logline 66
-None compromising logline 64
-None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-None compromising logline 64
 None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 65
 None compromising logline 64
 None compromising logline 68
 None compromising logline 64
-None compromising logline 66
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
 2x
     None compromising logline 67
+    None compromising logline 68
+3x
+    None compromising logline 66
+2x
+    None compromising logline 63
+4x
+    None compromising logline 68
+fdStamp: INFO: None compromising logline 68
 9x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 65
-None compromising logline 66
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
 None compromising logline 63
 None compromising logline 65
-None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-None compromising logline 68
-None compromising logline 65
-None compromising logline 63
-None compromising logline 65
-None compromising logline 68
-None compromising logline 63
 None compromising logline 64
-None compromising logline 63
-None compromising logline 68
-None compromising logline 67
+None compromising logline 65
 2x
     None compromising logline 68
+3x
+    None compromising logline 65
+None compromising logline 63
 None compromising logline 65
-2x
-    None compromising logline 63
-None compromising logline 66
-None compromising logline 67
 None compromising logline 64
+None compromising logline 66
 None compromising logline 65
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+None compromising logline 66
 2x
-    None compromising logline 63
+    None compromising logline 64
 2x
     None compromising logline 66
-None compromising logline 65
-8x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-2x
-    None compromising logline 68
-None compromising logline 65
+None compromising logline 63
 None compromising logline 67
 None compromising logline 68
-None compromising logline 63
 None compromising logline 64
-None compromising logline 66
-2x
-    None compromising logline 63
-None compromising logline 67
+None compromising logline 65
 None compromising logline 66
 None compromising logline 65
 None compromising logline 68
-None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 63
-2x
-    None compromising logline 66
-None compromising logline 64
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-None compromising logline 65
-5x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 67
-None compromising logline 68
-None compromising logline 65
 2x
     None compromising logline 67
 None compromising logline 68
-None compromising logline 64
-None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-None compromising logline 64
-None compromising logline 66
-2x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 68
-2x
-    None compromising logline 63
-None compromising logline 66
-2x
-    None compromising logline 65
-None compromising logline 66
-None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 65
-None compromising logline 68
-None compromising logline 63
-None compromising logline 68
-2x
-    None compromising logline 65
-None compromising logline 66
 2x
     None compromising logline 67
+    None compromising logline 66
+None compromising logline 68
+None compromising logline 63
 None compromising logline 64
+None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 65
 None compromising logline 67
-3x
+None compromising logline 65
+None compromising logline 68
+2x
     None compromising logline 65
+fdStamp: INFO: None compromising logline 67
+7x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 63
+None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 63
+2x
+    None compromising logline 65
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 63
+None compromising logline 66
+None compromising logline 68
+None compromising logline 63
+fdStamp: INFO: None compromising logline 66
+9x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
 2x
     None compromising logline 63
 None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+None compromising logline 64
+None compromising logline 66
+None compromising logline 64
 None compromising logline 67
+None compromising logline 68
+None compromising logline 67
+2x
+    None compromising logline 68
+2x
+    None compromising logline 67
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 68
 2x
     None compromising logline 66
-    None compromising logline 68
-None compromising logline 67
-None compromising logline 65
-None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 63
+    None compromising logline 64
 None compromising logline 68
-None compromising logline 64
-None compromising logline 68
-None compromising logline 67
+None compromising logline 63
 3x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+    None compromising logline 67
+None compromising logline 68
 2x
-    None compromising logline 68
+    None compromising logline 64
+None compromising logline 65
+None compromising logline 64
 None compromising logline 63
-None compromising logline 68
 None compromising logline 66
-3x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 68
-None compromising logline 66
-2x
-    None compromising logline 63
-None compromising logline 65
 None compromising logline 67
-None compromising logline 64
-None compromising logline 67
-2x
-    None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 64
-2x
-    None compromising logline 63
-None compromising logline 66
-2x
-    None compromising logline 68
-None compromising logline 66
-None compromising logline 65
-2x
-    None compromising logline 63
-None compromising logline 68
-None compromising logline 65
-None compromising logline 67
+fdStamp: INFO: None compromising logline 68
 10x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 65
+None compromising logline 66
 None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
 3x
+    None compromising logline 67
+2x
+    None compromising logline 66
+2x
+    None compromising logline 68
+    None compromising logline 64
+2x
     None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 66
+None compromising logline 64
+None compromising logline 67
+None compromising logline 64
+2x
+    None compromising logline 68
+fdStamp: INFO: None compromising logline 65
+2x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 64
+None compromising logline 67
+None compromising logline 66
+None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+2x
+    None compromising logline 63
+2x
+    None compromising logline 66
+2x
+    None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+None compromising logline 67
+None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+2x
+    None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 64
+None compromising logline 63
+None compromising logline 66
+None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 66
+fdStamp: INFO: None compromising logline 68
+STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 64
+None compromising logline 68
+None compromising logline 64
 None compromising logline 63
 2x
+    None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+3x
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 64
+3x
+    None compromising logline 65
+None compromising logline 68
+4x
+    None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 64
+fdStamp: INFO: None compromising logline 68
+5x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 68
+None compromising logline 66
+fdStamp: INFO: None compromising logline 65
+4x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 66
+None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 63
+fdStamp: INFO: None compromising logline 64
+6x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 64
+None compromising logline 68
+3x
+    None compromising logline 66
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+fdStamp: INFO: None compromising logline 64
+3x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 68
+None compromising logline 66
+None compromising logline 63
+None compromising logline 67
+2x
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 66
+None compromising logline 68
+None compromising logline 67
+None compromising logline 64
+None compromising logline 66
+2x
+    None compromising logline 64
+None compromising logline 67
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+fdStamp: INFO: None compromising logline 64
+4x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+2x
+    None compromising logline 68
+2x
+    None compromising logline 67
+None compromising logline 63
+2x
+    None compromising logline 68
+    None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 68
+2x
+    None compromising logline 64
     None compromising logline 67
 None compromising logline 68
 2x
+    None compromising logline 64
+None compromising logline 63
+fdStamp: INFO: None compromising logline 65
+7x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 64
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 67
+2x
+    None compromising logline 63
+None compromising logline 66
+None compromising logline 67
+None compromising logline 63
+None compromising logline 65
+2x
+    None compromising logline 67
+fdStamp: INFO: None compromising logline 66
+STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+2x
+    None compromising logline 64
+None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+None compromising logline 63
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+2x
+    None compromising logline 66
+None compromising logline 68
+2x
     None compromising logline 65
 None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 63
+None compromising logline 65
+None compromising logline 67
 2x
     None compromising logline 66
 None compromising logline 64
-3x
-    None compromising logline 68
-None compromising logline 63
 2x
     None compromising logline 65
-None compromising logline 63
-None compromising logline 64
-3x
-    None compromising logline 68
-None compromising logline 64
+    None compromising logline 66
 None compromising logline 67
 2x
-    None compromising logline 68
-None compromising logline 66
-None compromising logline 65
-None compromising logline 63
-2x
     None compromising logline 65
+None compromising logline 67
+None compromising logline 63
 None compromising logline 64
-None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+fdStamp: INFO: None compromising logline 65
 6x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 63
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
 None compromising logline 66
-None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+3x
+    None compromising logline 66
+None compromising logline 68
+2x
+    None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 68
+fdStamp: INFO: None compromising logline 66
+7x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+2x
+    None compromising logline 63
+None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 66
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
 None compromising logline 64
 None compromising logline 67
+None compromising logline 65
+None compromising logline 68
+None compromising logline 67
+None compromising logline 64
 None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+None compromising logline 64
+None compromising logline 63
+2x
+    None compromising logline 65
+    None compromising logline 68
+None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 63
+None compromising logline 67
+None compromising logline 68
+None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 66
 None compromising logline 65
 None compromising logline 63
 None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 68
+None compromising logline 67
+None compromising logline 66
 None compromising logline 67
 2x
     None compromising logline 64
-    None compromising logline 68
+fdStamp: INFO: None compromising logline 65
+7x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 67
 2x
-    None compromising logline 63
-2x
-    None compromising logline 68
+    None compromising logline 64
+None compromising logline 68
+None compromising logline 67
 None compromising logline 65
-None compromising logline 66
+None compromising logline 68
 None compromising logline 64
 2x
     None compromising logline 65
-    10x
-        omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
 None compromising logline 68
-None compromising logline 67
 None compromising logline 65
 None compromising logline 66
-None compromising logline 67
-None compromising logline 68
-None compromising logline 66
-None compromising logline 65
-None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 68
 2x
     None compromising logline 67
 None compromising logline 66
-None compromising logline 63
-None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
 2x
+    None compromising logline 64
+3x
+    None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 64
+None compromising logline 66
+None compromising logline 68
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+None compromising logline 66
+None compromising logline 68
+2x
+    None compromising logline 67
+3x
     None compromising logline 63
+None compromising logline 66
 None compromising logline 65
-None compromising logline 64
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 64
-2x
-    None compromising logline 67
-None compromising logline 66
-None compromising logline 63
-None compromising logline 66
-8x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 67
-None compromising logline 63
 None compromising logline 66
 2x
     None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-None compromising logline 68
-None compromising logline 66
-None compromising logline 64
+fdStamp: INFO: None compromising logline 68
 10x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+2x
+    None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+2x
+    None compromising logline 68
+None compromising logline 64
+2x
+    None compromising logline 68
+None compromising logline 66
+None compromising logline 64
+None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 67
+None compromising logline 64
+None compromising logline 68
 None compromising logline 66
 2x
     None compromising logline 63
-None compromising logline 68
-None compromising logline 67
 None compromising logline 65
 None compromising logline 67
+None compromising logline 66
+None compromising logline 64
 None compromising logline 68
+None compromising logline 63
 None compromising logline 65
-None compromising logline 68
+2x
+    None compromising logline 67
+    None compromising logline 66
+None compromising logline 65
+None compromising logline 66
 None compromising logline 67
 None compromising logline 64
 None compromising logline 68
+2x
+    None compromising logline 66
+2x
+    None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 68
+fdStamp: INFO: None compromising logline 66
+8x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 63
+None compromising logline 65
+None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 67
+4x
+    None compromising logline 63
+3x
+    None compromising logline 64
+None compromising logline 63
+None compromising logline 65
+None compromising logline 66
+2x
+    None compromising logline 68
+None compromising logline 64
+2x
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 68
+None compromising logline 67
+3x
+    None compromising logline 65
+None compromising logline 63
+None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 67
+None compromising logline 65
+fdStamp: INFO: None compromising logline 67
+6x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
 None compromising logline 65
 None compromising logline 63
 None compromising logline 66
+None compromising logline 64
+None compromising logline 68
+None compromising logline 67
 None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 67
+None compromising logline 64
+fdStamp: INFO: None compromising logline 63
+9x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 64
+2x
+    None compromising logline 63
+2x
+    None compromising logline 65
+None compromising logline 63
+None compromising logline 66
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
 None compromising logline 67
 None compromising logline 64
+2x
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+None compromising logline 68
+2x
+    None compromising logline 64
+2x
+    None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 68
+2x
+    None compromising logline 66
+2x
+    None compromising logline 65
+    None compromising logline 67
+None compromising logline 66
+fdStamp: INFO: None compromising logline 64
+3x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 64
+None compromising logline 66
 None compromising logline 63
 None compromising logline 65
 None compromising logline 64
+None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 66
+None compromising logline 64
 None compromising logline 68
 None compromising logline 66
+2x
+    None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 68
+2x
+    None compromising logline 63
+3x
+    None compromising logline 65
+2x
+    None compromising logline 64
+fdStamp: INFO: None compromising logline 68
+2x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 67
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+2x
+    None compromising logline 67
+None compromising logline 63
+None compromising logline 64
+2x
+    None compromising logline 63
+    None compromising logline 65
+2x
+    None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 67
+None compromising logline 65
+None compromising logline 63
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 67
+fdStamp: INFO: None compromising logline 65
+10x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+2x
+    None compromising logline 64
+None compromising logline 67
+None compromising logline 65
+fdStamp: INFO: None compromising logline 64
+STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 65
+None compromising logline 66
+2x
+    None compromising logline 65
+    None compromising logline 64
+None compromising logline 67
+None compromising logline 64
+None compromising logline 68
+None compromising logline 63
+None compromising logline 65
+2x
+    None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 66
+    None compromising logline 64
+None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+None compromising logline 68
+2x
+    None compromising logline 67
+fdStamp: INFO: None compromising logline 66
+4x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 63
+fdStamp: INFO: None compromising logline 65
+5x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 66
+None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+None compromising logline 63
+2x
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+None compromising logline 63
+2x
+    None compromising logline 64
+None compromising logline 63
+None compromising logline 66
+None compromising logline 68
+None compromising logline 65
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+2x
+    None compromising logline 63
+None compromising logline 67
+2x
+    None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+fdStamp: INFO: None compromising logline 63
+8x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 63
+None compromising logline 68
+2x
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 65
+fdStamp: INFO: None compromising logline 65
+6x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 68
+None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
 3x
     None compromising logline 68
-None compromising logline 63
+None compromising logline 67
 None compromising logline 64
 None compromising logline 66
+None compromising logline 64
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 66
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+None compromising logline 67
+None compromising logline 65
+None compromising logline 64
+None compromising logline 65
+None compromising logline 68
 2x
     None compromising logline 67
+None compromising logline 66
+None compromising logline 68
 None compromising logline 64
-2x
-    None compromising logline 65
+None compromising logline 66
 None compromising logline 67
 2x
+    None compromising logline 68
+2x
     None compromising logline 65
+None compromising logline 64
+fdStamp: INFO: None compromising logline 65
+3x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+2x
+    None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 66
+2x
+    None compromising logline 64
+None compromising logline 65
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 65
+None compromising logline 64
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 63
+2x
+    None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+2x
+    None compromising logline 68
+    None compromising logline 63
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+None compromising logline 67
+2x
+    None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 68
+None compromising logline 67
+None compromising logline 65
+None compromising logline 66
+2x
+    None compromising logline 68
+fdStamp: INFO: None compromising logline 64
+5x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 66
+2x
+    None compromising logline 64
+None compromising logline 68
+None compromising logline 63
+2x
+    None compromising logline 67
+None compromising logline 68
+None compromising logline 66
+None compromising logline 67
+None compromising logline 64
+None compromising logline 68
+None compromising logline 63
+None compromising logline 64
+2x
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 66
+None compromising logline 68
+None compromising logline 67
+None compromising logline 66
+fdStamp: INFO: None compromising logline 64
+3x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+None compromising logline 65
+None compromising logline 63
+None compromising logline 66
+None compromising logline 65
+None compromising logline 66
+None compromising logline 67
+2x
+    None compromising logline 64
+None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 67
+None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 66
+None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 64
+None compromising logline 66
+2x
+    None compromising logline 64
+2x
+    None compromising logline 63
+None compromising logline 67
+None compromising logline 65
+fdStamp: INFO: None compromising logline 65
+7x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 67
+2x
+    None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+2x
+    None compromising logline 65
+2x
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
+None compromising logline 67
+fdStamp: INFO: None compromising logline 66
+10x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 64
+2x
     2x
         None compromising logline 63
-None compromising logline 67
-None compromising logline 65
-2x
-    None compromising logline 67
-None compromising logline 65
+    None compromising logline 66
+fdStamp: INFO: None compromising logline 66
 4x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 65
+2x
+    None compromising logline 66
 2x
     None compromising logline 65
+2x
+    None compromising logline 63
+2x
+    None compromising logline 65
+None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 67
 None compromising logline 66
 2x
     None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-None compromising logline 64
+None compromising logline 66
+None compromising logline 68
+None compromising logline 66
 None compromising logline 67
 None compromising logline 65
 None compromising logline 66
-3x
+2x
+    None compromising logline 65
     None compromising logline 64
-None compromising logline 67
-9x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 67
-2x
-    None compromising logline 63
-None compromising logline 67
+None compromising logline 63
 None compromising logline 66
-None compromising logline 64
-None compromising logline 68
-None compromising logline 65
-None compromising logline 68
 2x
-    None compromising logline 63
-None compromising logline 64
-None compromising logline 67
-5x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-3x
     None compromising logline 67
 None compromising logline 68
-None compromising logline 67
 None compromising logline 66
-None compromising logline 64
+None compromising logline 67
+None compromising logline 65
+None compromising logline 66
 None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 68
+None compromising logline 66
+fdStamp: INFO: None compromising logline 65
+STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 68
+None compromising logline 66
+fdStamp: INFO: None compromising logline 65
+2x
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 67
+None compromising logline 65
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 64
+None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 66
+None compromising logline 63
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+None compromising logline 63
+None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+2x
+    None compromising logline 68
 None compromising logline 65
 2x
     None compromising logline 64
-None compromising logline 68
-None compromising logline 65
 None compromising logline 66
 None compromising logline 63
-None compromising logline 65
-None compromising logline 67
 None compromising logline 66
+2x
+    None compromising logline 68
 None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 68
+2x
+    None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 64
 2x
     None compromising logline 66
+None compromising logline 63
+2x
+    None compromising logline 68
+fdStamp: INFO: None compromising logline 68
+STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
 None compromising logline 67
-None compromising logline 65
 None compromising logline 64
 None compromising logline 68
-None compromising logline 65
-None compromising logline 66
-2x
-    None compromising logline 68
-None compromising logline 65
-None compromising logline 68
-3x
-    None compromising logline 65
-None compromising logline 68
-None compromising logline 66
-None compromising logline 65
-2x
-    None compromising logline 68
 None compromising logline 64
-2x
-    None compromising logline 68
+None compromising logline 67
+None compromising logline 68
 None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 68
 None compromising logline 65
-3x
+2x
     None compromising logline 63
+None compromising logline 68
+None compromising logline 64
 2x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-None compromising logline 67
-None compromising logline 66
-None compromising logline 65
-None compromising logline 63
-3x
+    None compromising logline 63
     None compromising logline 66
+None compromising logline 65
+None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+fdStamp: INFO: None compromising logline 68
+STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
 None compromising logline 68
 None compromising logline 65
+None compromising logline 64
 None compromising logline 63
 None compromising logline 67
 None compromising logline 66
-None compromising logline 64
-2x
-    None compromising logline 68
 None compromising logline 65
+None compromising logline 63
 None compromising logline 67
+2x
+    None compromising logline 64
+None compromising logline 68
+None compromising logline 63
 None compromising logline 66
+None compromising logline 67
+2x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 65
 None compromising logline 68
 None compromising logline 64
+None compromising logline 63
+None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+fdStamp: INFO: None compromising logline 65
 4x
-    None compromising logline 66
-None compromising logline 67
-2x
-    None compromising logline 64
-    None compromising logline 63
-None compromising logline 65
-None compromising logline 68
-None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 65
-9x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 67
-None compromising logline 65
-2x
-    None compromising logline 64
-None compromising logline 65
-2x
-    None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 68
-2x
-    None compromising logline 63
-9x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-2x
-    None compromising logline 64
-    None compromising logline 66
-None compromising logline 64
-2x
-    None compromising logline 67
-None compromising logline 66
-2x
-    None compromising logline 64
-None compromising logline 68
-None compromising logline 64
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 68
-None compromising logline 64
-omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 65
-None compromising logline 67
-2x
-    None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-None compromising logline 65
-None compromising logline 63
-None compromising logline 65
-None compromising logline 68
-None compromising logline 64
-6x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 67
-None compromising logline 65
-2x
-    None compromising logline 68
-None compromising logline 64
-4x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 64
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-2x
-    None compromising logline 64
-None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 64
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
 3x
-    None compromising logline 66
-None compromising logline 68
-None compromising logline 67
-None compromising logline 63
-2x
-    None compromising logline 68
+    None compromising logline 64
 None compromising logline 65
-None compromising logline 66
-None compromising logline 63
+3x
+    None compromising logline 68
 None compromising logline 64
 2x
+    None compromising logline 65
     None compromising logline 67
-None compromising logline 65
-None compromising logline 68
+3x
+    None compromising logline 63
 None compromising logline 66
-None compromising logline 65
-None compromising logline 63
-None compromising logline 68
 2x
     None compromising logline 64
-2x
-    None compromising logline 63
-omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 68
-None compromising logline 65
-None compromising logline 63
-None compromising logline 67
-None compromising logline 66
+    None compromising logline 68
 None compromising logline 64
-None compromising logline 67
-None compromising logline 68
 2x
     None compromising logline 67
 None compromising logline 64
 None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-None compromising logline 65
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-None compromising logline 68
-None compromising logline 63
-None compromising logline 68
-None compromising logline 66
-None compromising logline 64
-6x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 64
-None compromising logline 63
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-2x
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-2x
-    None compromising logline 63
-None compromising logline 66
-None compromising logline 63
-None compromising logline 64
-None compromising logline 66
-3x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 66
-None compromising logline 63
-2x
-    None compromising logline 65
-None compromising logline 67
-None compromising logline 65
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-2x
-    None compromising logline 64
-None compromising logline 66
-None compromising logline 67
-None compromising logline 66
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-2x
-    None compromising logline 66
-    None compromising logline 65
-None compromising logline 66
-7x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 67
 2x
     None compromising logline 64
 None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-None compromising logline 67
-None compromising logline 66
-2x
-    None compromising logline 63
-2x
-    None compromising logline 66
-    None compromising logline 65
-None compromising logline 63
-None compromising logline 65
-None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-2x
-    None compromising logline 67
-    None compromising logline 66
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-2x
-    None compromising logline 64
 None compromising logline 66
 None compromising logline 68
-2x
-    None compromising logline 63
 None compromising logline 67
-None compromising logline 63
-None compromising logline 68
-2x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
 None compromising logline 65
-None compromising logline 64
 None compromising logline 66
-None compromising logline 64
+None compromising logline 67
 2x
     None compromising logline 68
-None compromising logline 65
-2x
-    None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-None compromising logline 65
-None compromising logline 64
-None compromising logline 66
-None compromising logline 64
-None compromising logline 65
-None compromising logline 68
-2x
-    None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-None compromising logline 63
-2x
-    None compromising logline 66
-None compromising logline 64
-None compromising logline 63
-None compromising logline 66
-None compromising logline 65
-None compromising logline 63
-None compromising logline 67
-6x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 64
-10x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
 2x
     None compromising logline 63
-None compromising logline 65
-None compromising logline 67
 None compromising logline 66
+None compromising logline 68
+None compromising logline 66
+None compromising logline 63
 3x
     None compromising logline 68
-    None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 67
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-None compromising logline 66
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-7x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-None compromising logline 68
-2x
-    None compromising logline 64
-3x
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 67
-omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-2x
-    None compromising logline 66
-None compromising logline 65
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 67
-None compromising logline 68
-None compromising logline 64
-2x
-    None compromising logline 63
-None compromising logline 65
-4x
-    None compromising logline 66
-3x
-    None compromising logline 63
-None compromising logline 64
-None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-5x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 67
-None compromising logline 66
-None compromising logline 64
 2x
     None compromising logline 65
-None compromising logline 68
-None compromising logline 65
+fdStamp: INFO: None compromising logline 68
 2x
-    None compromising logline 66
-None compromising logline 64
-None compromising logline 68
-2x
-    None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-2x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 64
-None compromising logline 63
-None compromising logline 66
-None compromising logline 68
-None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 68
-2x
-    None compromising logline 66
-None compromising logline 63
-None compromising logline 66
-None compromising logline 64
-4x
-    None compromising logline 66
-None compromising logline 63
-2x
-    None compromising logline 64
-    None compromising logline 65
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-None compromising logline 66
-None compromising logline 65
-None compromising logline 68
-2x
-    None compromising logline 64
-None compromising logline 63
-2x
-    None compromising logline 65
-None compromising logline 64
-2x
-    None compromising logline 66
-    None compromising logline 64
-    None compromising logline 63
-    3x
-        omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 68
-2x
-    None compromising logline 66
-    None compromising logline 67
-2x
-    None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-None compromising logline 68
-None compromising logline 66
-None compromising logline 65
-None compromising logline 67
-None compromising logline 63
-None compromising logline 67
-None compromising logline 66
-None compromising logline 65
-None compromising logline 67
-4x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-2x
-    None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-None compromising logline 66
-None compromising logline 65
-3x
-    None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 63
-None compromising logline 66
-10x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 66
-2x
-    None compromising logline 64
-None compromising logline 65
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-3x
-    None compromising logline 65
-None compromising logline 66
-None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-None compromising logline 68
-2x
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 68
-None compromising logline 67
-None compromising logline 64
-None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-3x
-    None compromising logline 63
-None compromising logline 67
-2x
-    None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-None compromising logline 68
-None compromising logline 65
-None compromising logline 63
-None compromising logline 64
-None compromising logline 63
-None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-2x
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-None compromising logline 68
-None compromising logline 65
-4x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 66
-None compromising logline 67
-None compromising logline 66
-None compromising logline 64
-None compromising logline 68
-None compromising logline 66
-2x
-    None compromising logline 63
-    None compromising logline 67
-2x
-    None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-9x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 64
-None compromising logline 68
-2x
-    None compromising logline 64
-    None compromising logline 63
-None compromising logline 64
-None compromising logline 66
-None compromising logline 68
-None compromising logline 65
-3x
-    None compromising logline 64
-None compromising logline 66
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-None compromising logline 65
-None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-None compromising logline 68
-2x
-    None compromising logline 63
-2x
-    None compromising logline 68
-None compromising logline 66
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 63
-None compromising logline 65
-None compromising logline 64
-3x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
-None compromising logline 66
-None compromising logline 68
-None compromising logline 63
-2x
-    None compromising logline 65
-2x
-    None compromising logline 63
-None compromising logline 64
-None compromising logline 63
-None compromising logline 66
-2x
-    None compromising logline 64
-None compromising logline 65
-None compromising logline 68
-None compromising logline 65
-None compromising logline 67
-None compromising logline 65
-2x
-    None compromising logline 64
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 68
-None compromising logline 64
-2x
-    None compromising logline 66
-2x
-    None compromising logline 65
-None compromising logline 63
-2x
-    None compromising logline 66
-2x
-    None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-None compromising logline 66
-None compromising logline 67
-None compromising logline 68
-None compromising logline 65
-None compromising logline 63
-2x
-    None compromising logline 68
-None compromising logline 67
-None compromising logline 63
-3x
-    omrolocs660.test <- omrolocs652.wrapper <- omrolocs662.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- omrolocs684.__classMeth <- omrolocs682.classMeth <- omrolocs675.__statMeth <- omrolocs673.statMeth <- OutcastSon(Outcast.__init__) <- omrolocs690.func <- omrolocs694.oldStyleStaticMeth <- omrolocs696.oldStyleClassMeth <- omrolocs697.oldStyleInstanceMeth <- omrolocs733.genLogs <- omrolocs737.<module>
+    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
