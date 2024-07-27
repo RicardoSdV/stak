@@ -21,7 +21,7 @@ Cool potential features:
     - Support force passing the definer class as kwarg, to have good prints if there are static methods or wrappers
     in the meanwhile
 
-    - Add an option to print the stack in multiple lines with indentation
+    - Add an option to print the stack in multiple parsedLines with indentation
 
     - Add option to print a trimmed version of the callstack, only the first and last frame
 """

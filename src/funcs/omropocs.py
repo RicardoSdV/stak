@@ -31,7 +31,7 @@ Cool potential features:
     - Support force passing the definer class as kwarg, to have good prints if there are static methods or wrappers
     in the meanwhile
 
-    - Add an option to print the stack in multiple lines with indentation
+    - Add an option to print the stack in multiple parsedLines with indentation
 
     - Add option to print a trimmed version of the callstack, only the first and last frame
 
@@ -53,8 +53,8 @@ def omropocs(pMRO=True, callStackDepth=999, silence=False):
     for frame in frames:
         fObj, methName, = frame[0], frame[3]; fLocals = fObj.f_locals
 
-        isInsMeth = True if 'self' in fLocals else False; isClsMeth = True if 'cls' in fLocals else False
-        callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['cls'] if isClsMeth else None
+        isInsMeth = True if 'self' in fLocals else False; isClsMeth = True if 'defClsMaybe' in fLocals else False
+        callerCls = fLocals['self'].__class__ if isInsMeth else fLocals['defClsMaybe'] if isClsMeth else None
 
         if not (isInsMeth or isClsMeth) or isinstance(callerCls, types.ClassType):
             callChain.append(frame[1].split('/')[-1].replace('.py', str(frame[2])) + '.' + methName); continue

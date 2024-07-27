@@ -1,3 +1,10 @@
-STAK.omrolocs <- STAK.__init__ <- C:\prjs\stak\src\omrolocs768.<module>
-203x
-    STAK.omrolocs <- C:\prjs\stak\src\omrolocs780.test <- C:\prjs\stak\src\omrolocs772.wrapper <- C:\prjs\stak\src\omrolocs782.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- C:\prjs\stak\src\omrolocs795.__statMeth <- C:\prjs\stak\src\omrolocs793.statMeth <- OutcastSon(Outcast.__init__) <- C:\prjs\stak\src\omrolocs810.func <- C:\prjs\stak\src\omrolocs814.oldStyleStaticMeth <- C:\prjs\stak\src\omrolocs816.oldStyleClassMeth <- C:\prjs\stak\src\omrolocs817.oldStyleInstanceMeth <- C:\prjs\stak\src\omrolocs853.genLogs <- C:\prjs\stak\src\omrolocs861.<module>
+2024-07-27
+235x
+    src\omrolocs.962.test <- src\omrolocs.954.wrapper <- src\omrolocs.968.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.981.__statMeth <- src\omrolocs.979.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.996.func <- src\omrolocs.999.oldStyleStaticMeth <- src\omrolocs.1001.oldStyleClassMeth <- src\omrolocs.1002.oldStyleInstanceMeth <- src\omrolocs.1083.genLogs <- src\omrolocs.1096.<module>
+    src\omrolocs.963.test(No data was passed)
+    src\omrolocs.964.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.965.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.966.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )

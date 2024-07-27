@@ -1,8 +1,8 @@
 """
 How to use:
-    - Paste STAK class definition and stak = STACK() object instantiation in some high level utils type file
-    - Call stak.omrolocs() from any callable to debug, or even a file, anywhere
-    - Optionally set the printMRO, adjust the callStackDepth optionally at a global level or by passing the args
+    - Copy-paste STAK in some high level utils type file & instantiate
+    - Import the STAK object to make log entries by calling omrolocs & data
+    - Need an interactive terminal, import STAK instance into it, & call help(instanceName)
 
 Known issues:
     - Caller class cannot be found for wrapped methods & therefore definer class neither (with custom wrappers,
@@ -12,130 +12,34 @@ Known issues:
 
     - If the object object autopassed to an instance method is not called 'self' defaults to filename & lineno
 
-    - If the class object autopassed to a class method is not called 'cls' defaults to filename & lineno
+    - If the class object autopassed to a class method is not called 'defClsMaybe' defaults to filename & lineno
 
     - If the method is defined in an old style class, it defaults to filename & lineno
 
     - The spliceGenerator raises an error if any of the spliced logs is empty, which they normally shouldn't but yeah
 
     - The __log parser needs to be way more robust, can't rely on standard line formats because typing in the console
-    messes with __log lines for some reason. (This is kind of solved but the solution sucks)
+    messes with __log parsedLines for some reason. (This is kind of solved but the solution sucks)
 
     - Due to the compression algorith some, potentially more profitable patterns, are lost e.g. A, A, A, B, A, B -> 3A, BAB
 
 Unknown Issues:
-    - If the game crashes I think there might be a problem, depending on how bad the crash.
-        Possible solution: would be to add an option to either save then logs every so often, or ideally run this
-        entire thing in a separate process which never crashes which I don't even know if possible
+    - If the program crashes there might be a problem
 
-
-Cool potential features: (Rule: If I haven't thought that the new potential feature would be practical at least
-a couple times when solving real problem abstain from ejaculating it all over this document)
-
-    - If there are multiple methods in the call stack that have the same definer and caller class maybe print only
-    one copy of the MRO and substitute in the other frames by ... or something. Actually might need the entire MRO. Why? wtf explain yourself
-
-    - Support finding caller definer & mro classes for static methods, private properties & wrapped methods
-
-    - Somehow better prints for wrappers, would be cool to have CallerCls(DefinerCls.@decorator.methName)
-    but im not sure there is a good way of getting the decorator, only the wrapper
-
-        The concept of closures & this function may or may not help
-        def identify_function(func):
-            if func.func_name == 'onCollect' and func.func_closure:
-                closure_vars = {cell.cell_contents for cell in func.func_closure}
-                return closure_vars
-
-
-    - Add an option to print the stack in multiple lines with indentation (Seems like this would be better after the fact)
-
+Cool potential features: (by priority)
     - wrap long stacks
 
-    - Print data structures automatically with wraparound & optionally formatting:
-        - This would require adding __log flags to distinguish [STAK] from [PDS] or whatever, not to actually print them
-        because who cares, but to distinguish in code, which could be inferred, but that's more complicated & less
-        flexible in case other types of entries are added.
+    - Add an option to print the stack in multiple parsedLines with indentation
 
-        - Also the wrapper method could be used to wrap every type of __log entry
+    - Pretty print data structures
 
-        - The problem is that formatting random string datastructures is a pain, & limiting. Therefore, the actual
-        datastructure should be formatted, which, brings some problems, either do it live, which brings the problem
-        of not knowing if the datastructure needs formatting or not & speed, or, keeping a deep copy of the structure,
-        which also brings issues, since objects in it should be copyable which we cannot guarantee. So, a potential
-        solution would be to have a copy of the simple stuff in the structure, & a string of the complex stuff, for
-        example:
-        [1,2,3,{we call the __repr__ of the object & store the string, or whatever we want to call like func.__name__}]
+    - If there are multiple methods in the call stack that have the same MRO compress that
 
-    - Time stamps:
-        - Re-introduce stamps in compressed logs.
-        - Given that stamps are mostly the same, just log the parts that change
-
-        for example:
-
-            2024-07-02 20:23:52.903:
-            3x
-                None compromising logline 66
-            None compromising logline 67
-
-Working on right now:
-    - make the commands one letter and properties, tiered of typing (maybe it's hard to remember one letter commands,
-    maybe three letter commands is the sweet spot, maybe rare commands should be longer, common commands shorter)
-
-    - Adding __log flags to stak.__log
-
-
-Some details:
-    - Definitions:
-        - Trim: A __log without the timestamps & some or all __log type flags
-        - Compress: A __log losslessly compressed into a readable format
-        - Splice: A combination of two logs based on their time stamps
-
-
-    - Path ops:
-        .STAK <- All logs produced by this class will be found in this dir
-            |
-            task_dir <- All task specific logs found here
-                |
-                print_dir <- Tasks require different prints, each print version should have one print_dir
-                    |
-                    .descr.txt <- Text file that should describe what is being printed in this print_dir
-                    |
-                    condition_specific_dir <- To solve a task different conditions have to be reproduced, for example,
-                    reproduce a bug and then do something similar that doesn't reproduce the bug, since they print the
-                    same things they should be found in the same print_dir, but since different things have happened
-                    to create said prints they should be in separate __log files.
-                        |
-                        trimNCL1Splice.__log
-                        |                   <- The NCL.__log a program may produce spliced with stak.__log & trimmed
-                        trimNCL2Splice.__log
-                        |
-                        variants_dir <- Different logs that might be needed only sometimes
-                            |
-                            NCL1Splice.__log
-                            |               <- Untrimmed splices (with timestamps, flags & all)
-                            NCL2Splice.__log
-                            |
-                            compNCL1.__log
-                            |           ----|
-                            compNCL2.__log    | <- Trimmed primitives, no splicing
-                            |           ----|
-                            compStak.__log
-
-                        primitives_dir <- Dir to hold all the data used to create the above logs
-                            |
-                            stak.__log <- stak info by itself with timestamps
-                            |
-                            NCL1.__log
-                            |       <- The normal logs but only in the stak.__log time period
-                            NCL2.__log
-
-        Since at the moment calling omrolocs requires modifying the code, and since modifying the code, at the moment
-        requires restarting the program, some pathops will be triggered in the __init__
-
+    - Somehow better prints for wrappers, e.g. CallerCls(DefinerCls.@decoratorName.methNameToFindDefClsOf) (Look at closures? maybe?)
 
 """
 
-# Imports used outside stak
+# Imports used outside STAK
 import code
 from datetime import datetime
 from itertools import repeat
@@ -144,94 +48,47 @@ from time import sleep
 from types import CodeType
 
 from src.funcs.someCode import SomeClass
-from typing import Tuple, Optional, List, Union, Iterator, Type, Any, Callable
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from typing import *
+    from collections import *
 
-# Types are defined outside the class since they are not necessary for running STAK, only for readability
+    SplitLink = Tuple[Union[str, List[str]], str]
 
-# Something is considered a log line when it is a string which ends in \n otherwise it is a log entry
+    EntryWithStrStamps = Tuple[Tuple[str, str, str, str], str, Union[SplitLink, str]]
 
-# Directory & file names & paths -------------------------------------------------------------------------------
-
-StakRootDirName = str  # All logs generated by STAK
-TaskDirName     = str  # Logs pertinent to a specific task, e.g. fixing a bug
-PrintDirName    = str  # Logs that print the same things, but in different circumstances
-
-PrimitivesDirName = str  # Holds representations of data used to create trimmed, spliced and/or compressed logs
-VariantsDirName   = str  # The logs which have had some combination of the transforms applied
-
-FileName = str  # Ends in file extension, e.g. '.log' but contains no dirs, i.e. it's not a filePath
-
-StdLogFileName  = FileName  # Name of a log file which holds the logs normally produced by the app
-StdLogFileNames = Tuple[StdLogFileName, ...]  # None or more standard log file names
-
-StrFilePath     = str          # Relative path to a file created with os.path.join()
-NoExistFilePath = StrFilePath  # A StrFilePath which known to not exist yet
-
-StrDirPath = str  # Relative path to a dir created with os.path.join()
-StrPathToPrintDir = StrDirPath
-StrPathToPrimitivesDir = StrDirPath
-StrPathToVariantsDir = StrDirPath
-StrFilePathToStakLogPrimitive = StrDirPath
-
-# ---------------------------------------------------------------------------------------------------------------
-
-# Types of log lines
-Line           = str  # A normal string that will become one or more lines in a log therefore ends in /n
-StdLogLine     = str  # A line as found in the std logs, with time stamp, flags, etc.
-StampedLine    = str  # Starts with a time stamp, contains flags, ends with \n
-ProbParsedLine = str  # Probably time stamp & flag is trimmed, maybe not when parsing fails
-ProbJoinedLine = str  # Probably rejoined parsed line, maybe not when parsing fails TODO: Reconsider interpolating stamp to avoid all these probs
-
-# Components of a split link call chain
-LineNum    = int  # Line number where the call to the callable can be found
-CallerFile = str  # File where the call to this callable can be found TODO: Settle if this should be the abs filePath the name some part of the filePath or what
-MethName   = str  # Callable name whose call triggered the creation of its link
-ClassName  = str  # Name of a class
-MroClsNs = List[ClassName]  # Method Resolution Order from caller to definer if definer found, else definer = object
-SplitLink = Tuple[Optional[MroClsNs], MethName, CallerFile, LineNum]
-SplitLinkCallChain = List[SplitLink]
-
-# Components of a string link call chain
-StrLink = str  # String links should end in \n since they are considered one or more log lines
-StrLinkCallChain = List[StrLink]
-
-# Components of different types of log entries
-LogFlag = str
-TimeStamp = datetime
-SplitLinkCallChainEntry = Tuple[TimeStamp, LogFlag, SplitLinkCallChain]
-StrLinkCallChainEntry   = Tuple[TimeStamp, LogFlag, StrLinkCallChain]
-ParsedStdLogEntry       = Tuple[Optional[TimeStamp], Optional[LogFlag], ProbParsedLine]
-
-# Log types including intermediate
-CaptureReceptiveLog  = List[SplitLinkCallChainEntry]
-StrLinkCallChainsLog = List[StrLinkCallChainEntry]
-ParsedStdLog         = List[ParsedStdLogEntry]
-
-ParsedStdLogs = List[ParsedStdLog]
-
-ClassObject = Type[Any]
-WasDefinerClsFound = bool
-DefClsCond = Callable[[ClassObject, MethName, CodeType], WasDefinerClsFound]
+    StrLinkCallChainEntry   = Tuple[float, str, List[str]]
 
 
 class STAK(object):
-    import time as __ti; import os as __os; from types import ClassType as __OldStyleClsType
-    from datetime import datetime as __dt; from shutil import rmtree as __rmtree
-    from sys import _getframe as __getFrame; from types import FunctionType as __FunctionType
+    """ A call stack creating, log parsing, creating & compressing method resolution order representing class & more """
+    # Tip: This class could be split into modules or classes. Main reason it's not is to be easy to copy-paste, folding
+    # all the methods & in-between ===== blocks & treat those like classes or modules its easy to understand
 
+    """================================================ INITIALISING ================================================"""
 
-    __slots__ = (  # Slots so that __weakref__ & __dict__ don't appear when calling help()
-        '__log', '__dirRoot', '__dirTask', '__dirPrnt', '__dirPrimi', '__dirVari', '__nameLogStak',
-        '__namesLogStd', '__maxGroupSize', '__isPrintingTimes', '__eventCnt', '__eventLabels'
+    import os as __os; from types import ClassType as __OldStyleClsType; from datetime import datetime as __dt
+    import time as __ti; import shutil as __shutil; import re as __re; from types import FunctionType as __FunctionType
+    from collections import defaultdict as __DefaultDict, OrderedDict as __OrderedDict; import sys as __sys
+    from itertools import izip as __izip
+
+    __slots__ = (
+        '__log', '__dirRoot', '__dirTask', '__dirPrnt', '__dirPrimi', '__dirVari', '__nameLogStak', '__namesLogStd',
+        '__maxGroupSize', '__eventCnt', '__eventLabels', '__matcher', '__stdFlags', '__cutoffCombos', '__wholeEnoughs',
+        '__getFrame', '__append_to_log', '__flags', '__paddedFlags', '__paddedStdFlags', '__cutoffFlag', '__allPflagsByFlags',
+        '__pStdFlagsByStdFlags', '__extend_log'
     )
 
     def __init__(self):  # type: () -> None
-        # Many attrs are private so they don't appear on help(stak), however, some can be changed live,
-        # if a method exists to change them indirectly it should be used, otherwise probably not.
 
-        self.__log = []  # type: CaptureReceptiveLog
-        self.omrolocs()
+        self.__flags = ('OMROLOCS', 'DATE', 'DATA', 'LABEL')
+        self.__paddedFlags = tuple(self.__padFlags(self.__flags))
+
+        self.__log = []  # type: List[Tuple[float, str, Union[SplitLink, str]]]
+        self.__append_to_log = self.__log.append
+        self.__extend_log    = self.__log.extend
+        self._date_entry()
 
         # Save Settings (cwd == bin, paths relative)
         self.__dirRoot     = '.STAK'
@@ -242,235 +99,409 @@ class STAK(object):
         self.__nameLogStak = 'stak.log'
         self.__namesLogStd = ('stdLogA.log', 'stdLogB.log')
 
-        # Compress settings
-        self.__maxGroupSize = 100  # Main slow down factor when saving
-        self.__isPrintingTimes = False
+        self.__maxGroupSize = 100  # Increases compress times exponentially
 
-        # Labeling
         self.__eventCnt = 0
         self.__eventLabels = ['ARENA LOADED', 'VEHICLE CHANGED']
 
+        self.__getFrame = self.__sys._getframe
+
+        self.__matcher = self.__re.compile(
+            r'(?:(\d{4})-)?'   # year
+            r'(?:(\d{2})-)?'   # month
+            r'(?:(\d{2}) )?'   # day
+            r'(?:(\d{2}):)?'   # hour
+            r'(?:(\d{2}):)?'   # minute
+            r'(?:(\d{2})\.)?'  # second
+            r'(?:(\d{3}))?'    # millisec
+            r': ([A-Z]+):'     # logFlag
+        ).search
+
+        self.__stdFlags = ('DEBUG', 'INFO', 'NOTICE', 'WARNING', 'ERROR', 'CRITICAL', 'HACK')
+        self.__cutoffFlag = 'CUTOFF'
+
+        self.__cutoffCombos = self.__uniqueFlagCutoffCombosByRepetitionsCreator()
+        self.__wholeEnoughs = self.__wholeEnoughsCreator()
+
+        self.__paddedStdFlags = tuple(self.__padFlags(self.__stdFlags))  # type: Tuple[str, ...]
+        self.__allPflagsByFlags = self.__createAllPaddedFlagsByAllFlags()
+
+        self.__pStdFlagsByStdFlags = {flag: pFlag for flag, pFlag in self.__izip(self.__stdFlags, self.__paddedStdFlags)}
+        self.__pStdFlagsByStdFlags['CUTOFF'] = ': CUTOFF  : '  # Manually padding this ain't
+
         self.__makeDirs()
 
-    """============================================ CAPTURING LOGS PHASE ============================================"""
+    def __uniqueFlagCutoffCombosByRepetitionsCreator(self): # type: () -> OrderedDict[str, int]
 
-    def omrolocs(self, callStackDepth=None, silence=False):  # type: (Optional[int], bool) -> None
+        combos = self.__DefaultDict(int)
+        for _str in self.__stdFlags:
+            while _str:
+                combos[_str] += 1
+                _str = _str[1:]
+
+        return self.__OrderedDict(
+            {
+                combo: combos[combo]
+                for combo in sorted(combos, key=len, reverse=True)
+            }
+        )
+
+    def __wholeEnoughGenerator(self, flag):  # type: (str) -> str
+        cutoffCombos = self.__cutoffCombos
+        while flag:
+            if cutoffCombos[flag] > 1:
+                return
+            yield flag
+            flag = flag[1:]
+
+    def __wholeEnoughsCreator(self):  # type: () -> Dict[str, str]
+        """ There are certain strings, for which, if we know that they are a flag which was cutoff, are unique enough
+        to discern the full flag from. This creates a dict associating such "whole enough" flags & whole flags. """
+        wholeEnoughGenerator, stdFlags = self.__wholeEnoughGenerator, self.__stdFlags
+        return {
+            wholeEnoughFlag: wholeFlag
+            for wholeFlag in stdFlags
+            for wholeEnoughFlag in wholeEnoughGenerator(wholeFlag)
+        }
+
+    @staticmethod
+    def __padFlags(flags):  # type: (Tuple[str, ...]) -> Iterator[str]
+        maxFlagLen = max(len(flag) for flag in flags)
+        return (': ' + flag + ' ' * (maxFlagLen - len(flag)) + ': ' for flag in flags)
+
+    def __createAllPaddedFlagsByAllFlags(self):  # type: () -> Dict[str, str]
+        allFlags = self.__flags + self.__stdFlags + (self.__cutoffFlag, )
+        pAllFlags = self.__padFlags(allFlags)
+        return {
+            flag: pFlag
+            for flag, pFlag
+            in self.__izip(allFlags, pAllFlags)
+        }
+
+    """=============================================================================================================="""
+
+    """================================================== INTERFACE ================================================="""
+
+    # Call from code interface
+    def omrolocs(self, silence=False):  # type: (bool) -> None
         """ Optional Method Resolution Order Logger Optional Call Stack """
 
         if silence: return
 
-        self.__log.append(
+        self.__append_to_log(
             (
-                self.__dt.now(),
-                list(self.__linksGenerator(callStackDepth))
+                self.__ti.time(),
+                self.__flags[0],
+                tuple(self.__linksGen()),
             )
         )
 
+    def data(self, pretty=False, **dataForLogging):  # type: (bool, Any) -> None
+        """ Log data structures, their callable & definer class names """
+
+        if pretty:
+            now, flag = self.__ti.time(), self.__flags[2]
+
+            if dataForLogging:
+                self.__append_to_log((now, flag, '{}.{}(\n'.format(*next(self.__linksGen()))))
+                self.__extend_log(
+                    (now, flag, '    {}={},\n'.format(name, datum))
+                    for name, datum in dataForLogging.items()
+                )
+                self.__append_to_log((now, flag, ')\n'))
+            else:
+                self.__append_to_log((now, flag, '(No data was passed)\n'))
+        else:
+            self.__append_to_log(
+                (
+                    self.__ti.time(),
+                    self.__flags[2],
+                    (
+                        '{}.{}('.format(*next(self.__linksGen())) +
+                        ', '.join(('{}={}'.format(name, datum) for name, datum in dataForLogging.items())) +
+                        ')\n'
+                    ) if dataForLogging else '{}.{}('.format(*next(self.__linksGen())) + 'No data was passed)\n'
+                )
+            )
+
+    def _date_entry(self):
+        """ Since normal entries only log time, this one is used to log date normally on logging session init """
+        self.__append_to_log((self.__ti.time(), self.__flags[1], self.__dt.now().strftime('%Y-%m-%d\n')))
+
+    # Call from shell interface
+    def save(self):  # type: () -> None
+        """ Save stak.__log, spliced, trimmed & more """
+        log = tuple(
+            self.__logWithStrStampsGen()
+        )  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[SplitLink, str]], ...]
+
+        # partStrLinkCallChains = tuple(self.__strLinkCallChainGen(log, self.__partStrLinkCreator))
+
+        fullStrLinkCallChains = tuple(
+            self.__strLinkCallChainGen(
+                log, self.__fullStrLinkCreator
+            )
+        )  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[Tuple[str, ...], str]], ...]
+
+        # for entry in fullStrLinkCallChains:
+        #     print 'entry', entry
+
+        self.__saveRawLogToPrimitives(fullStrLinkCallChains)
+
+        callChainsWithCompressedStrLinks = tuple(self.__compressLinksGen(fullStrLinkCallChains))
+        self.__saveCompressedStakLogToVariants(callChainsWithCompressedStrLinks)
+
+        parsedStdLogs = tuple(  # Flags not padded yet
+            self.__parsedStdLogGen()
+        )  # type: Tuple[Tuple[Tuple[Tuple[str, str, str, str], str, str]]]
+
+        self.__saveStdLogsToPrimitives(parsedStdLogs)
+        splicedLogs = self.__saveSplicedToVariants(parsedStdLogs, callChainsWithCompressedStrLinks)
+
+        self.__saveCompressedSplicedLogs(splicedLogs)
+
     def label(self):  # type: () -> None
-        """ Print next label, in self.__eventLabels if some left, else print un-named label """
+        """ Make a log entry with next label in self.__eventLabels if any, else print no-name label """
 
         if self.__eventCnt < len(self.__eventLabels):
             label = self.__eventLabels[self.__eventCnt]
             self.__eventCnt += 1
         else:
-            label = 'NO NAME LABEL' + str(len(self.__eventLabels) - self.__eventCnt)
+            label = 'NO-NAME LABEL' + str(len(self.__eventLabels) - self.__eventCnt)
 
-        print '\n===============================================',label,'===============================================\n'
+        self.__append_to_log(
+            (
+                self.__ti.time(),
+                self.__labelFlag,
+                '\n========================================================= {} '
+                '=========================================================\n\n'.format(label)
+            )
+        )
 
-    @classmethod
-    def __linksGenerator(cls, maxCallStackDepth):  # type: (Optional[int]) -> Iterator[SplitLink]
-        frame = cls.__getFrame(1)
+    def changePath(
+            self,
+            prnt=None,    # type: Optional[str]
+            task=None,    # type: Optional[str]
+            primi=None,   # type: Optional[str]
+            vari=None,    # type: Optional[str]
+            root=None,    # type: Optional[str]
+            stdLogs=None  # type: Optional[str]
+    ):  # type: (...) -> None
+        """ Change dir &/or file name(s), new dirs are created if don't exist, pass only name(s) not paths """
 
-        callStackDepth = 0
-        while frame and callStackDepth != maxCallStackDepth:
-            codeObj, fLocals, lineNum = frame.f_code, frame.f_locals, frame.f_lineno
-            methName, filePath = codeObj.co_name, codeObj.co_filename
+        if prnt    is not None: self.__dirPrnt     = prnt
+        if task    is not None: self.__dirTask     = task
+        if primi   is not None: self.__dirPrimi    = primi
+        if vari    is not None: self.__dirVari     = vari
+        if root    is not None: self.__dirRoot     = root
+        if stdLogs is not None: self.__namesLogStd = stdLogs
+
+        self.__makeDirs()
+
+    def clear(self):  # type: () -> None
+        """ DANGER: Clears current logs, stak & std. Resets self.__eventCnt (label print count) & more """
+
+        for logPath in self.__namesLogStd:
+            with open(logPath, 'w'): pass
+
+        self.__log = []
+        self.__eventCnt = 0
+
+        self._date_entry()
+
+    def rmPrint(self):  # type: () -> None
+        """ MUCH DANGER: Remove current print dir & all its logs & recreate the dirs (not the logs) """
+
+        self.__shutil.rmtree(self.__pathDirPrint)
+        self.__makeDirs()
+
+    """=============================================================================================================="""
+
+    """=========================================== CREATING MRO CALL CHAINS =========================================="""
+
+    def __linksGen(self):  # type: () -> Iterator[Tuple[Union[str, List[str]], str]]
+        frame, mroClsNsGen, OldStyleClsType, os = self.__getFrame(2), self.__mroClsNsGen, self.__OldStyleClsType, self.__os
+        privInsMethCond, pubInsMethCond = self.__privInsMethCond, self.__pubInsMethCond
+        privClsMethCond, pubClsMethCond = self.__privClsMethCond, self.__pubClsMethCond
+
+        while frame:
+            codeObj, fLocals = frame.f_code, frame.f_locals
+            methName = codeObj.co_name
 
             callerCls = None
             if 'self' in fLocals:
                 callerCls = fLocals['self'].__class__
-                defClsCond = cls.__privInsMethCond if cls.__isPrivate(methName) else cls.__pubInsMethCond
+                defClsCond = privInsMethCond if methName.startswith('__') and not methName.endswith('__') else pubInsMethCond
             elif 'cls' in fLocals:
                 callerCls = fLocals['cls']
-                defClsCond = cls.__privClsMethCond if cls.__isPrivate(methName) else cls.__pubClsMethCond
+                defClsCond = privClsMethCond if methName.startswith('__') and not methName.endswith('__') else pubClsMethCond
 
-            if callerCls is None or isinstance(callerCls, cls.__OldStyleClsType):
-                yield None, methName, filePath, lineNum
+            if callerCls is None or isinstance(callerCls, OldStyleClsType):
+                splitFilePath = codeObj.co_filename.split(os.sep)
+                yield os.path.join(splitFilePath[-2], splitFilePath[-1]).rstrip('py') + str(frame.f_lineno), methName
             else:
-                mroClsNs = list(cls.__mroClsNsGenerator(callerCls, defClsCond, methName, codeObj))
+                # PyCharm thinks defClsCond could be undefined, but if callerCls is not None it must be defined
+                mroClsNs = list(mroClsNsGen(callerCls, defClsCond, methName, codeObj))
                 if mroClsNs[-1] == 'object':  # Sometimes definer class not found so follow inheritance tree to the root
-                    mroClsNs = None
-                yield mroClsNs, methName, filePath, lineNum
+                    splitFilePath = codeObj.co_filename.split(os.sep)
+                    yield os.path.join(splitFilePath[-2], splitFilePath[-1]).rstrip('py') + str(frame.f_lineno), methName
+                else:
+                    yield mroClsNs, methName
 
             frame = frame.f_back
-            callStackDepth += 1
 
     @staticmethod
-    def __mroClsNsGenerator(callerCls, defClsCond, methName, fCode):  # type: (ClassObject, DefClsCond, str, CodeType) -> Iterator[str]
+    def __mroClsNsGen(
+            callerCls,   # type: Type[Any]
+            defClsCond,  # type: Callable[[Type[Any], str, CodeType], bool]
+            methName,    # type: str
+            codeObj      # type: CodeType
+    ):                   # type: (...) -> Iterator[str]
         for cls in callerCls.__mro__:
             yield cls.__name__
-            if defClsCond(cls, methName, fCode):
+            if defClsCond(cls, methName, codeObj):
                 return
 
     @staticmethod
-    def __privInsMethCond(callerCls, methName, fCode):  # type: (ClassObject, str, CodeType) -> WasDefinerClsFound
-        for attr in callerCls.__dict__.values():
+    def __privInsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
+        # type:          (Type[Any]  , str                   , CodeType             ) -> bool
+
+        # This works even when the class defined __slots__ because we're iterating over the class objects' __dict__
+        # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
+        for attr in defClsMaybe.__dict__.values():
             if (
-                    isinstance(attr, STAK.__FunctionType)
-                    and attr.__name__ == methName
-                    and attr.func_code is fCode
+                    isinstance(attr, STAK.__FunctionType) and
+                    attr.__name__ == methNameToFindDefClsOf and
+                    # If the code object is the same do we need to compare the meth name too??
+                    attr.func_code is codeObjToFindDefClsOf
             ):
                 return True
         return False
 
     @staticmethod
-    def __pubInsMethCond(callerCls, methName, fCode):  # type: (ClassObject, str, CodeType) -> WasDefinerClsFound
-        if methName in callerCls.__dict__:
-            method = callerCls.__dict__[methName]
+    def __pubInsMethCond (defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
+        # type:         (Type[Any]  , str                   , CodeType             ) -> bool
+
+        # This works even when the class defined __slots__ because we're iterating over the class objects' __dict__
+        # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
+        if methNameToFindDefClsOf in defClsMaybe.__dict__:
+            method = defClsMaybe.__dict__[methNameToFindDefClsOf]
 
             if isinstance(method, property):
-                if method.fget.func_code is fCode:
+                # PyCharm thinks func_code don't exist, it's wrong
+                if method.fget.func_code is codeObjToFindDefClsOf:
                     return True
-            elif method.func_code is fCode:
+            elif method.func_code is codeObjToFindDefClsOf:
                 return True
         return False
 
     @staticmethod
-    def __privClsMethCond(callerCls, methName, fCode):  # type: (ClassObject, str, CodeType) -> WasDefinerClsFound
-        for attr in callerCls.__dict__.values():
+    def __privClsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
+        # type:          (Type[Any]  , str,                    CodeType             ) -> bool
+
+        # This works even when the class defined __slots__ because we're iterating over the class objects' __dict__
+        # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
+        for attr in defClsMaybe.__dict__.values():
             if (
                     isinstance(attr, classmethod)
-                    and attr.__func__.__name__ == methName
-                    and attr.__func__.__code__ is fCode
+                    and attr.__func__.__name__ == methNameToFindDefClsOf
+                    # PyCharms thinks __code__ don't exist, it's wrong
+                    and attr.__func__.__code__ is codeObjToFindDefClsOf
             ):
                 return True
         return False
 
     @staticmethod
-    def __pubClsMethCond(cls, methName, fCode):  # type: (ClassObject, str, CodeType) -> WasDefinerClsFound
+    def __pubClsMethCond (defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
+        # type:         (Type[Any]  , str                   , CodeType             ) -> bool
+
+        # This works even when the class defined __slots__ because we're accessing class objects' __dict__ not the
+        # object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
         if (
-                methName in cls.__dict__
-                and cls.__dict__[methName].__func__.__code__ is fCode
+                methNameToFindDefClsOf in defClsMaybe.__dict__
+                and defClsMaybe.__dict__[methNameToFindDefClsOf].__func__.__code__ is codeObjToFindDefClsOf
         ):
             return True
         return False
 
-    @staticmethod
-    def __isPrivate(methName):  # type: (str) -> bool
-        return methName.startswith('__') and not methName.endswith('__')
-
     """=============================================================================================================="""
 
-    """============================================= SAVING LOGS PHASE =============================================="""
-    def save(self):  # type: () -> None
-        """ Save stak.__log, splice, trimmed & more """
+    """================================================ SAVING LOGS ================================================="""
 
-        start = self.__ti.time()
-
-        callChainsWithStrLinks = [(timeStamp, list(self.__strLinkGen(callChain))) for timeStamp, callChain in self.__log]
-        doneCallChainsWithStrLinks = self.__ti.time()
-
-        self.__saveRawStakLogToPrimitives(callChainsWithStrLinks)
-        done__saveRawStakLogToPrimitives = self.__ti.time()
-
-        stdLogsInStakPeriod = self.__readAndParseStdLogs()
-        doneStdLogsInStakPeriod = self.__ti.time()
-
-        self.__saveStdLogsToPrimitives(stdLogsInStakPeriod)
-        done__saveStdLogsInStakPeriodToPrimitives = self.__ti.time()
-
-        callChainsWithCompressedStrLinks = self.__compressLinks(callChainsWithStrLinks)  # type: List[Tuple[datetime, str]]
-        doneCallChainsWithCompressedStrLinks = self.__ti.time()
-
-        splicedLogs = self.__saveSplicedToVariants(stdLogsInStakPeriod, callChainsWithCompressedStrLinks)
-        doneSplicedLogs = self.__ti.time()
-
-        self.__saveCompressedSplicedLogs(splicedLogs)
-        done__saveCompressedSplicedLogs = self.__ti.time()
-
-        self.__saveCompressedStakLogToVariants(callChainsWithCompressedStrLinks)
-        done__saveCompressedStakLogToVariants = self.__ti.time()
-
-        self.__printTimes(
-            start, doneCallChainsWithStrLinks, done__saveRawStakLogToPrimitives, doneStdLogsInStakPeriod,
-            done__saveStdLogsInStakPeriodToPrimitives, doneCallChainsWithCompressedStrLinks, doneSplicedLogs,
-            done__saveCompressedSplicedLogs, done__saveCompressedStakLogToVariants
+    def __logWithStrStampsGen(self):
+        # type: () -> Iterator[Tuple[Tuple[str, str, str, str], str, Union[SplitLink, str]]]
+        unixStampToIntermediate = self.__unixStampToIntermediate
+        return (
+            (unixStampToIntermediate(unixStamp), flag, theRest)
+            for unixStamp, flag, theRest in self.__log
         )
 
-    def __saveRawStakLogToPrimitives(self, callChainsWithStrLinks):  # type: (StrLinkCallChainsLog) -> None
+    def __strLinkCallChainGen(
+        self,
+        log,         # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[SplitLink, str]]]
+        linkCreator  # type: Callable[List[str], str]
+    ):               # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, Union[str, Tuple[str, ...]]]]
+
+        omrolocsFlag = self.__flags[0]
+        for stamp, flag, theRest in log:
+            if flag == omrolocsFlag:
+                yield stamp, flag, tuple(  # At this point theRest is the splitLinkCallChain
+                    (
+                        bigNameSpace + '.' + methName if isinstance(bigNameSpace, str)
+                        else linkCreator(bigNameSpace[:], methName)
+                        for bigNameSpace, methName in theRest
+                    )
+                )
+            else:
+                yield stamp, flag, theRest
+
+    @staticmethod
+    def __fullStrLinkCreator(mroClsNs, methName):  # type: (List[str], str) -> str
+        mroClsNs[-1] = mroClsNs[-1] + '.' + methName + ')' * (len(mroClsNs) - 1)
+        return '('.join(mroClsNs)
+
+    @staticmethod
+    def __partStrLinkCreator(mroClsNs, methName):  # type: (List[str], str) -> str
+        return mroClsNs[-1] + '.' + methName
+
+    def __saveRawLogToPrimitives(self, logWhereCallChainsHaveStrLinks):
+        # type: (Tuple[Tuple[float, str, Union[str, List[str]]]]) -> None
         with open(
                 self.__ifPathExistsIncSuffix(
                     self.__pathLogStak
                 ), 'w'
         ) as f:
             f.writelines(
-                (self.__chainLinker(*el)
-                 for el in callChainsWithStrLinks)
+                self.__joinLogEntriesIntoLines(
+                    logWhereCallChainsHaveStrLinks
+                )
             )
 
-    @classmethod
-    def __chainLinker(cls, timeStamp, callChainWithStrLinks):  # type: (TimeStamp, StrLinkCallChain) -> StampedLine
-        return cls.__stampToStr(timeStamp) + ': ' + ' <- '.join(callChainWithStrLinks) + '\n'
+    def __joinLogEntriesIntoLines(
+        self,
+        logWhereCallChainsHaveStrLinks  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[str, List[str]]]]
+    ):                                  # type: (...) -> Iterator[str]
 
-    @staticmethod
-    def __strLinkGen(callChain):  # type: (SplitLinkCallChain) -> Iterator[StrLink]
-        for mroClsNs, methName, fileName, lineNum in callChain:
-            if mroClsNs is None:
-                yield fileName.replace('.py', str(lineNum)) + '.' + methName
+        omrolocsFlag , dateFlag , dataFlag , labelFlag  = self.__flags
+        pOmrolocsFlag, pDateFlag, pDataFlag, pLabelFlag = self.__paddedFlags
+
+        for stamp, flag, theRest in logWhereCallChainsHaveStrLinks:
+            if flag == omrolocsFlag:
+                yield '{}:{}:{}.{}'.format(*stamp) + pOmrolocsFlag + ' <- '.join(theRest) + '\n'
+            elif flag == dataFlag:
+                yield '{}:{}:{}.{}'.format(*stamp) + pDataFlag + theRest
+            elif flag == labelFlag:
+                yield theRest
+            elif flag == dateFlag:
+                yield '{}:{}:{}.{}'.format(*stamp) + pDateFlag + theRest
             else:
-                mroClsNs = mroClsNs[:]
-                mroClsNs[-1] = mroClsNs[-1] + '.' + methName + ')' * (len(mroClsNs) - 1)
-                yield '('.join(mroClsNs)
+                raise ValueError('Unsupported flag: {}'.format(flag))
 
-    def __readAndParseStdLogs(self):  # type: () -> ParsedStdLogs
-        # TODO: Rewrite, the entire concept is bogus
+    def __saveStdLogsToPrimitives(self, stdLogs):  # type: (Tuple[Tuple[Tuple[Tuple[str, str, str, str], str, str]]]) -> None
+        """ Seems like the std log files could be simply copy-pasted into the new dir, but flag of the point of saving
+        primitives is debugging STAK itself not to keep pristine copies of the original logs """
 
-        def splitTimeStampAndLogTypeFromLine(line):  # type: (StdLogLine) -> ParsedStdLogEntry
-            colonCnt, timeStrEndI, typeFlagEndI, timeStamp, typeFlag = 0, 0, 0, None, None
-            # TODO: Wtf this sucks
-            try:
-                for i, char in enumerate(line):
-                    if char == ':':
-                        colonCnt += 1
-
-                        if colonCnt == 3:
-                            timeStamp = self.__dt.strptime(line[:i], '%Y-%m-%d %H:%M:%S.%f')
-                            timeStrEndI = i
-
-                        elif colonCnt == 4:
-                            typeFlagEndI = i + 2
-                            typeFlag = line[timeStrEndI: typeFlagEndI]
-                            line = line[typeFlagEndI:]
-                            break
-
-                    if i > 34:
-                        break
-
-                return timeStamp, typeFlag, line
-
-            except:
-                return None, ': BROKEN: ', line
-
-        def parsedLinesGenerator(lines):
-            for line in lines:
-                timeStamp, typeFlag, line = splitTimeStampAndLogTypeFromLine(line)
-                yield timeStamp, typeFlag, line
-
-        def parsedLogCreator(path, period):
-            with open(path, 'r') as f:
-                lines = f.readlines()
-            return list(
-                parsedLinesGenerator(lines, *period)
-            )
-
-        return [
-            parsedLogCreator(path, self.__stakPeriod)
-            for path in self.__namesLogStd
-        ]
-
-    def __saveStdLogsToPrimitives(self, stdLogs):  # type: ()
-        """ Seems like the std log files could be simply copy-pasted into the new dir, but part of the point of saving
-        primitives is debugging STAK itself not to keep pristine copies of the original logs, although maybe do both? """
+        pStdFlagsByStdFlags = self.__pStdFlagsByStdFlags
 
         for log, logName in zip(stdLogs, self.__namesLogStd):
             path = self.__ifPathExistsIncSuffix(
@@ -482,69 +513,89 @@ class STAK(object):
             with open(path, 'w') as f:
                 f.writelines(
                     (
-                        self.__stdLogLineCreator(*el)
-                        for el in log
+                        '{}:{}:{}.{}'.format(*stamp) + pStdFlagsByStdFlags[flag] + theRest
+                        for stamp, flag, theRest in log
                     )
                 )
 
-    @classmethod
-    def __stdLogLineCreator(cls, timeStamp, typeFlag, line):  # type: (TimeStamp, LogFlag, ProbParsedLine) -> str
-        return str(cls.__stampToStr(timeStamp)) + str(typeFlag) + str(line)
+    def __unixStampToIntermediate(self, unixStamp):  # type: (float) -> Tuple[str, str, str, str]
+        """ For performance, unix stamps used when gathering logs, for parsing & interpolating standard logs either tuple
+        of ints or strs would be convenient, but since interpolation is expected to happen not so often, we settle for 0
+        padded tuples of stings since few operations are needed to be created & they can be compared """
+        dtStamp = self.__dt.fromtimestamp(unixStamp)
+        return (
+            '{:02}'.format(dtStamp.hour),
+            '{:02}'.format(dtStamp.minute),
+            '{:02}'.format(dtStamp.second),
+            '{:03}'.format(dtStamp.microsecond // 1000),
+        )
 
-    def __saveSplicedToVariants(self, stdLogs, stakLog):
+    def __spliceGen(
+        self,
+        stdLog,  # type: Tuple[Tuple[Tuple[str, str, str, str], str, str]]
+        log,     # type: Tuple[Tuple[Tuple[str, str, str, str], str, str]]
+    ):           # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, str]]
 
-        def spliceGenerator(stdLog, stakLog):
-            stdI, stakI, stdElLeft, stakElLeft, lenStd, lenStak = 0, 0, True, True, len(stdLog), len(stakLog)
+        stdIdx, stakIdx = 0, 0
+        stdElLeft, stakElLeft = True, True
+        lenStd, lenStak = len(stdLog), len(log)
+        allPflagsByFlags = self.__allPflagsByFlags
 
-            stdTimeStamp, stdTypeFlag, stdLine = stdLog[stdI]
-            stakTimeStamp, callChain = stakLog[stakI]
+        stdStamp, stdFlag, stdTheRest = stdLog[stdIdx]
+        stamp   , flag   , theRest    = log[stakIdx]
 
-            while stdElLeft or stakElLeft:
+        while stdElLeft or stakElLeft:
 
-                if stdElLeft is True and (stdTimeStamp <= stakTimeStamp or stakElLeft is False):
-                    yield stdTimeStamp, stdTypeFlag, stdLine
-                    stdI += 1
-                    if stdI == lenStd:
-                        stdElLeft = False
-                    else:
-                        newStamp, stdTypeFlag, stdLine = stdLog[stdI]
-                        if newStamp is not None:
-                            stdTimeStamp = newStamp
-
-                if stakElLeft is True and (stdTimeStamp > stakTimeStamp or stdElLeft is False):
-                    yield stakTimeStamp, callChain
-                    stakI += 1
-                    if stakI == lenStak:
-                        stakElLeft = False
-                    else:
-                        stakTimeStamp, callChain = stakLog[stakI]
-            return
-
-        def jointGenerator(splicedLog):
-            for line in splicedLog:
-                if len(line) == 3:
-                    yield self.__stdLogLineCreator(*line)
+            if stdElLeft is True and (stdStamp <= stamp or stakElLeft is False):
+                yield stdStamp, allPflagsByFlags[stdFlag], stdTheRest
+                stdIdx += 1
+                if stdIdx == lenStd:
+                    stdElLeft = False
                 else:
-                    yield self.__stampToStr(line[0]) + ': ' + line[-1]
-            return
+                    newStamp, stdFlag, stdTheRest = stdLog[stdIdx]
+                    if newStamp is not None:
+                        stdStamp = newStamp
 
-        splicedLogs = []
+            if stakElLeft is True and (stdStamp > stamp or stdElLeft is False):
+                yield stamp, allPflagsByFlags[flag], theRest
+                stakIdx += 1
+                if stakIdx == lenStak:
+                    stakElLeft = False
+                else:
+                    stamp, flag, theRest = log[stakIdx]
+
+    def __saveSplicedToVariants(
+        self,
+        stdLogs,  # type: Tuple[Tuple[Tuple[Tuple[str, str, str, str], str, str]]]
+        stakLog,  # type: Tuple[Tuple[Tuple[str, str, str, str], str, str]]
+    ):            # type: (...) -> List[List[Tuple[Tuple[str, str, str, str], str, str]]]
+        splicedLogs, pStdFlagsByStdFlags = [], self.__pStdFlagsByStdFlags
         for stdLog, logName in zip(stdLogs, self.__namesLogStd):
+
             path = self.__ifPathExistsIncSuffix(
                 self.__os.path.join(
                     self.__pathDirVari, self.__addSuffix(logName, 'Splice')
                 )
             )
 
-            splicedLog = list(spliceGenerator(stdLog, stakLog))
+            # Need this to be list bc compression
+            splicedLog = list(self.__spliceGen(stdLog, stakLog))
             splicedLogs.append(splicedLog)
 
             with open(path, 'w') as f:
-                f.writelines(jointGenerator(splicedLog))
+                f.writelines(
+                    (
+                        '{}:{}:{}.{}'.format(*stamp) + flag + theRest
+                        for stamp, flag, theRest in splicedLog
+                    )
+                )
 
         return splicedLogs
 
-    def __saveCompressedStakLogToVariants(self, callChainsWithCompressedStrLinks):
+    def __saveCompressedStakLogToVariants(
+        self,
+        logWhereIfCallChainItsStrLinksAreCompressed  # type: Tuple[Tuple[Tuple[str, str, str, str], str, str]]
+    ):
         with open(
                 self.__ifPathExistsIncSuffix(
                     self.__os.path.join(
@@ -554,7 +605,7 @@ class STAK(object):
         ) as f:
             f.writelines(
                 self.__compressLines(
-                    [line for stamp, line in callChainsWithCompressedStrLinks]
+                    [entry[-1] for entry in logWhereIfCallChainItsStrLinksAreCompressed]
                 )
             )
 
@@ -575,40 +626,38 @@ class STAK(object):
                     )
                 )
 
-    @property
-    def __stakPeriod(self):
-        return self.__log[0][0], self.__dt.now() # self.__log[-1][0]
-
-    @staticmethod
-    def __stampToStr(timeStamp):  # type: (datetime) -> str
-        if timeStamp is not None:
-            return timeStamp.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-        return 'TIMESTAMP PARSING FAILED'
-
     """=============================================================================================================="""
 
     """================================================= COMPRESSION ================================================"""
 
-    class __CompressionFormatList(list):
+    class _CompressionFormatList(list):
         """ List that holds extra attributes for internal use in compression"""
 
         def __init__(self, cnt=1, rep='', *args):
-            super(STAK._STAK__CompressionFormatList, self).__init__(args)
+            super(STAK._CompressionFormatList, self).__init__(args)
             self.cnt = cnt
             self.rep = rep
 
-    def __compressLinks(self, callChainsWithStrLinks):
-        return [
+    def __compressLinksGen(
+        self,
+        callChainsWithStrLinks  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[str, Tuple[str, ...]]]]
+    ):                          # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, str]]
+
+        omrolocsFlag, prettyfyLine, compress = self.__flags[0], self.__prettyfyLine, self.__compress
+        CompressionFormatList = self._CompressionFormatList
+        return (
             (
-                timeStamp,
-                self.__prettyfyLine(
-                    self.__compress(
-                        self.__CompressionFormatList(1, 'line', *callChain)
+                stamp,
+                flag,
+                prettyfyLine(
+                    compress(
+                        CompressionFormatList(1, 'line', *theRest)
                     )
                 ).rstrip(' <- ') + '\n'
+                if flag == omrolocsFlag else theRest,
             )
-            for timeStamp, callChain in callChainsWithStrLinks
-        ]
+            for stamp, flag, theRest in callChainsWithStrLinks
+        )
 
     def __compressLines(self, lines):  # type: (List[str]) -> List[str]
         return self.__prettyfyLines(
@@ -620,14 +669,14 @@ class STAK(object):
         )
 
     @classmethod
-    def __prettyfyLine(cls, lineCfl):
+    def __prettyfyLine(cls, lineCfl):  # type: (_CompressionFormatList) -> str
         result = ''
 
         if lineCfl.cnt > 1:
             result += '{}x['.format(lineCfl.cnt)
 
         for el in lineCfl:
-            if isinstance(el, cls.__CompressionFormatList):
+            if isinstance(el, cls._CompressionFormatList):
                 assert el.rep == 'line'
                 result += cls.__prettyfyLine(el)
             elif isinstance(el, str):
@@ -642,16 +691,16 @@ class STAK(object):
         return result
 
     @classmethod
-    def __prettyfyLines(cls, lines_cfl, depth=0):
+    def __prettyfyLines(cls, linesCfl, depth=0):
         indent = depth * '    '
         result = []
 
-        if lines_cfl.cnt > 1:
-            result.append('{}{}x\n'.format((depth - 1) * '    ', lines_cfl.cnt))
+        if linesCfl.cnt > 1:
+            result.append('{}{}x\n'.format((depth - 1) * '    ', linesCfl.cnt))
 
-        for el in lines_cfl:
-            if isinstance(el, cls.__CompressionFormatList):
-                assert el.rep == 'lines'
+        for el in linesCfl:
+            if isinstance(el, cls._CompressionFormatList):
+                assert el.rep == 'parsedLines'
                 result.extend(cls.__prettyfyLines(el, depth + 1))
             elif isinstance(el, str):
                 result.append(indent + el)
@@ -663,7 +712,7 @@ class STAK(object):
     def __formatLinesForLinesCompression(cls, lines):
         if not lines[-1].endswith('\n'):
             lines[-1] += '\n'
-        return cls.__CompressionFormatList(1, 'lines', *lines)
+        return cls._CompressionFormatList(1, 'parsedLines', *lines)
 
     def __compress(self, postPassCfl):
         represents = postPassCfl.rep
@@ -671,7 +720,7 @@ class STAK(object):
         for groupSize in range(1, min(len(postPassCfl) // 2, self.__maxGroupSize)):
 
             prePassCfl = postPassCfl
-            postPassCfl = self.__CompressionFormatList(cnt=prePassCfl.cnt, rep=prePassCfl.rep)
+            postPassCfl = self._CompressionFormatList(cnt=prePassCfl.cnt, rep=prePassCfl.rep)
 
             thisGroupStartI = 0
             thisGroupEndI = groupSize - 1
@@ -704,7 +753,7 @@ class STAK(object):
 
                     else:  # There has been one or more repetitions of thisGroup
 
-                        compressed_group = self.__CompressionFormatList(groups_cnt, represents, *thisGroup)
+                        compressed_group = self._CompressionFormatList(groups_cnt, represents, *thisGroup)
                         postPassCfl.append(compressed_group)
 
                         thisGroupStartI = nextGroupStartI
@@ -720,62 +769,135 @@ class STAK(object):
 
         return postPassCfl
 
-    def __printTimes(self, start, doneCallChainsWithStrLinks, done__saveRawStakLogToPrimitives,
-                     doneStdLogsInStakPeriod,
-                     done__saveStdLogsInStakPeriodToPrimitives, doneCallChainsWithCompressedStrLinks,
-                     doneSplicedLogs,
-                     done__saveCompressedSplicedLogs, done__saveCompressedStakLogToVariants
-                     ):
-        if not self.__isPrintingTimes: return
-        print 'CallChainsWithStrLinks', doneCallChainsWithStrLinks - start
-        print '__saveRawStakLogToPrimitives', done__saveRawStakLogToPrimitives - doneCallChainsWithStrLinks
-        print 'StdLogsInStakPeriod', doneStdLogsInStakPeriod - done__saveRawStakLogToPrimitives
-        print '__saveStdLogsInStakPeriodToPrimitives', done__saveStdLogsInStakPeriodToPrimitives - doneStdLogsInStakPeriod
-        print 'CallChainsWithCompressedStrLinks', doneCallChainsWithCompressedStrLinks - done__saveStdLogsInStakPeriodToPrimitives
-        print 'SplicedLogs', doneSplicedLogs - doneCallChainsWithCompressedStrLinks
-        print '__saveCompressedSplicedLogs', done__saveCompressedSplicedLogs - doneSplicedLogs
-        print '__saveCompressedStakLogToVariants', done__saveCompressedStakLogToVariants - done__saveCompressedSplicedLogs
-        print 'totalTime: ', done__saveCompressedStakLogToVariants - start
+    """=============================================================================================================="""
+
+    """=============================================== PARSING STD LOGS ============================================="""
+
+    @staticmethod
+    def __interpolStampGen(prevLine, thisLine, nextLine):  # type: (OptStr9, OptStr9, OptStr9 ) -> Iterator[str]
+        expectedChars = (4, 2, 2, 2, 2, 2, 3)
+        for i, numChars in enumerate(expectedChars):
+            prevEl, nextEl = prevLine[i], nextLine[i]
+            if prevEl is None and nextEl is None:
+                yield ' ' * numChars
+            if prevEl is not None:
+                if nextEl is not None:
+                    yield str((int(prevEl) + int(nextEl)) // 2).zfill(numChars)
+                else:
+                    yield prevEl
+            else:
+                yield nextEl
+
+        yield thisLine[-2]
+        yield thisLine[-1]
+
+    def __parseAndInterpolLines(self, lines):  # type: (List[str]) -> List[OptStr9]
+        parsedLines = list(self.__parsedLinesGen(lines))
+
+        range6 = range(6)
+        def isStampCutoff(parsedLine): # type: (OptStr9) -> bool
+            """ This makes sense, trust me bro """
+            for j in range6:
+                if parsedLine[j] is None:
+                    return True
+            return False
+
+        interpolStampGen = self.__interpolStampGen
+        lenLines, nones9 = len(parsedLines), (None, None, None, None, None, None, None, None, None)
+        for parsedLine in parsedLines:
+
+            if isStampCutoff(parsedLine):
+                thisLineIndex = parsedLines.index(parsedLine)  # Only expecting to interpolate < 1% of parsedLines
+                prevLineIndex, nextLineIndex = thisLineIndex - 1, thisLineIndex + 1
+                prevLine, nextLine = nones9, nones9
+
+                while isStampCutoff(prevLine) and prevLineIndex < lenLines:
+                    prevLine = parsedLines[prevLineIndex]
+                    prevLineIndex -= 1
+
+                while isStampCutoff(nextLine) and nextLineIndex < lenLines:
+                    nextLine = parsedLines[nextLineIndex]
+                    nextLineIndex += 1
+
+                parsedLines[thisLineIndex] = tuple(
+                    interpolStampGen(prevLine, parsedLine, nextLine)
+                )
+
+        return parsedLines
+
+    @staticmethod
+    def __splitStampFromTheRest(lines):  # type: (List[Str9]) -> Iterator[Tuple[Str4, str, str]]
+        for year, month, day, hour, minute, second, millisec, flag, theRest in lines:
+            yield (
+                (hour, minute, second, millisec),
+                flag,
+                theRest,
+            )
+
+    def __trimFlagIfPoss(self, line):  # type: (str) -> Tuple[str, str]
+        wholeEnoughs, cutoffCombos, cutoffFlag = self.__wholeEnoughs, self.__cutoffCombos, self.__cutoffFlag
+        line = line.lstrip()
+        for combo in cutoffCombos:
+            if line.startswith(combo):
+                line = line.lstrip(combo)
+                if cutoffCombos[combo] > 1:
+                    return line, cutoffFlag
+                return line, wholeEnoughs[combo]
+        return line, cutoffFlag
+
+    def __trimFlag(self, line):  # type: (str) -> str
+        for combo in self.__stdFlags:
+            if line.startswith(combo):
+                return line.lstrip(combo)
+        return line
+
+    @staticmethod
+    def __trimTime(line, matchTuple):  # type: (str, OptStr8) -> str
+        numsTrimChars = (25, 20, 17, 14, 11, 8, 5, 0)
+        for i, prefixEl in enumerate(matchTuple):
+            if prefixEl is not None:
+
+                while not line.startswith(prefixEl):
+                    line = line[1:]
+
+                return line[numsTrimChars[i + 1] if i < 7 and matchTuple[i + 1] is None else numsTrimChars[i]:]
+
+    def __parsedLinesGen(self, lines):
+        # type: (List[str]) -> Iterator[OptStr, OptStr, OptStr, OptStr, OptStr, OptStr, OptStr, OptStr, str]
+        matcher, trimTime, trimFlag = self.__matcher, self.__trimTime, self.__trimFlag
+        trimFlagIfPoss, flags = self.__trimFlagIfPoss, self.__stdFlags
+        nones8 = (None, None, None, None, None, None, None, None)
+
+        for line in lines:
+            match = matcher(line)
+            matchTuple = match.groups() if match else nones8
+
+            if matchTuple[4] is None and matchTuple[3] is not None:
+                # Hour & minute may be mixed up if cutoff at certain point
+                #            (year, month, day , hour  , minute       , second       , millisec     , flag
+                matchTuple = (None, None , None, None  , matchTuple[3], matchTuple[5], matchTuple[6], matchTuple[7])
+
+            if matchTuple[-1] is not None:
+                line = trimTime(line, matchTuple)
+                line = trimFlag(line)
+                yield matchTuple + (line.lstrip(': '), )
+            else:
+                line, flag = trimFlagIfPoss(line)
+                result = None, None, None, None, None, None, None, flag, line.lstrip(': ')
+                yield result
+
+    def __parsedStdLogGen(self):  # type: () -> Iterator[Tuple[Tuple[Tuple[str, str, str, str], str, str]]]
+        for path in self.__namesLogStd:
+            with open(path, 'r') as f:
+                lines = f.readlines()
+            parsedLines = self.__parseAndInterpolLines(lines)
+            yield tuple(self.__splitStampFromTheRest(parsedLines))
 
     """=============================================================================================================="""
 
     """=================================================== PATH OPS ================================================="""
-    def changePath(
-            self,
-            prnt=None,    # type: Optional[PrintDirName]
-            task=None,    # type: Optional[TaskDirName]
-            prim=None,    # type: Optional[PrimitivesDirName]
-            vari=None,    # type: Optional[VariantsDirName]
-            root=None,    # type: Optional[StakRootDirName]
-            stdLogs=None  # type: Optional[StdLogFileNames]
-    ):
-        """ Change dir &/or file name(s), new dirs are created if don't exist, pass only name(s) not paths """
 
-        if prnt    is not None: self.__dirPrnt     = prnt
-        if task    is not None: self.__dirTask     = task
-        if prim    is not None: self.__dirPrimi    = prim
-        if vari    is not None: self.__dirVari     = vari
-        if root    is not None: self.__dirRoot     = root
-        if stdLogs is not None: self.__namesLogStd = stdLogs
 
-        self.__makeDirs()
-
-    def rmPrint(self):  # type: () -> None
-        """ Remove & recreate current print directory & all its logs """
-
-        self.__rmtree(self.__pathDirPrint)
-        self.__makeDirs()
-
-    def clear(self):  # type: () -> None
-        """ Clears current logs, stak & std. Also resets event count (label print count) """
-
-        for logPath in self.__namesLogStd:
-            with open(logPath, 'w'): pass
-
-        self.__log = []
-        self.__eventCnt = 0
-
-        self.omrolocs()
 
     def __makeDirs(self):  # type: () -> None
 
@@ -786,12 +908,12 @@ class STAK(object):
             self.__os.makedirs(self.__pathDirVari)
 
     @classmethod
-    def __addSuffix(cls, logName, suffix):  # type: (FileName, str) -> FileName
+    def __addSuffix(cls, logName, suffix):  # type: (str, str) -> str
         name, ext = cls.__os.path.splitext(logName)
         return '{}{}{}'.format(name, suffix, ext)
 
     @classmethod
-    def __ifPathExistsIncSuffix(cls, filePath):  # type: (StrFilePath) -> NonexistentPath
+    def __ifPathExistsIncSuffix(cls, filePath):  # type: (str) -> str
         fileName, ext = cls.__os.path.splitext(
             cls.__os.path.basename(filePath)
         )
@@ -807,22 +929,23 @@ class STAK(object):
         return filePath
 
     @property
-    def __pathDirPrint(self):  # type: () -> StrPathToPrintDir
+    def __pathDirPrint(self):  # type: () -> str
         return self.__os.path.join(self.__dirRoot, self.__dirTask, self.__dirPrnt)
 
     @property
-    def __pathDirPrimi(self):  # type: () -> StrPathToPrimitivesDir
+    def __pathDirPrimi(self):  # type: () -> str
         return self.__os.path.join(self.__pathDirPrint, self.__dirPrimi)
 
     @property
-    def __pathDirVari(self):  # type: () -> StrPathToVariantsDir
+    def __pathDirVari(self):  # type: () -> str
         return self.__os.path.join(self.__pathDirPrint, self.__dirVari)
 
     @property
-    def __pathLogStak(self):  # type: () -> StrFilePathToStakLogPrimitive
+    def __pathLogStak(self):  # type: () -> str
         return self.__os.path.join(self.__pathDirPrimi, self.__nameLogStak)
 
     """=============================================================================================================="""
+
 
 s = STAK()
 
@@ -830,13 +953,17 @@ def decorator(func):
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
     return wrapper
-
 class Interface(object):
     def testCallerOfCaller(self): raise NotImplementedError()
 class Ganny(object): pass
 class Daddy(Ganny):
     @decorator
-    def test(self): s.omrolocs()
+    def test(self):
+        s.omrolocs()
+        s.data()
+        s.data(someDatum=[1,2,3,4])
+        s.data(someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
+        s.data(pretty=True, someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
     @property
     def __privProp(self): return self.test()
     def __testCaller(self): self.__privProp
@@ -867,7 +994,6 @@ class SomeOtherClassWithSameNameStaticMeth(ParentStatConf):
 SomeClass().someMeth()
 class OutcastSon(Outcast): pass
 def func(): OutcastSon()
-
 class OldStyle:
     @staticmethod
     def oldStyleStaticMeth(): func()
@@ -875,7 +1001,52 @@ class OldStyle:
     def oldStyleClassMeth(cls): cls.oldStyleStaticMeth()
     def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
 
-
+def cutOffLogs():
+    """
+    Assumption: The log may be cutoff but the format won't change, the flag will be a certain min and max number
+    of chars, there will be a space and colon before the flag, there will be a colon and space after
+    the flag, etc
+    """
+    return (
+        '2024-07-04 13:17:45.269: INFO: [CORRECTLOG] This is a log line which is expected and correct\n',
+        '2024-07-04 13:17:45.269: DEBUG: A debug line \n',
+        '2024-07-04 13:17:45.269: CRITICAL: Longest expected flag\n',
+        '024-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '24-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '4-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '7-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '4 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        ' 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '3:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        ':17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '7:45.269: CRITICAL: Some flag of the log is cutoff\n',
+        ':45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '45.269: CRITICAL: Some flag of the log is cutoff\n',
+        '5.269: CRITICAL: Some flag of the log is cutoff\n',
+        '.269: CRITICAL: Some flag of the log is cutoff\n',
+        '269: CRITICAL: Some flag of the log is cutoff\n',
+        '69: CRITICAL: Some flag of the log is cutoff\n',
+        '9: CRITICAL: Some flag of the log is cutoff\n',
+        ': CRITICAL: Some flag of the log is cutoff\n',
+        ' CRITICAL: Some flag of the log is cutoff\n',
+        'CRITICAL: Some flag of the log is cutoff\n',
+        'RITICAL: Some flag of the log is cutoff\n',
+        'ITICAL: Some flag of the log is cutoff\n',
+        'TICAL: Some flag of the log is cutoff\n',
+        'ICAL: Some flag of the log is cutoff\n',
+        'CAL: Some flag of the log is cutoff\n',
+        'AL: Some flag of the log is cutoff\n',
+        'L: Some flag of the log is cutoff\n',
+        ': Some flag of the log is cutoff\n',
+        ' Some flag of the log is cutoff\n',
+        'Some flag of the log is cutoff\n',
+    )
 def genLogs():
     stdLogPaths = ('stdLogA.log', 'stdLogB.log')
 
@@ -917,59 +1088,14 @@ def genLogs():
             l1 = 'fdStamp' + ': ' + nonCompromisingLines[randint(0, 5)]
             f.writelines(l1)
 
+    with open(stdLogPaths[0], 'a') as f:
+        f.writelines(cutOffLogs())
+    with open(stdLogPaths[1], 'a') as f:
+        f.writelines(cutOffLogs())
+
 genLogs()
 variables = globals().copy()
 variables.update(locals())
 shell = code.InteractiveConsole(variables)
 shell.interact()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# end
