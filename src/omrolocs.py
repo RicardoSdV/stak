@@ -272,7 +272,7 @@ class STAK(object):
         self.__append_to_log(
             (
                 self.__ti.time(),
-                self.__labelFlag,
+                self.__flags[3],
                 '\n========================================================= {} '
                 '=========================================================\n\n'.format(label)
             )
@@ -897,8 +897,6 @@ class STAK(object):
 
     """=================================================== PATH OPS ================================================="""
 
-
-
     def __makeDirs(self):  # type: () -> None
 
         if not self.__os.path.isdir(self.__pathDirPrimi):
@@ -943,6 +941,35 @@ class STAK(object):
     @property
     def __pathLogStak(self):  # type: () -> str
         return self.__os.path.join(self.__pathDirPrimi, self.__nameLogStak)
+
+    """=============================================================================================================="""
+
+    """================================================== SHORTCUTS ================================================="""
+
+    @property
+    def s(self):
+        """ Short for save() """
+        self.save()
+
+    @property
+    def l(self):
+        """ Short for label() """
+        self.label()
+
+    @property
+    def cp(self):
+        """ Short for changePath() """
+        self.changePath()
+
+    @property
+    def c(self):
+        """ Short for clear() """
+        self.clear()
+
+    @property
+    def rp(self):
+        """ Short for rmPrint() """
+        self.rmPrint()
 
     """=============================================================================================================="""
 
