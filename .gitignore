@@ -8,3 +8,4 @@ pypyenv/
 .STAK/
 
 *.pyc
+*.log
