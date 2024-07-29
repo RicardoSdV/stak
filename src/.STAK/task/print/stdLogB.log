@@ -1,2213 +1,2409 @@
-2024-07-27
-None compromising logline 67
-None compromising logline 416
+2024-07-29
 None compromising logline 68
-None compromising logline 417
+None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+None compromising logline 63
+None compromising logline 418
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+2x
+    None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+None compromising logline 419
 None compromising logline 64
 None compromising logline 417
+3x
+    None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+None compromising logline 66
+None compromising logline 67
+None compromising logline 68
+9x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 67
+None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+None compromising logline 418
+6x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 65
+None compromising logline 419
+None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 417
 2x
-    None compromising logline 67
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 63
 None compromising logline 66
-None compromising logline 417
-None compromising logline 66
-None compromising logline 416
-None compromising logline 65
-None compromising logline 417
-None compromising logline 65
 None compromising logline 418
 None compromising logline 66
-None compromising logline 416
-None compromising logline 67
-None compromising logline 68
-None compromising logline 63
-None compromising logline 65
-None compromising logline 68
-None compromising logline 66
-None compromising logline 64
-None compromising logline 419
-None compromising logline 67
-None compromising logline 63
-None compromising logline 67
-None compromising logline 419
-None compromising logline 63
-None compromising logline 419
-None compromising logline 68
-None compromising logline 419
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-None compromising logline 416
-None compromising logline 66
-None compromising logline 67
-None compromising logline 66
-None compromising logline 65
-None compromising logline 66
-None compromising logline 68
-None compromising logline 66
-None compromising logline 67
-None compromising logline 68
-None compromising logline 64
-None compromising logline 67
-None compromising logline 416
 2x
+    None compromising logline 68
+2x
+    None compromising logline 66
     None compromising logline 67
-src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-src\omrolocs.990.test(No data was passed)
-src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-src\omrolocs.993.test(
+None compromising logline 417
+2x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 416
+None compromising logline 65
+None compromising logline 419
+4x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 68
+None compromising logline 416
+None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+None compromising logline 416
+None compromising logline 68
+None compromising logline 417
+None compromising logline 67
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 65
+None compromising logline 419
+None compromising logline 64
+None compromising logline 65
+None compromising logline 64
+None compromising logline 416
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+None compromising logline 418
+None compromising logline 67
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 419
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 66
+None compromising logline 416
+None compromising logline 66
+None compromising logline 64
+None compromising logline 66
+2x
+    None compromising logline 68
+None compromising logline 416
+None compromising logline 67
+None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+None compromising logline 68
+None compromising logline 416
+None compromising logline 67
+3x
+    None compromising logline 65
+None compromising logline 64
+2x
+    None compromising logline 68
+None compromising logline 416
+None compromising logline 64
+None compromising logline 67
+None compromising logline 65
+None compromising logline 417
+None compromising logline 63
+None compromising logline 67
+None compromising logline 64
+None compromising logline 419
+None compromising logline 68
+None compromising logline 418
+None compromising logline 67
+None compromising logline 416
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 419
+None compromising logline 68
+None compromising logline 418
+None compromising logline 65
+None compromising logline 419
+None compromising logline 64
+None compromising logline 416
+None compromising logline 67
+None compromising logline 416
+None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 67
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+src\omrolocs.987.test(No data was passed)
+src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+src\omrolocs.990.test(
     someDatum=[1, 2, 3, 4],
     someDatum2=[1, 2, 3, 4],
 )
-None compromising logline 63
-None compromising logline 66
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
 None compromising logline 64
-None compromising logline 68
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-None compromising logline 63
 None compromising logline 419
-None compromising logline 66
-None compromising logline 418
+None compromising logline 63
+None compromising logline 417
 None compromising logline 65
-2x
-    None compromising logline 63
-None compromising logline 65
+None compromising logline 417
+None compromising logline 63
+None compromising logline 417
+None compromising logline 64
+None compromising logline 417
 None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 417
+2x
+    None compromising logline 67
+None compromising logline 63
+None compromising logline 66
+None compromising logline 68
+None compromising logline 417
+None compromising logline 65
+None compromising logline 64
+None compromising logline 67
+None compromising logline 417
+None compromising logline 68
+None compromising logline 419
+None compromising logline 63
+None compromising logline 416
+None compromising logline 63
+None compromising logline 68
+None compromising logline 63
+None compromising logline 416
+None compromising logline 65
+None compromising logline 417
+None compromising logline 63
 None compromising logline 416
 None compromising logline 64
-None compromising logline 419
-None compromising logline 67
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
+None compromising logline 418
 None compromising logline 66
-None compromising logline 418
-2x
-    None compromising logline 68
 None compromising logline 67
-None compromising logline 419
-None compromising logline 65
+None compromising logline 64
 None compromising logline 67
 None compromising logline 65
-None compromising logline 418
-3x
-    None compromising logline 64
-None compromising logline 419
-2x
-    None compromising logline 66
+None compromising logline 63
 None compromising logline 65
-2x
-    None compromising logline 417
-    None compromising logline 66
-None compromising logline 419
-2x
-    None compromising logline 65
-2x
-    None compromising logline 66
-2x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 68
+None compromising logline 417
 4x
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 68
-2x
-    None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-None compromising logline 419
-2x
-    None compromising logline 68
-None compromising logline 65
-None compromising logline 68
-None compromising logline 66
-None compromising logline 417
-None compromising logline 65
-None compromising logline 418
-None compromising logline 67
-None compromising logline 66
-None compromising logline 68
-None compromising logline 66
-None compromising logline 65
-None compromising logline 417
-2x
-    None compromising logline 66
-    None compromising logline 64
-None compromising logline 63
-None compromising logline 416
-None compromising logline 65
-None compromising logline 416
-5x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 66
-None compromising logline 418
-None compromising logline 68
-None compromising logline 418
-3x
-    None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-3x
-    None compromising logline 65
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-None compromising logline 417
-None compromising logline 64
-None compromising logline 65
-None compromising logline 64
-None compromising logline 416
-None compromising logline 65
-None compromising logline 66
-None compromising logline 64
-None compromising logline 419
-None compromising logline 64
-None compromising logline 418
-None compromising logline 67
-None compromising logline 68
-None compromising logline 65
-None compromising logline 417
-None compromising logline 66
-None compromising logline 419
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 68
-None compromising logline 64
-None compromising logline 68
-None compromising logline 418
-None compromising logline 64
-None compromising logline 66
-None compromising logline 65
-None compromising logline 419
-2x
-    None compromising logline 67
-None compromising logline 65
-None compromising logline 419
-None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-2x
-    None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 66
-None compromising logline 65
-None compromising logline 418
-None compromising logline 64
-None compromising logline 67
-None compromising logline 63
-None compromising logline 418
-None compromising logline 63
-None compromising logline 68
-2x
-    None compromising logline 65
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 418
-None compromising logline 64
-None compromising logline 66
-None compromising logline 65
-None compromising logline 416
-None compromising logline 64
-None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-None compromising logline 416
-None compromising logline 68
-None compromising logline 67
-8x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
 None compromising logline 68
-None compromising logline 64
-None compromising logline 66
-None compromising logline 418
-None compromising logline 68
-None compromising logline 418
-2x
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-None compromising logline 64
 None compromising logline 67
 2x
-    None compromising logline 65
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
 None compromising logline 66
 None compromising logline 64
-None compromising logline 63
-None compromising logline 68
-2x
-    None compromising logline 67
-None compromising logline 63
+None compromising logline 416
+None compromising logline 66
 None compromising logline 418
-None compromising logline 66
-None compromising logline 68
-None compromising logline 63
-None compromising logline 66
 None compromising logline 67
+None compromising logline 66
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+None compromising logline 416
+None compromising logline 63
 None compromising logline 68
 None compromising logline 65
+None compromising logline 417
+None compromising logline 65
 None compromising logline 419
+None compromising logline 64
+None compromising logline 418
+None compromising logline 68
+None compromising logline 417
+None compromising logline 68
+None compromising logline 419
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 417
+2x
+    None compromising logline 68
+    None compromising logline 416
 3x
-    None compromising logline 67
-None compromising logline 418
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 419
-None compromising logline 63
-None compromising logline 416
-None compromising logline 64
-None compromising logline 416
-None compromising logline 67
-None compromising logline 63
-None compromising logline 67
-None compromising logline 416
-None compromising logline 64
-None compromising logline 418
-None compromising logline 68
-2x
-    None compromising logline 67
-None compromising logline 66
-None compromising logline 63
-None compromising logline 416
-None compromising logline 63
-None compromising logline 418
-None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-None compromising logline 419
-None compromising logline 66
-None compromising logline 419
-2x
     None compromising logline 65
-None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-None compromising logline 419
-4x
-    None compromising logline 66
-None compromising logline 65
-2x
-    None compromising logline 67
-None compromising logline 65
-None compromising logline 67
 None compromising logline 416
-None compromising logline 67
+None compromising logline 63
 None compromising logline 419
-None compromising logline 68
-2x
-    None compromising logline 64
-2x
-    None compromising logline 65
+None compromising logline 67
 None compromising logline 64
 None compromising logline 66
+None compromising logline 65
+2x
+    None compromising logline 68
+None compromising logline 65
+None compromising logline 416
+None compromising logline 68
 None compromising logline 418
 None compromising logline 63
 None compromising logline 418
 None compromising logline 68
-None compromising logline 416
+None compromising logline 67
+None compromising logline 64
+None compromising logline 68
 7x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
-None compromising logline 63
 None compromising logline 66
-None compromising logline 63
-None compromising logline 67
-3x
-    None compromising logline 66
-None compromising logline 63
-None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
-7x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-2x
-    None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 63
-None compromising logline 418
-None compromising logline 64
-None compromising logline 67
-None compromising logline 64
 None compromising logline 419
-None compromising logline 63
-None compromising logline 418
-None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-None compromising logline 419
-None compromising logline 65
-None compromising logline 416
-None compromising logline 65
 None compromising logline 68
-None compromising logline 65
-None compromising logline 67
-None compromising logline 65
-None compromising logline 416
-None compromising logline 68
-None compromising logline 65
-None compromising logline 68
-None compromising logline 418
-None compromising logline 63
-None compromising logline 419
-None compromising logline 67
-None compromising logline 66
-None compromising logline 68
-3x
-    None compromising logline 65
-None compromising logline 64
-None compromising logline 67
-None compromising logline 63
-None compromising logline 419
-2x
-    None compromising logline 66
-    None compromising logline 418
-None compromising logline 67
 None compromising logline 417
-None compromising logline 68
-None compromising logline 63
-None compromising logline 68
-None compromising logline 418
-None compromising logline 63
-None compromising logline 68
-None compromising logline 64
-None compromising logline 66
-2x
-    None compromising logline 64
-    None compromising logline 418
-None compromising logline 68
-None compromising logline 66
-None compromising logline 64
-2x
-    None compromising logline 63
-None compromising logline 416
-None compromising logline 66
 None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 68
-None compromising logline 63
-None compromising logline 66
-None compromising logline 419
-None compromising logline 65
-None compromising logline 64
-None compromising logline 66
-None compromising logline 65
-None compromising logline 63
-None compromising logline 416
-3x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 63
-None compromising logline 419
-None compromising logline 65
-None compromising logline 416
-None compromising logline 63
-None compromising logline 419
-None compromising logline 65
-None compromising logline 418
-None compromising logline 63
-None compromising logline 416
-None compromising logline 65
-None compromising logline 418
-None compromising logline 65
-2x
-    None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 416
-None compromising logline 66
-None compromising logline 417
-None compromising logline 66
-None compromising logline 64
-None compromising logline 63
-None compromising logline 417
-None compromising logline 68
-2x
-    None compromising logline 63
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-None compromising logline 417
-None compromising logline 66
-None compromising logline 419
-None compromising logline 64
-None compromising logline 416
-None compromising logline 67
-None compromising logline 419
-None compromising logline 65
-None compromising logline 416
-None compromising logline 66
-None compromising logline 417
-None compromising logline 63
-None compromising logline 67
-None compromising logline 63
-None compromising logline 417
-None compromising logline 63
-None compromising logline 416
-4x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 63
 None compromising logline 419
 None compromising logline 63
-None compromising logline 416
-None compromising logline 65
-None compromising logline 418
-None compromising logline 66
-None compromising logline 65
 None compromising logline 64
-None compromising logline 417
-None compromising logline 63
+None compromising logline 68
 None compromising logline 65
 None compromising logline 67
+None compromising logline 416
 None compromising logline 68
+None compromising logline 419
+None compromising logline 63
+None compromising logline 419
 None compromising logline 66
 None compromising logline 418
 None compromising logline 66
 None compromising logline 65
-None compromising logline 64
-None compromising logline 418
 None compromising logline 68
-None compromising logline 63
-None compromising logline 68
-None compromising logline 419
-3x
-    None compromising logline 64
-None compromising logline 418
 None compromising logline 67
-None compromising logline 65
-None compromising logline 68
-None compromising logline 419
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
-None compromising logline 419
 None compromising logline 64
 2x
     None compromising logline 65
-None compromising logline 68
-None compromising logline 63
-None compromising logline 67
-None compromising logline 63
-2x
-    None compromising logline 68
-None compromising logline 417
-None compromising logline 64
 None compromising logline 416
-2x
-    None compromising logline 68
 None compromising logline 64
 None compromising logline 419
-None compromising logline 63
-None compromising logline 416
-None compromising logline 63
-None compromising logline 65
+None compromising logline 66
+None compromising logline 419
+None compromising logline 64
+None compromising logline 417
+None compromising logline 67
 2x
     None compromising logline 66
-    None compromising logline 419
+None compromising logline 418
 None compromising logline 67
-None compromising logline 416
-None compromising logline 66
+None compromising logline 63
+None compromising logline 68
+None compromising logline 65
 None compromising logline 67
-None compromising logline 66
 None compromising logline 419
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 417
+None compromising logline 65
+None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+None compromising logline 66
+None compromising logline 417
+None compromising logline 65
+None compromising logline 68
 None compromising logline 66
 None compromising logline 67
+None compromising logline 66
+None compromising logline 418
+None compromising logline 64
+None compromising logline 67
+None compromising logline 65
+None compromising logline 67
+None compromising logline 68
+None compromising logline 419
+9x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 63
+None compromising logline 418
+None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 418
+None compromising logline 68
+None compromising logline 63
+None compromising logline 66
+None compromising logline 64
 10x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
+2x
+    None compromising logline 67
+None compromising logline 63
+None compromising logline 419
+None compromising logline 65
+None compromising logline 63
+None compromising logline 64
+None compromising logline 65
 None compromising logline 66
+None compromising logline 64
+None compromising logline 66
+None compromising logline 417
+None compromising logline 64
+None compromising logline 417
+None compromising logline 66
+None compromising logline 416
+None compromising logline 68
 None compromising logline 63
 None compromising logline 64
 None compromising logline 418
+None compromising logline 67
+None compromising logline 417
+None compromising logline 65
+None compromising logline 416
+2x
+    None compromising logline 67
+None compromising logline 63
+2x
+    None compromising logline 67
+None compromising logline 418
+None compromising logline 66
+None compromising logline 416
+None compromising logline 66
+None compromising logline 418
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 417
+None compromising logline 66
+None compromising logline 417
+None compromising logline 63
+None compromising logline 65
+None compromising logline 66
+None compromising logline 416
+None compromising logline 63
+None compromising logline 416
+None compromising logline 65
+2x
+    None compromising logline 68
+2x
+    None compromising logline 63
+None compromising logline 419
+None compromising logline 65
+None compromising logline 417
+None compromising logline 68
+None compromising logline 416
+None compromising logline 66
+4x
+    None compromising logline 67
+None compromising logline 417
+None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 66
+None compromising logline 418
+None compromising logline 64
+None compromising logline 63
+None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 64
+None compromising logline 416
+None compromising logline 63
+3x
+    None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 416
+2x
+    None compromising logline 68
+9x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 64
+2x
+    None compromising logline 419
+    None compromising logline 68
+None compromising logline 66
+None compromising logline 67
+None compromising logline 416
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+None compromising logline 68
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+None compromising logline 418
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 416
+None compromising logline 66
+None compromising logline 68
+None compromising logline 67
+None compromising logline 416
+None compromising logline 64
+None compromising logline 68
+None compromising logline 67
+None compromising logline 64
+None compromising logline 68
+None compromising logline 63
+None compromising logline 67
+2x
+    None compromising logline 64
+2x
+    None compromising logline 67
+    None compromising logline 68
+None compromising logline 416
+None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 417
+None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 68
+None compromising logline 416
+2x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 68
+None compromising logline 64
+None compromising logline 68
+None compromising logline 63
 None compromising logline 68
 None compromising logline 417
+None compromising logline 63
+None compromising logline 67
 None compromising logline 64
 2x
     None compromising logline 416
     None compromising logline 66
-None compromising logline 64
-None compromising logline 65
-2x
-    None compromising logline 419
-    None compromising logline 68
-None compromising logline 418
-None compromising logline 63
-None compromising logline 418
-None compromising logline 66
-None compromising logline 64
-None compromising logline 65
-None compromising logline 63
-None compromising logline 64
-2x
-    None compromising logline 63
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 68
-None compromising logline 419
-None compromising logline 66
-None compromising logline 418
-2x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 66
-3x
-    None compromising logline 68
-None compromising logline 66
-None compromising logline 65
-10x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 63
-None compromising logline 419
-None compromising logline 68
-None compromising logline 418
-None compromising logline 65
-None compromising logline 416
-None compromising logline 66
-None compromising logline 418
-None compromising logline 68
-None compromising logline 418
-None compromising logline 65
-None compromising logline 68
-None compromising logline 65
 2x
     None compromising logline 67
-None compromising logline 64
-None compromising logline 68
-None compromising logline 416
-3x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 66
 None compromising logline 63
-None compromising logline 64
-None compromising logline 417
-None compromising logline 63
-None compromising logline 64
-None compromising logline 63
-None compromising logline 65
-2x
-    None compromising logline 63
-None compromising logline 65
-None compromising logline 68
-None compromising logline 67
-2x
-    None compromising logline 68
-2x
-    None compromising logline 67
-2x
-    None compromising logline 66
-None compromising logline 65
-2x
-    None compromising logline 67
-8x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-2x
-    None compromising logline 68
-None compromising logline 64
-3x
-    None compromising logline 63
-None compromising logline 64
-None compromising logline 66
 None compromising logline 67
 None compromising logline 418
-None compromising logline 67
-None compromising logline 65
-None compromising logline 67
-None compromising logline 419
 None compromising logline 66
-None compromising logline 417
-None compromising logline 66
-None compromising logline 418
-None compromising logline 65
-None compromising logline 64
-3x
-    None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 416
-None compromising logline 66
-None compromising logline 63
-None compromising logline 68
-None compromising logline 63
 None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-None compromising logline 418
-None compromising logline 65
-None compromising logline 416
-None compromising logline 68
 2x
     None compromising logline 65
+None compromising logline 67
+None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 67
+None compromising logline 63
+None compromising logline 65
 None compromising logline 419
+None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+None compromising logline 67
+None compromising logline 68
+None compromising logline 417
+None compromising logline 66
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 67
 None compromising logline 63
 None compromising logline 418
+None compromising logline 66
+None compromising logline 416
+None compromising logline 64
+None compromising logline 63
+None compromising logline 64
 2x
-    None compromising logline 65
     None compromising logline 63
-None compromising logline 68
 2x
     None compromising logline 64
-None compromising logline 65
-None compromising logline 63
 None compromising logline 419
-None compromising logline 63
-None compromising logline 66
 None compromising logline 67
-None compromising logline 63
-None compromising logline 68
-None compromising logline 419
-3x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 64
-2x
-    None compromising logline 66
-None compromising logline 68
-None compromising logline 417
-None compromising logline 63
-None compromising logline 416
-None compromising logline 64
-None compromising logline 419
-None compromising logline 68
-None compromising logline 65
-None compromising logline 63
 None compromising logline 418
 None compromising logline 64
-None compromising logline 419
-None compromising logline 67
-None compromising logline 68
-None compromising logline 67
-None compromising logline 416
-None compromising logline 63
-None compromising logline 68
-3x
-    None compromising logline 67
-None compromising logline 65
-2x
-    None compromising logline 67
-2x
-    None compromising logline 63
-None compromising logline 67
-None compromising logline 417
-None compromising logline 67
-None compromising logline 419
-None compromising logline 68
-2x
-    None compromising logline 416
-    None compromising logline 66
-None compromising logline 417
-None compromising logline 65
-None compromising logline 64
 None compromising logline 66
 None compromising logline 68
-None compromising logline 64
+None compromising logline 66
+None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 66
+None compromising logline 418
+None compromising logline 63
+None compromising logline 416
 None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+None compromising logline 419
+2x
+    None compromising logline 66
+None compromising logline 65
+None compromising logline 64
 6x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
-None compromising logline 66
-None compromising logline 417
-None compromising logline 68
-None compromising logline 418
-None compromising logline 68
-None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 67
+None compromising logline 64
 None compromising logline 65
-None compromising logline 66
+None compromising logline 67
 None compromising logline 416
-None compromising logline 63
-None compromising logline 417
-None compromising logline 66
+None compromising logline 65
 2x
-    None compromising logline 64
-None compromising logline 66
-None compromising logline 64
-None compromising logline 66
-None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 68
-2x
-    None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-None compromising logline 418
-None compromising logline 65
-None compromising logline 68
-None compromising logline 64
-None compromising logline 418
-None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
-None compromising logline 418
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 66
-None compromising logline 67
-None compromising logline 63
+    None compromising logline 68
+    None compromising logline 63
 3x
-    None compromising logline 68
-None compromising logline 419
-None compromising logline 64
-None compromising logline 417
-None compromising logline 63
-None compromising logline 419
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
-None compromising logline 419
-None compromising logline 66
-None compromising logline 416
-None compromising logline 63
-None compromising logline 418
-7x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 63
-None compromising logline 416
-None compromising logline 67
+    None compromising logline 64
 None compromising logline 65
 None compromising logline 64
-None compromising logline 63
-None compromising logline 66
+None compromising logline 68
 None compromising logline 417
-None compromising logline 66
-None compromising logline 418
+None compromising logline 67
+None compromising logline 417
+None compromising logline 68
+None compromising logline 417
+None compromising logline 67
 None compromising logline 63
 None compromising logline 68
-None compromising logline 66
+2x
+    None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 63
+None compromising logline 67
+None compromising logline 418
+None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 416
+None compromising logline 68
+None compromising logline 416
+None compromising logline 67
+None compromising logline 418
+None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 418
+2x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 417
+None compromising logline 63
+None compromising logline 418
+None compromising logline 64
+None compromising logline 416
+None compromising logline 67
 None compromising logline 63
 None compromising logline 65
-None compromising logline 66
+None compromising logline 418
+None compromising logline 68
+None compromising logline 67
+2x
+    None compromising logline 68
+    None compromising logline 418
 2x
     None compromising logline 63
-None compromising logline 67
-None compromising logline 66
 None compromising logline 64
 None compromising logline 419
-None compromising logline 67
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
 None compromising logline 68
-None compromising logline 419
-None compromising logline 63
-None compromising logline 66
-None compromising logline 67
-None compromising logline 66
-None compromising logline 64
 None compromising logline 418
-None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+2x
+    None compromising logline 66
+None compromising logline 65
 None compromising logline 419
+None compromising logline 64
 None compromising logline 67
-None compromising logline 417
 None compromising logline 68
 None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 65
 3x
-    None compromising logline 65
-None compromising logline 64
-5x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-2x
-    None compromising logline 63
-10x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-2x
-    None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-None compromising logline 64
-2x
-    None compromising logline 66
-None compromising logline 64
-2x
-    None compromising logline 63
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 64
-None compromising logline 416
-None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-None compromising logline 419
-None compromising logline 66
-None compromising logline 68
-None compromising logline 66
-None compromising logline 63
-None compromising logline 67
-None compromising logline 66
-2x
-    None compromising logline 63
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 416
-None compromising logline 63
-None compromising logline 419
-None compromising logline 64
-None compromising logline 66
-9x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 65
-None compromising logline 417
-None compromising logline 68
-None compromising logline 67
-None compromising logline 65
-None compromising logline 63
-None compromising logline 64
-None compromising logline 416
-2x
-    None compromising logline 63
-    None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-None compromising logline 68
-None compromising logline 418
-src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-src\omrolocs.990.test(No data was passed)
-src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-src\omrolocs.993.test(
-    someDatum=[1, 2, 3, 4],
-    someDatum2=[1, 2, 3, 4],
-)
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 64
-None compromising logline 419
-None compromising logline 68
-None compromising logline 63
-None compromising logline 65
-None compromising logline 416
-None compromising logline 63
-2x
     None compromising logline 64
-    None compromising logline 67
-None compromising logline 68
-None compromising logline 65
-None compromising logline 419
-None compromising logline 66
-None compromising logline 416
-None compromising logline 68
-2x
-    None compromising logline 66
-None compromising logline 416
-None compromising logline 67
-None compromising logline 418
-2x
-    None compromising logline 66
-    None compromising logline 64
-None compromising logline 68
-None compromising logline 67
-None compromising logline 64
-None compromising logline 68
-None compromising logline 67
-None compromising logline 418
-None compromising logline 64
 None compromising logline 417
-None compromising logline 63
-None compromising logline 66
-None compromising logline 68
-None compromising logline 416
-None compromising logline 66
-None compromising logline 63
-None compromising logline 67
-2x
-    None compromising logline 66
-None compromising logline 416
-None compromising logline 67
-None compromising logline 66
-5x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-None compromising logline 418
-None compromising logline 65
-None compromising logline 68
-None compromising logline 64
-None compromising logline 418
-None compromising logline 64
-None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-None compromising logline 66
-None compromising logline 64
-None compromising logline 63
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-7x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-None compromising logline 67
-None compromising logline 417
-None compromising logline 65
-None compromising logline 68
-None compromising logline 63
-None compromising logline 68
-None compromising logline 66
-None compromising logline 418
-None compromising logline 68
-None compromising logline 65
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-None compromising logline 63
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-None compromising logline 417
-None compromising logline 67
-None compromising logline 66
-None compromising logline 68
-None compromising logline 417
-None compromising logline 65
-None compromising logline 418
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-None compromising logline 419
-None compromising logline 65
-None compromising logline 419
-None compromising logline 67
-None compromising logline 68
-None compromising logline 66
-None compromising logline 416
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-None compromising logline 64
-None compromising logline 67
-None compromising logline 64
-None compromising logline 417
-None compromising logline 68
-None compromising logline 65
-None compromising logline 67
-None compromising logline 416
-None compromising logline 66
-None compromising logline 63
-None compromising logline 64
-2x
-    None compromising logline 66
-None compromising logline 64
-None compromising logline 63
-None compromising logline 417
-None compromising logline 68
-None compromising logline 416
-None compromising logline 63
 None compromising logline 66
 None compromising logline 65
-None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-2x
-    None compromising logline 64
-None compromising logline 65
-None compromising logline 417
-None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-None compromising logline 68
-None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 416
-None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-None compromising logline 417
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
-None compromising logline 417
-None compromising logline 63
-None compromising logline 67
-None compromising logline 68
-None compromising logline 67
-2x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 68
-None compromising logline 418
-None compromising logline 64
-None compromising logline 417
-None compromising logline 67
-2x
-    None compromising logline 64
-2x
-    None compromising logline 66
-None compromising logline 418
-None compromising logline 68
-None compromising logline 63
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-2x
-    None compromising logline 63
-None compromising logline 65
-None compromising logline 416
-None compromising logline 68
-None compromising logline 65
-None compromising logline 63
-None compromising logline 417
-None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 419
-None compromising logline 68
-None compromising logline 418
-None compromising logline 63
-None compromising logline 416
-None compromising logline 65
-None compromising logline 64
-None compromising logline 66
-None compromising logline 63
-2x
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 417
-None compromising logline 68
-None compromising logline 419
-2x
-    None compromising logline 66
 None compromising logline 67
 2x
     None compromising logline 68
 None compromising logline 419
-None compromising logline 68
-None compromising logline 417
-None compromising logline 66
-None compromising logline 419
-None compromising logline 64
-2x
-    None compromising logline 65
-None compromising logline 419
-None compromising logline 68
-None compromising logline 418
-None compromising logline 64
-None compromising logline 65
-None compromising logline 68
-2x
-    None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-None compromising logline 68
-None compromising logline 63
-None compromising logline 67
-None compromising logline 64
-None compromising logline 417
-2x
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 64
-None compromising logline 68
-None compromising logline 66
-None compromising logline 68
-2x
-    None compromising logline 63
-None compromising logline 68
-None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-None compromising logline 64
-2x
-    None compromising logline 65
-None compromising logline 66
-None compromising logline 417
-None compromising logline 65
-None compromising logline 419
-None compromising logline 65
-None compromising logline 63
-None compromising logline 66
-None compromising logline 417
-None compromising logline 63
-2x
-    None compromising logline 65
-None compromising logline 417
-None compromising logline 67
-None compromising logline 417
-None compromising logline 68
-None compromising logline 418
-None compromising logline 68
-None compromising logline 416
-10x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 64
-None compromising logline 419
-None compromising logline 67
-None compromising logline 65
-5x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 64
-None compromising logline 419
-None compromising logline 66
-None compromising logline 419
-2x
-    None compromising logline 65
-None compromising logline 67
-None compromising logline 417
-3x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 65
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 418
-None compromising logline 65
-None compromising logline 63
-None compromising logline 66
-None compromising logline 418
-None compromising logline 65
-None compromising logline 64
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 66
-None compromising logline 67
-None compromising logline 419
-None compromising logline 64
-None compromising logline 416
-None compromising logline 64
-None compromising logline 417
-None compromising logline 65
-None compromising logline 68
-None compromising logline 67
-None compromising logline 416
-None compromising logline 64
-None compromising logline 67
-None compromising logline 68
-None compromising logline 419
-None compromising logline 66
-None compromising logline 416
-None compromising logline 65
-None compromising logline 68
 None compromising logline 65
 None compromising logline 416
-2x
-    None compromising logline 63
-None compromising logline 68
-None compromising logline 416
-None compromising logline 67
-None compromising logline 63
-None compromising logline 67
-2x
-    None compromising logline 66
-None compromising logline 417
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 417
-None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-None compromising logline 418
-None compromising logline 64
-None compromising logline 416
-None compromising logline 67
 None compromising logline 66
-None compromising logline 67
-None compromising logline 418
-None compromising logline 64
 None compromising logline 419
-None compromising logline 68
-None compromising logline 65
-None compromising logline 68
-None compromising logline 416
-2x
-    None compromising logline 68
-None compromising logline 64
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 65
-None compromising logline 68
-None compromising logline 66
-2x
-    None compromising logline 63
-    None compromising logline 65
-None compromising logline 66
-None compromising logline 65
-2x
-    None compromising logline 64
-None compromising logline 68
-None compromising logline 418
 None compromising logline 63
 None compromising logline 67
 None compromising logline 66
-None compromising logline 418
-2x
-    None compromising logline 64
-None compromising logline 67
-2x
-    None compromising logline 66
-None compromising logline 64
-None compromising logline 66
-None compromising logline 416
-None compromising logline 67
-None compromising logline 418
-6x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
 2x
     None compromising logline 67
-3x
     None compromising logline 65
-None compromising logline 417
-None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 63
-None compromising logline 68
-None compromising logline 66
-None compromising logline 67
-None compromising logline 416
-None compromising logline 63
-None compromising logline 417
-None compromising logline 68
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-None compromising logline 63
-None compromising logline 67
-None compromising logline 419
-None compromising logline 63
-None compromising logline 67
-None compromising logline 64
-2x
-    None compromising logline 66
-None compromising logline 417
-None compromising logline 64
-None compromising logline 416
-2x
     None compromising logline 63
-None compromising logline 64
-None compromising logline 63
-None compromising logline 68
-None compromising logline 417
-None compromising logline 67
-None compromising logline 419
-None compromising logline 65
-None compromising logline 68
-None compromising logline 64
-3x
-    None compromising logline 67
-None compromising logline 68
-None compromising logline 65
 None compromising logline 66
-None compromising logline 417
-None compromising logline 63
-None compromising logline 418
 None compromising logline 68
-None compromising logline 65
-None compromising logline 67
 None compromising logline 417
 4x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
-None compromising logline 66
-None compromising logline 68
-None compromising logline 64
-None compromising logline 417
-None compromising logline 66
-None compromising logline 65
-None compromising logline 66
 None compromising logline 64
 None compromising logline 63
-None compromising logline 64
-None compromising logline 65
-None compromising logline 419
-None compromising logline 64
-None compromising logline 417
-None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 68
 None compromising logline 418
-8x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 68
-None compromising logline 66
 None compromising logline 67
-None compromising logline 417
-None compromising logline 64
 None compromising logline 66
-None compromising logline 64
-None compromising logline 68
-None compromising logline 66
-None compromising logline 67
-None compromising logline 65
-None compromising logline 63
-None compromising logline 66
-None compromising logline 419
-None compromising logline 67
-None compromising logline 419
+3x
+    None compromising logline 63
 2x
     None compromising logline 66
-None compromising logline 65
+None compromising logline 417
+3x
+    None compromising logline 65
 None compromising logline 416
-None compromising logline 63
-None compromising logline 419
-None compromising logline 64
 None compromising logline 66
+None compromising logline 418
+None compromising logline 67
+None compromising logline 419
+3x
+    None compromising logline 67
+    None compromising logline 417
+None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+None compromising logline 418
+None compromising logline 67
+2x
+    None compromising logline 63
+None compromising logline 68
+2x
+    None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 65
+None compromising logline 66
+None compromising logline 418
 None compromising logline 64
 None compromising logline 417
-None compromising logline 64
+None compromising logline 63
+None compromising logline 417
+None compromising logline 65
+None compromising logline 419
+None compromising logline 66
+None compromising logline 417
+None compromising logline 65
+None compromising logline 418
+None compromising logline 63
 None compromising logline 68
+None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 417
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 419
+None compromising logline 68
+None compromising logline 418
+None compromising logline 66
+None compromising logline 63
+None compromising logline 67
+None compromising logline 65
+None compromising logline 63
+2x
+    None compromising logline 67
+None compromising logline 416
+None compromising logline 65
+None compromising logline 67
+3x
+    None compromising logline 68
+None compromising logline 416
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+None compromising logline 419
+None compromising logline 65
+None compromising logline 419
+9x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 67
+None compromising logline 65
+2x
+    None compromising logline 68
+None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 417
+2x
+    None compromising logline 68
+None compromising logline 66
+None compromising logline 67
+None compromising logline 65
+None compromising logline 419
+None compromising logline 65
+None compromising logline 417
+None compromising logline 64
+None compromising logline 416
+None compromising logline 66
 None compromising logline 67
 2x
     None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+None compromising logline 419
+None compromising logline 66
+None compromising logline 64
+4x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 67
+None compromising logline 417
+2x
+    None compromising logline 63
+2x
+    None compromising logline 66
+None compromising logline 68
+3x
+    None compromising logline 64
+None compromising logline 66
 None compromising logline 416
+None compromising logline 67
+None compromising logline 66
+None compromising logline 65
+3x
+    None compromising logline 64
+None compromising logline 65
+None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+None compromising logline 63
+None compromising logline 418
+None compromising logline 63
+None compromising logline 419
+None compromising logline 68
+None compromising logline 419
+2x
+    None compromising logline 63
+None compromising logline 64
+None compromising logline 68
+None compromising logline 66
+None compromising logline 63
+None compromising logline 67
+None compromising logline 416
+None compromising logline 63
+None compromising logline 419
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 416
+None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 63
+2x
+    None compromising logline 64
+None compromising logline 63
+None compromising logline 67
+None compromising logline 416
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 417
+None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+None compromising logline 64
+None compromising logline 68
+None compromising logline 416
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+3x
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 416
+None compromising logline 68
+None compromising logline 67
+None compromising logline 66
+None compromising logline 63
+5x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 65
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 67
+None compromising logline 66
+None compromising logline 63
+None compromising logline 66
+None compromising logline 68
+None compromising logline 418
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+None compromising logline 418
+None compromising logline 67
+None compromising logline 416
+None compromising logline 64
+None compromising logline 419
+None compromising logline 65
+2x
+    None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 418
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 416
+None compromising logline 64
+None compromising logline 67
+None compromising logline 64
+None compromising logline 417
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 65
+None compromising logline 416
+None compromising logline 66
+None compromising logline 68
+None compromising logline 65
+None compromising logline 66
+None compromising logline 64
+None compromising logline 66
+None compromising logline 68
+None compromising logline 416
+None compromising logline 68
+None compromising logline 63
+None compromising logline 67
+None compromising logline 418
+None compromising logline 68
+None compromising logline 416
+None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 66
+None compromising logline 68
+None compromising logline 63
+None compromising logline 66
+None compromising logline 416
+None compromising logline 67
+None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 63
+None compromising logline 417
+None compromising logline 64
+None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 67
+None compromising logline 418
+None compromising logline 68
+None compromising logline 63
+None compromising logline 64
+None compromising logline 65
+None compromising logline 63
+2x
+    None compromising logline 68
+None compromising logline 417
+None compromising logline 66
+None compromising logline 68
+None compromising logline 63
+None compromising logline 66
+9x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 65
+None compromising logline 67
+None compromising logline 63
+None compromising logline 67
+8x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 66
+None compromising logline 68
+None compromising logline 63
+None compromising logline 418
+3x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 63
+None compromising logline 418
+None compromising logline 66
+None compromising logline 417
+None compromising logline 64
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 416
+None compromising logline 63
+None compromising logline 417
+None compromising logline 65
+None compromising logline 419
+2x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 68
+None compromising logline 64
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 66
+None compromising logline 419
+None compromising logline 66
+None compromising logline 417
+2x
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 66
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
+None compromising logline 66
+None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+None compromising logline 65
+None compromising logline 64
+None compromising logline 418
+None compromising logline 66
+3x
+    None compromising logline 68
+None compromising logline 66
+2x
+    None compromising logline 67
+None compromising logline 63
+None compromising logline 65
+None compromising logline 419
+None compromising logline 67
+None compromising logline 416
+None compromising logline 68
+2x
+    None compromising logline 65
+None compromising logline 419
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+None compromising logline 416
+None compromising logline 68
+None compromising logline 66
+None compromising logline 67
+None compromising logline 417
+None compromising logline 68
+None compromising logline 67
+None compromising logline 65
+None compromising logline 419
+None compromising logline 67
+None compromising logline 63
+None compromising logline 66
+None compromising logline 65
+None compromising logline 66
+None compromising logline 68
+None compromising logline 66
+None compromising logline 416
+2x
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 417
+2x
+    None compromising logline 68
+None compromising logline 64
+2x
+    None compromising logline 65
+None compromising logline 417
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
+None compromising logline 419
+None compromising logline 63
+None compromising logline 65
+7x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 64
+None compromising logline 417
+None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 66
+None compromising logline 419
+2x
+    None compromising logline 64
+    3x
+        None compromising logline 67
+None compromising logline 419
+None compromising logline 64
+None compromising logline 416
+None compromising logline 67
+None compromising logline 418
+None compromising logline 66
+None compromising logline 417
+None compromising logline 64
+3x
+    None compromising logline 66
+None compromising logline 63
+2x
+    None compromising logline 66
+None compromising logline 418
+None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+2x
+    None compromising logline 64
+None compromising logline 66
+None compromising logline 65
+None compromising logline 64
+None compromising logline 419
+None compromising logline 63
+None compromising logline 416
+None compromising logline 64
+None compromising logline 68
+None compromising logline 66
+None compromising logline 64
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+None compromising logline 418
+None compromising logline 68
+None compromising logline 65
+None compromising logline 63
+None compromising logline 64
+2x
+    None compromising logline 65
+None compromising logline 67
+2x
+    None compromising logline 68
+    None compromising logline 65
+None compromising logline 68
+None compromising logline 63
+None compromising logline 417
+2x
+    None compromising logline 66
+None compromising logline 65
+None compromising logline 417
+None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 63
+None compromising logline 68
+2x
+    None compromising logline 66
+None compromising logline 416
+2x
+    None compromising logline 68
+    None compromising logline 67
+None compromising logline 64
+None compromising logline 417
+None compromising logline 63
+None compromising logline 64
+9x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+2x
+    None compromising logline 64
+None compromising logline 65
+None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 65
+None compromising logline 418
+None compromising logline 66
+None compromising logline 419
+None compromising logline 65
+None compromising logline 67
+None compromising logline 64
+None compromising logline 68
+None compromising logline 64
+None compromising logline 419
+None compromising logline 64
+None compromising logline 416
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 416
+2x
+    None compromising logline 67
+    None compromising logline 418
+2x
+    None compromising logline 65
+None compromising logline 64
+None compromising logline 418
+None compromising logline 66
+None compromising logline 68
+None compromising logline 66
+None compromising logline 416
+None compromising logline 67
+None compromising logline 63
+None compromising logline 67
+None compromising logline 419
+None compromising logline 66
+None compromising logline 68
+None compromising logline 67
+None compromising logline 418
+None compromising logline 67
+None compromising logline 419
+None compromising logline 63
+None compromising logline 418
+None compromising logline 64
+None compromising logline 66
+2x
+    None compromising logline 67
+2x
+    None compromising logline 68
+None compromising logline 67
+2x
+    None compromising logline 64
+None compromising logline 68
+None compromising logline 65
+None compromising logline 66
 None compromising logline 65
 None compromising logline 68
 None compromising logline 65
 None compromising logline 418
+None compromising logline 68
+2x
+    None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+3x
+    None compromising logline 63
+7x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 65
+None compromising logline 416
+None compromising logline 67
+None compromising logline 418
+None compromising logline 67
+None compromising logline 63
+None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+None compromising logline 418
+None compromising logline 64
+None compromising logline 416
+None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 416
+None compromising logline 64
+None compromising logline 416
+None compromising logline 67
+None compromising logline 65
+None compromising logline 66
+None compromising logline 416
+None compromising logline 64
+None compromising logline 417
+None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+9x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 68
+None compromising logline 418
+None compromising logline 68
+None compromising logline 417
+None compromising logline 66
+None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+2x
+    None compromising logline 66
+None compromising logline 416
+3x
+    None compromising logline 68
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+None compromising logline 67
+None compromising logline 416
+None compromising logline 68
+None compromising logline 63
+None compromising logline 64
+None compromising logline 419
+None compromising logline 64
+None compromising logline 418
+None compromising logline 68
+None compromising logline 418
+None compromising logline 63
+None compromising logline 416
+None compromising logline 67
+None compromising logline 416
+None compromising logline 63
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+None compromising logline 68
+2x
+    None compromising logline 64
+None compromising logline 63
+2x
+    None compromising logline 64
+None compromising logline 65
+None compromising logline 419
+None compromising logline 66
+None compromising logline 418
+None compromising logline 64
+None compromising logline 418
+None compromising logline 65
+None compromising logline 419
+None compromising logline 66
+None compromising logline 63
+2x
+    None compromising logline 66
+    None compromising logline 68
+None compromising logline 67
+None compromising logline 68
+None compromising logline 64
+None compromising logline 68
+2x
+    None compromising logline 63
+None compromising logline 64
+None compromising logline 416
+6x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 68
+2x
+    None compromising logline 63
+2x
+    None compromising logline 67
+2x
+    None compromising logline 65
+2x
+    None compromising logline 64
+    None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 419
+None compromising logline 64
+None compromising logline 419
+None compromising logline 65
+None compromising logline 417
+2x
+    None compromising logline 65
+None compromising logline 67
+None compromising logline 65
+None compromising logline 66
+None compromising logline 419
+None compromising logline 66
+None compromising logline 63
+None compromising logline 67
+None compromising logline 418
+None compromising logline 67
+None compromising logline 68
+None compromising logline 64
+None compromising logline 416
+None compromising logline 66
+None compromising logline 63
+None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 67
+    None compromising logline 419
+None compromising logline 68
+None compromising logline 419
+None compromising logline 63
+None compromising logline 417
+None compromising logline 68
+2x
+    None compromising logline 63
+None compromising logline 416
+None compromising logline 64
+None compromising logline 418
+None compromising logline 65
+None compromising logline 418
+6x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 67
+None compromising logline 417
+None compromising logline 65
+None compromising logline 63
+None compromising logline 64
+None compromising logline 418
+None compromising logline 63
+None compromising logline 416
+None compromising logline 68
+2x
+    None compromising logline 66
+None compromising logline 418
+None compromising logline 64
+None compromising logline 417
+None compromising logline 64
+None compromising logline 416
+None compromising logline 67
+None compromising logline 68
+None compromising logline 66
+3x
+    None compromising logline 65
+None compromising logline 67
+None compromising logline 418
+None compromising logline 68
+None compromising logline 65
+None compromising logline 64
+None compromising logline 419
+3x
+    None compromising logline 67
+None compromising logline 63
+2x
+    None compromising logline 65
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 66
+2x
+    None compromising logline 65
+None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+None compromising logline 417
+None compromising logline 68
+None compromising logline 63
+None compromising logline 67
+None compromising logline 417
+None compromising logline 68
+None compromising logline 416
+None compromising logline 66
+None compromising logline 417
+None compromising logline 63
+None compromising logline 419
+None compromising logline 63
+None compromising logline 67
+2x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 66
+None compromising logline 64
+None compromising logline 65
+None compromising logline 68
+None compromising logline 416
+None compromising logline 66
+None compromising logline 417
+2x
+    None compromising logline 63
+    None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+2x
+    None compromising logline 63
+None compromising logline 67
+None compromising logline 417
+None compromising logline 65
+None compromising logline 68
+2x
+    None compromising logline 64
+    None compromising logline 416
+None compromising logline 64
+None compromising logline 417
+2x
+    None compromising logline 66
+None compromising logline 63
+None compromising logline 416
+3x
+    None compromising logline 67
+None compromising logline 63
+None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+None compromising logline 68
+2x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 63
+None compromising logline 419
+None compromising logline 66
+2x
+    None compromising logline 68
+    None compromising logline 67
+None compromising logline 63
+None compromising logline 65
+None compromising logline 416
+None compromising logline 64
+None compromising logline 65
+None compromising logline 67
+None compromising logline 419
+None compromising logline 63
+None compromising logline 419
+None compromising logline 68
+None compromising logline 63
+7x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+2x
+    None compromising logline 66
+    None compromising logline 65
+None compromising logline 66
+None compromising logline 418
+None compromising logline 64
+2x
+    None compromising logline 66
+None compromising logline 418
+None compromising logline 66
+None compromising logline 67
+None compromising logline 63
+None compromising logline 416
 None compromising logline 67
 None compromising logline 65
 None compromising logline 64
+None compromising logline 68
+None compromising logline 67
+None compromising logline 68
+7x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 417
+None compromising logline 67
+None compromising logline 63
+None compromising logline 67
+None compromising logline 416
+None compromising logline 66
+None compromising logline 416
+None compromising logline 63
+None compromising logline 66
+None compromising logline 64
+None compromising logline 68
+None compromising logline 64
 None compromising logline 416
 None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 416
+2x
+    None compromising logline 66
+    None compromising logline 68
+None compromising logline 64
+None compromising logline 66
+None compromising logline 65
+None compromising logline 416
+None compromising logline 68
+None compromising logline 64
+None compromising logline 65
+None compromising logline 418
+None compromising logline 63
+None compromising logline 417
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 65
+None compromising logline 66
 None compromising logline 419
+None compromising logline 65
+None compromising logline 416
+2x
+    None compromising logline 63
+None compromising logline 66
+None compromising logline 417
+None compromising logline 63
+None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+None compromising logline 64
+None compromising logline 66
+None compromising logline 67
+None compromising logline 68
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 418
+None compromising logline 64
+None compromising logline 66
+None compromising logline 63
+None compromising logline 64
+5x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 67
+None compromising logline 64
+None compromising logline 67
+2x
+    None compromising logline 64
+None compromising logline 418
+None compromising logline 65
+None compromising logline 64
+None compromising logline 65
+None compromising logline 419
+None compromising logline 68
+None compromising logline 416
+None compromising logline 64
+None compromising logline 418
+None compromising logline 67
+None compromising logline 417
+None compromising logline 63
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 65
+None compromising logline 417
+None compromising logline 64
+None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+None compromising logline 63
+None compromising logline 419
+None compromising logline 65
+None compromising logline 417
+None compromising logline 68
+None compromising logline 419
+None compromising logline 66
+2x
+    None compromising logline 67
+2x
+    None compromising logline 68
+None compromising logline 417
+None compromising logline 66
+2x
+    None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 418
+None compromising logline 63
+None compromising logline 419
+None compromising logline 68
+None compromising logline 417
+None compromising logline 65
+None compromising logline 66
+None compromising logline 65
+None compromising logline 68
+None compromising logline 64
+None compromising logline 419
+None compromising logline 65
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
 None compromising logline 63
 2x
     None compromising logline 418
-    None compromising logline 66
-None compromising logline 68
-None compromising logline 64
+    None compromising logline 68
 None compromising logline 419
-2x
-    None compromising logline 66
-None compromising logline 65
-None compromising logline 416
-2x
-    None compromising logline 64
-    None compromising logline 67
-None compromising logline 65
-None compromising logline 64
-None compromising logline 66
-None compromising logline 65
-None compromising logline 64
-None compromising logline 419
+None compromising logline 67
 None compromising logline 66
 None compromising logline 67
 None compromising logline 68
+None compromising logline 67
+None compromising logline 416
+None compromising logline 63
+None compromising logline 418
+None compromising logline 63
+None compromising logline 66
+None compromising logline 63
+None compromising logline 418
+None compromising logline 67
 None compromising logline 417
+None compromising logline 64
+None compromising logline 417
+2x
+    None compromising logline 67
+None compromising logline 66
 None compromising logline 65
 None compromising logline 67
 None compromising logline 63
-None compromising logline 417
-2x
-    None compromising logline 68
-9x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+None compromising logline 68
+None compromising logline 419
+None compromising logline 64
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+4x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
 None compromising logline 63
-None compromising logline 418
-None compromising logline 66
-None compromising logline 419
-None compromising logline 63
+None compromising logline 416
+2x
+    None compromising logline 66
+None compromising logline 64
 None compromising logline 65
 None compromising logline 64
 2x
-    None compromising logline 65
+    None compromising logline 67
+None compromising logline 417
+None compromising logline 66
+None compromising logline 64
+None compromising logline 65
+None compromising logline 418
+None compromising logline 63
+None compromising logline 68
+None compromising logline 64
+None compromising logline 418
+None compromising logline 68
+None compromising logline 418
+None compromising logline 63
+None compromising logline 66
+None compromising logline 65
 2x
     None compromising logline 64
 None compromising logline 65
-None compromising logline 63
-None compromising logline 64
-None compromising logline 63
-None compromising logline 417
-None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-None compromising logline 417
 None compromising logline 64
 None compromising logline 67
-None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 63
-None compromising logline 67
-None compromising logline 418
-None compromising logline 66
-None compromising logline 417
-None compromising logline 68
-None compromising logline 63
-None compromising logline 64
-2x
-    None compromising logline 63
-None compromising logline 416
-None compromising logline 67
-None compromising logline 419
-None compromising logline 63
-2x
-    None compromising logline 65
-None compromising logline 419
-None compromising logline 67
-None compromising logline 63
-2x
-    None compromising logline 67
-None compromising logline 66
-None compromising logline 416
-None compromising logline 63
-None compromising logline 417
-None compromising logline 65
-None compromising logline 417
-None compromising logline 64
-None compromising logline 418
-None compromising logline 67
-None compromising logline 64
-2x
-    None compromising logline 67
 5x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
-None compromising logline 67
-None compromising logline 416
-None compromising logline 65
-None compromising logline 419
-None compromising logline 64
-None compromising logline 419
 None compromising logline 68
+None compromising logline 64
 None compromising logline 66
 None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+None compromising logline 68
+None compromising logline 419
+None compromising logline 66
 None compromising logline 418
-None compromising logline 67
-None compromising logline 63
-None compromising logline 66
-None compromising logline 419
-None compromising logline 63
-2x
-    None compromising logline 65
-None compromising logline 416
-2x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-2x
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-None compromising logline 66
-None compromising logline 419
-None compromising logline 67
-2x
-    None compromising logline 68
-None compromising logline 417
-None compromising logline 65
-None compromising logline 417
-None compromising logline 66
-None compromising logline 417
-None compromising logline 64
-None compromising logline 416
-2x
-    None compromising logline 67
-None compromising logline 65
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 63
-None compromising logline 67
 None compromising logline 65
 None compromising logline 66
-src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-src\omrolocs.990.test(No data was passed)
-src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-src\omrolocs.993.test(
-    someDatum=[1, 2, 3, 4],
-    someDatum2=[1, 2, 3, 4],
-)
-None compromising logline 64
-None compromising logline 66
-None compromising logline 64
-None compromising logline 417
-2x
-    None compromising logline 68
-    None compromising logline 65
-None compromising logline 64
-None compromising logline 417
-None compromising logline 64
+None compromising logline 63
 None compromising logline 66
 None compromising logline 68
 None compromising logline 417
-2x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-2x
-    None compromising logline 68
-None compromising logline 63
-None compromising logline 416
-None compromising logline 63
-None compromising logline 417
 None compromising logline 65
-None compromising logline 416
-None compromising logline 68
-None compromising logline 67
-None compromising logline 68
 None compromising logline 63
-None compromising logline 67
-None compromising logline 418
-None compromising logline 63
-None compromising logline 66
-None compromising logline 63
-None compromising logline 65
-None compromising logline 64
-None compromising logline 418
-2x
-    None compromising logline 66
-None compromising logline 63
-None compromising logline 66
-None compromising logline 65
 3x
     None compromising logline 68
+None compromising logline 418
+2x
+    None compromising logline 63
 2x
     None compromising logline 65
+None compromising logline 63
 None compromising logline 64
-None compromising logline 417
+None compromising logline 66
+None compromising logline 67
+None compromising logline 63
+2x
+    None compromising logline 64
+2x
+    None compromising logline 63
+None compromising logline 418
 None compromising logline 64
+None compromising logline 418
+None compromising logline 66
+None compromising logline 67
+None compromising logline 66
+None compromising logline 416
 2x
     None compromising logline 68
-None compromising logline 64
-None compromising logline 68
-None compromising logline 67
-None compromising logline 65
 None compromising logline 63
-None compromising logline 66
-None compromising logline 64
-None compromising logline 63
+None compromising logline 416
 2x
-    None compromising logline 64
-None compromising logline 66
-None compromising logline 64
-None compromising logline 65
+    None compromising logline 66
+    None compromising logline 417
 None compromising logline 67
-None compromising logline 418
-None compromising logline 67
-None compromising logline 64
-None compromising logline 66
-2x
-    None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 417
-2x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 419
-None compromising logline 68
-None compromising logline 64
-None compromising logline 65
 None compromising logline 416
 None compromising logline 68
-None compromising logline 64
-None compromising logline 66
+None compromising logline 418
 None compromising logline 65
-None compromising logline 66
-None compromising logline 67
+2x
+    None compromising logline 63
+None compromising logline 68
 None compromising logline 64
 None compromising logline 418
+None compromising logline 67
+None compromising logline 68
+None compromising logline 64
+2x
+    None compromising logline 63
+None compromising logline 417
+None compromising logline 65
+None compromising logline 416
+2x
+    None compromising logline 67
+None compromising logline 64
+None compromising logline 416
+None compromising logline 68
+None compromising logline 65
+None compromising logline 66
+None compromising logline 419
+None compromising logline 65
+None compromising logline 66
+None compromising logline 63
+None compromising logline 416
+None compromising logline 63
+4x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 67
+2x
+    None compromising logline 66
+    None compromising logline 63
+None compromising logline 416
+None compromising logline 63
+None compromising logline 65
+None compromising logline 63
+None compromising logline 419
+None compromising logline 65
+None compromising logline 417
+None compromising logline 67
+None compromising logline 64
+2x
+    None compromising logline 63
+None compromising logline 68
+None compromising logline 67
 7x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
-None compromising logline 63
-None compromising logline 417
-None compromising logline 65
-2x
-    None compromising logline 64
-None compromising logline 67
-2x
-    None compromising logline 64
-None compromising logline 63
-None compromising logline 65
-None compromising logline 68
-None compromising logline 419
-None compromising logline 68
-None compromising logline 66
-None compromising logline 67
-None compromising logline 418
-None compromising logline 68
-None compromising logline 419
-None compromising logline 64
-None compromising logline 65
-2x
-    None compromising logline 67
 None compromising logline 68
 2x
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-None compromising logline 419
-None compromising logline 63
-None compromising logline 67
-None compromising logline 63
-None compromising logline 416
-None compromising logline 66
-None compromising logline 68
-2x
-    None compromising logline 67
-None compromising logline 64
-None compromising logline 419
-None compromising logline 65
-None compromising logline 67
-3x
     None compromising logline 65
-None compromising logline 416
-None compromising logline 63
-None compromising logline 416
-None compromising logline 68
-None compromising logline 419
-None compromising logline 67
-None compromising logline 68
-None compromising logline 67
-None compromising logline 417
-None compromising logline 64
 2x
     None compromising logline 66
-None compromising logline 67
-None compromising logline 68
-None compromising logline 419
-None compromising logline 66
-None compromising logline 68
-None compromising logline 66
 None compromising logline 63
-None compromising logline 66
-None compromising logline 419
 None compromising logline 67
-None compromising logline 66
-src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-src\omrolocs.990.test(No data was passed)
-src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-src\omrolocs.993.test(
-    someDatum=[1, 2, 3, 4],
-    someDatum2=[1, 2, 3, 4],
-)
+None compromising logline 65
 2x
-    None compromising logline 67
-None compromising logline 63
+    None compromising logline 68
+None compromising logline 64
 None compromising logline 417
 None compromising logline 66
+None compromising logline 417
+None compromising logline 67
+None compromising logline 418
+None compromising logline 67
+None compromising logline 417
+2x
+    None compromising logline 64
+None compromising logline 67
+None compromising logline 419
 None compromising logline 63
+None compromising logline 68
+None compromising logline 66
+None compromising logline 65
+None compromising logline 68
+None compromising logline 66
+None compromising logline 67
+None compromising logline 418
+2x
+    None compromising logline 66
+None compromising logline 64
+None compromising logline 419
+None compromising logline 63
+2x
+    None compromising logline 65
+None compromising logline 416
+None compromising logline 68
+None compromising logline 418
+None compromising logline 63
+None compromising logline 64
+None compromising logline 66
+None compromising logline 416
+None compromising logline 66
+None compromising logline 65
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 67
+None compromising logline 64
+None compromising logline 66
+None compromising logline 63
+None compromising logline 418
+None compromising logline 67
+None compromising logline 416
+None compromising logline 63
+None compromising logline 67
+None compromising logline 64
+None compromising logline 419
+None compromising logline 63
+None compromising logline 418
+8x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 64
+None compromising logline 417
+2x
+    None compromising logline 68
+None compromising logline 65
+None compromising logline 67
+2x
+    None compromising logline 65
+None compromising logline 66
+None compromising logline 418
+None compromising logline 66
+None compromising logline 419
+None compromising logline 65
+None compromising logline 418
+None compromising logline 66
+None compromising logline 64
 None compromising logline 68
 None compromising logline 416
-None compromising logline 64
+None compromising logline 65
 None compromising logline 418
-None compromising logline 66
-None compromising logline 419
-None compromising logline 68
+None compromising logline 65
 None compromising logline 417
-None compromising logline 66
-None compromising logline 418
-None compromising logline 64
-None compromising logline 67
 None compromising logline 66
 2x
     None compromising logline 63
-None compromising logline 65
-None compromising logline 66
-None compromising logline 67
-src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-src\omrolocs.990.test(No data was passed)
-src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-src\omrolocs.993.test(
-    someDatum=[1, 2, 3, 4],
-    someDatum2=[1, 2, 3, 4],
-)
-None compromising logline 63
-None compromising logline 68
-2x
-    None compromising logline 67
-None compromising logline 63
-None compromising logline 417
+None compromising logline 416
 None compromising logline 63
 None compromising logline 64
-None compromising logline 65
-None compromising logline 419
-None compromising logline 68
-2x
-    None compromising logline 67
+None compromising logline 63
 None compromising logline 416
 None compromising logline 68
-None compromising logline 419
-2x
-    None compromising logline 68
+None compromising logline 416
 None compromising logline 63
-None compromising logline 67
-None compromising logline 68
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 67
-None compromising logline 418
-7x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+None compromising logline 416
+4x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
+None compromising logline 65
+None compromising logline 416
+7x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 68
+None compromising logline 63
+None compromising logline 66
+None compromising logline 419
+None compromising logline 66
+3x
+    None compromising logline 63
+None compromising logline 68
+None compromising logline 418
+2x
+    None compromising logline 67
+None compromising logline 65
+None compromising logline 67
+None compromising logline 66
+None compromising logline 63
+2x
+    None compromising logline 64
+None compromising logline 65
+2x
+    None compromising logline 63
+    None compromising logline 68
+None compromising logline 416
+7x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 63
+None compromising logline 65
+None compromising logline 67
+None compromising logline 417
+None compromising logline 66
+None compromising logline 418
+3x
+    None compromising logline 64
+None compromising logline 417
+None compromising logline 66
+None compromising logline 67
+2x
+    None compromising logline 63
+None compromising logline 64
+None compromising logline 418
+None compromising logline 63
+None compromising logline 64
+None compromising logline 63
+None compromising logline 417
+None compromising logline 64
+None compromising logline 68
+None compromising logline 66
+None compromising logline 64
+None compromising logline 68
+None compromising logline 419
+2x
+    None compromising logline 66
+None compromising logline 63
+None compromising logline 416
+None compromising logline 67
+None compromising logline 418
+None compromising logline 66
+None compromising logline 417
+None compromising logline 68
+None compromising logline 67
+None compromising logline 63
+None compromising logline 66
+None compromising logline 64
+None compromising logline 419
 2x
     None compromising logline 64
 None compromising logline 66
+2x
+    None compromising logline 68
+    None compromising logline 65
+None compromising logline 68
 None compromising logline 63
-None compromising logline 64
-None compromising logline 417
-None compromising logline 66
-None compromising logline 64
-None compromising logline 68
+None compromising logline 416
+None compromising logline 63
+2x
+    None compromising logline 66
+None compromising logline 416
+3x
+    None compromising logline 65
 None compromising logline 419
-None compromising logline 66
-None compromising logline 68
-None compromising logline 64
 None compromising logline 67
-None compromising logline 66
-None compromising logline 68
+2x
+    None compromising logline 65
+None compromising logline 417
+None compromising logline 64
+None compromising logline 418
+2x
+    None compromising logline 63
 None compromising logline 64
 None compromising logline 419
-None compromising logline 66
-None compromising logline 64
-None compromising logline 68
-None compromising logline 419
-None compromising logline 66
-None compromising logline 65
 None compromising logline 68
 None compromising logline 418
+None compromising logline 68
+None compromising logline 419
+None compromising logline 65
+2x
+    None compromising logline 63
+None compromising logline 66
+3x
+    None compromising logline 64
+None compromising logline 68
+6x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 63
+None compromising logline 419
+None compromising logline 68
 None compromising logline 67
+None compromising logline 64
+None compromising logline 65
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+None compromising logline 416
+None compromising logline 63
+2x
+    None compromising logline 65
+None compromising logline 63
+None compromising logline 67
+None compromising logline 419
+None compromising logline 67
+2x
+    None compromising logline 64
+    None compromising logline 63
+None compromising logline 67
+None compromising logline 63
+None compromising logline 416
+2x
+    None compromising logline 68
+None compromising logline 63
+None compromising logline 418
+None compromising logline 67
+None compromising logline 64
+None compromising logline 66
+None compromising logline 419
+None compromising logline 67
+None compromising logline 66
+None compromising logline 67
+None compromising logline 65
+None compromising logline 63
+None compromising logline 417
+None compromising logline 67
+None compromising logline 63
+None compromising logline 67
+2x
+    None compromising logline 64
+None compromising logline 63
+None compromising logline 66
+None compromising logline 64
+None compromising logline 67
+None compromising logline 68
+None compromising logline 67
+None compromising logline 416
+None compromising logline 65
+None compromising logline 63
+None compromising logline 65
+None compromising logline 64
+None compromising logline 67
+None compromising logline 65
+None compromising logline 67
+None compromising logline 417
+None compromising logline 66
+None compromising logline 68
+None compromising logline 64
+None compromising logline 417
+None compromising logline 68
+None compromising logline 63
+None compromising logline 64
+None compromising logline 418
+None compromising logline 66
+None compromising logline 418
+None compromising logline 63
+None compromising logline 419
+None compromising logline 67
+None compromising logline 416
+None compromising logline 68
+None compromising logline 419
+None compromising logline 68
+None compromising logline 67
+None compromising logline 68
+2x
+    None compromising logline 65
+2x
+    None compromising logline 67
+None compromising logline 64
+None compromising logline 67
+None compromising logline 66
+None compromising logline 64
+None compromising logline 416
+None compromising logline 63
+None compromising logline 418
+None compromising logline 64
+None compromising logline 419
+9x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
+None compromising logline 65
+None compromising logline 419
+4x
+    None compromising logline 66
+None compromising logline 65
+None compromising logline 418
+None compromising logline 63
 2x
     None compromising logline 417
-    None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 418
-None compromising logline 66
-None compromising logline 68
-None compromising logline 64
-None compromising logline 417
-None compromising logline 63
-None compromising logline 68
-None compromising logline 64
-None compromising logline 65
-None compromising logline 66
-None compromising logline 418
-None compromising logline 64
-3x
-    None compromising logline 66
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-None compromising logline 419
-None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-None compromising logline 68
-None compromising logline 64
-None compromising logline 418
-None compromising logline 65
-None compromising logline 416
-None compromising logline 64
-None compromising logline 416
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-None compromising logline 419
-None compromising logline 68
-None compromising logline 416
-None compromising logline 63
-None compromising logline 67
-None compromising logline 64
-None compromising logline 419
-None compromising logline 68
-None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-None compromising logline 67
-None compromising logline 63
-None compromising logline 65
-None compromising logline 416
-None compromising logline 63
-None compromising logline 417
-None compromising logline 63
-2x
-    None compromising logline 418
     None compromising logline 67
-None compromising logline 416
-None compromising logline 68
-None compromising logline 64
 None compromising logline 63
-None compromising logline 416
-8x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+None compromising logline 65
+2x
+    None compromising logline 68
+None compromising logline 65
+3x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
 None compromising logline 66
-None compromising logline 418
 None compromising logline 65
-None compromising logline 417
-2x
-    None compromising logline 67
-None compromising logline 64
-None compromising logline 67
-None compromising logline 64
-None compromising logline 63
-None compromising logline 64
-2x
-    None compromising logline 65
+None compromising logline 68
 None compromising logline 416
-None compromising logline 67
-None compromising logline 63
-None compromising logline 64
-None compromising logline 417
-None compromising logline 63
-None compromising logline 67
-None compromising logline 68
-None compromising logline 63
-2x
-    None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 64
-None compromising logline 65
-None compromising logline 67
-None compromising logline 66
-None compromising logline 67
-2x
-    None compromising logline 65
-None compromising logline 416
-None compromising logline 68
-None compromising logline 417
-None compromising logline 63
-None compromising logline 419
-None compromising logline 64
-2x
-    None compromising logline 67
-None compromising logline 417
-None compromising logline 64
-None compromising logline 68
-2x
-    None compromising logline 66
-    None compromising logline 63
-None compromising logline 68
-None compromising logline 67
-None compromising logline 66
-None compromising logline 419
-None compromising logline 65
-None compromising logline 68
-None compromising logline 63
-None compromising logline 417
-None compromising logline 65
-2x
-    None compromising logline 67
-None compromising logline 65
-None compromising logline 67
-None compromising logline 65
-None compromising logline 68
-None compromising logline 419
-None compromising logline 63
-None compromising logline 65
-None compromising logline 64
-None compromising logline 416
-None compromising logline 65
-None compromising logline 67
+8x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
+        someDatum=[1, 2, 3, 4],
+        someDatum2=[1, 2, 3, 4],
+    )
 [CORRECTLOG] This is a log line which is expected and correct
 A debug line 
 Longest expected flag
 35x
     Some flag of the log is cutoff
-4x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
-        someDatum=[1, 2, 3, 4],
-        someDatum2=[1, 2, 3, 4],
-    )
-
-========================================================= ARENA LOADED =========================================================
-

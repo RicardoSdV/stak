@@ -37,6 +37,9 @@ Cool potential features: (by priority)
 
     - Somehow better prints for wrappers, e.g. CallerCls(DefinerCls.@decoratorName.methNameToFindDefClsOf) (Look at closures? maybe?)
 
+    - Reconstruct a class based on inheritance, i.e. "superHelp" similar to the built-in help, but print the code of all the methods
+    all into one class and save that into a .py file such that any class that inherits from any number of classes or uses a metaclass
+    can be substituted for the output of superHelp and have it behave in the same way
 """
 
 # Imports used outside STAK
@@ -128,8 +131,6 @@ class STAK(object):
 
         self.__pStdFlagsByStdFlags = {flag: pFlag for flag, pFlag in self.__izip(self.__stdFlags, self.__paddedStdFlags)}
         self.__pStdFlagsByStdFlags['CUTOFF'] = ': CUTOFF  : '  # Manually padding this ain't
-
-        self.__makeDirs()
 
     def __uniqueFlagCutoffCombosByRepetitionsCreator(self): # type: () -> OrderedDict[str, int]
 
@@ -231,6 +232,13 @@ class STAK(object):
     # Call from shell interface
     def save(self):  # type: () -> None
         """ Save stak.__log, spliced, trimmed & more """
+
+        # Make paths if don't exist just in time bc on innit might cause collisions
+        if not self.__os.path.isdir(self.__pathDirPrimi):
+            self.__os.makedirs(self.__pathDirPrimi)
+        if not self.__os.path.isdir(self.__pathDirVari):
+            self.__os.makedirs(self.__pathDirVari)
+
         log = tuple(
             self.__logWithStrStampsGen()
         )  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[SplitLink, str]], ...]
@@ -296,8 +304,6 @@ class STAK(object):
         if root    is not None: self.__dirRoot     = root
         if stdLogs is not None: self.__namesLogStd = stdLogs
 
-        self.__makeDirs()
-
     def clear(self):  # type: () -> None
         """ DANGER: Clears current logs, stak & std. Resets self.__eventCnt (label print count) & more """
 
@@ -311,9 +317,8 @@ class STAK(object):
 
     def rmPrint(self):  # type: () -> None
         """ MUCH DANGER: Remove current print dir & all its logs & recreate the dirs (not the logs) """
-
-        self.__shutil.rmtree(self.__pathDirPrint)
-        self.__makeDirs()
+        if self.__os.path.exists(self.__pathDirPrint):
+            self.__shutil.rmtree(self.__pathDirPrint)
 
     """=============================================================================================================="""
 
@@ -896,14 +901,6 @@ class STAK(object):
     """=============================================================================================================="""
 
     """=================================================== PATH OPS ================================================="""
-
-    def __makeDirs(self):  # type: () -> None
-
-        if not self.__os.path.isdir(self.__pathDirPrimi):
-            self.__os.makedirs(self.__pathDirPrimi)
-
-        if not self.__os.path.isdir(self.__pathDirVari):
-            self.__os.makedirs(self.__pathDirVari)
 
     @classmethod
     def __addSuffix(cls, logName, suffix):  # type: (str, str) -> str

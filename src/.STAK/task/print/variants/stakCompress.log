@@ -1,13 +1,10 @@
-2024-07-27
-208x
-    src\omrolocs.989.test <- src\omrolocs.981.wrapper <- src\omrolocs.995.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1008.__statMeth <- src\omrolocs.1006.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1023.func <- src\omrolocs.1026.oldStyleStaticMeth <- src\omrolocs.1028.oldStyleClassMeth <- src\omrolocs.1029.oldStyleInstanceMeth <- src\omrolocs.1110.genLogs <- src\omrolocs.1123.<module>
-    src\omrolocs.990.test(No data was passed)
-    src\omrolocs.991.test(someDatum=[1, 2, 3, 4])
-    src\omrolocs.992.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-    src\omrolocs.993.test(
+2024-07-29
+244x
+    src\omrolocs.986.test <- src\omrolocs.978.wrapper <- src\omrolocs.992.__privProp <- Dawg(SomeCls(Daddy.__testCaller)) <- Dawg(SomeCls(Daddy.testCaller)) <- Dawg(SomeCls.testCallerOfCaller) <- Dawg(SomeCls.propCallerOfCallerOfCaller) <- Outcast.__classMeth <- Outcast.classMeth <- src\omrolocs.1005.__statMeth <- src\omrolocs.1003.statMeth <- OutcastSon(Outcast.__init__) <- src\omrolocs.1020.func <- src\omrolocs.1023.oldStyleStaticMeth <- src\omrolocs.1025.oldStyleClassMeth <- src\omrolocs.1026.oldStyleInstanceMeth <- src\omrolocs.1107.genLogs <- src\omrolocs.1120.<module>
+    src\omrolocs.987.test(No data was passed)
+    src\omrolocs.988.test(someDatum=[1, 2, 3, 4])
+    src\omrolocs.989.test(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+    src\omrolocs.990.test(
         someDatum=[1, 2, 3, 4],
         someDatum2=[1, 2, 3, 4],
     )
-
-========================================================= ARENA LOADED =========================================================
-
