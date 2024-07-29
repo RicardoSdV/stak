@@ -123,7 +123,7 @@ class STAK(object):
         self.__stakFlags = ('OMROLOCS', 'DATE', 'DATA', 'LABEL')
         self.__paddedStakFlags = tuple(self.__paddedFlagsGen(self.__stakFlags))
 
-        self.__stdFlags = ('DEBUG', 'INFO', 'NOTICE', 'WARNING', 'ERROR', 'CRITICAL', 'HACK')
+        self.__stdFlags = ('DEBUG', 'INFO', 'NOTICE', 'WARNING', 'ERROR', 'CRITICAL', 'HACK', 'TRACE', 'ASSET')
         self.__paddedStdFlags = tuple(self.__paddedFlagsGen(self.__stdFlags))  # type: Tuple[str, ...]
         self.__pStdFlagsByStdFlags = {flag: pFlag for flag, pFlag in self.__izip(self.__stdFlags, self.__paddedStdFlags)}
         self.__pStdFlagsByStdFlags['CUTOFF'] = ': CUTOFF  : '  # Manually padding ain't great
