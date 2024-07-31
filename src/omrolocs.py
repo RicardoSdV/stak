@@ -191,6 +191,10 @@ class STAK(object):
     """================================================== INTERFACE ================================================="""
 
     # Call from code interface
+    def omropocs(self):  # type: () -> None
+        """ Its back! sometimes u just need the good old omropocs! in new & improved form! """
+        print ' <- '.join(self.__jointLinksGen())
+
     def omrolocs(self, silence=False):  # type: (bool) -> None
         """ Optional Method Resolution Order Logger Optional Call Stack """
 
@@ -324,8 +328,40 @@ class STAK(object):
 
     """=========================================== CREATING MRO CALL CHAINS =========================================="""
 
+    def __jointLinksGen(self):  # type: () -> Iterator[str]
+        """ Custom for omropocs sometimes you just need a good old generator of strings !"""
+        frame, mroClsNsGen, OldStyleClsType = self.__getFrame(2), self.__mroClsNsGen, self.__OldStyleClsType
+        privInsMethCond, pubInsMethCond = self.__privInsMethCond, self.__pubInsMethCond
+        privClsMethCond, pubClsMethCond = self.__privClsMethCond, self.__pubClsMethCond
+        pathSplitChar = self.__pathSplitChar
+
+        while frame:
+            codeObj, fLocals = frame.f_code, frame.f_locals
+            methName = codeObj.co_name
+
+            callerCls = None
+            if 'self' in fLocals:
+                callerCls = fLocals['self'].__class__
+                defClsCond = privInsMethCond if methName.startswith('__') and not methName.endswith('__') else pubInsMethCond
+            elif 'cls' in fLocals:
+                callerCls = fLocals['cls']
+                defClsCond = privClsMethCond if methName.startswith('__') and not methName.endswith('__') else pubClsMethCond
+
+            if callerCls is None or isinstance(callerCls, OldStyleClsType):
+                yield '{}{}.{}'.format(codeObj.co_filename.split(pathSplitChar)[-1].rstrip('py'), frame.f_lineno, methName)
+            else:
+                # PyCharm thinks defClsCond could be undefined, but if callerCls is not None it must be defined
+                mroClsNs = list(mroClsNsGen(callerCls, defClsCond, methName, codeObj))
+                if mroClsNs[-1] == 'object':  # Sometimes definer class not found so follow inheritance tree to the root
+                    yield '{}{}.{}'.format(codeObj.co_filename.split(pathSplitChar)[-1].rstrip('py'), frame.f_lineno, methName)
+                else:
+                    mroClsNs[-1] = '{}.{}{}'.format(mroClsNs[-1], methName, ')' * (len(mroClsNs) - 1))
+                    yield '('.join(mroClsNs)
+
+            frame = frame.f_back
+
     def __linksGen(self):  # type: () -> Iterator[Union[Tuple[List[str], str], Tuple[str, int, str]]]
-        frame, mroClsNsGen, OldStyleClsType, os = self.__getFrame(2), self.__mroClsNsGen, self.__OldStyleClsType, self.__os
+        frame, mroClsNsGen, OldStyleClsType = self.__getFrame(2), self.__mroClsNsGen, self.__OldStyleClsType
         privInsMethCond, pubInsMethCond = self.__privInsMethCond, self.__pubInsMethCond
         privClsMethCond, pubClsMethCond = self.__privClsMethCond, self.__pubClsMethCond
 
@@ -1006,6 +1042,7 @@ class Daddy(Ganny):
         s.data(someDatum=[1,2,3,4])
         s.data(someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
         s.data(pretty=True, someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
+        s.omropocs()
     @property
     def __privProp(self): return self.test()
     def __testCaller(self): self.__privProp
