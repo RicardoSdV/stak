@@ -23,13 +23,33 @@ Known issues:
 
     - Due to the compression algorith some, potentially more profitable patterns, are lost e.g. A, A, A, B, A, B -> 3A, BAB
 
+    - If some feels the need to write his own cached property then this will break omrolocs and omropocs
+
+    - STAK.clear() is bugged
+
 Unknown Issues:
     - If the program crashes there might be a problem
 
-Cool potential features: (by priority)
+Cool potential features:
+    - Add the flags back to the compressed logs, they do more good than harm
+
+    - Sometimes certain prints are hard to obtain therefore to avoid accidental destruction some sort of mechanism to protect
+    them must be established
+
+    - When multiple processes are running the logs are separate, to have them joined write directly to file on entry & give a
+    flag name to each process to understand which process is producing the logs
+
+    - Given an object find the class who instantiated it, & the entire mro from it towards object & STAK that (EASY, DO NOW)
+
+    - split the different entries each in their own log, to make processing simpler, also, maybe print them each in their own file,
+    but must keep entry order since entries might happen at the same timestamp
+
+    - Sometimes datastructures receive data in mysterious ways, create custom datastructures which inherit from the normal ones and
+    hijack the normal methods to omrolocs that STAK
+
     - wrap long stacks
 
-    - Add an option to print the stack in multiple parsedLines with indentation
+    - Add an option to print the stack in multiple lines with indentation
 
     - Pretty print data structures
 
@@ -40,6 +60,11 @@ Cool potential features: (by priority)
     - Reconstruct a class based on inheritance, i.e. "superHelp" similar to the built-in help, but print the code of all the methods
     all into one class and save that into a .py file such that any class that inherits from any number of classes or uses a metaclass
     can be substituted for the output of superHelp and have it behave in the same way
+
+Historical Note:
+    - Sadly all we love must die, & so the old name, STAK, had to be deprecated for it was no longer representative of the whole
+     function & operation of the new & rebranded CALPACMRORSIDAM, STAK shall be remembered, & its ghost shall remain in many an
+     out-of-place name.
 """
 
 # Imports used outside STAK
@@ -65,8 +90,8 @@ if TYPE_CHECKING:
     StrLinkCallChainEntry   = Tuple[float, str, List[str]]
 
 
-class STAK(object):
-    """ A call stack creating, log parsing, creating & compressing method resolution order representing class & more """
+class CALPACMRORSIDAM(object):
+    """ Callstack Appreciating, Log Parsing, All Compressing, Method Resolution Order Representing, Shell Interactive, Debugger, And More """
     # Tip: This class could be split into modules or classes. Main reason it's not is to be easy to copy-paste, folding
     # all the methods & in-between ===== blocks & treat those like classes or modules its easy to understand
 
@@ -249,7 +274,7 @@ class STAK(object):
             )
 
     def _date_entry(self):
-        """ Since normal entries only log time, this one is used to log date normally on logging session init """
+        """ Since normal entries only log time, this one is used to log date, normally on logging session init """
         self.__append_to_log((self.__ti.time(), self.__stakFlags[1], self.__dt.now().strftime('%Y-%m-%d\n')))
 
     # Call from shell interface
@@ -315,6 +340,8 @@ class STAK(object):
             with open(logPath, 'w'): pass
 
         self.__log = []
+        self.__append_to_log = self.__log.append
+        self.__extend_log    = self.__log.extend
         self.eventCnt = 0
 
         self._date_entry()
@@ -409,7 +436,7 @@ class STAK(object):
         # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
         for attr in defClsMaybe.__dict__.values():
             if (
-                    isinstance(attr, STAK.__FunctionType) and
+                    isinstance(attr, CALPACMRORSIDAM.__FunctionType) and
                     attr.__name__ == methNameToFindDefClsOf and
                     # If the code object is the same do we need to compare the meth name too??
                     attr.func_code is codeObjToFindDefClsOf
@@ -698,7 +725,7 @@ class STAK(object):
         """ List that holds extra attributes for internal use in compression"""
 
         def __init__(self, cnt=1, rep='', *args):
-            super(STAK._CompressionFormatList, self).__init__(args)
+            super(CALPACMRORSIDAM._CompressionFormatList, self).__init__(args)
             self.cnt = cnt
             self.rep = rep
 
@@ -1025,7 +1052,7 @@ class STAK(object):
     """=============================================================================================================="""
 
 
-s = STAK()
+s = CALPACMRORSIDAM()
 
 def decorator(func):
     def wrapper(*args, **kwargs):

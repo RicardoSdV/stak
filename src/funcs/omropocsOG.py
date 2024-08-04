@@ -1,49 +1,11 @@
 """
-How to use:
-    - Paste def omropocs in some high level utils type file
-    - Call omropocs() from the callable to debug
-    - Optionally set the printMRO and adjust the callStackDepth optionally at a global level or by passing the args
-
-Known issues:
-    - Caller class cannot be found for wrapped methods and therefore definer class neither (with custom wrappers,
-    not @property neither @classmethod, yes @staticmethod but for other reasons)
-
-    - A private property will make it default to filename & lineno,
-
-    - If the object object autopassed to an instance method is not called 'self' defaults to filename & lineno
-
-    - If the class object autopassed to a class method is not called 'self' defaults to filename & lineno
-
-    - If the method is defined in an old style class, it defaults to filename & lineno
-
-    - Can't handle 'wrapper_descriptor', Fixed for public instance methods, unknown how it would handle any other
-    type
-
-
-Cool potential features:
-    - If there are multiple methods in the call stack that have the same definer and caller class maybe print only
-    one copy of the MRO and substitute in the other frames by ... or something
-
-    - Support finding caller definer & mro classes for static methods
-
-    - Somehow better prints for wrappers, maybe skip? compress?
-
-    - Support force passing the definer class as kwarg, to have good prints if there are static methods or wrappers
-    in the meanwhile
-
-    - Add an option to print the stack in multiple parsedLines with indentation
-
-    - Add option to print a trimmed version of the callstack, only the first and last frame
-
-    - wrap long stacks
-
-DEPRECATED: New ideas and problems are written in omrolocs, although some apply to omropocs too
+This shall remain unaltered in homage to the OG omropocs
 """
 
 import types
 from inspect import stack, isfunction
 
-from someCode import SomeClass
+from src.funcs.someCode import SomeClass
 
 
 def omropocs(pMRO=True, callStackDepth=999, silence=False):
