@@ -12,7 +12,7 @@ Known issues:
 
     - If the object object autopassed to an instance method is not called 'self' defaults to filename & lineno
 
-    - If the class object autopassed to a class method is not called 'defClsMaybe' defaults to filename & lineno
+    - If the class object autopassed to a class method is not called 'cls' defaults to filename & lineno
 
     - If the method is defined in an old style class, it defaults to filename & lineno
 
@@ -31,6 +31,14 @@ Unknown Issues:
     - If the program crashes there might be a problem
 
 Cool potential features:
+    - Currently it is possible to print the callstack, i.e. calls that happened in the past, but
+    would it be possible to do the opposite? i.e. print what will happen in the future? What I mean is, for example, a func
+    that will call more funcs is creating a frame, is it possible to somehow hijack such frame such that all the calls that happen
+    as a consequence of the original caller are also logged? for example currently if A calls B and B calls C we must omrolocs
+    C and therefore get: C <- B <- A. But what if A could be omrolocsed and produce A -> B -> C and maybe too A -> B -> D since
+    of course now things can branch? That would make debugging that much easier, instead of having to omrolocs all the leaf funcs
+    the relative or absolute root func could be omrolocsed to get literally ALL the info. See futStak for R&D
+
     - Add the flags back to the compressed logs, they do more good than harm
 
     - Sometimes certain prints are hard to obtain therefore to avoid accidental destruction some sort of mechanism to protect
@@ -92,8 +100,6 @@ if TYPE_CHECKING:
 
 class CALPACMRORSIDAM(object):
     """ Callstack Appreciating, Log Parsing, All Compressing, Method Resolution Order Representing, Shell Interactive, Debugger, And More """
-    # Tip: This class could be split into modules or classes. Main reason it's not is to be easy to copy-paste, folding
-    # all the methods & in-between ===== blocks & treat those like classes or modules its easy to understand
 
     """================================================ INITIALISING ================================================"""
 
@@ -142,7 +148,6 @@ class CALPACMRORSIDAM(object):
         ).search
 
         self.__maxCompressGroupSize = 100  # Increases compress times exponentially
-
 
         # Flag stuff
         self.__stakFlags = ('OMROLOCS', 'DATE', 'DATA', 'LABEL')
@@ -215,7 +220,7 @@ class CALPACMRORSIDAM(object):
 
     """================================================== INTERFACE ================================================="""
 
-    # Call from code interface
+    # Call-from-code interface
     def omropocs(self):  # type: () -> None
         """ Its back! sometimes u just need the good old omropocs! in new & improved form! """
         print ' <- '.join(self.__jointLinksGen())
@@ -277,7 +282,7 @@ class CALPACMRORSIDAM(object):
         """ Since normal entries only log time, this one is used to log date, normally on logging session init """
         self.__append_to_log((self.__ti.time(), self.__stakFlags[1], self.__dt.now().strftime('%Y-%m-%d\n')))
 
-    # Call from shell interface
+    # Call-from-shell interface
     def save(self):  # type: () -> None
         """ Save stak.__log, spliced, trimmed & more """
 
