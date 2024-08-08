@@ -112,7 +112,7 @@ class CALPACMRORSIDAM(object):
         '__log', '_rootDir', 'taskDir', 'printDir', '_primitivesDir', '_variantsDir', '_stakLogFile', '_stdLogFiles',
         '__maxCompressGroupSize', 'eventCnt', 'eventLabels', '__matcher', '__stdFlags', '__cutoffCombos', '__wholeEnoughs',
         '__getFrame', '__append_to_log', '__stakFlags', '__paddedStakFlags', '__paddedStdFlags', '__cutoffFlag', '__allPflagsByFlags',
-        '__pStdFlagsByStdFlags', '__extend_log', '__pathSplitChar', '__excludeFromLocalsAutoLogging',
+        '__pStdFlagsByStdFlags', '__extend_log', '__pathSplitChar',
     )
 
     def __init__(self):  # type: () -> None
@@ -165,9 +165,6 @@ class CALPACMRORSIDAM(object):
         self.__wholeEnoughs = self.__wholeEnoughsCreator()
 
         self.__pathSplitChar = '/' if '/' in self.__getFrame(0).f_code.co_filename else '\\'
-
-        # Locals autologging
-        self.__excludeFromLocalsAutoLogging = ('self', 'cls')
 
         # First log entry to log current date
         self._date_entry()
@@ -239,52 +236,14 @@ class CALPACMRORSIDAM(object):
             )
         )
 
-    def __splitLinkToStr(self, splitLink):
-        # type: (Union[Tuple[List[str], str], Tuple[str, int, str]]) -> str
-        if len(splitLink) == 3:
-            filePath, lineno, methName = splitLink
-            splitFilePath = filePath.split(self.__os.sep)
-            if len(splitFilePath) > 1:
-                return '{}{}.{}'.format(self.__os.path.join(splitFilePath[-2], splitFilePath[-1]).rstrip('py'), lineno, methName)
-            else:
-                return '{}{}.{}'.format(self.__os.path.join(splitFilePath[-1]).rstrip('py'), lineno, methName)
-        else:
-            return self.__fullStrLinkCreator(*splitLink)
-
-    def __data(self, pretty, strLink, **dataForLogging):  # type: (bool, str, Dict[str, Any]) -> None
-        if pretty:
-            now, flag = self.__ti.time(), self.__stakFlags[2]
-
-            if dataForLogging:
-                self.__append_to_log((now, flag, '{}(\n'.format(strLink)))
-                self.__extend_log(
-                    (now, flag, '    {}={},\n'.format(name, datum))
-                    for name, datum in dataForLogging.items()
-                )
-                self.__append_to_log((now, flag, ')\n'))
-            else:
-                self.__append_to_log((now, flag, '(No data was passed)\n'))
-        else:
-            self.__append_to_log(
-                (
-                    self.__ti.time(),
-                    self.__stakFlags[2],
-                    (
-                        '{}('.format(strLink) +
-                        ', '.join(('{}={}'.format(name, datum) for name, datum in dataForLogging.items())) +
-                        ')\n'
-                    ) if dataForLogging else '{}('.format(strLink) + 'No data was passed)\n'
-                )
-            )
-
     def data(self, pretty=False, **dataForLogging):  # type: (bool, Any) -> None
         """ Log data structures, their callable & definer class names """
 
         strLink = self.__splitLinkToStr(next(self.__linksGen()))
         self.__data(pretty, strLink, **dataForLogging)
 
-    def omrolocsald(self, silence=False, pretty=False, **additionalDataForLogging):
-        """ Optional Method Resolution Order Logger Optional Call Stack And Locals Data """
+    def omrolocsalad(self, silence=False, pretty=False, **additionalDataForLogging):  # type: (bool, bool, Any) -> None
+        """ Optional Method Resolution Order Logger Optional Call Stack And Locals Auto Data """
         if silence: return
 
         linksAndFirstFrameLocalsGen = self.__linksAndFirstFrameLocalsGen()
@@ -311,9 +270,23 @@ class CALPACMRORSIDAM(object):
             **additionalDataForLogging
         )
 
-    def _date_entry(self):
-        """ Since normal entries only log time, this one is used to log date, normally on logging session init """
-        self.__append_to_log((self.__ti.time(), self.__stakFlags[1], self.__dt.now().strftime('%Y-%m-%d\n')))
+    def autoLocals(self, silence=False, pretty=False, **additionalDataForLogging):  # type: (bool, bool, Any) -> None
+        """ Logs locals from the frame from which this method was called & optionally & additionally any other kwargs """
+        if silence: return
+
+        linksAndFirstFrameLocalsGen = self.__linksAndFirstFrameLocalsGen()
+        firstFrameLocals = next(linksAndFirstFrameLocalsGen)  # type: Dict[str, Any]
+
+        for key, value in firstFrameLocals.items():
+            if key != 'self' and key != 'cls':
+                additionalDataForLogging[key] = value
+
+        firstLinkAsStr = self.__splitLinkToStr(next(linksAndFirstFrameLocalsGen))
+        self.__data(
+            pretty,
+            firstLinkAsStr,
+            **additionalDataForLogging
+        )
 
     # Call-from-shell interface
     def save(self):  # type: () -> None
@@ -374,6 +347,8 @@ class CALPACMRORSIDAM(object):
     def clear(self):  # type: () -> None
         """ DANGER: Clears current logs, stak & std. Resets self.eventCnt (label print count) & more """
 
+        print 'Currently bugged, so returning ...'; return
+
         for logPath in self._stdLogFiles:
             with open(logPath, 'w'): pass
 
@@ -388,6 +363,11 @@ class CALPACMRORSIDAM(object):
         """ MUCH DANGER: Remove current print dir & all its logs & recreate the dirs (not the logs) """
         if self.__os.path.exists(self.__pathDirPrint):
             self.__shutil.rmtree(self.__pathDirPrint)
+
+    # Call-from-self autoface
+    def _date_entry(self):
+        """ Since normal entries only log time, this one is used to log date, normally on logging session init """
+        self.__append_to_log((self.__ti.time(), self.__stakFlags[1], self.__dt.now().strftime('%Y-%m-%d\n')))
 
     """=============================================================================================================="""
 
@@ -453,40 +433,6 @@ class CALPACMRORSIDAM(object):
                     yield mroClsNs, methName
 
             frame = frame.f_back
-
-    def __linksAndFirstFrameLocalsGen(self):  # type: () -> Iterator[Union[Dict[str, Any], Tuple[List[str], str], Tuple[str, int, str]]]
-        """ Must call next once to get the locals before it starts yielding links """
-        frame, mroClsNsGen, OldStyleClsType = self.__getFrame(2), self.__mroClsNsGen, self.__OldStyleClsType
-        privInsMethCond, pubInsMethCond = self.__privInsMethCond, self.__pubInsMethCond
-        privClsMethCond, pubClsMethCond = self.__privClsMethCond, self.__pubClsMethCond
-
-        codeObj, fLocals = frame.f_code, frame.f_locals
-        methName = codeObj.co_name
-        yield fLocals
-
-        while True:
-            callerCls = None
-            if 'self' in fLocals:
-                callerCls = fLocals['self'].__class__
-                defClsCond = privInsMethCond if methName.startswith('__') and not methName.endswith('__') else pubInsMethCond
-            elif 'cls' in fLocals:
-                callerCls = fLocals['cls']
-                defClsCond = privClsMethCond if methName.startswith('__') and not methName.endswith('__') else pubClsMethCond
-
-            if callerCls is None or isinstance(callerCls, OldStyleClsType):
-                yield codeObj.co_filename, frame.f_lineno, methName
-            else:
-                # PyCharm thinks defClsCond could be undefined, but if callerCls is not None it must be defined
-                mroClsNs = list(mroClsNsGen(callerCls, defClsCond, methName, codeObj))
-                if mroClsNs[-1] == 'object':  # Sometimes definer class not found so follow inheritance tree to the root
-                    yield codeObj.co_filename, frame.f_lineno, methName
-                else:
-                    yield mroClsNs, methName
-
-            frame = frame.f_back
-            if not frame: break
-            codeObj, fLocals = frame.f_code, frame.f_locals
-            methName = codeObj.co_name
 
     @staticmethod
     def __mroClsNsGen(
@@ -561,6 +507,81 @@ class CALPACMRORSIDAM(object):
         ):
             return True
         return False
+
+    """=============================================================================================================="""
+
+    """============================ METHS CREATED IN RESPONSE TO LOCALS AUTO-LOGGING  ==============================="""
+
+    def __data(self, pretty, strLink, **dataForLogging):  # type: (bool, str, Any) -> None
+        if pretty:
+            now, flag = self.__ti.time(), self.__stakFlags[2]
+
+            if dataForLogging:
+                self.__append_to_log((now, flag, '{}(\n'.format(strLink)))
+                self.__extend_log(
+                    (now, flag, '    {}={},\n'.format(name, datum))
+                    for name, datum in dataForLogging.items()
+                )
+                self.__append_to_log((now, flag, ')\n'))
+            else:
+                self.__append_to_log((now, flag, '(No data was passed)\n'))
+        else:
+            self.__append_to_log(
+                (
+                    self.__ti.time(),
+                    self.__stakFlags[2],
+                    (
+                        '{}('.format(strLink) +
+                        ', '.join(('{}={}'.format(name, datum) for name, datum in dataForLogging.items())) +
+                        ')\n'
+                    ) if dataForLogging else '{}('.format(strLink) + 'No data was passed)\n'
+                )
+            )
+
+    def __linksAndFirstFrameLocalsGen(self):  # type: () -> Iterator[Union[Dict[str, Any], Tuple[List[str], str], Tuple[str, int, str]]]
+        """ Must call next once to get the locals before it starts yielding links """
+        frame, mroClsNsGen, OldStyleClsType = self.__getFrame(2), self.__mroClsNsGen, self.__OldStyleClsType
+        privInsMethCond, pubInsMethCond = self.__privInsMethCond, self.__pubInsMethCond
+        privClsMethCond, pubClsMethCond = self.__privClsMethCond, self.__pubClsMethCond
+
+        codeObj, fLocals = frame.f_code, frame.f_locals
+        methName = codeObj.co_name
+        yield fLocals
+
+        while True:
+            callerCls = None
+            if 'self' in fLocals:
+                callerCls = fLocals['self'].__class__
+                defClsCond = privInsMethCond if methName.startswith('__') and not methName.endswith('__') else pubInsMethCond
+            elif 'cls' in fLocals:
+                callerCls = fLocals['cls']
+                defClsCond = privClsMethCond if methName.startswith('__') and not methName.endswith('__') else pubClsMethCond
+
+            if callerCls is None or isinstance(callerCls, OldStyleClsType):
+                yield codeObj.co_filename, frame.f_lineno, methName
+            else:
+                # PyCharm thinks defClsCond could be undefined, but if callerCls is not None it must be defined
+                mroClsNs = list(mroClsNsGen(callerCls, defClsCond, methName, codeObj))
+                if mroClsNs[-1] == 'object':  # Sometimes definer class not found so follow inheritance tree to the root
+                    yield codeObj.co_filename, frame.f_lineno, methName
+                else:
+                    yield mroClsNs, methName
+
+            frame = frame.f_back
+            if not frame: break
+            codeObj, fLocals = frame.f_code, frame.f_locals
+            methName = codeObj.co_name
+
+    def __splitLinkToStr(self, splitLink):  # type: (Union[Tuple[List[str], str], Tuple[str, int, str]]) -> str
+        if len(splitLink) == 3:
+            filePath, lineno, methName = splitLink
+            splitFilePath = filePath.split(self.__os.sep)
+            if len(splitFilePath) > 1:
+                return '{}{}.{}'.format(self.__os.path.join(splitFilePath[-2], splitFilePath[-1]).rstrip('py'), lineno, methName)
+            else:
+                return '{}{}.{}'.format(self.__os.path.join(splitFilePath[-1]).rstrip('py'), lineno, methName)
+        else:
+            return self.__fullStrLinkCreator(*splitLink)
 
     """=============================================================================================================="""
 
@@ -1136,13 +1157,16 @@ class Daddy(Ganny):
     @decorator
     def test(self, someLocalParam=69):
         someOtherLocal = 'yesDaddy'
-        c.omrolocsald(someDatumForExtraLogging='420')
+        c.omrolocsalad(someDatumForExtraLogging='420')
+        somePostOmrolocsaladLocal = 'yes this is post the salad'
         c.omrolocs()
         c.data()
         c.data(someDatum=[1,2,3,4])
         c.data(someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
         c.data(pretty=True, someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
         c.omropocs()
+        c.autoLocals()
+        c.data(SOME_SEPARATOR='================================================================================================')
     @property
     def __privProp(self): return self.test()
     def __testCaller(self): self.__privProp
