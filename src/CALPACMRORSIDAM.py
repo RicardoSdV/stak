@@ -27,17 +27,15 @@ Known issues:
 
     - STAK.clear() is bugged
 
+    - There seems to be a problem when the standard logs are empty
+
 Unknown Issues:
     - If the program crashes there might be a problem
 
 Cool potential features:
-    - Currently it is possible to print the callstack, i.e. calls that happened in the past, but
-    would it be possible to do the opposite? i.e. print what will happen in the future? What I mean is, for example, a func
-    that will call more funcs is creating a frame, is it possible to somehow hijack such frame such that all the calls that happen
-    as a consequence of the original caller are also logged? for example currently if A calls B and B calls C we must omrolocs
-    C and therefore get: C <- B <- A. But what if A could be omrolocsed and produce A -> B -> C and maybe too A -> B -> D since
-    of course now things can branch? That would make debugging that much easier, instead of having to omrolocs all the leaf funcs
-    the relative or absolute root func could be omrolocsed to get literally ALL the info. See futStak for R&D.
+    - Take inspiration from the TDV logger, and have a process logger and an instance logger, and somehow save that clusterfuck
+
+    - Trace setter.
 
     - Add the flags back to the compressed logs, they do more good than harm
 
@@ -81,11 +79,12 @@ from datetime import datetime
 from itertools import repeat
 from random import randint
 from time import sleep
-from types import CodeType
+from types import CodeType, FrameType
 
 from src.funcs.someCode import SomeClass
 
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from typing import *
     from collections import *
@@ -97,9 +96,11 @@ if TYPE_CHECKING:
 
     StrLinkCallChainEntry   = Tuple[float, str, List[str]]
 
+    NestedIterable = Union[Any, Iterable['NestedIterable']]
+
 
 class CALPACMRORSIDAM(object):
-    """ Callstack Appreciating, Log Parsing, All Compressing, Method Resolution Order Representing, Shell Interactive, Debugger, And More """
+    """ Callstack Appreciating, Log Parsing, All Compressing, Method Resolution Order Representing, Shell Interactive Debugger, And More """
 
     """================================================ INITIALISING ================================================"""
 
@@ -112,7 +113,7 @@ class CALPACMRORSIDAM(object):
         '__log', '_rootDir', 'taskDir', 'printDir', '_primitivesDir', '_variantsDir', '_stakLogFile', '_stdLogFiles',
         '__maxCompressGroupSize', 'eventCnt', 'eventLabels', '__matcher', '__stdFlags', '__cutoffCombos', '__wholeEnoughs',
         '__getFrame', '__append_to_log', '__stakFlags', '__paddedStakFlags', '__paddedStdFlags', '__cutoffFlag', '__allPflagsByFlags',
-        '__pStdFlagsByStdFlags', '__extend_log', '__pathSplitChar',
+        '__pStdFlagsByStdFlags', '__extend_log', '__pathSplitChar', '__traceLog'
     )
 
     def __init__(self):  # type: () -> None
@@ -134,22 +135,16 @@ class CALPACMRORSIDAM(object):
         self.__log = []  # type: List[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]]]]
         self.__append_to_log = self.__log.append
         self.__extend_log    = self.__log.extend
+        self.__getFrame      = self.__sys._getframe
+        self.__pathSplitChar = '/' if '/' in self.__getFrame(0).f_code.co_filename else '\\'
 
-        self.__getFrame = self.__sys._getframe
-        self.__matcher = self.__re.compile(
-            r'(?:(\d{4})-)?'   # year
-            r'(?:(\d{2})-)?'   # month
-            r'(?:(\d{2}) )?'   # day
-            r'(?:(\d{2}):)?'   # hour
-            r'(?:(\d{2}):)?'   # minute
-            r'(?:(\d{2})\.)?'  # second
-            r'(?:(\d{3}))?'    # millisec
-            r': ([A-Z]+):'     # logFlag
-        ).search
+        # Trace log stuff
+        self.__traceLog = []
 
+        # Compression
         self.__maxCompressGroupSize = 100  # Increases compress times exponentially
 
-        # Flag stuff
+        # Flags
         self.__stakFlags = ('OMROLOCS', 'DATE', 'DATA', 'LABEL')
         self.__paddedStakFlags = tuple(self.__paddedFlagsGen(self.__stakFlags))
 
@@ -161,10 +156,19 @@ class CALPACMRORSIDAM(object):
 
         self.__allPflagsByFlags = self.__createAllPaddedFlagsByAllFlags()
 
+        # Parsing
+        self.__matcher = self.__re.compile(
+            r'(?:(\d{4})-)?'   # year
+            r'(?:(\d{2})-)?'   # month
+            r'(?:(\d{2}) )?'   # day
+            r'(?:(\d{2}):)?'   # hour
+            r'(?:(\d{2}):)?'   # minute
+            r'(?:(\d{2})\.)?'  # second
+            r'(?:(\d{3}))?'    # millisec
+            r': ([A-Z]+):'     # logFlag
+        ).search
         self.__cutoffCombos = self.__uniqueFlagCutoffCombosByRepetitionsCreator()
         self.__wholeEnoughs = self.__wholeEnoughsCreator()
-
-        self.__pathSplitChar = '/' if '/' in self.__getFrame(0).f_code.co_filename else '\\'
 
         # First log entry to log current date
         self._date_entry()
@@ -287,6 +291,69 @@ class CALPACMRORSIDAM(object):
             firstLinkAsStr,
             **additionalDataForLogging
         )
+    # WIP
+    # @staticmethod
+    # def isIter(_iter):  # type: (Any) -> bool
+    #     try:
+    #         iter(_iter)
+    #         return True
+    #     except TypeError:
+    #         return False
+    #
+    # @staticmethod
+    # def hasKeysAndValues(_dict):  # type: (Any) -> Optional[List[Tuple[Hashable, Any]]]
+    #     try:
+    #         return _dict.items()
+    #     except AttributeError:
+    #         return
+    #
+    # def dataIterPretty(self, iterForPretty):  # type: (NestedIterable) -> None
+    #     try:
+    #         iterable = iterForPretty.iteritems()
+    #     except AttributeError:
+    #         try:
+    #             iterable = iter(iterForPretty)
+    #         except TypeError:
+    #             return
+    #
+    #     prettyfied = [el for el in iterable]
+    #
+    #     if pretty:
+    #         now, flag = self.__ti.time(), self.__stakFlags[2]
+    #
+    #         if dataForLogging:
+    #             self.__append_to_log((now, flag, '{}(\n'.format(strLink)))
+    #             self.__extend_log(
+    #                 (now, flag, '    {}={},\n'.format(name, datum))
+    #                 for name, datum in dataForLogging.items()
+    #             )
+    #             self.__append_to_log((now, flag, ')\n'))
+    #         else:
+    #             self.__append_to_log((now, flag, '(No data was passed)\n'))
+    #     else:
+    #         self.__append_to_log(
+    #             (
+    #                 self.__ti.time(),
+    #                 self.__stakFlags[2],
+    #                 (
+    #                     '{}('.format(strLink) +
+    #                     ', '.join(('{}={}'.format(name, datum) for name, datum in dataForLogging.items())) +
+    #                     ')\n'
+    #                 ) if dataForLogging else '{}('.format(strLink) + 'No data was passed)\n'
+    #             )
+    #         )
+
+    def fomrolocs(self):  # type: () -> None
+        pass
+
+    class _Tracer(object):
+        __slots__ = ('__log',)
+
+        def __init__(self):
+            self.__log = []
+
+        def __call__(self, frame, event, arg):  # type: (FrameType, str, Any) -> _Tracer
+            return self
 
     # Call-from-shell interface
     def save(self):  # type: () -> None
@@ -346,9 +413,6 @@ class CALPACMRORSIDAM(object):
 
     def clear(self):  # type: () -> None
         """ DANGER: Clears current logs, stak & std. Resets self.eventCnt (label print count) & more """
-
-        print 'Currently bugged, so returning ...'; return
-
         for logPath in self._stdLogFiles:
             with open(logPath, 'w'): pass
 
@@ -817,7 +881,7 @@ class CALPACMRORSIDAM(object):
     class _CompressionFormatList(list):
         """ List that holds extra attributes for internal use in compression"""
 
-        def __init__(self, cnt=1, rep='', *args):
+        def __init__(self, cnt=1, rep='', *args):  # type: (int, str, Any) -> None
             super(CALPACMRORSIDAM._CompressionFormatList, self).__init__(args)
             self.cnt = cnt
             self.rep = rep
@@ -1146,6 +1210,8 @@ class CALPACMRORSIDAM(object):
 
 c = CALPACMRORSIDAM()
 
+
+
 def decorator(func):
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
@@ -1297,6 +1363,7 @@ def genLogs():
         f.writelines(cutOffLogs())
 
 genLogs()
+
 variables = globals().copy()
 variables.update(locals())
 shell = code.InteractiveConsole(variables)
