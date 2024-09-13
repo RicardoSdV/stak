@@ -18,9 +18,6 @@ Known issues:
 
     - The spliceGenerator raises an error if any of the spliced logs is empty, which they normally shouldn't but yeah
 
-    - The __log parser needs to be way more robust, can't rely on standard line formats because typing in the console
-    messes with __log parsedLines for some reason. (This is kind of solved but the solution sucks)
-
     - Due to the compression algorith some, potentially more profitable patterns, are lost e.g. A, A, A, B, A, B -> 3A, BAB
 
     - If some feels the need to write his own cached property then this will break omrolocs and omropocs
@@ -28,6 +25,8 @@ Known issues:
     - STAK.clear() is bugged
 
     - There seems to be a problem when the standard logs are empty
+
+    - For some reason the methName started being logged twice, wtf
 
 Unknown Issues:
     - If the program crashes there might be a problem
@@ -79,7 +78,7 @@ from datetime import datetime
 from itertools import repeat
 from random import randint
 from time import sleep
-from types import CodeType, FrameType
+from types import CodeType, FrameType, ClassType
 
 from src.funcs.someCode import SomeClass
 
@@ -107,13 +106,14 @@ class CALPACMRORSIDAM(object):
     import os as __os; from types import ClassType as __OldStyleClsType; from datetime import datetime as __dt
     import time as __ti; import shutil as __shutil; import re as __re; from types import FunctionType as __FunctionType
     from collections import defaultdict as __DefaultDict, OrderedDict as __OrderedDict; import sys as __sys
-    from itertools import izip as __izip
+    from itertools import izip as __izip; from functools import partial as __partial
 
     __slots__ = (
         '__log', '_rootDir', 'taskDir', 'printDir', '_primitivesDir', '_variantsDir', '_stakLogFile', '_stdLogFiles',
         '__maxCompressGroupSize', 'eventCnt', 'eventLabels', '__matcher', '__stdFlags', '__cutoffCombos', '__wholeEnoughs',
         '__getFrame', '__append_to_log', '__stakFlags', '__paddedStakFlags', '__paddedStdFlags', '__cutoffFlag', '__allPflagsByFlags',
-        '__pStdFlagsByStdFlags', '__extend_log', '__pathSplitChar', '__traceLog'
+        '__pStdFlagsByStdFlags', '__extend_log', '__pathSplitChar', '__traceLog', '__settrace', '__gettrace', '__jointLinkFromFrame',
+        '__splitLinkFromFrame', '__jointLinksGen', '__splitLinksGen'
     )
 
     def __init__(self):  # type: () -> None
@@ -138,8 +138,16 @@ class CALPACMRORSIDAM(object):
         self.__getFrame      = self.__sys._getframe
         self.__pathSplitChar = '/' if '/' in self.__getFrame(0).f_code.co_filename else '\\'
 
-        # Trace log stuff
-        self.__traceLog = []
+        # The mess related to creating all sorts of links as efficiently as possible & no code dup stuff
+        linkrArgs = (self.__privInsMethCond, self.__privClsMethCond, self.__pubInsMethCond,
+                     self.__pubClsMethCond, self.__OldStyleClsType, self.__mroClsNsGen,)
+
+        joinFileLink = self.__partial(self.__joinFileLink, self.__pathSplitChar)
+        self.__jointLinkFromFrame = self.__partial(self.__linkFromFrame, self.__joinMroLink, joinFileLink, *linkrArgs)
+        self.__splitLinkFromFrame = self.__partial(self.__linkFromFrame, lambda *a: a, lambda *a: a, *linkrArgs)
+
+        self.__jointLinksGen = self.__partial(self.__linksGen, self.__jointLinkFromFrame)
+        self.__splitLinksGen = self.__partial(self.__linksGen, self.__splitLinkFromFrame)
 
         # Compression
         self.__maxCompressGroupSize = 100  # Increases compress times exponentially
@@ -169,6 +177,11 @@ class CALPACMRORSIDAM(object):
         ).search
         self.__cutoffCombos = self.__uniqueFlagCutoffCombosByRepetitionsCreator()
         self.__wholeEnoughs = self.__wholeEnoughsCreator()
+
+        # Trace log stuff
+        self.__traceLog = []
+        self.__settrace = self.__sys.settrace
+        self.__gettrace = self.__sys.gettrace
 
         # First log entry to log current date
         self._date_entry()
@@ -236,14 +249,14 @@ class CALPACMRORSIDAM(object):
             (
                 self.__ti.time(),
                 self.__stakFlags[0],
-                tuple(self.__linksGen()),
+                tuple(self.__splitLinksGen()),
             )
         )
 
     def data(self, pretty=False, **dataForLogging):  # type: (bool, Any) -> None
         """ Log data structures, their callable & definer class names """
 
-        strLink = self.__splitLinkToStr(next(self.__linksGen()))
+        strLink = next(self.__jointLinksGen())
         self.__data(pretty, strLink, **dataForLogging)
 
     def omrolocsalad(self, silence=False, pretty=False, **additionalDataForLogging):  # type: (bool, bool, Any) -> None
@@ -291,7 +304,7 @@ class CALPACMRORSIDAM(object):
             firstLinkAsStr,
             **additionalDataForLogging
         )
-    # WIP
+    # WIP for pretty recursive
     # @staticmethod
     # def isIter(_iter):  # type: (Any) -> bool
     #     try:
@@ -343,17 +356,12 @@ class CALPACMRORSIDAM(object):
     #             )
     #         )
 
-    def fomrolocs(self):  # type: () -> None
-        pass
+    def fomrolocs(self):
+        """ Like omrolocs but instead of looking into the past it travels into the future of the STAK """
 
-    class _Tracer(object):
-        __slots__ = ('__log',)
-
-        def __init__(self):
-            self.__log = []
-
-        def __call__(self, frame, event, arg):  # type: (FrameType, str, Any) -> _Tracer
-            return self
+        oldTrace = self.__gettrace()
+        if oldTrace is not self:
+            self.__settrace(self)
 
     # Call-from-shell interface
     def save(self):  # type: () -> None
@@ -437,65 +445,57 @@ class CALPACMRORSIDAM(object):
 
     """=========================================== CREATING MRO CALL CHAINS =========================================="""
 
-    def __jointLinksGen(self):  # type: () -> Iterator[str]
-        """ Custom for omropocs sometimes you just need a good old generator of strings !"""
-        frame, mroClsNsGen, OldStyleClsType = self.__getFrame(2), self.__mroClsNsGen, self.__OldStyleClsType
-        privInsMethCond, pubInsMethCond = self.__privInsMethCond, self.__pubInsMethCond
-        privClsMethCond, pubClsMethCond = self.__privClsMethCond, self.__pubClsMethCond
-        pathSplitChar = self.__pathSplitChar
+    @staticmethod
+    def __joinMroLink(mroClsNs, methName):  # type: (List[str], str) -> str
+        mroClsNs[-1] = '{}.{}{}'.format(mroClsNs[-1], methName, ')' * (len(mroClsNs) - 1))
+        return '('.join(mroClsNs)
 
-        while frame:
-            codeObj, fLocals = frame.f_code, frame.f_locals
-            methName = codeObj.co_name
+    @staticmethod
+    def __joinFileLink(pathSplitChar, fullPath, lineno, methName):  # type: (str, str, int, str) -> str
+        return '{}{}.{}'.format(fullPath.split(pathSplitChar)[-1].rstrip('py'), lineno, methName)
 
-            callerCls = None
-            if 'self' in fLocals:
-                callerCls = fLocals['self'].__class__
-                defClsCond = privInsMethCond if methName.startswith('__') and not methName.endswith('__') else pubInsMethCond
-            elif 'cls' in fLocals:
-                callerCls = fLocals['cls']
-                defClsCond = privClsMethCond if methName.startswith('__') and not methName.endswith('__') else pubClsMethCond
+    @staticmethod
+    def __linkFromFrame(
+            joinMroLinksMaybe, # type: Callable[[List[str], str], Union[str, Tuple[List[str], str]]]
+            joinFileLinksMaybe,# type: Callable[[str, int, str], Union[str, Tuple[str, int, str]]]
+            privInsMethCond,   # type: Callable[[Type[Any], str, CodeType], bool]
+            privClsMethCond,   # type: Callable[[Type[Any], str, CodeType], bool]
+            pubInsMethCond,    # type: Callable[[Type[Any], str, CodeType], bool]
+            pubClsMethCond,    # type: Callable[[Type[Any], str, CodeType], bool]
+            OldStyleClsType,   # type: ClassType
+            mroClsNsGen,       # type: Callable[[Type[Any], Callable[[Type[Any], str, CodeType], bool], str, CodeType], Iterator[str]]
+            frame,             # type: FrameType
+    ):  # type: (...) -> Union[Tuple[str, int, str], Tuple[List[str], str], str]
 
-            if callerCls is None or isinstance(callerCls, OldStyleClsType):
-                yield '{}{}.{}'.format(codeObj.co_filename.split(pathSplitChar)[-1].rstrip('py'), frame.f_lineno, methName)
+        codeObj, fLocals = frame.f_code, frame.f_locals
+        methName = codeObj.co_name
+
+        callerCls = None
+        if 'self' in fLocals:
+            callerCls = fLocals['self'].__class__
+            defClsCond = privInsMethCond if methName.startswith('__') and not methName.endswith('__') else pubInsMethCond
+        elif 'cls' in fLocals:
+            callerCls = fLocals['cls']
+            defClsCond = privClsMethCond if methName.startswith('__') and not methName.endswith('__') else pubClsMethCond
+
+        if callerCls is None or isinstance(callerCls, OldStyleClsType):
+            return joinFileLinksMaybe(codeObj.co_filename, frame.f_lineno, methName)
+        else:
+            # PyCharm thinks defClsCond could be undefined, but if callerCls is not None it must be defined
+            mroClsNs = list(mroClsNsGen(callerCls, defClsCond, methName, codeObj))
+            if mroClsNs[-1] == 'object':  # Sometimes definer class not found so follow inheritance tree to the root
+                return joinFileLinksMaybe(codeObj.co_filename, frame.f_lineno, methName)
             else:
-                # PyCharm thinks defClsCond could be undefined, but if callerCls is not None it must be defined
-                mroClsNs = list(mroClsNsGen(callerCls, defClsCond, methName, codeObj))
-                if mroClsNs[-1] == 'object':  # Sometimes definer class not found so follow inheritance tree to the root
-                    yield '{}{}.{}'.format(codeObj.co_filename.split(pathSplitChar)[-1].rstrip('py'), frame.f_lineno, methName)
-                else:
-                    mroClsNs[-1] = '{}.{}{}'.format(mroClsNs[-1], methName, ')' * (len(mroClsNs) - 1))
-                    yield '('.join(mroClsNs)
+                return joinMroLinksMaybe(mroClsNs, methName)
 
-            frame = frame.f_back
+    def __linksGen(
+            self,
+            linkFromFrame,  # type: Callable[[FrameType], Union[str, Tuple[List[str], str], Tuple[str, int, str]]]
+    ):  # type: (...) -> Iterator[Union[str, Tuple[List[str], str], Tuple[str, int, str]]]
 
-    def __linksGen(self):  # type: () -> Iterator[Union[Tuple[List[str], str], Tuple[str, int, str]]]
-        frame, mroClsNsGen, OldStyleClsType = self.__getFrame(2), self.__mroClsNsGen, self.__OldStyleClsType
-        privInsMethCond, pubInsMethCond = self.__privInsMethCond, self.__pubInsMethCond
-        privClsMethCond, pubClsMethCond = self.__privClsMethCond, self.__pubClsMethCond
-
+        frame = self.__getFrame(2)
         while frame:
-            codeObj, fLocals = frame.f_code, frame.f_locals
-            methName = codeObj.co_name
-
-            callerCls = None
-            if 'self' in fLocals:
-                callerCls = fLocals['self'].__class__
-                defClsCond = privInsMethCond if methName.startswith('__') and not methName.endswith('__') else pubInsMethCond
-            elif 'cls' in fLocals:
-                callerCls = fLocals['cls']
-                defClsCond = privClsMethCond if methName.startswith('__') and not methName.endswith('__') else pubClsMethCond
-
-            if callerCls is None or isinstance(callerCls, OldStyleClsType):
-                yield codeObj.co_filename, frame.f_lineno, methName
-            else:
-                # PyCharm thinks defClsCond could be undefined, but if callerCls is not None it must be defined
-                mroClsNs = list(mroClsNsGen(callerCls, defClsCond, methName, codeObj))
-                if mroClsNs[-1] == 'object':  # Sometimes definer class not found so follow inheritance tree to the root
-                    yield codeObj.co_filename, frame.f_lineno, methName
-                else:
-                    yield mroClsNs, methName
-
+            yield linkFromFrame(frame)  # Should create joined (str) links or split based on the args in the partial
             frame = frame.f_back
 
     @staticmethod
@@ -511,9 +511,7 @@ class CALPACMRORSIDAM(object):
                 return
 
     @staticmethod
-    def __privInsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
-        # type:          (Type[Any]  , str                   , CodeType             ) -> bool
-
+    def __privInsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (Type[Any], str, CodeType) -> bool
         # This works even when the class defined __slots__ because we're iterating over the class objects' __dict__
         # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
         for attr in defClsMaybe.__dict__.values():
@@ -527,9 +525,7 @@ class CALPACMRORSIDAM(object):
         return False
 
     @staticmethod
-    def __pubInsMethCond (defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
-        # type:         (Type[Any]  , str                   , CodeType             ) -> bool
-
+    def __pubInsMethCond (defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (Type[Any], str, CodeType) -> bool
         # This works even when the class defined __slots__ because we're iterating over the class objects' __dict__
         # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
         if methNameToFindDefClsOf in defClsMaybe.__dict__:
@@ -544,9 +540,7 @@ class CALPACMRORSIDAM(object):
         return False
 
     @staticmethod
-    def __privClsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
-        # type:          (Type[Any]  , str,                    CodeType             ) -> bool
-
+    def __privClsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (Type[Any], str, CodeType) -> bool
         # This works even when the class defined __slots__ because we're iterating over the class objects' __dict__
         # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
         for attr in defClsMaybe.__dict__.values():
@@ -560,9 +554,7 @@ class CALPACMRORSIDAM(object):
         return False
 
     @staticmethod
-    def __pubClsMethCond (defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
-        # type:         (Type[Any]  , str                   , CodeType             ) -> bool
-
+    def __pubClsMethCond (defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (Type[Any], str, CodeType) -> bool
         # This works even when the class defined __slots__ because we're accessing class objects' __dict__ not the
         # object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
         if (
@@ -646,6 +638,28 @@ class CALPACMRORSIDAM(object):
                 return '{}{}.{}'.format(self.__os.path.join(splitFilePath[-1]).rstrip('py'), lineno, methName)
         else:
             return self.__fullStrLinkCreator(*splitLink)
+
+    """=============================================================================================================="""
+
+    """================================= METHS CREATED IN RESPONSE TO FOMROLOCS  ===================================="""
+
+    def __call__(self, frame, event, arg):  # type: (FrameType, str, Any) -> 'CALPACMRORSIDAM'
+        """ Used only to set an instance of CALPACMRORSIDAM as a trace """
+
+        if event == 'call':
+            self.__traceLog.append(self.__jointLinkFromFrame(frame))  # type: str
+        elif event == 'line':
+            pass
+        elif event == 'return':
+            pass
+        elif event == 'exception':
+            pass
+        else:
+            raise ValueError('Unforeseen event string')
+
+        print 'TraceClass: event: {}, name: {}, arg: {}'.format(event, frame.f_code.co_name, arg)
+        self.__depth += 1
+        return self
 
     """=============================================================================================================="""
 
@@ -879,7 +893,7 @@ class CALPACMRORSIDAM(object):
     """================================================= COMPRESSION ================================================"""
 
     class _CompressionFormatList(list):
-        """ List that holds extra attributes for internal use in compression"""
+        # List that holds extra attributes for internal use in compression
 
         def __init__(self, cnt=1, rep='', *args):  # type: (int, str, Any) -> None
             super(CALPACMRORSIDAM._CompressionFormatList, self).__init__(args)

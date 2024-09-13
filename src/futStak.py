@@ -1,5 +1,11 @@
 """
+ATTENTION! Highly unstable and experimental
+
 This is a research project to see if future stacking is viable
+
+Cool Potential features:
+    - Have it work in different modes i.e. trace calls only or more info?
+
 
 Conclusions:
     - Of course its possible, this is how debuggers work duh
@@ -9,15 +15,13 @@ Conclusions:
 
     - A cool thing would be to be able to recreate a tree of calls for example
 
-    A -> B
-
-    Although this is not really representative of the linear nature of things
-
-    Maybe it should be like:
-
     A -> B -> C -> D|
         |<- <- <- <-|
         |B -> E -> F -> G
+
+Known issues:
+    - need to manually unset the trace to avoid following the trace throughout the application
+
 """
 from sys import settrace, gettrace
 
@@ -27,17 +31,27 @@ if TYPE_CHECKING:
     from types import FrameType
 
 
-
-class TraceClass(object):
-    __slots__ = ('__log', )
+class TraceCalls(object):
+    """ Sets self as trace, logs all calls """
+    __slots__ = ('__traceLog', '__depth')
 
     def __init__(self):
-        self.__log = []
+        self.__traceLog = []
+        self.__depth = 0
 
-    def __call__(self, frame, event, arg):
-        # type: (FrameType, str, Any) -> TraceClass
-        print 'type(arg)', type(arg)
-        print 'event: {}, name: {}, arg: {}'.format(event, frame.f_code.co_name, arg)
+    def __call__(self, frame, event, arg):  # type: (FrameType, str, Any) -> 'TraceCalls'
+        if event == 'call':
+            self.__traceLog.append()
+        elif event == 'line':
+            pass
+        elif event == 'return':
+            print 'return from', frame.f_code.co_name
+        elif event == 'exception':
+            pass
+        else:
+            raise ValueError('Unforeseen event string')
+
+        self.__depth += 1
         return self
 
     def fomrolocs(self):
@@ -45,17 +59,15 @@ class TraceClass(object):
         if oldTrace is not self:
             settrace(self)
 
-traceObj = TraceClass()
+traceObj = TraceCalls()
 
 
-def E(param):
-    print 'Leaf E'
-    return 5
+def E(param): print 'Leaf E'; return 5
 def D(): return E('param') +1
 def C(): print 'Leaf C'
 def B(someArg): C(); D()
-def A(): traceObj.fomrolocs(); B(55)
+def A():
+    traceObj.fomrolocs()
+    B(55)
 
 A()
-
-
