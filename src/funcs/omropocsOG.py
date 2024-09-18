@@ -1,5 +1,5 @@
 """
-This shall remain unaltered in homage to the OG omropocs
+This shall remain unaltered in homage to the OG omropocs, also sometimes usefull
 """
 
 import types

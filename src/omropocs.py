@@ -1,6 +1,6 @@
 """
 Sometimes shell interactivity is not possible, not desirable, or simply just overkill, in such cases,
-instead of using CALPACMRORSIDAM the functional, printing, subset of its functionality can be found here.
+instead of using STAK the functional, printing, subset of its functionality can be found here.
 
 """
 import code

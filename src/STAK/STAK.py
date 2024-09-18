@@ -5,6 +5,10 @@ How to use:
     - Need an interactive terminal, import STAK instance into it, & call help(instanceName)
 
 Known issues:
+    - Seems like the std log parsing fails to parse the last entries
+
+    - The filepath is not being trimmed in data()
+
     - Caller class cannot be found for wrapped methods & therefore definer class neither (with custom wrappers,
     not @property nor @classmethod, yes @staticmethod but for other reasons)
 
@@ -32,44 +36,62 @@ Unknown Issues:
     - If the program crashes there might be a problem
 
 Cool potential features:
-    - Take inspiration from the TDV logger, and have a process logger and an instance logger, and somehow save that clusterfuck
+    - (Easy) Many names are entirely too long, make them short
 
-    - Trace setter.
+    - (Easy) omrolocsalad, sometimes uses entirely too many lines to print one small datum, automatically detect this & print
+    in one line
 
-    - Add the flags back to the compressed logs, they do more good than harm
+    - (Mid) auto-deject calls to STAK interface
 
-    - Sometimes certain prints are hard to obtain therefore to avoid accidental destruction some sort of mechanism to protect
+    - (Easy) Add appropriate flags for each interface method, AUTOLOCALS, OMROLOCSALAD, ...
+
+    - (Easy) Sometimes prints bogus add auto-delete specific print
+
+    - (Easy) Add auto-incr flag for print dir, also add a string to auto-write the .descr.txt
+
+    - (Mid) In similar fashion to locals-auto-data, do something like func-auto-ret, to be able to log what a function is returning
+    without having to add an extra result local & combine both into func-auto-log.
+
+    - (Hard) Take inspiration from the TDV logger, and have a process logger and an instance logger, and somehow save that clusterfuck
+
+    - (Hard) Trace setter.
+
+    - (Hard) Add the flags back to the compressed logs. More generally add comprehensive settings, such that all the parts of the
+    logs can be added or taken away with some flags.
+
+    - (Easy) Sometimes certain prints are hard to obtain therefore to avoid accidental destruction some sort of mechanism to protect
     them must be established
 
-    - When multiple processes are running the logs are separate, to have them joined write directly to file on entry & give a
+    - (Mid) When multiple processes are running the logs are separate, to have them joined write directly to file on entry & give a
     flag name to each process to understand which process is producing the logs
 
-    - Given an object find the class who instantiated it, & the entire mro from it towards object & STAK that (EASY, DO NOW)
+    - (Mid) Given an object find the class who instantiated it, & the entire mro from it towards object, in the "auto", fashion, obj-auto-data
 
-    - split the different entries each in their own log, to make processing simpler, also, maybe print them each in their own file,
-    but must keep entry order since entries might happen at the same timestamp
+    - (Mid)(Facilitator) Split the different entries each in their own log, to make processing simpler, also, optionally print each
+    in their own file, but must keep entry order since entries might happen at the same timestamp
 
-    - Sometimes datastructures receive data in mysterious ways, create custom datastructures which inherit from the normal ones and
-    hijack the normal methods to omrolocs that STAK
+    - (Mid) Inherit from datastructures, (list, dict, etc) & override __getitem__ & __setitem__ to log who is messing with them.
 
-    - wrap long stacks
+    - (Mid) Somehow auto override, or not auto, __getattr__ & __setattr__ to effectively log how attr are being added dynamically
+    to objects
 
-    - Add an option to print the stack in multiple lines with indentation
+    - (Easy) Add an option to print the stack in multiple lines with indentation
 
-    - Pretty print data structures
+    - (Mid) Pretty print data structures
 
-    - If there are multiple methods in the call stack that have the same MRO compress that
+    - (Hard) If there are multiple methods in the call stack that have the same MRO compress that
 
-    - Somehow better prints for wrappers, e.g. CallerCls(DefinerCls.@decoratorName.methNameToFindDefClsOf) (Look at closures? maybe?)
+    - (Hard) Somehow better prints for wrappers, e.g. CallerCls(DefinerCls.@decoratorName.methNameToFindDefClsOf) (Look at closures? maybe?)
 
-    - Reconstruct a class based on inheritance, i.e. "superHelp" similar to the built-in help, but print the code of all the methods
+    - (Hard) Reconstruct a class based on inheritance, i.e. "superHelp" similar to the built-in help, but print the code of all the methods
     all into one class and save that into a .py file such that any class that inherits from any number of classes or uses a metaclass
     can be substituted for the output of superHelp and have it behave in the same way
 
-Historical Note:
-    - Sadly all we love must die, & so the old name, STAK, had to be deprecated for it was no longer representative of the whole
-     function & operation of the new & rebranded CALPACMRORSIDAM, STAK shall be remembered, & its ghost shall remain in many an
-     out-of-place name.
+    Facilitator - Doing this task will make future tasks easier
+    Easy - I definitely know how to do this, & shouldn't take long.
+    Mid  - Either I know how but will take a long time or there is some part I don't know how to do but recon it won't be too hard.
+    Hard - Either I don't know how to do this & I recon it'd be pretty hard or impossible or I kind of know & know it will take for-ever.
+
 """
 
 # Imports used outside STAK
@@ -98,23 +120,56 @@ if TYPE_CHECKING:
     NestedIterable = Union[Any, Iterable['NestedIterable']]
 
 
-class CALPACMRORSIDAM(object):
-    """ Callstack Appreciating, Log Parsing, All Compressing, Method Resolution Order Representing, Shell Interactive Debugger, And More """
+class STAK(object):
+    __doc__ = None
+    """ ==================== DATA THAT IS REFERENCED BY THE INSTANCE BUT NOT MODIFIED, SO, CAN BELONG TO THE CLASS ==================== """
 
-    """================================================ INITIALISING ================================================"""
+    import os as __os; from types import ClassType as __OldStyleClsType; from datetime import datetime as __dt; import time as __ti
+    import shutil as __shutil; import re as __re; from types import FunctionType as __FunctionType; import sys as __sys
+    from collections import defaultdict as __DefaultDict, OrderedDict as __OrderedDict; from functools import partial as __partial
 
-    import os as __os; from types import ClassType as __OldStyleClsType; from datetime import datetime as __dt
-    import time as __ti; import shutil as __shutil; import re as __re; from types import FunctionType as __FunctionType
-    from collections import defaultdict as __DefaultDict, OrderedDict as __OrderedDict; import sys as __sys
-    from itertools import izip as __izip; from functools import partial as __partial
+    __slots__ = ('printDir', 'taskDir', 'ventCnt', 'ventLabels', '_rootDir', '_primitivesDir', '_variantsDir', '_stakLogFile', '_traceLogFile', '_stdLogFiles', '__log', '__appendToLog', '__extendLog', '__jointLinkFromFrame', '__splitLinkFromFrame', '__maxCompressGroupSize', '__traceLog', '__saveRawLogToPrimitives', '__saveRawTraceLogToPrimitives', '__jointLinkFromFrame', '__splitLinkFromFrame', '__jointLinksGen', '__splitLinksGen')  # This line was injected by injectors.py
 
-    __slots__ = (
-        '__log', '_rootDir', 'taskDir', 'printDir', '_primitivesDir', '_variantsDir', '_stakLogFile', '_stdLogFiles',
-        '__maxCompressGroupSize', 'eventCnt', 'eventLabels', '__matcher', '__stdFlags', '__cutoffCombos', '__wholeEnoughs',
-        '__getFrame', '__append_to_log', '__stakFlags', '__paddedStakFlags', '__paddedStdFlags', '__cutoffFlag', '__allPflagsByFlags',
-        '__pStdFlagsByStdFlags', '__extend_log', '__pathSplitChar', '__traceLog', '__settrace', '__gettrace', '__jointLinkFromFrame',
-        '__splitLinkFromFrame', '__jointLinksGen', '__splitLinksGen'
-    )
+    # Lib aliases
+    __getFrame = __sys._getframe  # Faster than inspect.currentframe, & if sys doesn't have _getframe this should crash
+    __settrace = __sys.settrace
+    __gettrace = __sys.gettrace
+
+    # OS specific details
+    __pathSplitChar = '/' if '/' in __getFrame(0).f_code.co_filename else '\\'
+
+    # Flags
+    _stakFlags = ('OMROLOCS', 'DATE', 'DATA', 'LABEL')
+    __paddedStakFlags = (': OMROLOCS: ', ': DATE    : ', ': DATA    : ', ': LABEL   : ')  # This line was injected by injectors.py
+
+    _stdFlags = ('DEBUG', 'INFO', 'NOTICE', 'WARNING', 'ERROR', 'CRITICAL', 'HACK', 'TRACE', 'ASSET')
+    __paddedStdFlags = (': DEBUG   : ', ': INFO    : ', ': NOTICE  : ', ': WARNING : ', ': ERROR   : ', ': CRITICAL: ', ': HACK    : ', ': TRACE   : ', ': ASSET   : ')  # This line was injected by injectors.py
+
+    __pStdFlagsByStdFlags = {'INFO': ': INFO    : ', 'CRITICAL': ': CRITICAL: ', 'NOTICE': ': NOTICE  : ', 'TRACE': ': TRACE   : ', 'HACK': ': HACK    : ', 'WARNING': ': WARNING : ', 'ASSET': ': ASSET   : ', 'ERROR': ': ERROR   : ', 'DEBUG': ': DEBUG   : '}  # This line was injected by injectors.py
+    __allPflagsByFlags = {'INFO': ': INFO    : ', 'CRITICAL': ': CRITICAL: ', 'NOTICE': ': NOTICE  : ', 'TRACE': ': TRACE   : ', 'CUTOFF': ': CUTOFF  : ', 'OMROLOCS': ': OMROLOCS: ', 'HACK': ': HACK    : ', 'LABEL': ': LABEL   : ', 'DEBUG': ': DEBUG   : ', 'WARNING': ': WARNING : ', 'ASSET': ': ASSET   : ', 'ERROR': ': ERROR   : ', 'DATE': ': DATE    : ', 'DATA': ': DATA    : '}  # This line was injected by injectors.py
+
+    __pStdFlagsByStdFlags['CUTOFF'] = ': CUTOFF  : '  # Manually padding ain't great
+    _cutoffFlag = 'CUTOFF'
+
+    # Parsing standard logs
+    __matcher = __re.compile(
+        r'(?:(\d{4})-)?'  # year
+        r'(?:(\d{2})-)?'  # month
+        r'(?:(\d{2}) )?'  # day
+        r'(?:(\d{2}):)?'  # hour
+        r'(?:(\d{2}):)?'  # minute
+        r'(?:(\d{2})\.)?' # second
+        r'(?:(\d{3}))?'   # millisec
+        r': ([A-Z]+):'    # logFlag
+    ).search
+
+    __cutoffCombos = __OrderedDict((('CRITICAL', 1), ('WARNING', 1), ('RITICAL', 1), ('NOTICE', 1), ('ITICAL', 1), ('ARNING', 1), ('RNING', 1), ('OTICE', 1), ('ASSET', 1), ('TICAL', 1), ('ERROR', 1), ('DEBUG', 1), ('TRACE', 1), ('HACK', 1), ('TICE', 1), ('RACE', 1), ('NING', 1), ('RROR', 1), ('INFO', 1), ('SSET', 1), ('ICAL', 1), ('EBUG', 1), ('ACE', 1), ('ACK', 1), ('CAL', 1), ('SET', 1), ('ICE', 1), ('ROR', 1), ('BUG', 1), ('NFO', 1), ('ING', 1), ('FO', 1), ('NG', 1), ('CK', 1), ('AL', 1), ('CE', 2), ('ET', 1), ('UG', 1), ('OR', 1), ('E', 2), ('G', 2), ('K', 1), ('O', 1), ('L', 1), ('R', 1), ('T', 1)))  # This line was injected by injectors.py
+    __wholeEnoughs = {'NOTICE': 'NOTICE', 'RNING': 'WARNING', 'ACE': 'TRACE', 'ACK': 'HACK', 'HACK': 'HACK', 'EBUG': 'DEBUG', 'TICE': 'NOTICE', 'CAL': 'CRITICAL', 'OTICE': 'NOTICE', 'ASSET': 'ASSET', 'RACE': 'TRACE', 'FO': 'INFO', 'SET': 'ASSET', 'ITICAL': 'CRITICAL', 'NG': 'WARNING', 'WARNING': 'WARNING', 'NING': 'WARNING', 'ROR': 'ERROR', 'BUG': 'DEBUG', 'CK': 'HACK', 'CRITICAL': 'CRITICAL', 'TICAL': 'CRITICAL', 'NFO': 'INFO', 'K': 'HACK', 'AL': 'CRITICAL', 'O': 'INFO', 'L': 'CRITICAL', 'R': 'ERROR', 'ICE': 'NOTICE', 'ERROR': 'ERROR', 'DEBUG': 'DEBUG', 'ET': 'ASSET', 'ARNING': 'WARNING', 'INFO': 'INFO', 'SSET': 'ASSET', 'TRACE': 'TRACE', 'T': 'ASSET', 'RITICAL': 'CRITICAL', 'ICAL': 'CRITICAL', 'UG': 'DEBUG', 'ING': 'WARNING', 'OR': 'ERROR', 'RROR': 'ERROR'}  # This line was injected by injectors.py
+
+    """ =============================================================================================================================== """
+
+
+    """ =================================================== INSTANCE INITIALISATION =================================================== """
 
     def __init__(self):  # type: () -> None
 
@@ -129,126 +184,55 @@ class CALPACMRORSIDAM(object):
         self._primitivesDir = 'primitives'
         self._variantsDir   = 'variants'
         self._stakLogFile   = 'stak.log'
+        self._traceLogFile  = 'trace.log'
         self._stdLogFiles   = ('stdLogA.log', 'stdLogB.log')
 
         # Stak log stuff
         self.__log = []  # type: List[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]]]]
-        self.__append_to_log = self.__log.append
-        self.__extend_log    = self.__log.extend
-        self.__getFrame      = self.__sys._getframe
-        self.__pathSplitChar = '/' if '/' in self.__getFrame(0).f_code.co_filename else '\\'
-
-        # The mess related to creating all sorts of links as efficiently as possible & no code dup stuff
-        linkrArgs = (self.__privInsMethCond, self.__privClsMethCond, self.__pubInsMethCond,
-                     self.__pubClsMethCond, self.__OldStyleClsType, self.__mroClsNsGen,)
-
-        joinFileLink = self.__partial(self.__joinFileLink, self.__pathSplitChar)
-        self.__jointLinkFromFrame = self.__partial(self.__linkFromFrame, self.__joinMroLink, joinFileLink, *linkrArgs)
-        self.__splitLinkFromFrame = self.__partial(self.__linkFromFrame, lambda *a: a, lambda *a: a, *linkrArgs)
-
-        self.__jointLinksGen = self.__partial(self.__linksGen, self.__jointLinkFromFrame)
-        self.__splitLinksGen = self.__partial(self.__linksGen, self.__splitLinkFromFrame)
+        self.__appendToLog = self.__log.append
+        self.__extendLog   = self.__log.extend
 
         # Compression
         self.__maxCompressGroupSize = 100  # Increases compress times exponentially
 
-        # Flags
-        self.__stakFlags = ('OMROLOCS', 'DATE', 'DATA', 'LABEL')
-        self.__paddedStakFlags = tuple(self.__paddedFlagsGen(self.__stakFlags))
-
-        self.__stdFlags = ('DEBUG', 'INFO', 'NOTICE', 'WARNING', 'ERROR', 'CRITICAL', 'HACK', 'TRACE', 'ASSET')
-        self.__paddedStdFlags = tuple(self.__paddedFlagsGen(self.__stdFlags))  # type: Tuple[str, ...]
-        self.__pStdFlagsByStdFlags = {flag: pFlag for flag, pFlag in self.__izip(self.__stdFlags, self.__paddedStdFlags)}
-        self.__pStdFlagsByStdFlags['CUTOFF'] = ': CUTOFF  : '  # Manually padding ain't great
-        self.__cutoffFlag = 'CUTOFF'
-
-        self.__allPflagsByFlags = self.__createAllPaddedFlagsByAllFlags()
-
-        # Parsing
-        self.__matcher = self.__re.compile(
-            r'(?:(\d{4})-)?'   # year
-            r'(?:(\d{2})-)?'   # month
-            r'(?:(\d{2}) )?'   # day
-            r'(?:(\d{2}):)?'   # hour
-            r'(?:(\d{2}):)?'   # minute
-            r'(?:(\d{2})\.)?'  # second
-            r'(?:(\d{3}))?'    # millisec
-            r': ([A-Z]+):'     # logFlag
-        ).search
-        self.__cutoffCombos = self.__uniqueFlagCutoffCombosByRepetitionsCreator()
-        self.__wholeEnoughs = self.__wholeEnoughsCreator()
-
         # Trace log stuff
         self.__traceLog = []
-        self.__settrace = self.__sys.settrace
-        self.__gettrace = self.__sys.gettrace
+
+        # Call stack creating partials
+        linkerArgs = (self.__privInsMethCond, self.__privClsMethCond, self.__pubInsMethCond,
+                      self.__pubClsMethCond, self.__OldStyleClsType, self.__mroClsNsGen,)
+
+        joinFileLink = self.__partial(self.__joinFileLink, self.__pathSplitChar)
+        self.__jointLinkFromFrame = self.__partial(self.__linkFromFrame, self.__joinMroLink, joinFileLink, *linkerArgs)
+        self.__splitLinkFromFrame = self.__partial(self.__linkFromFrame, lambda *a: a, lambda *a: a, *linkerArgs)
+
+        self.__jointLinksGen = self.__partial(self.__linksGen, self.__jointLinkFromFrame)
+        self.__splitLinksGen = self.__partial(self.__linksGen, self.__splitLinkFromFrame)
+
+        # Saving logs partials
+        self.__saveRawLogToPrimitives = self.__partial(self.__saveToFile, self.__pathLogStak, self.__ifPathExistsIncSuffix, 'w', self.__joinLogEntriesIntoLines)
+        self.__saveRawTraceLogToPrimitives = self.__partial(self.__saveToFile, self.__pathLogTrace, self.__ifPathExistsIncSuffix, 'w', self.__formatTraceLog)
 
         # First log entry to log current date
         self._date_entry()
 
-    def __uniqueFlagCutoffCombosByRepetitionsCreator(self): # type: () -> OrderedDict[str, int]
+    """ =============================================================================================================================== """
 
-        combos = self.__DefaultDict(int)
-        for _str in self.__stdFlags:
-            while _str:
-                combos[_str] += 1
-                _str = _str[1:]
-
-        return self.__OrderedDict(
-            {
-                combo: combos[combo]
-                for combo in sorted(combos, key=len, reverse=True)
-            }
-        )
-
-    def __wholeEnoughGenerator(self, flag):  # type: (str) -> str
-        cutoffCombos = self.__cutoffCombos
-        while flag:
-            if cutoffCombos[flag] > 1:
-                return
-            yield flag
-            flag = flag[1:]
-
-    def __wholeEnoughsCreator(self):  # type: () -> Dict[str, str]
-        """ There are certain strings, for which, if we know that they are a flag which was cutoff, are unique enough
-        to discern the full flag from. This creates a dict associating such "whole enough" flags & whole flags. """
-        wholeEnoughGenerator, stdFlags = self.__wholeEnoughGenerator, self.__stdFlags
-        return {
-            wholeEnoughFlag: wholeFlag
-            for wholeFlag in stdFlags
-            for wholeEnoughFlag in wholeEnoughGenerator(wholeFlag)
-        }
-
-    @staticmethod
-    def __paddedFlagsGen(flags):  # type: (Tuple[str, ...]) -> Iterator[str]
-        maxFlagLen = max(len(flag) for flag in flags)
-        return (': ' + flag + ' ' * (maxFlagLen - len(flag)) + ': ' for flag in flags)
-
-    def __createAllPaddedFlagsByAllFlags(self):  # type: () -> Dict[str, str]
-        allFlags = self.__stakFlags + self.__stdFlags + (self.__cutoffFlag,)
-        pAllFlags = self.__paddedFlagsGen(allFlags)
-        return {
-            flag: pFlag
-            for flag, pFlag
-            in self.__izip(allFlags, pAllFlags)
-        }
-
-    """=============================================================================================================="""
-
-    """================================================== INTERFACE ================================================="""
+    """ =========================================================== INTERFACE ========================================================= """
 
     # Call-from-code interface
     def omropocs(self):  # type: () -> None
         """ Its back! sometimes u just need the good old omropocs! in new & improved form! """
+        # TODO: Try to make static maybe?
         print ' <- '.join(self.__jointLinksGen())
 
     def omrolocs(self, silence=False):  # type: (bool) -> None
         """ Optional Method Resolution Order Logger Optional Call Stack """
         if silence: return
-        self.__append_to_log(
+        self.__appendToLog(
             (
                 self.__ti.time(),
-                self.__stakFlags[0],
+                self._stakFlags[0],
                 tuple(self.__splitLinksGen()),
             )
         )
@@ -273,10 +257,10 @@ class CALPACMRORSIDAM(object):
         splitLinks = tuple(linksAndFirstFrameLocalsGen)
         firstLinkAsStr = self.__splitLinkToStr(splitLinks[0])
 
-        self.__append_to_log(
+        self.__appendToLog(
             (
                 self.__ti.time(),
-                self.__stakFlags[0],
+                self._stakFlags[0],
                 splitLinks,
             )
         )
@@ -332,22 +316,22 @@ class CALPACMRORSIDAM(object):
     #     prettyfied = [el for el in iterable]
     #
     #     if pretty:
-    #         now, flag = self.__ti.time(), self.__stakFlags[2]
+    #         now, flag = self.__ti.time(), self._stakFlags[2]
     #
     #         if dataForLogging:
-    #             self.__append_to_log((now, flag, '{}(\n'.format(strLink)))
-    #             self.__extend_log(
+    #             self.__appendToLog((now, flag, '{}(\n'.format(strLink)))
+    #             self.__extendLog(
     #                 (now, flag, '    {}={},\n'.format(name, datum))
     #                 for name, datum in dataForLogging.items()
     #             )
-    #             self.__append_to_log((now, flag, ')\n'))
+    #             self.__appendToLog((now, flag, ')\n'))
     #         else:
-    #             self.__append_to_log((now, flag, '(No data was passed)\n'))
+    #             self.__appendToLog((now, flag, '(No data was passed)\n'))
     #     else:
-    #         self.__append_to_log(
+    #         self.__appendToLog(
     #             (
     #                 self.__ti.time(),
-    #                 self.__stakFlags[2],
+    #                 self._stakFlags[2],
     #                 (
     #                     '{}('.format(strLink) +
     #                     ', '.join(('{}={}'.format(name, datum) for name, datum in dataForLogging.items())) +
@@ -367,7 +351,7 @@ class CALPACMRORSIDAM(object):
     def save(self):  # type: () -> None
         """ Save stak.__log, spliced, trimmed & more """
 
-        # Make paths if don't exist just in time bc on innit might cause collisions
+        # Make paths if don't exist just in time bc on innit might cause collisions (Yeah wtf, but I'm not messing with this)
         if not self.__os.path.isdir(self.__pathDirPrimi):
             self.__os.makedirs(self.__pathDirPrimi)
         if not self.__os.path.isdir(self.__pathDirVari):
@@ -388,6 +372,8 @@ class CALPACMRORSIDAM(object):
         )  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[Tuple[str, ...], str]], ...]
 
         self.__saveRawLogToPrimitives(fullStrLinkCallChains)
+
+        # self.__saveRawTraceLogToPrimitives()  # TODO: Implement tracing
 
         callChainsWithCompressedStrLinks = tuple(self.__compressLinksGen(fullStrLinkCallChains))
         self.__saveCompressedStakLogToVariants(callChainsWithCompressedStrLinks)
@@ -410,10 +396,10 @@ class CALPACMRORSIDAM(object):
             else:
                 label = 'NO-NAME LABEL' + str(len(self.eventLabels) - self.eventCnt)
 
-        self.__append_to_log(
+        self.__appendToLog(
             (
                 self.__ti.time(),
-                self.__stakFlags[3],
+                self._stakFlags[3],
                 '\n========================================================= {} '
                 '=========================================================\n\n'.format(label)
             )
@@ -425,8 +411,8 @@ class CALPACMRORSIDAM(object):
             with open(logPath, 'w'): pass
 
         self.__log = []
-        self.__append_to_log = self.__log.append
-        self.__extend_log    = self.__log.extend
+        self.__appendToLog = self.__log.append
+        self.__extendLog    = self.__log.extend
         self.eventCnt = 0
 
         self._date_entry()
@@ -438,12 +424,12 @@ class CALPACMRORSIDAM(object):
 
     # Call-from-self autoface
     def _date_entry(self):
-        """ Since normal entries only log time, this one is used to log date, normally on logging session init """
-        self.__append_to_log((self.__ti.time(), self.__stakFlags[1], self.__dt.now().strftime('%Y-%m-%d\n')))
+        # Since normal entries only log time, this one is used to log date, normally on logging session init
+        self.__appendToLog((self.__ti.time(), self._stakFlags[1], self.__dt.now().strftime('%Y-%m-%d\n')))
 
-    """=============================================================================================================="""
+    """ =============================================================================================================================== """
 
-    """=========================================== CREATING MRO CALL CHAINS =========================================="""
+    """ =================================================== CREATING MRO CALL CHAINS ================================================== """
 
     @staticmethod
     def __joinMroLink(mroClsNs, methName):  # type: (List[str], str) -> str
@@ -516,7 +502,7 @@ class CALPACMRORSIDAM(object):
         # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
         for attr in defClsMaybe.__dict__.values():
             if (
-                    isinstance(attr, CALPACMRORSIDAM.__FunctionType) and
+                    isinstance(attr, STAK.__FunctionType) and
                     attr.__name__ == methNameToFindDefClsOf and
                     # If the code object is the same do we need to compare the meth name too??
                     attr.func_code is codeObjToFindDefClsOf
@@ -564,28 +550,29 @@ class CALPACMRORSIDAM(object):
             return True
         return False
 
-    """=============================================================================================================="""
 
-    """============================ METHS CREATED IN RESPONSE TO LOCALS AUTO-LOGGING  ==============================="""
+    """ =============================================================================================================================== """
+
+    """ ===================================== METHS CREATED IN RESPONSE TO LOCALS AUTO-LOGGING  ======================================= """
 
     def __data(self, pretty, strLink, **dataForLogging):  # type: (bool, str, Any) -> None
         if pretty:
-            now, flag = self.__ti.time(), self.__stakFlags[2]
+            now, flag = self.__ti.time(), self._stakFlags[2]
 
             if dataForLogging:
-                self.__append_to_log((now, flag, '{}(\n'.format(strLink)))
-                self.__extend_log(
+                self.__appendToLog((now, flag, '{}(\n'.format(strLink)))
+                self.__extendLog(
                     (now, flag, '    {}={},\n'.format(name, datum))
                     for name, datum in dataForLogging.items()
                 )
-                self.__append_to_log((now, flag, ')\n'))
+                self.__appendToLog((now, flag, ')\n'))
             else:
-                self.__append_to_log((now, flag, '(No data was passed)\n'))
+                self.__appendToLog((now, flag, '(No data was passed)\n'))
         else:
-            self.__append_to_log(
+            self.__appendToLog(
                 (
                     self.__ti.time(),
-                    self.__stakFlags[2],
+                    self._stakFlags[2],
                     (
                         '{}('.format(strLink) +
                         ', '.join(('{}={}'.format(name, datum) for name, datum in dataForLogging.items())) +
@@ -639,12 +626,12 @@ class CALPACMRORSIDAM(object):
         else:
             return self.__fullStrLinkCreator(*splitLink)
 
-    """=============================================================================================================="""
+    """ =============================================================================================================================== """
 
-    """================================= METHS CREATED IN RESPONSE TO FOMROLOCS  ===================================="""
+    """ ========================================= METHS CREATED IN RESPONSE TO FOMROLOCS  ============================================= """
 
-    def __call__(self, frame, event, arg):  # type: (FrameType, str, Any) -> 'CALPACMRORSIDAM'
-        """ Used only to set an instance of CALPACMRORSIDAM as a trace """
+    def __call__(self, frame, event, arg):  # type: (FrameType, str, Any) -> 'STAK'
+        """ Used only to set an instance of STAK as a trace """
 
         if event == 'call':
             self.__traceLog.append(self.__jointLinkFromFrame(frame))  # type: str
@@ -661,9 +648,19 @@ class CALPACMRORSIDAM(object):
         self.__depth += 1
         return self
 
-    """=============================================================================================================="""
+    def __formatTraceLog(self):
+        raise NotImplementedError()
 
-    """================================================ SAVING LOGS ================================================="""
+    """ =============================================================================================================================== """
+
+    """ ======================================================== SAVING LOGS ========================================================== """
+
+    @staticmethod
+    def __saveToFile(path, makePathUnique, fileOpenMode, formatter, log):
+        # type: (str, Callable[[str], str], str, Callable[[Iterable], Iterable[str]], Iterable) -> None
+        # Generic save method, most args populated by partial on init
+        with open(makePathUnique(path), fileOpenMode) as logFile:
+            logFile.writelines(formatter(log))
 
     def __trimFilePathAddLinenoGen(self,
         callChain,  # type: Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]
@@ -690,7 +687,7 @@ class CALPACMRORSIDAM(object):
         log,  # type: List[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]]]]
     ):        # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, Union[str, Tuple[Union[Tuple[str, str], Tuple[List[str], str]], ...]]]]
 
-        unixStampToIntermediate, omrolocsFlag = self.__unixStampToIntermediate, self.__stakFlags[0]
+        unixStampToIntermediate, omrolocsFlag = self.__unixStampToIntermediate, self._stakFlags[0]
         for unixStamp, flag, theRest in log:
             if flag == omrolocsFlag:
                 yield unixStampToIntermediate(unixStamp), flag, tuple(self.__trimFilePathAddLinenoGen(theRest))
@@ -703,7 +700,7 @@ class CALPACMRORSIDAM(object):
         linkCreator  # type: Callable[List[str], str]
     ):               # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, Union[str, Tuple[str, ...]]]]
 
-        omrolocsFlag = self.__stakFlags[0]
+        omrolocsFlag = self._stakFlags[0]
         for stamp, flag, theRest in log:
             if flag == omrolocsFlag:
                 yield stamp, flag, tuple(  # At this point theRest is the splitLinkCallChain
@@ -725,25 +722,12 @@ class CALPACMRORSIDAM(object):
     def __partStrLinkCreator(mroClsNs, methName):  # type: (List[str], str) -> str
         return '{}.{}'.format(mroClsNs[-1], methName)
 
-    def __saveRawLogToPrimitives(self, logWhereCallChainsHaveStrLinks):
-        # type: (Tuple[Tuple[float, str, Union[str, List[str]]]]) -> None
-        with open(
-                self.__ifPathExistsIncSuffix(
-                    self.__pathLogStak
-                ), 'w'
-        ) as f:
-            f.writelines(
-                self.__joinLogEntriesIntoLines(
-                    logWhereCallChainsHaveStrLinks
-                )
-            )
-
     def __joinLogEntriesIntoLines(
         self,
         logWhereCallChainsHaveStrLinks  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[str, List[str]]]]
     ):                                  # type: (...) -> Iterator[str]
 
-        omrolocsFlag , dateFlag , dataFlag , labelFlag  = self.__stakFlags
+        omrolocsFlag , dateFlag , dataFlag , labelFlag  = self._stakFlags
         pOmrolocsFlag, pDateFlag, pDataFlag, pLabelFlag = self.__paddedStakFlags
 
         for stamp, flag, theRest in logWhereCallChainsHaveStrLinks:
@@ -888,15 +872,15 @@ class CALPACMRORSIDAM(object):
                     )
                 )
 
-    """=============================================================================================================="""
+    """ =============================================================================================================================== """
 
-    """================================================= COMPRESSION ================================================"""
+    """ ========================================================= COMPRESSION ========================================================= """
 
     class _CompressionFormatList(list):
         # List that holds extra attributes for internal use in compression
 
         def __init__(self, cnt=1, rep='', *args):  # type: (int, str, Any) -> None
-            super(CALPACMRORSIDAM._CompressionFormatList, self).__init__(args)
+            super(STAK._CompressionFormatList, self).__init__(args)
             self.cnt = cnt
             self.rep = rep
 
@@ -905,7 +889,7 @@ class CALPACMRORSIDAM(object):
         callChainsWithStrLinks  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[str, Tuple[str, ...]]]]
     ):                          # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, str]]
 
-        omrolocsFlag, prettyfyLine, compress = self.__stakFlags[0], self.__prettyfyLine, self.__compress
+        omrolocsFlag, prettyfyLine, compress = self._stakFlags[0], self.__prettyfyLine, self.__compress
         CompressionFormatList = self._CompressionFormatList
         return (
             (
@@ -1031,9 +1015,9 @@ class CALPACMRORSIDAM(object):
 
         return postPassCfl
 
-    """=============================================================================================================="""
+    """ =============================================================================================================================== """
 
-    """=============================================== PARSING STD LOGS ============================================="""
+    """ ======================================================= PARSING STD LOGS ===================================================== """
 
     @staticmethod
     def __interpolStampGen(prevLine, thisLine, nextLine):  # type: (OptStr9, OptStr9, OptStr9 ) -> Iterator[str]
@@ -1097,7 +1081,7 @@ class CALPACMRORSIDAM(object):
             )
 
     def __trimFlagIfPoss(self, line):  # type: (str) -> Tuple[str, str]
-        wholeEnoughs, cutoffCombos, cutoffFlag = self.__wholeEnoughs, self.__cutoffCombos, self.__cutoffFlag
+        wholeEnoughs, cutoffCombos, cutoffFlag = self.__wholeEnoughs, self.__cutoffCombos, self._cutoffFlag
         line = line.lstrip()
         for combo in cutoffCombos:
             if line.startswith(combo):
@@ -1108,7 +1092,7 @@ class CALPACMRORSIDAM(object):
         return line, cutoffFlag
 
     def __trimFlag(self, line):  # type: (str) -> str
-        for combo in self.__stdFlags:
+        for combo in self._stdFlags:
             if line.startswith(combo):
                 return line.lstrip(combo)
         return line
@@ -1127,7 +1111,7 @@ class CALPACMRORSIDAM(object):
     def __parsedLinesGen(self, lines):
         # type: (List[str]) -> Iterator[OptStr, OptStr, OptStr, OptStr, OptStr, OptStr, OptStr, OptStr, str]
         matcher, trimTime, trimFlag = self.__matcher, self.__trimTime, self.__trimFlag
-        trimFlagIfPoss, flags = self.__trimFlagIfPoss, self.__stdFlags
+        trimFlagIfPoss, flags = self.__trimFlagIfPoss, self._stdFlags
         nones8 = (None, None, None, None, None, None, None, None)
 
         for line in lines:
@@ -1155,9 +1139,9 @@ class CALPACMRORSIDAM(object):
             parsedLines = self.__parseAndInterpolLines(lines)
             yield tuple(self.__splitStampFromTheRest(parsedLines))
 
-    """=============================================================================================================="""
+    """ =============================================================================================================================== """
 
-    """=================================================== PATH OPS ================================================="""
+    """ =========================================================== PATH OPS ========================================================== """
 
     @classmethod
     def __addSuffix(cls, logName, suffix):  # type: (str, str) -> str
@@ -1196,9 +1180,13 @@ class CALPACMRORSIDAM(object):
     def __pathLogStak(self):  # type: () -> str
         return self.__os.path.join(self.__pathDirPrimi, self._stakLogFile)
 
-    """=============================================================================================================="""
+    @property
+    def __pathLogTrace(self):  # type: () -> str
+        return self.__os.path.join(self.__pathDirPrimi, self._traceLogFile)
 
-    """================================================== SHORTCUTS ================================================="""
+    """ =============================================================================================================================== """
+
+    """ =========================================================== SHORTCUTS ========================================================= """
 
     @property
     def s(self):
@@ -1220,166 +1208,164 @@ class CALPACMRORSIDAM(object):
         """ Short for rmPrint() """
         self.rmPrint()
 
-    """=============================================================================================================="""
+    """ =============================================================================================================================== """
 
-c = CALPACMRORSIDAM()
+if __name__ == '__main__':
+    c = STAK()
 
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            return func(*args, **kwargs)
+        return wrapper
+    class Interface(object):
+        def testCallerOfCaller(self): raise NotImplementedError()
+    class Ganny(object): pass
+    class Daddy(Ganny):
+        @decorator
+        def test(self, someLocalParam=69):
+            someOtherLocal = 'yesDaddy'
+            c.omrolocsalad(someDatumForExtraLogging='420')
+            somePostOmrolocsaladLocal = 'yes this is post the salad'
+            c.omrolocs()
+            c.data()
+            c.data(someDatum=[1,2,3,4])
+            c.data(someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
+            c.data(pretty=True, someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
+            c.omropocs()
+            c.autoLocals()
+            c.data(SOME_SEPARATOR='================================================================================================')
+        @property
+        def __privProp(self): return self.test()
+        def __testCaller(self): self.__privProp
+        def testCaller(self): localVar = 1; self.__testCaller()
+    class SomeCls(Daddy, Interface):
+        @property
+        def propCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
+        def testCallerOfCaller(self): self.testCaller()
+    class Bro(Daddy): pass
+    class Dawg(SomeCls): pass
+    class ParentStatConf(object):
+        @staticmethod
+        def statMeth(): ParentStatConf.__statMeth()
+        @staticmethod
+        def __statMeth(): Outcast.classMeth()
+    class SomeSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
+        @staticmethod
+        def statMeth(): pass
+    class Outcast(ParentStatConf):
+        def __init__(self): self.statMeth()
+        @classmethod
+        def classMeth(cls): cls.__classMeth()
+        @classmethod
+        def __classMeth(cls): Dawg().propCallerOfCallerOfCaller
+    class SomeOtherClassWithSameNameStaticMeth(ParentStatConf):
+        @staticmethod
+        def statMeth(): pass
+    SomeClass().someMeth()
+    class OutcastSon(Outcast): pass
+    def func(): OutcastSon()
+    class OldStyle:
+        @staticmethod
+        def oldStyleStaticMeth(): func()
+        @classmethod
+        def oldStyleClassMeth(cls): cls.oldStyleStaticMeth()
+        def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
 
+    def cutOffLogs():
+        """
+        Assumption: The log may be cutoff but the format won't change, the flag will be a certain min and max number
+        of chars, there will be a space and colon before the flag, there will be a colon and space after
+        the flag, etc
+        """
+        return (
+            '2024-07-04 13:17:45.269: INFO: [CORRECTLOG] This is a log line which is expected and correct\n',
+            '2024-07-04 13:17:45.269: DEBUG: A debug line \n',
+            '2024-07-04 13:17:45.269: CRITICAL: Longest expected flag\n',
+            '024-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '24-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '4-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '7-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '4 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            ' 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '3:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            ':17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '7:45.269: CRITICAL: Some flag of the log is cutoff\n',
+            ':45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '45.269: CRITICAL: Some flag of the log is cutoff\n',
+            '5.269: CRITICAL: Some flag of the log is cutoff\n',
+            '.269: CRITICAL: Some flag of the log is cutoff\n',
+            '269: CRITICAL: Some flag of the log is cutoff\n',
+            '69: CRITICAL: Some flag of the log is cutoff\n',
+            '9: CRITICAL: Some flag of the log is cutoff\n',
+            ': CRITICAL: Some flag of the log is cutoff\n',
+            ' CRITICAL: Some flag of the log is cutoff\n',
+            'CRITICAL: Some flag of the log is cutoff\n',
+            'RITICAL: Some flag of the log is cutoff\n',
+            'ITICAL: Some flag of the log is cutoff\n',
+            'TICAL: Some flag of the log is cutoff\n',
+            'ICAL: Some flag of the log is cutoff\n',
+            'CAL: Some flag of the log is cutoff\n',
+            'AL: Some flag of the log is cutoff\n',
+            'L: Some flag of the log is cutoff\n',
+            ': Some flag of the log is cutoff\n',
+            ' Some flag of the log is cutoff\n',
+            'Some flag of the log is cutoff\n',
+        )
+    def genLogs():
+        stdLogPaths = ('stdLogA.log', 'stdLogB.log')
 
-def decorator(func):
-    def wrapper(*args, **kwargs):
-        return func(*args, **kwargs)
-    return wrapper
-class Interface(object):
-    def testCallerOfCaller(self): raise NotImplementedError()
-class Ganny(object): pass
-class Daddy(Ganny):
-    @decorator
-    def test(self, someLocalParam=69):
-        someOtherLocal = 'yesDaddy'
-        c.omrolocsalad(someDatumForExtraLogging='420')
-        somePostOmrolocsaladLocal = 'yes this is post the salad'
-        c.omrolocs()
-        c.data()
-        c.data(someDatum=[1,2,3,4])
-        c.data(someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
-        c.data(pretty=True, someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
-        c.omropocs()
-        c.autoLocals()
-        c.data(SOME_SEPARATOR='================================================================================================')
-    @property
-    def __privProp(self): return self.test()
-    def __testCaller(self): self.__privProp
-    def testCaller(self): localVar = 1; self.__testCaller()
-class SomeCls(Daddy, Interface):
-    @property
-    def propCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
-    def testCallerOfCaller(self): self.testCaller()
-class Bro(Daddy): pass
-class Dawg(SomeCls): pass
-class ParentStatConf(object):
-    @staticmethod
-    def statMeth(): ParentStatConf.__statMeth()
-    @staticmethod
-    def __statMeth(): Outcast.classMeth()
-class SomeSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
-    @staticmethod
-    def statMeth(): pass
-class Outcast(ParentStatConf):
-    def __init__(self): self.statMeth()
-    @classmethod
-    def classMeth(cls): cls.__classMeth()
-    @classmethod
-    def __classMeth(cls): Dawg().propCallerOfCallerOfCaller
-class SomeOtherClassWithSameNameStaticMeth(ParentStatConf):
-    @staticmethod
-    def statMeth(): pass
-SomeClass().someMeth()
-class OutcastSon(Outcast): pass
-def func(): OutcastSon()
-class OldStyle:
-    @staticmethod
-    def oldStyleStaticMeth(): func()
-    @classmethod
-    def oldStyleClassMeth(cls): cls.oldStyleStaticMeth()
-    def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
+        for stdLogPath in stdLogPaths:
+            with open(stdLogPath, 'w'): pass
 
-def cutOffLogs():
-    """
-    Assumption: The log may be cutoff but the format won't change, the flag will be a certain min and max number
-    of chars, there will be a space and colon before the flag, there will be a colon and space after
-    the flag, etc
-    """
-    return (
-        '2024-07-04 13:17:45.269: INFO: [CORRECTLOG] This is a log line which is expected and correct\n',
-        '2024-07-04 13:17:45.269: DEBUG: A debug line \n',
-        '2024-07-04 13:17:45.269: CRITICAL: Longest expected flag\n',
-        '024-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '24-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '4-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '7-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '4 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        ' 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '3:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        ':17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '7:45.269: CRITICAL: Some flag of the log is cutoff\n',
-        ':45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '45.269: CRITICAL: Some flag of the log is cutoff\n',
-        '5.269: CRITICAL: Some flag of the log is cutoff\n',
-        '.269: CRITICAL: Some flag of the log is cutoff\n',
-        '269: CRITICAL: Some flag of the log is cutoff\n',
-        '69: CRITICAL: Some flag of the log is cutoff\n',
-        '9: CRITICAL: Some flag of the log is cutoff\n',
-        ': CRITICAL: Some flag of the log is cutoff\n',
-        ' CRITICAL: Some flag of the log is cutoff\n',
-        'CRITICAL: Some flag of the log is cutoff\n',
-        'RITICAL: Some flag of the log is cutoff\n',
-        'ITICAL: Some flag of the log is cutoff\n',
-        'TICAL: Some flag of the log is cutoff\n',
-        'ICAL: Some flag of the log is cutoff\n',
-        'CAL: Some flag of the log is cutoff\n',
-        'AL: Some flag of the log is cutoff\n',
-        'L: Some flag of the log is cutoff\n',
-        ': Some flag of the log is cutoff\n',
-        ' Some flag of the log is cutoff\n',
-        'Some flag of the log is cutoff\n',
-    )
-def genLogs():
-    stdLogPaths = ('stdLogA.log', 'stdLogB.log')
+        nonCompromisingLines = (
+            'INFO: None compromising logline 68\n',
+            'INFO: None compromising logline 67\n',
+            'INFO: None compromising logline 66\n',
+            'INFO: None compromising logline 65\n',
+            'INFO: None compromising logline 64\n',
+            'INFO: None compromising logline 63\n',
+            'INFO: None compromising logline 419\n',
+            'INFO: None compromising logline 418\n',
+            'INFO: None compromising logline 417\n',
+            'INFO: None compromising logline 416\n',
+        )
+        maxNonCompLogLines = 53
+        maxOmrolocs = 10
+        maxSleepTime = 150
 
-    for stdLogPath in stdLogPaths:
-        with open(stdLogPath, 'w'): pass
+        for _ in repeat(None, 40):
+            print 'Generating logs'
 
-    nonCompromisingLines = (
-        'INFO: None compromising logline 68\n',
-        'INFO: None compromising logline 67\n',
-        'INFO: None compromising logline 66\n',
-        'INFO: None compromising logline 65\n',
-        'INFO: None compromising logline 64\n',
-        'INFO: None compromising logline 63\n',
-        'INFO: None compromising logline 419\n',
-        'INFO: None compromising logline 418\n',
-        'INFO: None compromising logline 417\n',
-        'INFO: None compromising logline 416\n',
-    )
-    maxNonCompLogLines = 53
-    maxOmrolocs = 10
-    maxSleepTime = 150
+            for _ in repeat(None, randint(1, maxNonCompLogLines)):
+                with open(stdLogPaths[0], 'a') as f:
+                    l1 = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 5)]
+                    f.writelines(l1)
+                with open(stdLogPaths[1], 'a') as f:
+                    f.writelines((l1, datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 9)]))
 
-    for _ in repeat(None, 40):
-        print 'Generating logs'
+            for _ in repeat(None, randint(1, maxOmrolocs)):
+                OldStyle().oldStyleInstanceMeth()
 
-        for _ in repeat(None, randint(1, maxNonCompLogLines)):
+            sleep(randint(0, maxSleepTime)/1000.0)
+
             with open(stdLogPaths[0], 'a') as f:
-                l1 = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 5)]
+                l1 = 'fdStamp' + ': ' + nonCompromisingLines[randint(0, 5)]
                 f.writelines(l1)
-            with open(stdLogPaths[1], 'a') as f:
-                f.writelines((l1, datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 9)]))
-
-        for _ in repeat(None, randint(1, maxOmrolocs)):
-            OldStyle().oldStyleInstanceMeth()
-
-        sleep(randint(0, maxSleepTime)/1000.0)
 
         with open(stdLogPaths[0], 'a') as f:
-            l1 = 'fdStamp' + ': ' + nonCompromisingLines[randint(0, 5)]
-            f.writelines(l1)
+            f.writelines(cutOffLogs())
+        with open(stdLogPaths[1], 'a') as f:
+            f.writelines(cutOffLogs())
 
-    with open(stdLogPaths[0], 'a') as f:
-        f.writelines(cutOffLogs())
-    with open(stdLogPaths[1], 'a') as f:
-        f.writelines(cutOffLogs())
+    genLogs()
 
-genLogs()
-
-variables = globals().copy()
-variables.update(locals())
-shell = code.InteractiveConsole(variables)
-shell.interact()
-
+    variables = globals().copy()
+    variables.update(locals())
+    shell = code.InteractiveConsole(variables)
+    shell.interact()
