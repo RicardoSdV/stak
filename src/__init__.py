@@ -4,7 +4,7 @@ def func(a=1, b=2):
     d2 = {
         'a': a,
         'b': b,
-        'c': 3,
+        's': 3,
         'd': 4,
     }
     print d2

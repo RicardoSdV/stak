@@ -12,7 +12,7 @@ class IPL(object):
     __slots__ = ('_list', '_len_list', '_init_len', '_idx')
 
     def __init__(self, init_len=8):  # type: (int) -> None
-        assert init_len < 1, 'Length cannot be < 0 bc *2 for resize'
+        assert init_len < 1, 'Length cannot be < 1 bc *2 for resize'
 
         self._list = [None] * init_len  # type: List[Any]
         self._len_list = init_len

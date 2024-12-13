@@ -5,9 +5,7 @@ How to use:
     - Need an interactive terminal, import STAK instance into it, & call help(instanceName)
 
 Known issues:
-    - Seems like the std log parsing fails to parse the last entries
-
-    - The filepath is not being trimmed in data()
+    - Caller & definer classes can't be found for partials either
 
     - Caller class cannot be found for wrapped methods & therefore definer class neither (with custom wrappers,
     not @property nor @classmethod, yes @staticmethod but for other reasons)
@@ -30,18 +28,28 @@ Known issues:
 
     - There seems to be a problem when the standard logs are empty
 
-    - For some reason the methName started being logged twice, wtf
+    - Seems like the std log parsing fails to parse the last entries
 
 Unknown Issues:
     - If the program crashes there might be a problem
 
 Cool potential features:
+    - (Mid) Sometimes a single task requires more than one set of prints, so, divide the prints by set, with name.
+
+    - (Hard) Split the entire project into logical sections, make each section into a pip installable library,
+    refactor the code to split the generic library code from the project specific. And make all python3 compatible.
+
+    - (Mid) delta-auto-attrs, log all the instance attrs on change, e.g. when initialised, when changed etc...
+
+    - (Hard) Make a "class decorator" metaclass which omrolocsalads the entire class ??
+
+    - (Easy) Make a timing decorator, to check out how much it takes for example to save, or init
+
     - (Easy) Many names are entirely too long, make them short
 
-    - (Easy) omrolocsalad, sometimes uses entirely too many lines to print one small datum, automatically detect this & print
-    in one line
+    - (Easy) omrolocsalad, sometimes uses entirely too many lines to print one datum, automatically detect this & print in one line
 
-    - (Mid) auto-deject calls to STAK interface
+    - (Mid) auto-deject calls to STAK interface. (Like, remove s.omrolocs from the code)
 
     - (Easy) Add appropriate flags for each interface method, AUTOLOCALS, OMROLOCSALAD, ...
 
@@ -62,7 +70,8 @@ Cool potential features:
     - (Easy) Sometimes certain prints are hard to obtain therefore to avoid accidental destruction some sort of mechanism to protect
     them must be established
 
-    - (Mid) When multiple processes are running the logs are separate, to have them joined write directly to file on entry & give a
+    - (Mid) different outs:
+        - When multiple processes are running the logs are separate, to have them joined write directly to file on entry & give a
     flag name to each process to understand which process is producing the logs
 
     - (Mid) Given an object find the class who instantiated it, & the entire mro from it towards object, in the "auto", fashion, obj-auto-data
@@ -71,9 +80,6 @@ Cool potential features:
     in their own file, but must keep entry order since entries might happen at the same timestamp
 
     - (Mid) Inherit from datastructures, (list, dict, etc) & override __getitem__ & __setitem__ to log who is messing with them.
-
-    - (Mid) Somehow auto override, or not auto, __getattr__ & __setattr__ to effectively log how attr are being added dynamically
-    to objects
 
     - (Easy) Add an option to print the stack in multiple lines with indentation
 
@@ -91,6 +97,23 @@ Cool potential features:
     Easy - I definitely know how to do this, & shouldn't take long.
     Mid  - Either I know how but will take a long time or there is some part I don't know how to do but recon it won't be too hard.
     Hard - Either I don't know how to do this & I recon it'd be pretty hard or impossible or I kind of know & know it will take for-ever.
+
+
+    Open question:
+
+        Is it better to make all the log entries into one list? or have one list per flag??
+
+        One list:
+            - Keeps order of entry
+            - Needs to separate lists to make individual log
+
+        Many lists:
+            - Makes formatting easier
+            - Needs to join lists to make a global log
+
+        Conclusion:
+            I've tried with one list & it is a pain in the ass, I'll try with many
+            (probably still is a pain in the ass)
 
 """
 
@@ -110,37 +133,38 @@ if TYPE_CHECKING:
     from typing import *
     from collections import *
 
-    SuperSplitLink = Union[Tuple[List[str], str], Tuple[str, int, str]]
-    SemiSplitLink  = Tuple[Union[List[str], str], str]
+    # Type Aliases: Use sparingly bc hiding complexity behind a type alias looks good but makes it harder to decypher,
+    # & so counter-productively more complex. Therefore, use to abbreviate simplicity, not hide complexity.
+    ##################################################################
+    StrsStamp = Tuple[str, str, str, str]
+    IntsStamp = Tuple[int, int, int, int]
 
-    EntryWithStrStamps = Tuple[Tuple[str, str, str, str], str, Union[SuperSplitLink, str]]
+    PathGen = Callable[[], Iterator[str]]
 
-    StrLinkCallChainEntry   = Tuple[float, str, List[str]]
+    OptStr9 = Tuple[Optional[str], Optional[str], Optional[str], Optional[str], Optional[str], Optional[str], Optional[str], Optional[str], Optional[str]]
 
     NestedIterable = Union[Any, Iterable['NestedIterable']]
 
 
+testingWhat = 'trace'
+
 class STAK(object):
     __doc__ = None
     """ ==================== DATA THAT IS REFERENCED BY THE INSTANCE BUT NOT MODIFIED, SO, CAN BELONG TO THE CLASS ==================== """
+    from os.path import (isdir as __isdir, exists as __exists, join as __join, splitext as __splitext, basename as __basename,
+                         dirname as __dirname, isfile as __isfile); from os import makedirs as __makedirs
+    from types import ClassType as __OldStyleClsType; from datetime import datetime as __dt; from time import time as __time
+    from shutil import rmtree as __rmtree; from types import FunctionType as __FunctionType
+    from sys import _getframe as __getFrame, settrace as __setTrace, gettrace as getTrace
 
-    import os as __os; from types import ClassType as __OldStyleClsType; from datetime import datetime as __dt; import time as __ti
-    import shutil as __shutil; import re as __re; from types import FunctionType as __FunctionType; import sys as __sys
-    from collections import defaultdict as __DefaultDict, OrderedDict as __OrderedDict; from functools import partial as __partial
-
-    __slots__ = ('printDir', 'taskDir', 'ventCnt', 'ventLabels', '_rootDir', '_primitivesDir', '_variantsDir', '_stakLogFile', '_traceLogFile', '_stdLogFiles', '__log', '__appendToLog', '__extendLog', '__jointLinkFromFrame', '__splitLinkFromFrame', '__maxCompressGroupSize', '__traceLog', '__saveRawLogToPrimitives', '__saveRawTraceLogToPrimitives', '__jointLinkFromFrame', '__splitLinkFromFrame', '__jointLinksGen', '__splitLinksGen')  # This line was injected by injectors.py
-
-    # Lib aliases
-    __getFrame = __sys._getframe  # Faster than inspect.currentframe, & if sys doesn't have _getframe this should crash
-    __settrace = __sys.settrace
-    __gettrace = __sys.gettrace
+    __slots__ = ('printDir', 'taskDir', 'eventCnt', 'eventLabels', '_rootDir', '_primitivesDir', '_variantsDir', '_stakLogFile', '_traceLogFile', '_stdLogFiles', '_maxCompressGroupSize', '__log', '__appendToLog', '__extendLog', '__traceLog', '__openFuncs', '__appendToTraceLog', '__jointLinkFromFrame', '__splitLinkFromFrame', '__jointLinksGen', '__splitLinksGen', '__traceOriginatorEntry', '__traceTerminatorEntry', '__saveStakLogToPrimitives', '__saveTraceLogToPrimitives', '__saveStdLogsToPrimitives')  # This line was injected by injectors.py
 
     # OS specific details
     __pathSplitChar = '/' if '/' in __getFrame(0).f_code.co_filename else '\\'
 
     # Flags
     _stakFlags = ('OMROLOCS', 'DATE', 'DATA', 'LABEL')
-    __paddedStakFlags = (': OMROLOCS: ', ': DATE    : ', ': DATA    : ', ': LABEL   : ')  # This line was injected by injectors.py
+    __pStakFlags = (': OMROLOCS: ', ': DATE    : ', ': DATA    : ', ': LABEL   : ')  # This line was injected by injectors.py
 
     _stdFlags = ('DEBUG', 'INFO', 'NOTICE', 'WARNING', 'ERROR', 'CRITICAL', 'HACK', 'TRACE', 'ASSET')
     __paddedStdFlags = (': DEBUG   : ', ': INFO    : ', ': NOTICE  : ', ': WARNING : ', ': ERROR   : ', ': CRITICAL: ', ': HACK    : ', ': TRACE   : ', ': ASSET   : ')  # This line was injected by injectors.py
@@ -151,72 +175,80 @@ class STAK(object):
     __pStdFlagsByStdFlags['CUTOFF'] = ': CUTOFF  : '  # Manually padding ain't great
     _cutoffFlag = 'CUTOFF'
 
-    # Parsing standard logs
-    __matcher = __re.compile(
-        r'(?:(\d{4})-)?'  # year
-        r'(?:(\d{2})-)?'  # month
-        r'(?:(\d{2}) )?'  # day
-        r'(?:(\d{2}):)?'  # hour
-        r'(?:(\d{2}):)?'  # minute
-        r'(?:(\d{2})\.)?' # second
-        r'(?:(\d{3}))?'   # millisec
-        r': ([A-Z]+):'    # logFlag
-    ).search
+    __traceFlag = 'TRACE'
 
-    __cutoffCombos = __OrderedDict((('CRITICAL', 1), ('WARNING', 1), ('RITICAL', 1), ('NOTICE', 1), ('ITICAL', 1), ('ARNING', 1), ('RNING', 1), ('OTICE', 1), ('ASSET', 1), ('TICAL', 1), ('ERROR', 1), ('DEBUG', 1), ('TRACE', 1), ('HACK', 1), ('TICE', 1), ('RACE', 1), ('NING', 1), ('RROR', 1), ('INFO', 1), ('SSET', 1), ('ICAL', 1), ('EBUG', 1), ('ACE', 1), ('ACK', 1), ('CAL', 1), ('SET', 1), ('ICE', 1), ('ROR', 1), ('BUG', 1), ('NFO', 1), ('ING', 1), ('FO', 1), ('NG', 1), ('CK', 1), ('AL', 1), ('CE', 2), ('ET', 1), ('UG', 1), ('OR', 1), ('E', 2), ('G', 2), ('K', 1), ('O', 1), ('L', 1), ('R', 1), ('T', 1)))  # This line was injected by injectors.py
+    # Parsing standard logs
+    from re import compile; __matcher = compile(
+        r'(?:(\d{4})-)?' r'(?:(\d{2})-)?' r'(?:(\d{2}) )?' r'(?:(\d{2}):)?' r'(?:(\d{2}):)?' r'(?:(\d{2})\.)?' r'(?:(\d{3}))?' r': ([A-Z]+):'
+    ).search; del compile
+
+    from collections import OrderedDict; __cutoffCombos = OrderedDict((('CRITICAL', 1), ('WARNING', 1), ('RITICAL', 1), ('NOTICE', 1), ('ITICAL', 1), ('ARNING', 1), ('RNING', 1), ('OTICE', 1), ('ASSET', 1), ('TICAL', 1), ('ERROR', 1), ('DEBUG', 1), ('TRACE', 1), ('HACK', 1), ('TICE', 1), ('RACE', 1), ('NING', 1), ('RROR', 1), ('INFO', 1), ('SSET', 1), ('ICAL', 1), ('EBUG', 1), ('ACE', 1), ('ACK', 1), ('CAL', 1), ('SET', 1), ('ICE', 1), ('ROR', 1), ('BUG', 1), ('NFO', 1), ('ING', 1), ('FO', 1), ('NG', 1), ('CK', 1), ('AL', 1), ('CE', 2), ('ET', 1), ('UG', 1), ('OR', 1), ('E', 2), ('G', 2), ('K', 1), ('O', 1), ('L', 1), ('R', 1), ('T', 1))); del OrderedDict  # This line was injected by injectors.py
     __wholeEnoughs = {'NOTICE': 'NOTICE', 'RNING': 'WARNING', 'ACE': 'TRACE', 'ACK': 'HACK', 'HACK': 'HACK', 'EBUG': 'DEBUG', 'TICE': 'NOTICE', 'CAL': 'CRITICAL', 'OTICE': 'NOTICE', 'ASSET': 'ASSET', 'RACE': 'TRACE', 'FO': 'INFO', 'SET': 'ASSET', 'ITICAL': 'CRITICAL', 'NG': 'WARNING', 'WARNING': 'WARNING', 'NING': 'WARNING', 'ROR': 'ERROR', 'BUG': 'DEBUG', 'CK': 'HACK', 'CRITICAL': 'CRITICAL', 'TICAL': 'CRITICAL', 'NFO': 'INFO', 'K': 'HACK', 'AL': 'CRITICAL', 'O': 'INFO', 'L': 'CRITICAL', 'R': 'ERROR', 'ICE': 'NOTICE', 'ERROR': 'ERROR', 'DEBUG': 'DEBUG', 'ET': 'ASSET', 'ARNING': 'WARNING', 'INFO': 'INFO', 'SSET': 'ASSET', 'TRACE': 'TRACE', 'T': 'ASSET', 'RITICAL': 'CRITICAL', 'ICAL': 'CRITICAL', 'UG': 'DEBUG', 'ING': 'WARNING', 'OR': 'ERROR', 'RROR': 'ERROR'}  # This line was injected by injectors.py
+
+    # Trace log stuff
+    __callableNames = {'appendToLog', 'extendLog', 'appendToTraceLog', 'jointLinkFromFrame', 'splitLinkFromFrame', 'jointLinksCallChain', 'splitLinksCallChain', 'traceOriginatorEntry', 'traceTerminatorEntry', 'saveStakLogToPrimitives', 'saveTraceLogToPrimitives', 'saveStdLogsToPrimitives', 'basename', 'delTrace', 'gettrace', '__spliceGen', 'join', '__pubClsMethCond', 'clear', '__saveSplicedToVariants', '__prettyfyLine', '__interpolStampGen', '__trimFlag', '_dateEntry', '__partStrLinkCreator', '__trimFlagIfPoss', 'rmtree', '__linksAndFirstFrameLocalsGen', 'makedirs', 'setTrace', '__joinFileLink', 'dirname', 'exists', '__unixStampToTupleOfInts', 'settrace', '__strLinkCallChainGen', 'save', '__parseAndInterpolLines', '__joinTraceEntriesUntilReversal', '__mroClsNsGen', '__OldStyleClsType', '__formatLinesForLinesCompression', 'matcher', '__retArgs', '__formatStakLog', 'FunctionType', 'omropocs', '__call__', '__formatParsedStdLog', '__genPathDirPrimi', '__compress', 'autoLocals', '__trimFilePathAddLinenoGen', '_getframe', '__mroLinkToStrLink', '__compressLinksGen', 'l', '__data', '__tupleOfIntsToTupleOfStrs', '__parsedLinesGen', 'datetime', '__datetimeToTupleOfInts', '__pubInsMethCond', '__prettyfyLines', '__privClsMethCond', '__genPathDirPrint', '__tupleOfStrsToStr', 'time', '__init__', '__parsedStdLogGen', '__privInsMethCond', 'rp', '__joinMroLink', '__splitStampFromTheRest', '__saveCompressedStakLogToVariants', 'label', '__preProcessLogGen', '__saveCompressedSplicedLogs', '__trimTime', '__addSuffix', '__unixStampToTupleOfStrs', 'omrolocs', '__saveLogsToFile', '__linksGen', 'splitext', 'rmPrint', 'isdir', '__compressLines', '__genPathDirVari', '__genPathLogStak', 'data', '__traceEntry', 'c', 'isfile', '__splitLinkToStr', '__genPathLogTrace', '__formatTraceLog', '__fileUnique', '__genPathLogsStd', 's', '__linkFromFrame', 'omrolocsalad', 'unixStampToDatetime', '__unixStampToStr', 'CompressionFormatList', '__midStampToStr'}  # This line was injected by injectors.py
 
     """ =============================================================================================================================== """
 
-
-    """ =================================================== INSTANCE INITIALISATION =================================================== """
-
     def __init__(self):  # type: () -> None
-
         # Names that should change relatively often
         self.printDir    = 'print'
         self.taskDir     = 'task'
         self.eventCnt    = 0
-        self.eventLabels = ['ARENA LOADED', 'VEHICLE CHANGED']
+        self.eventLabels = ['PRE-EVENT-1', 'POST-EVENT-1', 'PRE-EVENT-2', 'POST-EVENT-2']
 
         # Names that can but really shouldn't change that often
-        self._rootDir       = '.STAK'
-        self._primitivesDir = 'primitives'
-        self._variantsDir   = 'variants'
-        self._stakLogFile   = 'stak.log'
-        self._traceLogFile  = 'trace.log'
-        self._stdLogFiles   = ('stdLogA.log', 'stdLogB.log')
+        self.rootDir       = '.STAK'
+        self.primitivesDir = 'primitives'
+        self.variantsDir   = 'variants'
+        self.stakLogFile   = 'stak.log'
+        self.traceLogFile  = 'trace.log'
+        self.stdLogFiles   = ('stdLogA.log', 'stdLogB.log')
+        self.maxCompressGroupSize = 100  # Increases compress times exponentially
 
         # Stak log stuff
-        self.__log = []  # type: List[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]]]]
-        self.__appendToLog = self.__log.append
-        self.__extendLog   = self.__log.extend
-
-        # Compression
-        self.__maxCompressGroupSize = 100  # Increases compress times exponentially
+        self.log = []  # type: List[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]]]]
+        self.appendToLog = self.log.append
+        self.extendLog   = self.log.extend
 
         # Trace log stuff
-        self.__traceLog = []
+        self.traceLog = []
+        self.openFuncs = set()  # type: Set[FrameType]
+        self.appendToTraceLog = self.traceLog.append
+
+        #### Partials ####
+        #### CAUTION: All callables should be either methods or instance attributes, so that the tracing callable knows to skip them
+        #### Intermediate callables such that they will have the same methName in their frame as some class callable are valid
+        from functools import partial
 
         # Call stack creating partials
         linkerArgs = (self.__privInsMethCond, self.__privClsMethCond, self.__pubInsMethCond,
                       self.__pubClsMethCond, self.__OldStyleClsType, self.__mroClsNsGen,)
 
-        joinFileLink = self.__partial(self.__joinFileLink, self.__pathSplitChar)
-        self.__jointLinkFromFrame = self.__partial(self.__linkFromFrame, self.__joinMroLink, joinFileLink, *linkerArgs)
-        self.__splitLinkFromFrame = self.__partial(self.__linkFromFrame, lambda *a: a, lambda *a: a, *linkerArgs)
+        joinFileLink = partial(self.__joinFileLink, self.pathSplitChar)
+        self.jointLinkFromFrame = partial(self.linksFromFrame, self.__joinMroLink, joinFileLink, *linkerArgs)
+        self.splitLinkFromFrame = partial(self.linksFromFrame, self.__retArgs, self.__retArgs, *linkerArgs)
 
-        self.__jointLinksGen = self.__partial(self.__linksGen, self.__jointLinkFromFrame)
-        self.__splitLinksGen = self.__partial(self.__linksGen, self.__splitLinkFromFrame)
+        self.jointLinksCallChain = partial(self.linksGen, self.jointLinkFromFrame)
+        self.splitLinksCallChain = partial(self.linksGen, self.splitLinkFromFrame)
+
+        # Trace partials
+        self.traceOriginatorEntry = partial(self.traceEntry, 'originator')
+        self.traceTerminatorEntry = partial(self.traceEntry, 'terminator')
 
         # Saving logs partials
-        self.__saveRawLogToPrimitives = self.__partial(self.__saveToFile, self.__pathLogStak, self.__ifPathExistsIncSuffix, 'w', self.__joinLogEntriesIntoLines)
-        self.__saveRawTraceLogToPrimitives = self.__partial(self.__saveToFile, self.__pathLogTrace, self.__ifPathExistsIncSuffix, 'w', self.__formatTraceLog)
+        saver = partial(self.writeLogsToFile, self.makeFilePathUnique, 'w')
+        self.saveStakLogToPrimitives  = partial(
+            saver, self.pathLogStak , partial(self.formatStakLog, self.stakFlags, self.pStakFlags, self.__midStampToStr)
+        )
+        self.saveTraceLogToPrimitives = partial(saver, self.pathLogTrace, self.formatTraceLog)
+
+        self.saveStdLogsToPrimitives  = partial(
+            saver, self.pathLogsStd , partial(self.formatParsedStdLog, self.__midStampToStr, self.pStdFlagsByStdFlags)
+        )
 
         # First log entry to log current date
-        self._date_entry()
-
-    """ =============================================================================================================================== """
+        self._dateEntry()
 
     """ =========================================================== INTERFACE ========================================================= """
 
@@ -224,30 +256,30 @@ class STAK(object):
     def omropocs(self):  # type: () -> None
         """ Its back! sometimes u just need the good old omropocs! in new & improved form! """
         # TODO: Try to make static maybe?
-        print ' <- '.join(self.__jointLinksGen())
+        print ' <- '.join(self.jointLinksCallChain())
 
     def omrolocs(self, silence=False):  # type: (bool) -> None
         """ Optional Method Resolution Order Logger Optional Call Stack """
         if silence: return
-        self.__appendToLog(
+        self.appendToLog(
             (
-                self.__ti.time(),
-                self._stakFlags[0],
-                tuple(self.__splitLinksGen()),
+                self.time(),
+                self.stakFlags[0],
+                tuple(self.splitLinksCallChain()),
             )
         )
 
     def data(self, pretty=False, **dataForLogging):  # type: (bool, Any) -> None
         """ Log data structures, their callable & definer class names """
 
-        strLink = next(self.__jointLinksGen())
+        strLink = next(self.jointLinksCallChain())
         self.__data(pretty, strLink, **dataForLogging)
 
     def omrolocsalad(self, silence=False, pretty=False, **additionalDataForLogging):  # type: (bool, bool, Any) -> None
         """ Optional Method Resolution Order Logger Optional Call Stack And Locals Auto Data """
         if silence: return
 
-        linksAndFirstFrameLocalsGen = self.__linksAndFirstFrameLocalsGen()
+        linksAndFirstFrameLocalsGen = self.linksAndFirstFrameLocalsFromFrame()
         firstFrameLocals = next(linksAndFirstFrameLocalsGen)  # type: Dict[str, Any]
 
         for key, value in firstFrameLocals.items():
@@ -255,12 +287,12 @@ class STAK(object):
                 additionalDataForLogging[key] = value
 
         splitLinks = tuple(linksAndFirstFrameLocalsGen)
-        firstLinkAsStr = self.__splitLinkToStr(splitLinks[0])
+        firstLinkAsStr = self.splitLinkToStr(splitLinks[0])
 
-        self.__appendToLog(
+        self.appendToLog(
             (
-                self.__ti.time(),
-                self._stakFlags[0],
+                self.time(),
+                self.stakFlags[0],
                 splitLinks,
             )
         )
@@ -272,17 +304,17 @@ class STAK(object):
         )
 
     def autoLocals(self, silence=False, pretty=False, **additionalDataForLogging):  # type: (bool, bool, Any) -> None
-        """ Logs locals from the frame from which this method was called & optionally & additionally any other kwargs """
+        """ Logs locals from frame from which this method was called, optionally other kwargs """
         if silence: return
 
-        linksAndFirstFrameLocalsGen = self.__linksAndFirstFrameLocalsGen()
+        linksAndFirstFrameLocalsGen = self.linksAndFirstFrameLocalsFromFrame()
         firstFrameLocals = next(linksAndFirstFrameLocalsGen)  # type: Dict[str, Any]
 
         for key, value in firstFrameLocals.items():
             if key != 'self' and key != 'cls':
                 additionalDataForLogging[key] = value
 
-        firstLinkAsStr = self.__splitLinkToStr(next(linksAndFirstFrameLocalsGen))
+        firstLinkAsStr = self.splitLinkToStr(next(linksAndFirstFrameLocalsGen))
         self.__data(
             pretty,
             firstLinkAsStr,
@@ -316,22 +348,22 @@ class STAK(object):
     #     prettyfied = [el for el in iterable]
     #
     #     if pretty:
-    #         now, flag = self.__ti.time(), self._stakFlags[2]
+    #         now, flag = self.time(), self.stakFlags[2]
     #
     #         if dataForLogging:
-    #             self.__appendToLog((now, flag, '{}(\n'.format(strLink)))
-    #             self.__extendLog(
+    #             self.appendToLog((now, flag, '{}(\n'.format(strLink)))
+    #             self.extendLog(
     #                 (now, flag, '    {}={},\n'.format(name, datum))
     #                 for name, datum in dataForLogging.items()
     #             )
-    #             self.__appendToLog((now, flag, ')\n'))
+    #             self.appendToLog((now, flag, ')\n'))
     #         else:
-    #             self.__appendToLog((now, flag, '(No data was passed)\n'))
+    #             self.appendToLog((now, flag, '(No data was passed)\n'))
     #     else:
-    #         self.__appendToLog(
+    #         self.appendToLog(
     #             (
-    #                 self.__ti.time(),
-    #                 self._stakFlags[2],
+    #                 self.time(),
+    #                 self.stakFlags[2],
     #                 (
     #                     '{}('.format(strLink) +
     #                     ', '.join(('{}={}'.format(name, datum) for name, datum in dataForLogging.items())) +
@@ -340,52 +372,55 @@ class STAK(object):
     #             )
     #         )
 
-    def fomrolocs(self):
-        """ Like omrolocs but instead of looking into the past it travels into the future of the STAK """
-
-        oldTrace = self.__gettrace()
+    def setTrace(self):
+        oldTrace = self.__getTrace()
         if oldTrace is not self:
-            self.__settrace(self)
+            self.__traceOriginatorEntry(self.__getFrame(1))
+            self.__setTrace(self)
+
+    def delTrace(self):
+        self.__traceTerminatorEntry(self.__getFrame(1))
+        self.__setTrace(None)
 
     # Call-from-shell interface
     def save(self):  # type: () -> None
-        """ Save stak.__log, spliced, trimmed & more """
+        """ Save stak.log, spliced, trimmed & more """
 
         # Make paths if don't exist just in time bc on innit might cause collisions (Yeah wtf, but I'm not messing with this)
-        if not self.__os.path.isdir(self.__pathDirPrimi):
-            self.__os.makedirs(self.__pathDirPrimi)
-        if not self.__os.path.isdir(self.__pathDirVari):
-            self.__os.makedirs(self.__pathDirVari)
+        if not self.isdir(next(self.pathDirPrimi())):
+            self.makedirs(next(self.pathDirPrimi()))
+        if not self.isdir(next(self.pathDirVari())):
+            self.makedirs(next(self.pathDirVari()))
 
         log = tuple(
-            self.__preProcessLogGen(
-                self.__log  # type: List[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]]]]
+            self.preProcessLog(
+                self.log  # type: List[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]]]]
             )
         )  # type: Tuple[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, str], Tuple[List[str], str]], ...]]], ...]
 
         # partStrLinkCallChains = tuple(self.__strLinkCallChainGen(log, self.__partStrLinkCreator))
 
         fullStrLinkCallChains = tuple(
-            self.__strLinkCallChainGen(
-                log, self.__fullStrLinkCreator
+            self.strLinkCallChain(
+                log, self.mroLinkToStrLink
             )
-        )  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[Tuple[str, ...], str]], ...]
+        )  # type: Tuple[Tuple[StrsStamp, str, Union[Tuple[str, ...], str]], ...]
 
-        self.__saveRawLogToPrimitives(fullStrLinkCallChains)
+        self.saveStakLogToPrimitives(fullStrLinkCallChains)
 
-        # self.__saveRawTraceLogToPrimitives()  # TODO: Implement tracing
+        self.saveTraceLogToPrimitives(self.traceLog)
 
-        callChainsWithCompressedStrLinks = tuple(self.__compressLinksGen(fullStrLinkCallChains))
-        self.__saveCompressedStakLogToVariants(callChainsWithCompressedStrLinks)
+        callChainsWithCompressedStrLinks = tuple(self.compressLinksGen(fullStrLinkCallChains))
+        self.saveCompressedStakLogToVariants(callChainsWithCompressedStrLinks)
 
         parsedStdLogs = tuple(  # Flags not padded yet
-            self.__parsedStdLogGen()
-        )  # type: Tuple[Tuple[Tuple[Tuple[str, str, str, str], str, str]]]
+            self.parseStdLogs()
+        )  # type: Tuple[Tuple[Tuple[StrsStamp, str, str]]]
 
-        self.__saveStdLogsToPrimitives(parsedStdLogs)
-        splicedLogs = self.__saveSplicedToVariants(parsedStdLogs, callChainsWithCompressedStrLinks)
+        self.saveStdLogsToPrimitives(*parsedStdLogs)
+        splicedLogs = self.saveSplicedToVariants(parsedStdLogs, callChainsWithCompressedStrLinks)
 
-        self.__saveCompressedSplicedLogs(splicedLogs)
+        self.saveCompressedSplicedLogs(splicedLogs)
 
     def label(self, label=None):  # type: (Optional[str]) -> None
         """ Make a log entry with the passed label, else, with next label in eventLabels, if any, else print no-name label """
@@ -396,10 +431,10 @@ class STAK(object):
             else:
                 label = 'NO-NAME LABEL' + str(len(self.eventLabels) - self.eventCnt)
 
-        self.__appendToLog(
+        self.appendToLog(
             (
-                self.__ti.time(),
-                self._stakFlags[3],
+                self.time(),
+                self.stakFlags[3],
                 '\n========================================================= {} '
                 '=========================================================\n\n'.format(label)
             )
@@ -407,38 +442,29 @@ class STAK(object):
 
     def clear(self):  # type: () -> None
         """ DANGER: Clears current logs, stak & std. Resets self.eventCnt (label print count) & more """
-        for logPath in self._stdLogFiles:
+        for logPath in self.stdLogFiles:
             with open(logPath, 'w'): pass
 
-        self.__log = []
-        self.__appendToLog = self.__log.append
-        self.__extendLog    = self.__log.extend
+        self.log = []
+        self.appendToLog = self.log.append
+        self.extendLog    = self.log.extend
         self.eventCnt = 0
 
-        self._date_entry()
+        self._dateEntry()
 
     def rmPrint(self):  # type: () -> None
-        """ MUCH DANGER: Remove current print dir & all its logs & recreate the dirs (not the logs) """
-        if self.__os.path.exists(self.__pathDirPrint):
-            self.__shutil.rmtree(self.__pathDirPrint)
+        """ MUCH DANGER: Remove current print dir & all its logs """
+        if self.exists(next(self.pathDirPrint())):
+            self.rmtree(next(self.pathDirPrint()))
 
     # Call-from-self autoface
-    def _date_entry(self):
+    def _dateEntry(self):
         # Since normal entries only log time, this one is used to log date, normally on logging session init
-        self.__appendToLog((self.__ti.time(), self._stakFlags[1], self.__dt.now().strftime('%Y-%m-%d\n')))
+        self.__appendToLog((self.__time(), self._stakFlags[1], self.__dt.now().strftime('%Y-%m-%d\n')))
 
     """ =============================================================================================================================== """
 
     """ =================================================== CREATING MRO CALL CHAINS ================================================== """
-
-    @staticmethod
-    def __joinMroLink(mroClsNs, methName):  # type: (List[str], str) -> str
-        mroClsNs[-1] = '{}.{}{}'.format(mroClsNs[-1], methName, ')' * (len(mroClsNs) - 1))
-        return '('.join(mroClsNs)
-
-    @staticmethod
-    def __joinFileLink(pathSplitChar, fullPath, lineno, methName):  # type: (str, str, int, str) -> str
-        return '{}{}.{}'.format(fullPath.split(pathSplitChar)[-1].rstrip('py'), lineno, methName)
 
     @staticmethod
     def __linkFromFrame(
@@ -474,23 +500,18 @@ class STAK(object):
             else:
                 return joinMroLinksMaybe(mroClsNs, methName)
 
-    def __linksGen(
-            self,
+    def __linksGen(self,
             linkFromFrame,  # type: Callable[[FrameType], Union[str, Tuple[List[str], str], Tuple[str, int, str]]]
     ):  # type: (...) -> Iterator[Union[str, Tuple[List[str], str], Tuple[str, int, str]]]
 
-        frame = self.__getFrame(2)
+        frame = self._getframe(2)
         while frame:
             yield linkFromFrame(frame)  # Should create joined (str) links or split based on the args in the partial
             frame = frame.f_back
 
     @staticmethod
-    def __mroClsNsGen(
-            callerCls,   # type: Type[Any]
-            defClsCond,  # type: Callable[[Type[Any], str, CodeType], bool]
-            methName,    # type: str
-            codeObj      # type: CodeType
-    ):                   # type: (...) -> Iterator[str]
+    def __mroClsNsGen(callerCls, defClsCond, methName, codeObj):
+        # type: (Type[Any], Callable[[Type[Any], str, CodeType], bool], str, CodeType) -> Iterator[str]
         for cls in callerCls.__mro__:
             yield cls.__name__
             if defClsCond(cls, methName, codeObj):
@@ -550,6 +571,17 @@ class STAK(object):
             return True
         return False
 
+    @staticmethod
+    def __joinMroLink(mroClsNs, methName):  # type: (List[str], str) -> str
+        mroClsNs[-1] = '{}.{}{}'.format(mroClsNs[-1], methName, ')' * (len(mroClsNs) - 1))
+        return '('.join(mroClsNs)
+
+    @staticmethod
+    def __joinFileLink(pathSplitChar, fullPath, lineno, methName):  # type: (str, str, int, str) -> str
+        return '{}{}.{}'.format(fullPath.split(pathSplitChar)[-1].rstrip('py'), lineno, methName)
+
+    @staticmethod
+    def __retArgs(*args): return args  # Yes, this should be here to be skipped from tracing
 
     """ =============================================================================================================================== """
 
@@ -557,22 +589,22 @@ class STAK(object):
 
     def __data(self, pretty, strLink, **dataForLogging):  # type: (bool, str, Any) -> None
         if pretty:
-            now, flag = self.__ti.time(), self._stakFlags[2]
+            now, flag = self.time(), self.stakFlags[2]
 
             if dataForLogging:
-                self.__appendToLog((now, flag, '{}(\n'.format(strLink)))
-                self.__extendLog(
+                self.appendToLog((now, flag, '{}(\n'.format(strLink)))
+                self.extendLog(
                     (now, flag, '    {}={},\n'.format(name, datum))
                     for name, datum in dataForLogging.items()
                 )
-                self.__appendToLog((now, flag, ')\n'))
+                self.appendToLog((now, flag, ')\n'))
             else:
-                self.__appendToLog((now, flag, '(No data was passed)\n'))
+                self.appendToLog((now, flag, '(No data was passed)\n'))
         else:
-            self.__appendToLog(
+            self.appendToLog(
                 (
-                    self.__ti.time(),
-                    self._stakFlags[2],
+                    self.time(),
+                    self.stakFlags[2],
                     (
                         '{}('.format(strLink) +
                         ', '.join(('{}={}'.format(name, datum) for name, datum in dataForLogging.items())) +
@@ -583,7 +615,7 @@ class STAK(object):
 
     def __linksAndFirstFrameLocalsGen(self):  # type: () -> Iterator[Union[Dict[str, Any], Tuple[List[str], str], Tuple[str, int, str]]]
         """ Must call next once to get the locals before it starts yielding links """
-        frame, mroClsNsGen, OldStyleClsType = self.__getFrame(2), self.__mroClsNsGen, self.__OldStyleClsType
+        frame, mroClsNsGen, OldStyleClsType = self._getframe(2), self.__mroClsNsGen, self.__OldStyleClsType
         privInsMethCond, pubInsMethCond = self.__privInsMethCond, self.__pubInsMethCond
         privClsMethCond, pubClsMethCond = self.__privClsMethCond, self.__pubClsMethCond
 
@@ -615,16 +647,18 @@ class STAK(object):
             codeObj, fLocals = frame.f_code, frame.f_locals
             methName = codeObj.co_name
 
-    def __splitLinkToStr(self, splitLink):  # type: (Union[Tuple[List[str], str], Tuple[str, int, str]]) -> str
+    @staticmethod
+    def __splitLinkToStr(splitLink):  # type: (Union[Tuple[List[str], str], Tuple[str, int, str]]) -> str
+        # REMINDER: Always add new line at the last possible moment, it's been tried before, it does not work!
         if len(splitLink) == 3:
             filePath, lineno, methName = splitLink
-            splitFilePath = filePath.split(self.__os.sep)
+            splitFilePath = filePath.split(STAK.__pathSplitChar)
             if len(splitFilePath) > 1:
-                return '{}{}.{}'.format(self.__os.path.join(splitFilePath[-2], splitFilePath[-1]).rstrip('py'), lineno, methName)
+                return '{}{}.{}'.format(STAK.__join(splitFilePath[-2], splitFilePath[-1]).rstrip('py'), lineno, methName)
             else:
-                return '{}{}.{}'.format(self.__os.path.join(splitFilePath[-1]).rstrip('py'), lineno, methName)
+                return '{}{}.{}'.format(STAK.__join(splitFilePath[-1]).rstrip('py'), lineno, methName)
         else:
-            return self.__fullStrLinkCreator(*splitLink)
+            return STAK.__mroLinkToStrLink(*splitLink)
 
     """ =============================================================================================================================== """
 
@@ -633,40 +667,86 @@ class STAK(object):
     def __call__(self, frame, event, arg):  # type: (FrameType, str, Any) -> 'STAK'
         """ Used only to set an instance of STAK as a trace """
 
-        if event == 'call':
-            self.__traceLog.append(self.__jointLinkFromFrame(frame))  # type: str
-        elif event == 'line':
-            pass
-        elif event == 'return':
-            pass
-        elif event == 'exception':
+        if event == 'call' or event == 'return':
+            print self.jointLinkFromFrame(frame), id(frame)
+            self.traceEntry(event, frame)
+        elif event == 'line' or event == 'exception':
             pass
         else:
-            raise ValueError('Unforeseen event string')
+            print 'ERROR: from STAK.__call__ unforeseen event string: {}'.format(event)
 
-        print 'TraceClass: event: {}, name: {}, arg: {}'.format(event, frame.f_code.co_name, arg)
-        self.__depth += 1
         return self
 
-    def __formatTraceLog(self):
-        raise NotImplementedError()
+    def __traceEntry(self, flag, frame):  # type: (FrameType, str) -> None
+        # All entries to trace log made through this method
+        self.appendToTraceLog(
+            (self.time(), flag, self.splitLinkFromFrame(frame))
+        )
+
+    @classmethod
+    def __joinTraceEntriesFrom(cls):  # type: () -> Generator[None, Tuple[float, str, str], List[Union[int, str]]]
+        oldTime, flag, jointLink = (yield)
+        newTime = oldTime
+        depth = 0
+        callChain = [cls.unixStampToStr(oldTime), cls.traceFlag]
+
+        while flag == 'call':
+            if oldTime != newTime:
+                callChain.append('<{}>{}'.format(int((newTime - oldTime) * 1000), jointLink))
+                oldTime = newTime
+            else:
+                callChain.append(jointLink)
+            depth += 1
+
+            newTime, flag, jointLink = (yield)
+
+        oldTime = newTime
+        returnChain = [cls.unixStampToStr(oldTime), cls.traceFlag]
+
+        while flag == 'return':
+            pass
+
+    @staticmethod
+    def __formatTraceLog(
+            callableNames,  # type: Set[str]
+            splitLinkToStr,  # type: Callable[[Union[Tuple[List[str], str], Tuple[str, int, str]]], str]
+            joinTraceEntriesUntilReversal,  # type: Callable[[], Generator[None, Tuple[float, str, str], List[Union[int, str]]]]
+            traceLog,  # type: List[Tuple[float, str, Union[Tuple[List[str], str], Tuple[str, int, str]]]]
+    ):  # type: (...) -> Iterator[str]
+
+        # Receives the raw trace log, sends all the elements into the joiner, it joins one set of call entries &
+        # one set of return entries, returning them as two log lines using the StopIteration exception.
+        # Also in the return comes the final depth, which is used to start the next two lines at the right indent.
+        # Once the joiner is exhausted it creates a new one, to handle the next two lines, and so on.
+
+        joiner = joinTraceEntriesUntilReversal(); joiner.next()
+        for unixStamp, flag, splitLink in traceLog:
+            if splitLink[-1] in callableNames:
+                continue  # If tracing any of STAKS' callables skip that
+
+            try:
+                joiner.send((unixStamp, flag, splitLink))
+            except StopIteration as exc:
+                callLine, returnLine, finalDepth = exc.message
 
     """ =============================================================================================================================== """
 
     """ ======================================================== SAVING LOGS ========================================================== """
 
     @staticmethod
-    def __saveToFile(path, makePathUnique, fileOpenMode, formatter, log):
-        # type: (str, Callable[[str], str], str, Callable[[Iterable], Iterable[str]], Iterable) -> None
+    def __saveLogsToFile(makePathUnique, fileOpenMode, pathYielder, formatter, *logs):
+        # type: (Callable[[str], str], str, PathGen, Callable[[Iterable], Iterable[str]], Iterable) -> None
         # Generic save method, most args populated by partial on init
-        with open(makePathUnique(path), fileOpenMode) as logFile:
-            logFile.writelines(formatter(log))
+
+        for path, log in zip(pathYielder(), logs):
+            with open(makePathUnique(path), fileOpenMode) as logFile:
+                logFile.writelines(formatter(log))
 
     def __trimFilePathAddLinenoGen(self,
         callChain,  # type: Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]
     ):              # type: (...) -> Tuple[Union[Tuple[str, str], Tuple[List[str], str]], ...]
 
-        pathSplitChar = self.__pathSplitChar
+        pathSplitChar = self.pathSplitChar
         for link in callChain:
             if len(link) == 2:
                 yield link
@@ -684,29 +764,28 @@ class STAK(object):
                 )
 
     def __preProcessLogGen(self,
-        log,  # type: List[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]]]]
-    ):        # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, Union[str, Tuple[Union[Tuple[str, str], Tuple[List[str], str]], ...]]]]
+            log,  # type: List[Tuple[float, str, Union[str, Tuple[Union[Tuple[str, int, str], Tuple[List[str], str]], ...]]]]
+    ):  # type: (...) -> Iterator[Tuple[StrsStamp, str, Union[str, Tuple[Union[Tuple[str, str], Tuple[List[str], str]], ...]]]]
 
-        unixStampToIntermediate, omrolocsFlag = self.__unixStampToIntermediate, self._stakFlags[0]
+        unixStampToMid, omrolocsFlag = self.unixStampToTupleOfStrs, self.stakFlags[0]
         for unixStamp, flag, theRest in log:
             if flag == omrolocsFlag:
-                yield unixStampToIntermediate(unixStamp), flag, tuple(self.__trimFilePathAddLinenoGen(theRest))
+                yield unixStampToMid(unixStamp), flag, tuple(self.trimFilePathAddLineno(theRest))
             else:
-                yield unixStampToIntermediate(unixStamp), flag, theRest
+                yield unixStampToMid(unixStamp), flag, theRest
 
-    def __strLinkCallChainGen(
-        self,
-        log,         # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[SuperSplitLink, str]]]
-        linkCreator  # type: Callable[List[str], str]
-    ):               # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, Union[str, Tuple[str, ...]]]]
+    def __strLinkCallChainGen(self,
+            log,  # type: Tuple[Tuple[StrsStamp, str, Union[Tuple[List[str], str], Tuple[str, int, str], str]]]
+            linker  # type: Callable[List[str], str]
+    ):  # type: (...) -> Iterator[Tuple[StrsStamp, str, Union[str, Tuple[str, ...]]]]
 
-        omrolocsFlag = self._stakFlags[0]
+        omrolocsFlag = self.stakFlags[0]
         for stamp, flag, theRest in log:
             if flag == omrolocsFlag:
                 yield stamp, flag, tuple(  # At this point theRest is the splitLinkCallChain
                     (
                         '{}.{}'.format(bigNameSpace, methName) if isinstance(bigNameSpace, str)
-                        else linkCreator(bigNameSpace[:], methName)
+                        else linker(bigNameSpace[:], methName)
                         for bigNameSpace, methName in theRest
                     )
                 )
@@ -714,78 +793,61 @@ class STAK(object):
                 yield stamp, flag, theRest
 
     @staticmethod
-    def __fullStrLinkCreator(mroClsNs, methName):  # type: (List[str], str) -> str
-        mroClsNs[-1] = '{}.{}{}'.format(mroClsNs[-1], methName, ')' * (len(mroClsNs) - 1))
+    def __mroLinkToStrLink(mroClsNs, methName):  # type: (List[str], str) -> str
+        mroClsNs[-1] = '{}.{}{}\n'.format(mroClsNs[-1], methName, ')' * (len(mroClsNs) - 1))
         return '('.join(mroClsNs)
 
     @staticmethod
     def __partStrLinkCreator(mroClsNs, methName):  # type: (List[str], str) -> str
         return '{}.{}'.format(mroClsNs[-1], methName)
 
-    def __joinLogEntriesIntoLines(
-        self,
-        logWhereCallChainsHaveStrLinks  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[str, List[str]]]]
-    ):                                  # type: (...) -> Iterator[str]
+    @staticmethod
+    def __formatStakLog(
+            stakFlags,      # type: Tuple[str, str, str, str]
+            pStakFlags,     # type: Tuple[str, str, str, str]
+            midStampToStr,  # type: Callable[[StrsStamp], str]
+            logWhereIfCallChainStrLinks,  # type: Tuple[Tuple[StrsStamp, str, Union[str, List[str]]], ...]
+    ):  # type: (...) -> Iterator[str]
 
-        omrolocsFlag , dateFlag , dataFlag , labelFlag  = self._stakFlags
-        pOmrolocsFlag, pDateFlag, pDataFlag, pLabelFlag = self.__paddedStakFlags
+        omrolocsFlag , dateFlag , dataFlag , labelFlag  = stakFlags
+        pOmrolocsFlag, pDateFlag, pDataFlag, pLabelFlag = pStakFlags
 
-        for stamp, flag, theRest in logWhereCallChainsHaveStrLinks:
+        for stamp, flag, theRest in logWhereIfCallChainStrLinks:
             if flag == omrolocsFlag:
-                yield '{}:{}:{}.{}'.format(*stamp) + pOmrolocsFlag + ' <- '.join(theRest) + '\n'
+                yield '{}{}{}\n'.format(midStampToStr(stamp), pOmrolocsFlag, ' <- '.join(theRest))
             elif flag == dataFlag:
-                yield '{}:{}:{}.{}'.format(*stamp) + pDataFlag + theRest
+                yield '{}{}{}'.format(midStampToStr(stamp), pDataFlag, theRest)
             elif flag == labelFlag:
                 yield theRest
             elif flag == dateFlag:
-                yield '{}:{}:{}.{}'.format(*stamp) + pDateFlag + theRest
+                yield '{}{}{}'.format(midStampToStr(stamp), pDateFlag, theRest)
             else:
                 raise ValueError('Unsupported flag: {}'.format(flag))
 
-    def __saveStdLogsToPrimitives(self, stdLogs):  # type: (Tuple[Tuple[Tuple[Tuple[str, str, str, str], str, str]]]) -> None
-        """ Seems like the std log files could be simply copy-pasted into the new dir, but flag of the point of saving
-        primitives is debugging STAK itself not to keep pristine copies of the original logs """
+    @staticmethod
+    def __formatParsedStdLog(midStampToStr, pStdFlagsByStdFlags, parsedStdLog):
+        # type: (Callable[[StrsStamp], str], Dict[str, str], Sequence[Tuple[StrsStamp, str, str]]) -> Iterator[str]
 
-        pStdFlagsByStdFlags = self.__pStdFlagsByStdFlags
-
-        for log, logName in zip(stdLogs, self._stdLogFiles):
-            path = self.__ifPathExistsIncSuffix(
-                self.__os.path.join(
-                    self.__pathDirPrimi, logName
-                )
+        for midStamp, stdFlag, theRest in parsedStdLog:
+            yield '{}{}{}'.format(
+                midStampToStr(midStamp),
+                pStdFlagsByStdFlags[stdFlag],
+                theRest,
             )
 
-            with open(path, 'w') as f:
-                f.writelines(
-                    (
-                        '{}:{}:{}.{}'.format(*stamp) + pStdFlagsByStdFlags[flag] + theRest
-                        for stamp, flag, theRest in log
-                    )
-                )
+    @staticmethod
+    def __midStampToStr(midStamp):  # type: (Tuple[str, str, str, str]) -> str
+        return '{}:{}:{}.{}'.format(*midStamp)
 
-    @classmethod
-    def __unixStampToIntermediate(cls, unixStamp):  # type: (float) -> Tuple[str, str, str, str]
-        """ For performance, unix stamps used when gathering logs, for parsing & interpolating standard logs either tuple
-        of ints or strs would be convenient, but since interpolation is expected to happen not so often, we settle for 0
-        padded tuples of stings since few operations are needed to be created & they can be compared """
-        dtStamp = cls.__dt.fromtimestamp(unixStamp)
-        return (
-            '{:02}'.format(dtStamp.hour),
-            '{:02}'.format(dtStamp.minute),
-            '{:02}'.format(dtStamp.second),
-            '{:03}'.format(dtStamp.microsecond // 1000),
-        )
-
-    def __spliceGen(
-        self,
-        stdLog,  # type: Tuple[Tuple[Tuple[str, str, str, str], str, str]]
-        log,     # type: Tuple[Tuple[Tuple[str, str, str, str], str, str]]
-    ):           # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, str]]
+    def __spliceGen(self,
+        stdLog,  # type: Tuple[Tuple[StrsStamp, str, str]]
+        log,     # type: Tuple[Tuple[StrsStamp, str, str]]
+    ):           # type: (...) -> Iterator[Tuple[StrsStamp, str, str]]
 
         stdIdx, stakIdx = 0, 0
         stdElLeft, stakElLeft = True, True
         lenStd, lenStak = len(stdLog), len(log)
-        allPflagsByFlags = self.__allPflagsByFlags
+        allPflagsByFlags = self.allPflagsByFlags
 
         stdStamp, stdFlag, stdTheRest = stdLog[stdIdx]
         stamp   , flag   , theRest    = log[stakIdx]
@@ -810,22 +872,21 @@ class STAK(object):
                 else:
                     stamp, flag, theRest = log[stakIdx]
 
-    def __saveSplicedToVariants(
-        self,
-        stdLogs,  # type: Tuple[Tuple[Tuple[Tuple[str, str, str, str], str, str]]]
-        stakLog,  # type: Tuple[Tuple[Tuple[str, str, str, str], str, str]]
-    ):            # type: (...) -> List[List[Tuple[Tuple[str, str, str, str], str, str]]]
-        splicedLogs, pStdFlagsByStdFlags = [], self.__pStdFlagsByStdFlags
-        for stdLog, logName in zip(stdLogs, self._stdLogFiles):
+    def __saveSplicedToVariants(self,
+        stdLogs,  # type: Tuple[Tuple[Tuple[StrsStamp, str, str]]]
+        stakLog,  # type: Tuple[Tuple[StrsStamp, str, str]]
+    ):            # type: (...) -> List[List[Tuple[StrsStamp, str, str]]]
+        splicedLogs, pStdFlagsByStdFlags = [], self.pStdFlagsByStdFlags
+        for stdLog, logName in zip(stdLogs, self.stdLogFiles):
 
-            path = self.__ifPathExistsIncSuffix(
-                self.__os.path.join(
-                    self.__pathDirVari, self.__addSuffix(logName, 'Splice')
+            path = self.makeFilePathUnique(
+                self.join(
+                    next(self.pathDirVari()), self.addSuffix(logName, 'Splice')
                 )
             )
 
             # Need this to be list bc compression
-            splicedLog = list(self.__spliceGen(stdLog, stakLog))
+            splicedLog = list(self.spliceStakLogWithStdLog(stdLog, stakLog))
             splicedLogs.append(splicedLog)
 
             with open(path, 'w') as f:
@@ -838,14 +899,13 @@ class STAK(object):
 
         return splicedLogs
 
-    def __saveCompressedStakLogToVariants(
-        self,
-        logWhereIfCallChainItsStrLinksAreCompressed  # type: Tuple[Tuple[Tuple[str, str, str, str], str, str]]
+    def __saveCompressedStakLogToVariants(self,
+        logWhereIfCallChainItsStrLinksAreCompressed  # type: Tuple[Tuple[StrsStamp, str, str]]
     ):
         with open(
-                self.__ifPathExistsIncSuffix(
-                    self.__os.path.join(
-                        self.__pathDirVari, 'stakCompress.log')
+                self.__fileUnique(
+                    self.__join(
+                        next(self.__genPathDirVari()), 'stakCompress.log')
                 ),
                 'w'
         ) as f:
@@ -858,16 +918,16 @@ class STAK(object):
     def __saveCompressedSplicedLogs(self, splicedLogs):
         # type: (List[List[Union[Tuple[datetime, str], Tuple[datetime, str, str]]]]) -> None
 
-        for log, name in zip(splicedLogs, self._stdLogFiles):
+        for log, name in zip(splicedLogs, self.stdLogFiles):
             with open(
-                    self.__ifPathExistsIncSuffix(
-                        self.__os.path.join(
-                            self.__pathDirPrint, name
+                    self.makeFilePathUnique(
+                        self.join(
+                            next(self.pathDirPrint()), name
                         )
                     ), 'w'
             ) as f:
                 f.writelines(
-                    self.__compressLines(
+                    self.compressLines(
                         [el[-1] for el in log]
                     )
                 )
@@ -884,13 +944,12 @@ class STAK(object):
             self.cnt = cnt
             self.rep = rep
 
-    def __compressLinksGen(
-        self,
-        callChainsWithStrLinks  # type: Tuple[Tuple[Tuple[str, str, str, str], str, Union[str, Tuple[str, ...]]]]
-    ):                          # type: (...) -> Iterator[Tuple[Tuple[str, str, str, str], str, str]]
+    def __compressLinksGen(self,
+        callChainsWithStrLinks  # type: Tuple[Tuple[StrsStamp, str, Union[str, Tuple[str, ...]]]]
+    ):                          # type: (...) -> Iterator[Tuple[StrsStamp, str, str]]
 
-        omrolocsFlag, prettyfyLine, compress = self._stakFlags[0], self.__prettyfyLine, self.__compress
-        CompressionFormatList = self._CompressionFormatList
+        omrolocsFlag, prettyfyLine, compress = self.stakFlags[0], self.prettyfyLine, self.compress
+        CompressionFormatList = self.CompressionFormatList
         return (
             (
                 stamp,
@@ -906,9 +965,9 @@ class STAK(object):
         )
 
     def __compressLines(self, lines):  # type: (List[str]) -> List[str]
-        return self.__prettyfyLines(
-            self.__compress(
-                self.__formatLinesForLinesCompression(
+        return self.prettyfyLines(
+            self.compress(
+                self.formatLinesForLinesCompression(
                     lines
                 )
             )
@@ -922,9 +981,9 @@ class STAK(object):
             result += '{}x['.format(lineCfl.cnt)
 
         for el in lineCfl:
-            if isinstance(el, cls._CompressionFormatList):
+            if isinstance(el, cls.CompressionFormatList):
                 assert el.rep == 'line'
-                result += cls.__prettyfyLine(el)
+                result += cls.prettyfyLine(el)
             elif isinstance(el, str):
                 result += (el + ' <- ')
             else:
@@ -963,7 +1022,7 @@ class STAK(object):
     def __compress(self, postPassCfl):
         represents = postPassCfl.rep
 
-        for groupSize in range(1, min(len(postPassCfl) // 2, self.__maxCompressGroupSize)):
+        for groupSize in range(1, min(len(postPassCfl) // 2, self._maxCompressGroupSize)):
 
             prePassCfl = postPassCfl
             postPassCfl = self._CompressionFormatList(cnt=prePassCfl.cnt, rep=prePassCfl.rep)
@@ -1020,7 +1079,7 @@ class STAK(object):
     """ ======================================================= PARSING STD LOGS ===================================================== """
 
     @staticmethod
-    def __interpolStampGen(prevLine, thisLine, nextLine):  # type: (OptStr9, OptStr9, OptStr9 ) -> Iterator[str]
+    def __interpolStampGen(prevLine, thisLine, nextLine):  # type: (OptStr9, OptStr9, OptStr9) -> Iterator[str]
         expectedChars = (4, 2, 2, 2, 2, 2, 3)
         for i, numChars in enumerate(expectedChars):
             prevEl, nextEl = prevLine[i], nextLine[i]
@@ -1038,7 +1097,7 @@ class STAK(object):
         yield thisLine[-1]
 
     def __parseAndInterpolLines(self, lines):  # type: (List[str]) -> List[OptStr9]
-        parsedLines = list(self.__parsedLinesGen(lines))
+        parsedLines = list(self.parseLines(lines))
 
         range6 = range(6)
         def isStampCutoff(parsedLine): # type: (OptStr9) -> bool
@@ -1048,7 +1107,7 @@ class STAK(object):
                     return True
             return False
 
-        interpolStampGen = self.__interpolStampGen
+        interpolStampGen = self.interpolMissingStamps
         lenLines, nones9 = len(parsedLines), (None, None, None, None, None, None, None, None, None)
         for parsedLine in parsedLines:
 
@@ -1081,7 +1140,7 @@ class STAK(object):
             )
 
     def __trimFlagIfPoss(self, line):  # type: (str) -> Tuple[str, str]
-        wholeEnoughs, cutoffCombos, cutoffFlag = self.__wholeEnoughs, self.__cutoffCombos, self._cutoffFlag
+        wholeEnoughs, cutoffCombos, cutoffFlag = self.wholeEnoughs, self.cutoffCombos, self.cutoffFlag
         line = line.lstrip()
         for combo in cutoffCombos:
             if line.startswith(combo):
@@ -1092,7 +1151,7 @@ class STAK(object):
         return line, cutoffFlag
 
     def __trimFlag(self, line):  # type: (str) -> str
-        for combo in self._stdFlags:
+        for combo in self.stdFlags:
             if line.startswith(combo):
                 return line.lstrip(combo)
         return line
@@ -1110,8 +1169,8 @@ class STAK(object):
 
     def __parsedLinesGen(self, lines):
         # type: (List[str]) -> Iterator[OptStr, OptStr, OptStr, OptStr, OptStr, OptStr, OptStr, OptStr, str]
-        matcher, trimTime, trimFlag = self.__matcher, self.__trimTime, self.__trimFlag
-        trimFlagIfPoss, flags = self.__trimFlagIfPoss, self._stdFlags
+        matcher, trimTime, trimFlag = self.matcher, self.trimTime, self.trimFlag
+        trimFlagIfPoss = self.trimFlagIfPoss
         nones8 = (None, None, None, None, None, None, None, None)
 
         for line in lines:
@@ -1132,12 +1191,12 @@ class STAK(object):
                 result = None, None, None, None, None, None, None, flag, line.lstrip(': ')
                 yield result
 
-    def __parsedStdLogGen(self):  # type: () -> Iterator[Tuple[Tuple[Tuple[str, str, str, str], str, str]]]
-        for path in self._stdLogFiles:
+    def __parsedStdLogGen(self):  # type: () -> Iterator[Tuple[Tuple[StrsStamp, str, str]]]
+        for path in self.stdLogFiles:
             with open(path, 'r') as f:
                 lines = f.readlines()
-            parsedLines = self.__parseAndInterpolLines(lines)
-            yield tuple(self.__splitStampFromTheRest(parsedLines))
+            parsedLines = self.parseAndInterpolLines(lines)
+            yield tuple(self.splitStampFromTheRest(parsedLines))
 
     """ =============================================================================================================================== """
 
@@ -1145,44 +1204,85 @@ class STAK(object):
 
     @classmethod
     def __addSuffix(cls, logName, suffix):  # type: (str, str) -> str
-        name, ext = cls.__os.path.splitext(logName)
+        name, ext = cls.splitext(logName)
         return '{}{}{}'.format(name, suffix, ext)
 
     @classmethod
-    def __ifPathExistsIncSuffix(cls, filePath):  # type: (str) -> str
-        fileName, ext = cls.__os.path.splitext(
-            cls.__os.path.basename(filePath)
+    def __fileUnique(cls, path):  # type: (str) -> str
+        # Increment an integer suffix until path of file (not dir) is unique
+        fileName, ext = cls.splitext(
+            cls.basename(path)
         )
-        dirPath = cls.__os.path.dirname(filePath)
+        dirPath = cls.dirname(path)
         cnt = 0
 
-        while cls.__os.path.isfile(filePath):
+        while cls.isfile(path):
             cnt += 1
-            filePath = cls.__os.path.join(
+            path = cls.join(
                 dirPath, '{}{}{}'.format(fileName, cnt, ext)
             )
 
-        return filePath
+        return path
 
-    @property
-    def __pathDirPrint(self):  # type: () -> str
-        return self.__os.path.join(self._rootDir, self.taskDir, self.printDir)
+    # All path yielders should be methods, not properties, so they can be passed to other methods & called just in time.
+    # Also, should be generators to make it easier to handle multiple & single path yields.
+    ###################################################################################################################
+    def __genPathDirPrint(self):  # type: () -> Iterator[str]
+        yield self.join(self.rootDir, self.taskDir, self.printDir)
 
-    @property
-    def __pathDirPrimi(self):  # type: () -> str
-        return self.__os.path.join(self.__pathDirPrint, self._primitivesDir)
+    def __genPathDirPrimi(self):  # type: () -> Iterator[str]
+        yield self.join(next(self.pathDirPrint()), self.primitivesDir)
 
-    @property
-    def __pathDirVari(self):  # type: () -> str
-        return self.__os.path.join(self.__pathDirPrint, self._variantsDir)
+    def __genPathDirVari(self):  # type: () -> Iterator[str]
+        yield self.join(next(self.pathDirPrint()), self.variantsDir)
 
-    @property
-    def __pathLogStak(self):  # type: () -> str
-        return self.__os.path.join(self.__pathDirPrimi, self._stakLogFile)
+    def __genPathLogStak(self):  # type: () -> Iterator[str]
+        yield self.join(next(self.pathDirPrimi()), self.stakLogFile)
 
-    @property
-    def __pathLogTrace(self):  # type: () -> str
-        return self.__os.path.join(self.__pathDirPrimi, self._traceLogFile)
+    def __genPathLogsStd(self):  # type: () -> Iterator[str]
+        for logName in self.stdLogFiles:
+            yield self.join(next(self.pathDirPrimi()), logName)
+
+    def __genPathLogTrace(self):  # type: () -> Iterator[str]
+        yield self.join(next(self.pathDirPrimi()), self.traceLogFile)
+
+    """ =============================================================================================================================== """
+
+    """ =========================================================== STAMP OPS ========================================================== """
+
+    __unixStampToDatetime = __dt.fromtimestamp  # type: Callable[[float], datetime]
+
+    @staticmethod
+    def __datetimeToTupleOfInts(dtStamp):  # type: (datetime) -> Tuple[int, int, int, int]
+        return dtStamp.hour, dtStamp.minute, dtStamp.second, dtStamp.microsecond//1000
+
+    @staticmethod
+    def __tupleOfIntsToTupleOfStrs(intsStamp):  # type: (Tuple[int, int, int, int]) -> Tuple[str, str, str, str]
+        return (
+            '{:02}'.format(intsStamp[0]),
+            '{:02}'.format(intsStamp[1]),
+            '{:02}'.format(intsStamp[2]),
+            '{:03}'.format(intsStamp[3]),
+        )
+
+    @staticmethod
+    def __tupleOfStrsToStr(strsStamp):  # type: (Tuple[str, str, str, str]) -> str
+        return '{}:{}:{}.{}'.format(*strsStamp)
+
+    @classmethod
+    def __unixStampToTupleOfInts(cls, unixStamp):  # type: (float) -> Tuple[int, int, int, int]
+        dtStamp = cls.unixStampToDatetime(unixStamp)
+        return dtStamp.hour, dtStamp.minute, dtStamp.second, dtStamp.microsecond//1000
+
+    @classmethod
+    def __unixStampToTupleOfStrs(cls, unixStamp):  # type: (float) -> Tuple[str, str, str, str]
+        dt = cls.unixStampToDatetime(unixStamp)
+        return '{:02}'.format(dt.hour), '{:02}'.format(dt.minute), '{:02}'.format(dt.second), '{:03}'.format(dt.microsecond//1000)
+
+    @classmethod
+    def __unixStampToStr(cls, unixStamp):  # type: (float) -> str
+        dtStamp = cls.unixStampToDatetime(unixStamp)
+        return '{:02}:{:02}:{:02}.{:03}'.format(dtStamp.hour, dtStamp.minute, dtStamp.second, dtStamp.microsecond//1000)
 
     """ =============================================================================================================================== """
 
@@ -1210,162 +1310,190 @@ class STAK(object):
 
     """ =============================================================================================================================== """
 
+
 if __name__ == '__main__':
-    c = STAK()
+    s = STAK()
 
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            return func(*args, **kwargs)
-        return wrapper
-    class Interface(object):
-        def testCallerOfCaller(self): raise NotImplementedError()
-    class Ganny(object): pass
-    class Daddy(Ganny):
-        @decorator
-        def test(self, someLocalParam=69):
-            someOtherLocal = 'yesDaddy'
-            c.omrolocsalad(someDatumForExtraLogging='420')
-            somePostOmrolocsaladLocal = 'yes this is post the salad'
-            c.omrolocs()
-            c.data()
-            c.data(someDatum=[1,2,3,4])
-            c.data(someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
-            c.data(pretty=True, someDatum=[1,2,3,4], someDatum2=[1,2,3,4])
-            c.omropocs()
-            c.autoLocals()
-            c.data(SOME_SEPARATOR='================================================================================================')
-        @property
-        def __privProp(self): return self.test()
-        def __testCaller(self): self.__privProp
-        def testCaller(self): localVar = 1; self.__testCaller()
-    class SomeCls(Daddy, Interface):
-        @property
-        def propCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
-        def testCallerOfCaller(self): self.testCaller()
-    class Bro(Daddy): pass
-    class Dawg(SomeCls): pass
-    class ParentStatConf(object):
-        @staticmethod
-        def statMeth(): ParentStatConf.__statMeth()
-        @staticmethod
-        def __statMeth(): Outcast.classMeth()
-    class SomeSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
-        @staticmethod
-        def statMeth(): pass
-    class Outcast(ParentStatConf):
-        def __init__(self): self.statMeth()
-        @classmethod
-        def classMeth(cls): cls.__classMeth()
-        @classmethod
-        def __classMeth(cls): Dawg().propCallerOfCallerOfCaller
-    class SomeOtherClassWithSameNameStaticMeth(ParentStatConf):
-        @staticmethod
-        def statMeth(): pass
-    SomeClass().someMeth()
-    class OutcastSon(Outcast): pass
-    def func(): OutcastSon()
-    class OldStyle:
-        @staticmethod
-        def oldStyleStaticMeth(): func()
-        @classmethod
-        def oldStyleClassMeth(cls): cls.oldStyleStaticMeth()
-        def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
+    if testingWhat == 'stak':
+        def decorator(func):
+            def wrapper(*args, **kwargs):
+                return func(*args, **kwargs)
+            return wrapper
+        class Interface(object):
+            def testCallerOfCaller(self): raise NotImplementedError()
+        class Ganny(object): pass
+        class Daddy(Ganny):
+            def forMethNameDupBug(self): s.omrolocs()
+            @decorator
+            def test(self, someLocalParam=69):
+                someOtherLocal = 'yesDaddy'
+                s.omrolocsalad(someDatumForExtraLogging='420')
+                somePostOmrolocsaladLocal = 'yes this is post the salad'
+                s.omrolocs()
+                s.data()
+                s.data(someDatum=[1, 2, 3, 4])
+                s.data(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+                s.data(pretty=True, someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+                s.omropocs()
+                s.autoLocals()
+                s.data(SOME_SEPARATOR='================================================================================================')
+            @property
+            def __privProp(self): return self.test()
+            def __testCaller(self): self.__privProp
+            def testCaller(self): localVar = 1; self.__testCaller()
+        class SomeCls(Daddy, Interface):
+            @property
+            def propCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
+            def testCallerOfCaller(self): self.testCaller()
+        class Bro(Daddy): pass
+        class Dawg(SomeCls): pass
+        class ParentStatConf(object):
+            @staticmethod
+            def statMeth(): ParentStatConf.__statMeth()
+            @staticmethod
+            def __statMeth(): Outcast.classMeth()
+        class SomeSomeOtherClassWithSameNameStaticMeth(ParentStatConf):
+            @staticmethod
+            def statMeth(): pass
+        class Outcast(ParentStatConf):
+            def __init__(self): self.statMeth()
+            @classmethod
+            def classMeth(cls): cls.__classMeth()
+            @classmethod
+            def __classMeth(cls): Dawg().propCallerOfCallerOfCaller
+        class SomeOtherClassWithSameNameStaticMeth(ParentStatConf):
+            @staticmethod
+            def statMeth(): pass
+        SomeClass().someMeth()
+        class OutcastSon(Outcast): pass
+        def func(): OutcastSon()
+        class OldStyle:
+            @staticmethod
+            def oldStyleStaticMeth(): func()
+            @classmethod
+            def oldStyleClassMeth(cls): cls.oldStyleStaticMeth()
+            def oldStyleInstanceMeth(self): self.oldStyleClassMeth()
 
-    def cutOffLogs():
-        """
-        Assumption: The log may be cutoff but the format won't change, the flag will be a certain min and max number
-        of chars, there will be a space and colon before the flag, there will be a colon and space after
-        the flag, etc
-        """
-        return (
-            '2024-07-04 13:17:45.269: INFO: [CORRECTLOG] This is a log line which is expected and correct\n',
-            '2024-07-04 13:17:45.269: DEBUG: A debug line \n',
-            '2024-07-04 13:17:45.269: CRITICAL: Longest expected flag\n',
-            '024-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '24-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '4-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '7-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '4 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            ' 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '3:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            ':17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '17:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '7:45.269: CRITICAL: Some flag of the log is cutoff\n',
-            ':45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '45.269: CRITICAL: Some flag of the log is cutoff\n',
-            '5.269: CRITICAL: Some flag of the log is cutoff\n',
-            '.269: CRITICAL: Some flag of the log is cutoff\n',
-            '269: CRITICAL: Some flag of the log is cutoff\n',
-            '69: CRITICAL: Some flag of the log is cutoff\n',
-            '9: CRITICAL: Some flag of the log is cutoff\n',
-            ': CRITICAL: Some flag of the log is cutoff\n',
-            ' CRITICAL: Some flag of the log is cutoff\n',
-            'CRITICAL: Some flag of the log is cutoff\n',
-            'RITICAL: Some flag of the log is cutoff\n',
-            'ITICAL: Some flag of the log is cutoff\n',
-            'TICAL: Some flag of the log is cutoff\n',
-            'ICAL: Some flag of the log is cutoff\n',
-            'CAL: Some flag of the log is cutoff\n',
-            'AL: Some flag of the log is cutoff\n',
-            'L: Some flag of the log is cutoff\n',
-            ': Some flag of the log is cutoff\n',
-            ' Some flag of the log is cutoff\n',
-            'Some flag of the log is cutoff\n',
-        )
-    def genLogs():
-        stdLogPaths = ('stdLogA.log', 'stdLogB.log')
+        def cutOffLogs():
+            """
+            Assumption: The log may be cutoff but the format won't change, the flag will be a certain min and max number
+            of chars, there will be a space and colon before the flag, there will be a colon and space after
+            the flag, etc
+            """
+            return (
+                '2024-07-04 13:17:45.269: INFO: [CORRECTLOG] This is a log line which is expected and correct\n',
+                '2024-07-04 13:17:45.269: DEBUG: A debug line \n',
+                '2024-07-04 13:17:45.269: CRITICAL: Longest expected flag\n',
+                '024-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '24-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '4-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '-07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '07-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '7-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '-04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '04 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '4 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                ' 13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '13:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '3:17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                ':17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '17:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '7:45.269: CRITICAL: Some flag of the log is cutoff\n',
+                ':45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '45.269: CRITICAL: Some flag of the log is cutoff\n',
+                '5.269: CRITICAL: Some flag of the log is cutoff\n',
+                '.269: CRITICAL: Some flag of the log is cutoff\n',
+                '269: CRITICAL: Some flag of the log is cutoff\n',
+                '69: CRITICAL: Some flag of the log is cutoff\n',
+                '9: CRITICAL: Some flag of the log is cutoff\n',
+                ': CRITICAL: Some flag of the log is cutoff\n',
+                ' CRITICAL: Some flag of the log is cutoff\n',
+                'CRITICAL: Some flag of the log is cutoff\n',
+                'RITICAL: Some flag of the log is cutoff\n',
+                'ITICAL: Some flag of the log is cutoff\n',
+                'TICAL: Some flag of the log is cutoff\n',
+                'ICAL: Some flag of the log is cutoff\n',
+                'CAL: Some flag of the log is cutoff\n',
+                'AL: Some flag of the log is cutoff\n',
+                'L: Some flag of the log is cutoff\n',
+                ': Some flag of the log is cutoff\n',
+                ' Some flag of the log is cutoff\n',
+                'Some flag of the log is cutoff\n',
+            )
+        def genLogs():
+            stdLogPaths = ('stdLogA.log', 'stdLogB.log')
 
-        for stdLogPath in stdLogPaths:
-            with open(stdLogPath, 'w'): pass
+            for stdLogPath in stdLogPaths:
+                with open(stdLogPath, 'w'): pass
 
-        nonCompromisingLines = (
-            'INFO: None compromising logline 68\n',
-            'INFO: None compromising logline 67\n',
-            'INFO: None compromising logline 66\n',
-            'INFO: None compromising logline 65\n',
-            'INFO: None compromising logline 64\n',
-            'INFO: None compromising logline 63\n',
-            'INFO: None compromising logline 419\n',
-            'INFO: None compromising logline 418\n',
-            'INFO: None compromising logline 417\n',
-            'INFO: None compromising logline 416\n',
-        )
-        maxNonCompLogLines = 53
-        maxOmrolocs = 10
-        maxSleepTime = 150
+            nonCompromisingLines = (
+                'INFO: None compromising logline 68\n',
+                'INFO: None compromising logline 67\n',
+                'INFO: None compromising logline 66\n',
+                'INFO: None compromising logline 65\n',
+                'INFO: None compromising logline 64\n',
+                'INFO: None compromising logline 63\n',
+                'INFO: None compromising logline 419\n',
+                'INFO: None compromising logline 418\n',
+                'INFO: None compromising logline 417\n',
+                'INFO: None compromising logline 416\n',
+            )
+            maxNonCompLogLines = 53
+            maxOmrolocs = 10
+            maxSleepTime = 150
 
-        for _ in repeat(None, 40):
-            print 'Generating logs'
+            for _ in repeat(None, 40):
+                print 'Generating logs'
 
-            for _ in repeat(None, randint(1, maxNonCompLogLines)):
+                for _ in repeat(None, randint(1, maxNonCompLogLines)):
+                    with open(stdLogPaths[0], 'a') as f:
+                        l1 = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 5)]
+                        f.writelines(l1)
+                    with open(stdLogPaths[1], 'a') as f:
+                        f.writelines((l1, datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 9)]))
+
+                for _ in repeat(None, randint(1, maxOmrolocs)):
+                    OldStyle().oldStyleInstanceMeth()
+
+                sleep(randint(0, maxSleepTime)/1000.0)
+
                 with open(stdLogPaths[0], 'a') as f:
-                    l1 = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 5)]
+                    l1 = 'fdStamp' + ': ' + nonCompromisingLines[randint(0, 5)]
                     f.writelines(l1)
-                with open(stdLogPaths[1], 'a') as f:
-                    f.writelines((l1, datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ': ' + nonCompromisingLines[randint(0, 9)]))
-
-            for _ in repeat(None, randint(1, maxOmrolocs)):
-                OldStyle().oldStyleInstanceMeth()
-
-            sleep(randint(0, maxSleepTime)/1000.0)
 
             with open(stdLogPaths[0], 'a') as f:
-                l1 = 'fdStamp' + ': ' + nonCompromisingLines[randint(0, 5)]
-                f.writelines(l1)
+                f.writelines(cutOffLogs())
+            with open(stdLogPaths[1], 'a') as f:
+                f.writelines(cutOffLogs())
 
-        with open(stdLogPaths[0], 'a') as f:
-            f.writelines(cutOffLogs())
-        with open(stdLogPaths[1], 'a') as f:
-            f.writelines(cutOffLogs())
+        def func2():
+            a, b = 1, 2
+            s.omrolocsalad()
+            s.data(a=a, b=b)
+            s.autoLocals()
+        func2()
+        Bro().forMethNameDupBug()
 
-    genLogs()
+        genLogs()
+
+    elif testingWhat == 'trace':
+
+        def A():
+            s.setTrace()
+            B()
+            s.delTrace()
+
+        def B(): C(); E()
+        def C(): D()
+        def D(): pass
+        def E(): F()
+        def F(): G()
+        def G(): pass
+
+        A()
 
     variables = globals().copy()
     variables.update(locals())
     shell = code.InteractiveConsole(variables)
     shell.interact()
+

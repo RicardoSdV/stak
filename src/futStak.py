@@ -41,7 +41,7 @@ class TraceCalls(object):
 
     def __call__(self, frame, event, arg):  # type: (FrameType, str, Any) -> 'TraceCalls'
         if event == 'call':
-            self.__traceLog.append()
+            self.traceLog.append()
         elif event == 'line':
             pass
         elif event == 'return':
