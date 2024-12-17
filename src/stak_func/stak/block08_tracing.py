@@ -1,12 +1,21 @@
+from functools import partial
 from time import time
 
-from .block1_commonData import *
-from .block3_stampOps import *
-from .block4_creatingMroCallChains import *
+from .block00_typing import *
+from .block02_commonData import traceFlag, callableNames
+from .block03_log import appendToLog
+from .block05_stampOps import unixStampToStr
+from .block06_creatingMroCallChains import splitLinkFromFrame
 
 
-def __call__(frame, event, arg):  # type: (FrameType, str, Any) -> 'STAK'
-    """ Used only to set an instance of STAK as a trace """
+def setTrace():
+    raise NotImplementedError()
+
+def delTrace():
+    raise NotImplementedError()
+
+
+def trace(frame, event, arg):  # type: (FrameType, str, Any) -> 'STAK'
 
     if event == 'call' or event == 'return':
         traceEntry(event, frame)
@@ -19,7 +28,7 @@ def __call__(frame, event, arg):  # type: (FrameType, str, Any) -> 'STAK'
 
 def traceEntry(flag, frame):  # type: (FrameType, str) -> None
     # All entries to trace log made through this method
-    appendToTraceLog(
+    appendToLog(
         (time(), flag, splitLinkFromFrame(frame))
     )
 
@@ -53,7 +62,7 @@ def prodCallTreeUntilReset():  # type: () -> Gen[None, Tup[float, str, str], Lst
     while flag == 'return':
         pass
 
-def formatTraceLog(traceLog):  # type: () -> Itrt[str]
+def formatTraceLog():  # type: () -> Itrt[str]
 
     # Receives the raw trace log, sends all the elements into the joiner, it joins one set of call entries &
     # one set of return entries, returning them as two log lines using the StopIteration exception.

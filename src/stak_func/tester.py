@@ -156,6 +156,7 @@ if __name__ == '__main__':
 
                 for _ in repeat(None, randint(1, maxOmrolocs)):
                     OldStyle().oldStyleInstanceMeth()
+                    NameDup().nameDup()
 
                 sleep(randint(0, maxSleepTime) / 1000.0)
 
@@ -175,6 +176,10 @@ if __name__ == '__main__':
             autoLocals()
         func2()
         Bro().forMethNameDupBug()
+
+        class NameDup(object):
+            def nameDup(self):
+                omrolocsalad()
 
         genLogs()
 

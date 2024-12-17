@@ -1,4 +1,6 @@
-from .block1_commonData import *
+from .block00_typing import *
+from .block01_settings import maxCompressGroupSize
+from .block02_commonData import stakFlags
 
 
 class CompressionFormatList(list):
@@ -85,8 +87,8 @@ def prettyfyLine(lineCfl):  # type: (CompressionFormatList) -> str
 
     return result
 
-def compressLinksGen(callChainsWithStrLinks):
-    # type: (Tup[Tup[StrsStamp, str, Uni[str, Tup[str, ...]]], ...]) -> Itrt[Tup[StrsStamp, str, str]]
+def compressLinks(callChainsWithStrLinks):
+    # type: (Tup[Tup[Str4, str, Uni[str, Tup[str, ...]]], ...]) -> Itrt[Tup[Str4, str, str]]
 
     omrolocsFlag, _prettyfyLine, _compress = stakFlags[0], prettyfyLine, compress
     return (
@@ -124,6 +126,6 @@ def prettyfyLines(linesCfl, depth=0):
         elif isinstance(el, str):
             result.append(indent + el)
         else:
-            raise TypeError('Wrong type in compressed list: type(el)', type(el))
+            raise TypeError('Wrong type in compressed list: ', type(el))
     return result
 

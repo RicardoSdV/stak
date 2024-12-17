@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from .block0_typing import *
+from .block00_typing import *
 
 unixStampToDatetime = datetime.fromtimestamp  # type: Cal[[float], datetime]
 

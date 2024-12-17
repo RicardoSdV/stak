@@ -1,10 +1,12 @@
 from functools import partial
 from sys import _getframe
+from time import time
 from types import FunctionType, ClassType as OldStyleClsType
 
-from .block0_typing import *
-
-pathSplitChar = '/' if '/' in _getframe(0).f_code.co_filename else '\\'
+from .block00_typing import *
+from .block02_commonData import stakFlags
+from .block03_log import appendToLog
+from .block04_pathOps import pathSplitChar
 
 
 def privInsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (Typ[Any], str, CodeType) -> bool
@@ -73,13 +75,14 @@ def linksFromFrame(
     codeObj, fLocals = frame.f_code, frame.f_locals
     methName = codeObj.co_name
 
-    callerCls = None
     if 'self' in fLocals:
         callerCls = fLocals['self'].__class__
         defClsCond = privInsMethCond if methName.startswith('__') and not methName.endswith('__') else pubInsMethCond
     elif 'cls' in fLocals:
         callerCls = fLocals['cls']
         defClsCond = privClsMethCond if methName.startswith('__') and not methName.endswith('__') else pubClsMethCond
+    else:
+        callerCls = None
 
     if callerCls is None or isinstance(callerCls, OldStyleClsType):
         return joinFileLinksMaybe(codeObj.co_filename, frame.f_lineno, methName)
@@ -91,8 +94,9 @@ def linksFromFrame(
         else:
             return joinMroLinksMaybe(mroClsNs, methName)
 
-def joinFileLink(fullPath, lineno, methName):  # type: (str, int, str) -> str
-    return '{}{}.{}'.format(fullPath.split(pathSplitChar)[-1].rstrip('py'), lineno, methName)
+def joinFileLink(fullPath, lineno, methName, splitChar=pathSplitChar):
+    # type: (str, int, str, str) -> str
+    return '{}{}.{}'.format(fullPath.split(splitChar)[-1].rstrip('py'), lineno, methName)
 
 def joinMroLink(mroClsNs, methName):  # type: (Lst[str], str) -> str
     mroClsNs[-1] = '{}.{}{}'.format(mroClsNs[-1], methName, ')' * (len(mroClsNs) - 1))
@@ -103,14 +107,26 @@ def retArgs(*args): return args
 jointLinkFromFrame = partial(linksFromFrame, joinMroLink, joinFileLink)
 splitLinkFromFrame = partial(linksFromFrame, retArgs, retArgs)
 
-def linksGen(linkFromFrame):
-    # type: (Cal[[FrameType], Uni[str, Tup[Lst[str], str], Tup[str, int, str]]]) -> Itrt[Uni[str, Tup[Lst[str], str], Tup[str, int, str]]]
+def linksGen(linkFromFrame, frame):
+    # type: (Cal[[FrameType], Uni[str, Tup[Lst[str], str], Tup[str, int, str]]], int) -> Itrt[Uni[str, Tup[Lst[str], str], Tup[str, int, str]]]
 
-    frame = _getframe(2)
     while frame:
         yield linkFromFrame(frame)  # Should create joined (str) links or split based on the args in the partial
         frame = frame.f_back
 
-jointLinksCallChain = partial(linksGen, jointLinkFromFrame)
 splitLinksCallChain = partial(linksGen, splitLinkFromFrame)
+
+def omropocs(jointLinksCallChain=partial(linksGen, jointLinkFromFrame)):
+    print ' <- '.join(jointLinksCallChain(_getframe(1)))
+
+def omrolocs(frameNum=1, silence=False):  # type: (int, bool) -> None
+    """ Optional Method Resolution Order Logger Optional Call Stack """
+    if silence: return
+    appendToLog(
+        (
+            time(),
+            stakFlags[0],
+            tuple(splitLinksCallChain(_getframe(frameNum))),
+        )
+    )
 
