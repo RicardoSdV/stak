@@ -88,7 +88,7 @@ def prettyfyLine(lineCfl):  # type: (CompressionFormatList) -> str
     return result
 
 def compressLinks(callChainsWithStrLinks):
-    # type: (Tup[Tup[Str4, str, Uni[str, Tup[str, ...]]], ...]) -> Itrt[Tup[Str4, str, str]]
+    # type: (Itrb[Tup[Str4, str, Uni[str, Tup[str, ...]]]]) -> Itrt[Tup[Str4, str, str]]
 
     omrolocsFlag, _prettyfyLine, _compress = stakFlags[0], prettyfyLine, compress
     return (

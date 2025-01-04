@@ -46,6 +46,6 @@ def dateEntry():
 
 
 log = Log()  # type: Log[Tup[float, str, Uni[Tup[Uni[Tup[str, int, str], Tup[Lst[str], str]], ...]]]]
-appendToLog = log.append
-extendLog   = log.extend
+appendToLog = log.append  # type: Cal[[Uni[Tup[Uni[Tup[str, int, str], Tup[Lst[str], str]], ...]]], None]
+extendLog   = log.extend  # type: Cal[[Itrb[Uni[Tup[Uni[Tup[str, int, str], Tup[Lst[str], str]], ...]]]], None]
 dateEntry()

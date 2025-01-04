@@ -5,9 +5,6 @@ How to use:
     - Need an interactive terminal, import STAK instance into it, & call help(instanceName)
 
 Known issues:
-    - Omrolocsalad does a double entry of the first method name, the root of the problem is that it uses different
-    funcs from omrolocs, all should use the same funcs to avoid such problems
-
     - Caller & definer classes can't be found for partials either
 
     - Caller class cannot be found for wrapped methods & therefore definer class neither (with custom wrappers,
@@ -40,6 +37,21 @@ Unknown Issues:
     cant there be only one?
 
 Cool potential features:
+    - (Mid) When there is complex inheritance going on and multiple people are using the super classes simultaneously
+    it is very hard to know what's going on up there, the solution is to add an option to block all calls to super meths
+    from logs which don't originate in a specific sub-instance(s)
+
+    - (Mid) Reproducing is hard, pretty printing takes too much space when not targeted. The solution is to, once the log
+    is saved, select the lines to be pretty-re-printed after save. Maybe, read the .log or use the log in ram or save master
+    copy as json.
+
+    - (Easy) Add a command to remove the specific log set, for example set 4 in the current print and or the last set
+
+    - (Easy) Re-implement the log numbering system so that all logs saved by one command have the same number
+    and always have an incrementing integer
+
+    - (Easy) Don't save empty logs
+
     - (Easy) Add an effective reloader
 
     - (Easy) Add help func
@@ -48,6 +60,7 @@ Cool potential features:
 
     - (Hard) Split the entire project into logical sections, make each section into a pip installable library,
     refactor the code to split the generic library code from the project specific. And make all python3 compatible.
+    P.D. Really!? why? lol
 
     - (Mid) delta-auto-attrs, log all the instance attrs on change, e.g. when initialised, when changed etc...
 
@@ -107,23 +120,6 @@ Cool potential features:
     Easy - I definitely know how to do this, & shouldn't take long.
     Mid  - Either I know how but will take a long time or there is some part I don't know how to do but recon it won't be too hard.
     Hard - Either I don't know how to do this & I recon it'd be pretty hard or impossible or I kind of know & know it will take for-ever.
-
-
-    Open question:
-
-        Is it better to make all the log entries into one list? or have one list per flag??
-
-        One list:
-            - Keeps order of entry
-            - Needs to separate lists to make individual log
-
-        Many lists:
-            - Makes formatting easier
-            - Needs to join lists to make a global log
-
-        Conclusion:
-            I've tried with one list & it is a pain in the ass, I'll try with many
-            (probably still is a pain in the ass)
 
 """
 

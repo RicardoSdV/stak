@@ -79,9 +79,23 @@ def genCompStdStakSplicePaths():
                 join(getPrintDirPath(), prefix + compStdStakSpliceSuffix + logFilesExt)
             )
 
+def genTracePaths():
+    while True:
+        yield makeFilePathUnique(
+            join(getPrimiDirPath(), traceLogPrefix + primiSuffix + logFilesExt)
+        )
+
+def genCompactTracePaths():
+    while True:
+        yield makeFilePathUnique(
+            join(getVariDirPath(), traceLogPrefix + compactSuffix + logFilesExt)
+        )
+
 genPrimiStakPaths         = genPrimiStakPaths()
 genPrimiStdPaths          = genPrimiStdPaths()
 genCompStakPaths          = genCompStakPaths()
 genStdStakSplicePaths     = genStdStakSplicePaths()
 genCompStdStakSplicePaths = genCompStdStakSplicePaths()
+genTracePaths             = genTracePaths()
+genCompactTracePaths      = genCompactTracePaths()
 

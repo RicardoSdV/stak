@@ -7,8 +7,7 @@ Also, removes some clutter from the already large code.
 from collections import OrderedDict, defaultdict
 from itertools import izip
 
-from src.stak_func import stak
-from src.stak_func.autoBlock import readBlockNames
+from src.stak_func.stak import getModules
 from src.stak_func.stak.block00_typing import *
 from src.stak_func.stak.block02_commonData import stdFlags, stakFlags, reloadData, cutoffFlag
 
@@ -85,8 +84,7 @@ def getCallableNames():  # type: () -> Itrt[str]
     # Setting a trace implies that all the callables of STAK at some point might get traced
     # so, accumulate all their names so skip tracing
 
-    for blockName in readBlockNames():
-        module = getattr(stak, blockName.rstrip('.py'))
+    for module in getModules():
         for name in dir(module):
             if callable(getattr(module, name)):
                 yield name

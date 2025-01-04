@@ -8,7 +8,7 @@ from .block06_creatingMroCallChains import jointLinkFromFrame, omrolocs
 
 
 def joinStrLinkWithDataForLogging(pretty, strLink, flag=dataFlag, **dataForLogging):  # type: (bool, str, str, Any) -> None
-    if pretty:
+    if pretty and len(dataForLogging) > 2:
         now = time()
 
         if dataForLogging:
@@ -27,12 +27,12 @@ def joinStrLinkWithDataForLogging(pretty, strLink, flag=dataFlag, **dataForLoggi
                     '{}('.format(strLink) +
                     ', '.join(('{}={}'.format(name, datum) for name, datum in dataForLogging.iteritems())) +
                     ')'
-                ) if dataForLogging else '{}('.format(strLink) + 'No data was passed)'
+                ) if dataForLogging else strLink + '(No data was passed)'
             )
         )
 
 
-def data(pretty=True, **dataForLogging):  # type: (bool, Any) -> None
+def dataAndFirstFrame(pretty=True, **dataForLogging):  # type: (bool, Any) -> None
     """ Log data structures, their callable & definer class names """
     joinStrLinkWithDataForLogging(
         pretty,

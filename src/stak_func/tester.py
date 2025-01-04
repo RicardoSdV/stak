@@ -1,4 +1,9 @@
 
+from src.stak_func.stak import jamInterfaceIntoBuiltins
+jamInterfaceIntoBuiltins()
+
+testingWhat = 'trace'
+
 if __name__ == '__main__':
     import code
     from datetime import datetime
@@ -7,9 +12,8 @@ if __name__ == '__main__':
     from time import sleep
 
     from src.funcs.someCode import SomeClass
-    from src.stak_func.stak import *
+    from src.stak_func.stak import omrolocs, omrolocsalad, daff as data, omropocs, autoLocals, setTrace, delTrace
 
-    testingWhat = 'stak'
 
     if testingWhat == 'stak':
         def decorator(func):
@@ -189,12 +193,34 @@ if __name__ == '__main__':
             setTrace()
             B()
             delTrace()
-        def B(): C(); E()
-        def C(): D()
-        def D(): pass
-        def E(): F()
-        def F(): G()
-        def G(): pass
+
+        def B():
+            res = C(1, 1)
+            E()
+            return res
+
+        def C(a, b):
+            return D(a, b)
+
+        def D(a, b):
+            two = a + b
+            return two
+
+        def E():
+            F()
+
+        def F():
+            G()
+
+        def G():
+            three = 1 + 2
+            try:
+                H()
+            except ValueError:
+                return
+
+        def H():
+            raise ValueError()
 
         A()
 

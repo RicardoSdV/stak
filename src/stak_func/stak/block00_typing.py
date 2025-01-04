@@ -1,6 +1,12 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from types import (
+        CodeType,
+        FrameType,
+        ModuleType,
+        TracebackType,
+    )
     from typing import (
         Any,
         Callable  as Cal,
@@ -16,14 +22,11 @@ if TYPE_CHECKING:
         Type      as Typ,
         Union     as Uni,
     )
-    from types import CodeType, FrameType
 
     # Type Aliases: Use to abbreviate simplicity, not hide complexity.
     OptStr8 = Tup[Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str]]
     OptStr9 = Tup[Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str]]
     OptStr8PlusStr = Tup[Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], str]
-
-    NestedIterable = Uni[Any, Itrb['NestedIterable']]
 
     Int4 = Tup[int, int, int, int]
     Int6 = Tup[int, int, int, int, int, int]
@@ -37,6 +40,6 @@ if TYPE_CHECKING:
     None8 = Tup[None, None, None, None, None, None, None, None]
     None9 = Tup[None, None, None, None, None, None, None, None, None]
 
-    __all__ = tuple(locals().iterkeys())
+    __all__ = locals().keys()
 else:
     __all__ = ()

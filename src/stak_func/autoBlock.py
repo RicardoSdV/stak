@@ -13,7 +13,7 @@ from re import compile as compRegex
 from src.stak_func.stak.block00_typing import *
 
 # In the format: {prefix or ''}{index}_{name}{suffix or ''}
-newBlockName = ''
+newBlockName = '6_newBlock'
 blockPrefix = 'block'
 fileExtension = '.py'
 dirPath = 'stak'
@@ -49,10 +49,14 @@ def runAllBlockNameManip():  # type: () -> Lst[Cal[[str], str]]
     If any block in dirPath was deleted, all the blocks with higher indices will be decreased.
 
     If appropriate newBlockName is provided, a new file with this name will be created, & all
-    the other block with indices >= newBlockName index will be incremented.
+    the other blocks with indices >= newBlockName index will be incremented.
 
     If any blocks were renamed all blocks will be searched for references to the old block names
     & replaced with the new block names.
+
+    All block names are zero padded.
+
+    No lines are actually modified, a list of injectors is returned to be applied later on.
     """
     injectors = []
 
@@ -131,7 +135,11 @@ def replaceOldBlockNamesWithNew(newByOldBlockNames, line):  # type: (Dic[str, st
 
 def applyInjectorsMaybeToLinesInPlace(linesByBlock, linesInjectors, lineInjectors, fileInjectors):
     # type: (Dic[str, Lst[str]], Lst[Cal[[str], str]], Dic[str, Cal[[str], str]], Lst[Cal[[Lst[str]]]]) -> None
-    """ Apply lines injectors to every line, & line injectors to their appropriate line """
+    """
+    Apply lines injectors to every line.
+    Apply line injectors to their appropriate line. (Not in use, planned for merge with injectors.py)
+    Apply file injectors to all the lines of every file. (To sort imports)
+    """
 
     for blockName, lines in linesByBlock.iteritems():
         for i, line in enumerate(lines):
@@ -150,7 +158,7 @@ def applyInjectorsMaybeToLinesInPlace(linesByBlock, linesInjectors, lineInjector
 def sortBlockNameImportsInPlace(blockNames, lines):  # type: (Lst[str], Lst[str]) -> None
     imports, lineNums = [], []
     for i, line in enumerate(lines):
-        if any(name in line for name in blockNames):
+        if any((name in line for name in blockNames)):
             imports.append(line)
             lineNums.append(i)
 
@@ -165,7 +173,7 @@ def sortBlockNameImportsInPlace(blockNames, lines):  # type: (Lst[str], Lst[str]
 def renameBlock(oldName, newName):  # type: (str, str) -> None
     rename(join(dirPath, oldName), join(dirPath, newName))
 
-def renameBlocks(oldNames, newNames):
+def renameBlocks(oldNames, newNames):  # type: (Itrb[str], Itrb[str]) -> None
     for oldName, newName in izip(oldNames, newNames):
         renameBlock(oldName, newName)
 
@@ -192,11 +200,9 @@ def writeBlocks(linesByBlock):  # type: (Dic[str, Lst[str]]) -> None
         with open(join(dirPath, blockName), 'w') as blockFile:
             blockFile.writelines(lines)
 
-def createNewBlock(name):
+def createNewBlock(name):  # type: (str) -> None
     with open(join(dirPath, name), 'w') as newBlockFile:
-        newBlockFile.writelines((
-            'from .block0_typing import *\n',
-        ))
+        newBlockFile.write('from .block0_typing import *\n')
 
 """ =============================================================================================================== """
 

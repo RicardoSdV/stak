@@ -16,12 +16,14 @@ stdDir   = ''
 ## File prefixes
 stakLogPrefix  = 'stak'
 stdLogPrefixes = ('stdLogA', 'stdLogB')
+traceLogPrefix = 'trace'
 
 ## File suffixes
 primiSuffix             = ''
 compSuffix              = 'Compress'
 stdStakSpliceSuffix     = 'Splice'
 compStdStakSpliceSuffix = ''
+compactSuffix           = 'Compact'
 
 logFilesExt = '.log'
 
