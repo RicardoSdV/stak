@@ -1,16 +1,23 @@
 """
 How to use:
-    - Copy-paste STAK in some high level utils type file & instantiate
-    - Import the STAK object to make log entries by calling omrolocs & data
-    - Need an interactive terminal, import STAK instance into it, & call help(instanceName)
+    - Copy-paste src/stak_func/stak in some high level utils type file
+
+    - In stak.__init__.callFromCodeInterface are all the names which are intended to be called
+        from code. Import & call them to debug.
+
+    - Import or call jamInterfaceIntoBuiltins to have access to the callFromShellInterface, which
+    are the user control callables for saving logs etc. Or, if no shell, call them from code.
 
 Known issues:
-    - Caller & definer classes can't be found for partials either
+    - Caller & definer classes can't be found for partials.
 
     - Caller class cannot be found for wrapped methods & therefore definer class neither (with custom wrappers,
     not @property nor @classmethod, yes @staticmethod but for other reasons)
 
-    - A private property will default to filename & lineno,
+    - Seems like mro classes can't be found for prop setters, at least protected, which is a bigger issue that might appear
+    since they are used to find out who in the inheritance tree is modifying protected attrs.
+
+    - A private property will default to filename & lineno.
 
     - If the object object autopassed to an instance method is not called 'self' defaults to filename & lineno
 
@@ -18,13 +25,13 @@ Known issues:
 
     - If a method contains cls or self & they are not the autopassed it breaks.
 
-    - If the method is defined in an old style class, it defaults to filename & lineno
+    - If methods defined in old style classes default to filename & lineno.
 
-    - The spliceGenerator raises an error if any of the spliced logs is empty, which they normally shouldn't but yeah
+    - Error if any of the spliced logs are empty, which they normally shouldn't but yeah
 
-    - Due to the compression algorith some, potentially more profitable patterns, are lost e.g. A, A, A, B, A, B -> 3A, BAB
+    - Due to the compression algorith some, potentially more profitable patterns are lost e.g. A, A, A, B, A, B -> 3A, BAB
 
-    - If some feels the need to write his own cached property then this will break omrolocs and omropocs
+    - If someone feels the need to write his own cached property then this will break omrolocs and omropocs
 
     - There seems to be a problem when the standard logs are empty
 
@@ -33,15 +40,28 @@ Known issues:
 Unknown Issues:
     - If the program crashes there might be a problem
 
-    - Im sure there was a reason at the time to have all these types of stamps but
-    cant there be only one?
 
 Cool potential features:
+    - (Hard) Too slow! sometimes too many calls will take up all the tick, make the normal meths faster & make specially
+    fast methods for this. For non tick bound debugging this is not an issue.
+
+    - (Mid) Second pass when compressing to remove wierd compressions
+
+    - (Mid) When a class has attributes which is unclear who is modifying when, a good way of debugging them is to make them
+    into props & stak the prop setters & getters, maybe this process can be automated to a certain extent.
+
+    - (Hard) The work involved in maintaining accurate type hints its entirely too much for something which can be easily
+    automated, all that is needed is a decorator or something which keeps track of the types of all the things being passed
+    to callables throughout a representative run & it should be way more accurate than the manual type hints, because most
+    of the time when I'm investigating a bug I find that a not insignificant number of them are wrong.
+
+    - (Easy) Stop stripping too many spaces e.g. indents in reprs are cut, bad.
+
     - (Mid) When there is complex inheritance going on and multiple people are using the super classes simultaneously
     it is very hard to know what's going on up there, the solution is to add an option to block all calls to super meths
     from logs which don't originate in a specific sub-instance(s)
 
-    - (Mid) Reproducing is hard, pretty printing takes too much space when not targeted. The solution is to, once the log
+    - (Hard) Reproducing is hard, pretty printing takes too much space when not targeted. The solution is to, once the log
     is saved, select the lines to be pretty-re-printed after save. Maybe, read the .log or use the log in ram or save master
     copy as json.
 
@@ -52,11 +72,14 @@ Cool potential features:
 
     - (Easy) Don't save empty logs
 
-    - (Easy) Add an effective reloader
+    - (Hard) Add an effective reloader
 
     - (Easy) Add help func
 
     - (Mid) Sometimes a single task requires more than one set of prints, so, divide the prints by set, with name.
+        - (extra) So, maybe add some logging levels, like quiet, mid & loud, and so different versions of the interface
+        can exist like qdaff, daff, ldaff, & depending on loudness for a particular file or something none, some or all
+        of the calls are recorded, (maybe all recorded, only some saved?)
 
     - (Hard) Split the entire project into logical sections, make each section into a pip installable library,
     refactor the code to split the generic library code from the project specific. And make all python3 compatible.
@@ -74,16 +97,15 @@ Cool potential features:
 
     - (Mid) auto-deject calls to STAK interface. (Like, remove s.omrolocs from the code)
 
-    - (Easy) Add appropriate flags for each interface method, AUTOLOCALS, OMROLOCSALAD, ...
+    - (Easy) Add appropriate flags for each interface method, AUTOLOCALS, OMROLOCSALAD, ... (maybe)
 
-    - (Easy) Sometimes prints bogus add auto-delete specific print
-
-    - (Easy) Add auto-incr flag for print dir, also add a string to auto-write the .descr.txt
+    - (Easy) Sometimes prints bogus add delete specific print & auto-delete-last
 
     - (Mid) In similar fashion to locals-auto-data, do something like func-auto-ret, to be able to log what a function is returning
     without having to add an extra result local & combine both into func-auto-log.
 
-    - (Hard) Take inspiration from the TDV logger, and have a process logger and an instance logger, and somehow save that clusterfuck
+    - (Hard) Do this vv with flags.
+        (deprecated) Take inspiration from the TDV logger, and have a process logger and an instance logger, and somehow save that clusterfuck
 
     - (Hard) Trace setter.
 
@@ -98,9 +120,6 @@ Cool potential features:
     flag name to each process to understand which process is producing the logs
 
     - (Mid) Given an object find the class who instantiated it, & the entire mro from it towards object, in the "auto", fashion, obj-auto-data
-
-    - (Mid)(Facilitator) Split the different entries each in their own log, to make processing simpler, also, optionally print each
-    in their own file, but must keep entry order since entries might happen at the same timestamp
 
     - (Mid) Inherit from datastructures, (list, dict, etc) & override __getitem__ & __setitem__ to log who is messing with them.
 

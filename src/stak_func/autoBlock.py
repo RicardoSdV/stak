@@ -6,17 +6,21 @@ running this file will rename the appropriate files when one of them is deleted
 
 from functools import partial
 from itertools import izip
-from os import listdir, rename
+from os import rename
 from os.path import join
-from re import compile as compRegex
 
 from src.stak_func.stak.block00_typing import *
+from src.stak_func.stak.z_utils import getBlockNum, matchNumAndSuffix, readSortedBlockNames
 
+## Settings
 # In the format: {prefix or ''}{index}_{name}{suffix or ''}
-newBlockName = '6_newBlock'
+newBlockName = '02_import'
 blockPrefix = 'block'
 fileExtension = '.py'
 dirPath = 'stak'
+
+## For internal use, (not settings)
+maxLen = 2
 
 if newBlockName:
     if not newBlockName.endswith(fileExtension): newBlockName += fileExtension
@@ -26,7 +30,7 @@ if newBlockName:
 def runAll():  # type: () -> None
     blockInjectors = runAllBlockNameManip()
 
-    blockNames = readBlockNames()
+    blockNames = readSortedBlockNames(dirPath)
     blockNames.append('__init__.py')
 
     linesInjectors = blockInjectors
@@ -61,34 +65,47 @@ def runAllBlockNameManip():  # type: () -> Lst[Cal[[str], str]]
     injectors = []
 
     # Gap filling
-    oldBlockNames = readBlockNames()
+    oldBlockNames = readSortedBlockNames(dirPath)
 
     gaplessBlockNames = fillGaps(oldBlockNames)
-    zeroPadGaplessNames = zeroPad(gaplessBlockNames)
+    zeroPadGaplessNames = zeroPadNames(gaplessBlockNames)
     renameBlocks(oldBlockNames, zeroPadGaplessNames)
 
     if oldBlockNames != zeroPadGaplessNames:
+        newByOldNames = makeNewByOldNames(oldBlockNames, zeroPadGaplessNames)
+
         injectors.append(
-            partial(
-                replaceOldBlockNamesWithNew,
-                makeNewByOldNames(oldBlockNames, zeroPadGaplessNames),
-            )
+            partial(replaceOldBlockNamesWithNew, newByOldNames)
         )
 
     # New block creation
+    global newBlockName, maxLen
+
+    namesForMaxLen = zeroPadGaplessNames + [newBlockName] if newBlockName else zeroPadGaplessNames
+    maxLen = longestNumLen(strNumsFromBlockNames(namesForMaxLen))
+
+    if newBlockName:
+        newBlockName = zeroPadName(newBlockName)
+
     if newBlockName and newBlockName not in gaplessBlockNames:
         createNewBlock(newBlockName)
+
+        newByOldNames = makeNewByOldNames(
+            gaplessBlockNames,
+            incrementGreaterThanNewBlockNums(gaplessBlockNames)
+        )
+
         injectors.append(
-            partial(
-                replaceOldBlockNamesWithNew,
-                makeNewByOldNames(
-                    gaplessBlockNames,
-                    incrementGreaterThanNewBlockNums(gaplessBlockNames)
-                )
-            )
+            partial(replaceOldBlockNamesWithNew, newByOldNames)
         )
 
     return injectors
+
+def zeroPadName(name):
+    return joinBlockName(
+        num=getBlockStrNum(name).lstrip('0').zfill(maxLen),
+        suffix=getBlockSuffix(name)
+    )
 
 def fillGaps(names):  # type: (Lst[str]) -> Lst[str]
     return [
@@ -96,9 +113,15 @@ def fillGaps(names):  # type: (Lst[str]) -> Lst[str]
         for i, name in enumerate(names)
     ]
 
-def zeroPad(names):  # type: (Lst[str]) -> Lst[str]
-    strNums = [getBlockStrNum(name).lstrip('0') for name in names]
-    maxNum = max((len(num) for num in strNums))
+def strNumsFromBlockNames(names):  # type: (Itrb[str]) -> Lst[str]
+    return [getBlockStrNum(name).lstrip('0') for name in names]
+
+def longestNumLen(strNums):  # type: (Itrb[str]) -> int
+    return max((len(num) for num in strNums))
+
+def zeroPadNames(names):  # type: (Lst[str]) -> Lst[str]
+    strNums = strNumsFromBlockNames(names)
+    maxNum = longestNumLen(strNums)
     paddedNums = (num.zfill(maxNum) for num in strNums)
     suffixes = (getBlockSuffix(name) for name in names)
     return [joinBlockName(num, suffix) for num, suffix in izip(paddedNums, suffixes)]
@@ -118,7 +141,8 @@ def incrementGreaterThanNewBlockNums(oldBlockNames):  # type: (Lst[str]) -> Itrt
 
         if newNameIndexFound:  # i > newBlockNum:
             incName = incrementBlockName(name)
-            renameBlock(name, incName)
+            zPadIncName = zeroPadName(incName)
+            renameBlock(zeroPadName(name), zPadIncName)
             yield incName
 
     if not newNameIndexFound:  # Index >= len(names)
@@ -177,14 +201,6 @@ def renameBlocks(oldNames, newNames):  # type: (Itrb[str], Itrb[str]) -> None
     for oldName, newName in izip(oldNames, newNames):
         renameBlock(oldName, newName)
 
-def readBlockNames():  # type: () -> Lst[str]
-    names = list((
-        name for name in listdir(dirPath or '.')
-        if name.startswith('block') and name.endswith('.py')
-    ))
-    names.sort(key=getBlockNum)
-    return names
-
 def readBlock(name):  # type: (str) -> Lst[str]
     with open(join(dirPath, name), 'r') as block:
         return block.readlines()
@@ -202,19 +218,15 @@ def writeBlocks(linesByBlock):  # type: (Dic[str, Lst[str]]) -> None
 
 def createNewBlock(name):  # type: (str) -> None
     with open(join(dirPath, name), 'w') as newBlockFile:
-        newBlockFile.write('from .block0_typing import *\n')
+        newBlockFile.write('from .block00_typing import *\n')
 
 """ =============================================================================================================== """
 
 """ ================================================ NAME OPS ===================================================== """
 
-matchNumAndSuffix = compRegex(r'block(\d+)_(.*)').match
 
 def getBlockStrNum(name):  # type: (str) -> str
     return matchNumAndSuffix(name).group(1)
-
-def getBlockNum(name):  # type: (str) -> int
-    return int(matchNumAndSuffix(name).group(1))
 
 def getBlockSuffix(name):  # type: (str) -> str
     return matchNumAndSuffix(name).group(2)
@@ -240,7 +252,7 @@ def makeNewByOldNames(oldNames, newNames):  # type: (Lst[str], Itrb[str]) -> Dic
             if oldSuffix == newSuffix:
                 newByOgBlockNames[oldName.rstrip('.py')] = newName.rstrip('.py')
                 break
-    assert len(newByOgBlockNames) == len(oldNames)
+    assert len(newByOgBlockNames) == len(oldNames), 'Could be that two blocks have the same suffix, they must be unique.'
     return newByOgBlockNames
 
 """ =============================================================================================================== """

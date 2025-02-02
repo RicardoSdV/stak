@@ -1,13 +1,9 @@
 from re import compile as compileRegexExpression
 
 from .block00_typing import *
-from .block02_commonData import cutoffFlag, stdFlags, cutoffCombos, wholeEnoughs
-from .block04_pathOps import getStdLogPaths
-
-
-matcher = compileRegexExpression(
-    r'(?:(\d{4})-)?' r'(?:(\d{2})-)?' r'(?:(\d{2}) )?' r'(?:(\d{2}):)?' r'(?:(\d{2}):)?' r'(?:(\d{2})\.)?' r'(?:(\d{3}))?' r': ([A-Z]+):'
-).search
+from .block03_commonData import cutoffFlag, stdFlags, cutoffCombos, wholeEnoughs
+from .block06_pathOps import getStdLogPaths
+from .z_utils import read
 
 
 def interpolMissingStamps(prevLine, thisLine, nextLine, expectedChars=(4, 2, 2, 2, 2, 2, 3)):
@@ -67,6 +63,17 @@ def parseLines(
         _trimFlag=trimFlag,              # type: Cal[[str], str]
         _trimFlagIfPoss=trimFlagIfPoss,  # type: Cal[[str], Str2]
         none8=(None,)*8,                 # type: None8
+
+        matcher=compileRegexExpression(
+            r'(?:(\d{4})-)?' 
+            r'(?:(\d{2})-)?' 
+            r'(?:(\d{2}) )?' 
+            r'(?:(\d{2}):)?' 
+            r'(?:(\d{2}):)?' 
+            r'(?:(\d{2})\.)?' 
+            r'(?:(\d{3}))?' 
+            r': ([A-Z]+):'
+        ).search                         # type: Cal[[Any], SRE_Match]
 ):                                       # type: (...) -> Itrt[OptStr8PlusStr]
 
     for line in lines:
@@ -86,18 +93,17 @@ def parseLines(
             line, flag = _trimFlagIfPoss(line)
             yield None, None, None, None, None, None, None, flag, line.lstrip(': ')
 
-
 def isStampCutoff(parsedLine, range6=tuple(xrange(6))):  # type: (OptStr9, Int6) -> bool
     for j in range6:
         if parsedLine[j] is None:
             return True
     return False
 
-def parseAndInterpolLines(lines, none9=(None,)*9):  # type: (Lst[str], None9) -> Lst[OptStr9]
+def parseAndInterpolLines(lines, none9=(None,)*9, interpol=interpolMissingStamps):
+    # type: (Lst[str], None9, Cal[[OptStr9, OptStr9, OptStr9, Int7], Itrt[str]]) -> Lst[OptStr9]
     parsedLines = list(parseLines(lines))
-
-    _interpolMissingStamps = interpolMissingStamps
     lenLines = len(parsedLines)
+
     for parsedLine in parsedLines:
 
         if isStampCutoff(parsedLine):
@@ -114,15 +120,14 @@ def parseAndInterpolLines(lines, none9=(None,)*9):  # type: (Lst[str], None9) ->
                 nextLineIndex += 1
 
             parsedLines[thisLineIndex] = tuple(
-                _interpolMissingStamps(prevLine, parsedLine, nextLine)
+                interpol(prevLine, parsedLine, nextLine)
             )
 
     return parsedLines
 
 def parseStdLogs():  # type: () -> Itrt[Tup[Tup[Str4, str, str], ...]]
     for path in getStdLogPaths():
-        with open(path, 'r') as f:
-            lines = f.readlines()
+        lines = read(path)
         yield tuple(
             splitStampFromTheRest(
                 parseAndInterpolLines(

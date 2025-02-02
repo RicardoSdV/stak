@@ -4,17 +4,24 @@ from time import time
 from types import FunctionType, ClassType as OldStyleClsType
 
 from .block00_typing import *
-from .block02_commonData import stakFlags
-from .block03_log import appendToLog
-from .block04_pathOps import pathSplitChar
+from .block03_commonData import omrolocsFlag
+from .block05_log import appendToLog
+from .block06_pathOps import pathSplitChar
+from .block08_flagOps import getSegFlag
+
+# Conditions work even when the class defined __slots__ because we're iterating over the class objects' __dict__
+# not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
 
 
-def privInsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (Typ[Any], str, CodeType) -> bool
-    # This works even when the class defined __slots__ because we're iterating over the class objects' __dict__
-    # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
-    for attr in defClsMaybe.__dict__.values():
+def privInsMethCond(
+        defClsMaybe,                                                  # type: AnyCls
+        methNameToFindDefClsOf,                                       # type: str
+        codeObjToFindDefClsOf,                                        # type: CodeType
+        isFunc = partial(isinstance, __class_or_tuple=FunctionType),  # type: IsIns
+):                                                                    # type: (...) -> bool
+    for attr in defClsMaybe.__dict__.itervalues():
         if (
-                isinstance(attr, FunctionType) and
+                isFunc(attr) and
                 attr.__name__ == methNameToFindDefClsOf and
                 # If the code object is the same do we need to compare the meth name too??
                 attr.func_code is codeObjToFindDefClsOf
@@ -22,36 +29,37 @@ def privInsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
             return True
     return False
 
-def pubInsMethCond (defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (Typ[Any], str, CodeType) -> bool
-    # This works even when the class defined __slots__ because we're iterating over the class objects' __dict__
-    # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
+def pubInsMethCond(
+        defClsMaybe,                                             # type: AnyCls
+        methNameToFindDefClsOf,                                  # type: str
+        codeObjToFindDefClsOf,                                   # type: CodeType
+        isProp = partial(isinstance, __class_or_tuple=property)  # type: IsIns
+):                                                               # type: (...) -> bool
     if methNameToFindDefClsOf in defClsMaybe.__dict__:
         method = defClsMaybe.__dict__[methNameToFindDefClsOf]
-
-        if isinstance(method, property):
-            # PyCharm thinks func_code don't exist, it's wrong
+        if isProp(method):
             if method.fget.func_code is codeObjToFindDefClsOf:
                 return True
         elif method.func_code is codeObjToFindDefClsOf:
             return True
     return False
 
-def privClsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (Typ[Any], str, CodeType) -> bool
-    # This works even when the class defined __slots__ because we're iterating over the class objects' __dict__
-    # not the object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
-    for attr in defClsMaybe.__dict__.values():
+def privClsMethCond(
+        defClsMaybe,                                                    # type: AnyCls
+        methNameToFindDefClsOf,                                         # type: str
+        codeObjToFindDefClsOf,                                          # type: CodeType
+        isClsMeth = partial(isinstance, __class_or_tuple=classmethod),  # type: IsIns
+):                                                                      # type: (...) -> bool
+    for attr in defClsMaybe.__dict__.itervalues():
         if (
-                isinstance(attr, classmethod)
+                isClsMeth(attr)
                 and attr.__func__.__name__ == methNameToFindDefClsOf
-                # PyCharms thinks __code__ don't exist, it's wrong
                 and attr.__func__.__code__ is codeObjToFindDefClsOf
         ):
             return True
     return False
 
-def pubClsMethCond (defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (Typ[Any], str, CodeType) -> bool
-    # This works even when the class defined __slots__ because we're accessing class objects' __dict__ not the
-    # object objects', & as far as I know class objects always have __dict__ even if they declare __slots__
+def pubClsMethCond(defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):  # type: (AnyCls, str, CodeType) -> bool
     if (
             methNameToFindDefClsOf in defClsMaybe.__dict__
             and defClsMaybe.__dict__[methNameToFindDefClsOf].__func__.__code__ is codeObjToFindDefClsOf
@@ -60,7 +68,7 @@ def pubClsMethCond (defClsMaybe, methNameToFindDefClsOf, codeObjToFindDefClsOf):
     return False
 
 def mroClsNsGen(callerCls, defClsCond, methName, codeObj):
-    # type: (Typ[Any], Cal[[Typ[Any], str, CodeType], bool], str, CodeType) -> Itrt[str]
+    # type: (AnyCls, Cal[[AnyCls, str, CodeType], bool], str, CodeType) -> Itrt[str]
     for cls in callerCls.__mro__:
         yield cls.__name__
         if defClsCond(cls, methName, codeObj):
@@ -70,7 +78,7 @@ def linkFromFrame(
         joinMroLinksMaybe,   # type: Cal[[Lst[str], str], Uni[str, Tup[Lst[str], str]]]
         joinFileLinksMaybe,  # type: Cal[[str, int, str], Uni[str, Tup[str, int, str]]]
         frame,               # type: FrameType
-):                           # type: (...) -> Uni[Tup[str, int, str], Tup[Lst[str], str], str]
+):                           # type: (...) -> Uni[SplitLink, str]
 
     codeObj, fLocals = frame.f_code, frame.f_locals
     methName = codeObj.co_name
@@ -114,25 +122,32 @@ jointLinkFromFrame = partial(linkFromFrame, joinMroLink, joinFileLink)  # type: 
 splitLinkFromFrame = partial(linkFromFrame, retArgs, retArgs)  # type: Cal[[FrameType], Uni[Tup[Lst[str], str], Tup[str, int, str]]]
 
 def makeCallChain(makeLink, frame):
-    # type: (Cal[[FrameType], Uni[str, Tup[Lst[str], str], Tup[str, int, str]]], int) -> Itrt[Uni[str, Tup[Lst[str], str], Tup[str, int, str]]]
+    # type: (Cal[[FrameType], Uni[str, SplitLink]], FrameType) -> Itrt[Uni[str, SplitLink]]
 
     while frame:
         yield makeLink(frame)  # Should create joined (str) links or split based on the args in the partial
         frame = frame.f_back
 
-splitLinksCallChain = partial(makeCallChain, splitLinkFromFrame)
+def omropocs(
+        frame=_getframe,                                   # type: Cal[[int], FrameType]
+        getFlag=getSegFlag,                                # type: Cal[[FrameType], str]
+        links=partial(makeCallChain, jointLinkFromFrame),  # type: Cal[[FrameType], Itrt[str]]
+):                                                         # type: (...) -> None
+    """ Optional Method Resolution Order Printer Optional Call Stack """
+    frame = frame(1)
+    print getFlag(frame) + ': ' +' <- '.join(links(frame))
 
-def omropocs(jointLinksCallChain=partial(makeCallChain, jointLinkFromFrame)):
-    print ' <- '.join(jointLinksCallChain(_getframe(1)))
-
-def omrolocs(frameNum=1, silence=False):  # type: (int, bool) -> None
+def omrolocs(
+        frameNum=1,                                       # type: int
+        callFlag=omrolocsFlag,                            # type: str
+        log=appendToLog,                                  # type: App
+        now=time,                                         # type: Time
+        frame=_getframe,                                  # type: GF
+        getFlag=getSegFlag,                               # type: Cal[[FrameType], str]
+        links=partial(makeCallChain, splitLinkFromFrame)  # type: Cal[[FrameType], SplitLink]
+):                                                        # type: (...) -> None
     """ Optional Method Resolution Order Logger Optional Call Stack """
-    if silence: return
-    appendToLog(
-        (
-            time(),
-            stakFlags[0],
-            tuple(splitLinksCallChain(_getframe(frameNum))),
-        )
+    frame = frame(frameNum)
+    log(
+        (now(), getFlag(frame), callFlag, tuple(links(frame)))
     )
-

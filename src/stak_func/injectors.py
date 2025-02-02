@@ -7,20 +7,26 @@ Also, removes some clutter from the already large code.
 from collections import OrderedDict, defaultdict
 from itertools import izip
 
-from src.stak_func.stak import getModules
 from src.stak_func.stak.block00_typing import *
-from src.stak_func.stak.block02_commonData import stdFlags, stakFlags, reloadData, cutoffFlag
+from src.stak_func.stak.block02_loadAndReload import blocks
+from src.stak_func.stak.block03_commonData import stdFlags, stakFlags, cutoffFlag, traceFlags
+from src.stak_func.stak.block06_pathOps import getPackageName
+from src.stak_func.stak.z_utils import read, padFlags
 
 
 dataFile = 'stak\\block02_commonData.py'
 
 def runInjectors():
-    dataLines = readData()
+    dataLines = read(dataFile)
 
     # Flags
-    paddedStdFlags, paddedStakFlags = tuple(padFlags(stdFlags)), tuple(padFlags(stakFlags))
+    paddedStdFlags   = tuple(padFlags(stdFlags))
+    paddedStakFlags  = tuple(padFlags(stakFlags))
+    paddedTraceFlags = tuple(padFlags(traceFlags))
+
     insertInPlace(dataLines, 'pStakFlags = '         , paddedStakFlags)
     insertInPlace(dataLines, 'paddedStdFlags = '     , paddedStdFlags)
+    insertInPlace(dataLines, 'pTraceFlags = '        , paddedTraceFlags)
     insertInPlace(dataLines, 'pStdFlagsByStdFlags = ', {flag: pFlag for flag, pFlag in izip(stdFlags, paddedStdFlags)})
     insertInPlace(dataLines, 'allPflagsByFlags = '   , allPaddedFlagsByAllFlags())
 
@@ -29,12 +35,10 @@ def runInjectors():
     insertInPlace(dataLines, 'cutoffCombos = ', 'OrderedDict({})'.format(cutoffCombos))
     insertInPlace(dataLines, 'wholeEnoughs = ', wholeEnoughs(OrderedDict(cutoffCombos)))
 
-    writeData(dataLines)
-    reloadData()
-
+    write(dataLines, dataFile)
     insertInPlace(dataLines, 'callableNames = ', '{' + str(set(getCallableNames())).lstrip('set([').rstrip('])') + '}')
 
-    writeData(dataLines)
+    write(dataLines, dataFile)
 
 def insertInPlace(lines, lookingFor, dataStructure):  # type: (Lst[str], str, Any) -> None
     for i, line in enumerate(lines):
@@ -43,10 +47,6 @@ def insertInPlace(lines, lookingFor, dataStructure):  # type: (Lst[str], str, An
             return
     else:
         raise ValueError('Looking for "{}" prefix & not found!'.format(lookingFor))
-
-def padFlags(flags):  # type: (Seq[str]) -> Itrt[str]
-    maxFlagLen = max(len(flag) for flag in flags)
-    return (': ' + flag + ' ' * (maxFlagLen - len(flag)) + ': ' for flag in flags)
 
 def uniqueFlagCutoffCombosByRepetitions():  # type: () -> Itrt[Tup[str, int]]
     combos = defaultdict(int)
@@ -82,19 +82,14 @@ def allPaddedFlagsByAllFlags():  # type: () -> Dic[str, str]
 
 def getCallableNames():  # type: () -> Itrt[str]
     # Setting a trace implies that all the callables of STAK at some point might get traced
-    # so, accumulate all their names so skip tracing
-
-    for module in getModules():
-        for name in dir(module):
-            if callable(getattr(module, name)):
+    # so, accumulate all their names to skip tracing.
+    for _, module in blocks:
+        for name, val in module.__dict__.iteritems():
+            if callable(val):
                 yield name
 
-def readData(name=dataFile):  # type: (str) -> Lst[str]
-    with open(name, 'r') as f:
-        return f.readlines()
-
-def writeData(lines, name=dataFile):  # type: (Itrb[str], str) -> None
-    with open(name, 'w') as f:
+def write(lines, fileName):  # type: (Itrb[str], str) -> None
+    with open(fileName, 'w') as f:
         f.writelines(lines)
 
 

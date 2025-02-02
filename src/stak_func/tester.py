@@ -4,6 +4,8 @@ jamInterfaceIntoBuiltins()
 
 testingWhat = 'trace'
 
+segFlag = 'tester'
+
 if __name__ == '__main__':
     import code
     from datetime import datetime
@@ -12,7 +14,7 @@ if __name__ == '__main__':
     from time import sleep
 
     from src.funcs.someCode import SomeClass
-    from src.stak_func.stak import omrolocs, omrolocsalad, daff as data, omropocs, autoLocals, setTrace, delTrace
+    from src.stak_func.stak import *
 
 
     if testingWhat == 'stak':
@@ -32,13 +34,13 @@ if __name__ == '__main__':
                 omrolocsalad(someDatumForExtraLogging='420')
                 somePostOmrolocsaladLocal = 'yes this is post the salad'
                 omrolocs()
-                data()
-                data(someDatum=[1, 2, 3, 4])
-                data(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-                data(pretty=False, someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+                daff()
+                daff(someDatum=[1, 2, 3, 4])
+                daff(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+                daff(pretty=False, someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
                 omropocs()
                 autoLocals()
-                data(SOME_SEPARATOR='================================================================================================')
+                daff(SOME_SEPARATOR='================================================================================================')
             @property
             def __privProp(self): return self.test()
             def __testCaller(self): self.__privProp
@@ -176,7 +178,7 @@ if __name__ == '__main__':
         def func2():
             a, b = 1, 2
             omrolocsalad()
-            data(a=a, b=b)
+            daff(a=a, b=b)
             autoLocals()
         func2()
         Bro().forMethNameDupBug()
@@ -224,7 +226,8 @@ if __name__ == '__main__':
 
         A()
 
-variables = globals().copy()
+
+variables = globals()
 variables.update(locals())
 shell = code.InteractiveConsole(variables)
 shell.interact()

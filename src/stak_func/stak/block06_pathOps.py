@@ -5,7 +5,7 @@ from shutil import rmtree
 from sys import _getframe
 
 from .block00_typing import *
-from .block01_settings import *
+from .block01_settings import rootDir, taskDir, printDir, primiDir, variDir, stdLogPrefixes, stdDir, logFilesExt, stakLogPrefix, primiSuffix, compSuffix, stdStakSpliceSuffix, compStdStakSpliceSuffix, traceLogPrefix, compactSuffix
 
 
 pathSplitChar = '/' if '/' in _getframe(0).f_code.co_filename else '\\'
@@ -99,3 +99,5 @@ genCompStdStakSplicePaths = genCompStdStakSplicePaths()
 genTracePaths             = genTracePaths()
 genCompactTracePaths      = genCompactTracePaths()
 
+def getPackageName():
+    return __name__.split('.')[-2]

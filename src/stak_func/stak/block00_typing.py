@@ -1,6 +1,9 @@
 from typing import TYPE_CHECKING
 
+
 if TYPE_CHECKING:
+    from _sre import SRE_Match
+    from itertools import partial
     from types import (
         CodeType,
         FrameType,
@@ -23,6 +26,8 @@ if TYPE_CHECKING:
         Union     as Uni,
     )
 
+    from .block05_log import Log
+
     # Type Aliases: Use to abbreviate simplicity, not hide complexity.
     OptStr8 = Tup[Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str]]
     OptStr9 = Tup[Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str]]
@@ -39,6 +44,19 @@ if TYPE_CHECKING:
 
     None8 = Tup[None, None, None, None, None, None, None, None]
     None9 = Tup[None, None, None, None, None, None, None, None, None]
+
+    App = Cal[[Any], None]            # list.append
+    Time = Cal[[], float]             # time.time
+    GF = Cal[[int], FrameType]        # sys._getframe
+    Zip = Cal                         # itertools.izip
+    IsIns = Cal[[Any], bool]          # isinstance
+    GetFrame = Cal[[int], FrameType]  # sys._getframe
+
+    AnyCls = Typ[Any]
+
+    SplitLink = Uni[Tup[Lst[str], str], Tup[str, int, str]]
+
+    Self = Cal[[Any], 'Self']
 
     __all__ = locals().keys()
 else:

@@ -2,18 +2,37 @@ from datetime import datetime
 
 from .block00_typing import *
 
-unixStampToDatetime = datetime.fromtimestamp  # type: Cal[[float], datetime]
 
 def tupleOfStrsToStr(strsStamp):  # type: (Str4) -> str
     return '{}:{}:{}.{}'.format(*strsStamp)
 
-def unixStampToTupleOfStrs(unixStamp):  # type: (float) -> Str4
-    dt = unixStampToDatetime(unixStamp)
+def unixStampToTupleOfStrs(
+        unixStamp,                    # type: float
+        dt = datetime.fromtimestamp,  # type: Cal[[float], datetime]
+):                                    # type: (...) -> Str4
+    dt = dt(unixStamp)
     return '{:02}'.format(dt.hour), '{:02}'.format(dt.minute), '{:02}'.format(dt.second), '{:03}'.format(dt.microsecond//1000)
 
-def unixStampToStr(unixStamp):  # type: (float) -> str
-    dt = unixStampToDatetime(unixStamp)
+def unixStampToStr(
+        unixStamp,                    # type: float
+        dt = datetime.fromtimestamp,  # type: Cal[[float], datetime]
+):                                    # type: (...) -> str
+    dt = dt(unixStamp)
     return '{:02}:{:02}:{:02}.{:03}'.format(dt.hour, dt.minute, dt.second, dt.microsecond//1000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Out of use

@@ -8,38 +8,40 @@ Or, in the usual way.
 import __builtin__
 
 from .block00_typing import *
-from .block01_settings import eventLabels
-from .block02_commonData import reloadData
-from .block03_log import labelLog, clearLog, log
-from .block04_pathOps import removePrintDir
-from .block06_creatingMroCallChains import omropocs, omrolocs
-from .block07_autoLocals import dataAndFirstFrame, autoLocals, omrolocsalad
-from .block08_tracing import setTrace, delTrace
-from .block11_savingAllLogs import saveAll
+from .block01_settings import eventLabels, printDir
+from .block02_loadAndReload import run
+from .block04_reloader import reloadAll
+from .block05_log import labelLog, clearLog
+from .block06_pathOps import removePrintDir
+from .block09_creatingMroCallChains import omrolocs, omropocs
+from .block10_autoLocals import dataAndFirstFrame, autoLocals, omrolocsalad
+from .block11_tracing import delTrace, setTrace
+from .block16_savingAllLogs import saveAll
 
+run()
 
-def reloadSettings():
-    from . import block01_settings
-    reload(block01_settings)
-
-
-## Aliases
+## Shell Aliases
 s = save = saveAll
 l = label = labelLog
 ls = labels = eventLabels
+pd = printDir
 rp = rmp = rmPrint = removePrintDir
 c = clear = clearLog
-rs = rls = reloadSettings
-daff = dataAndFirstFrame
+ra = reloadAll
 
 callFromShellInterface = (
     's', 'save', 'saveAll',
     'l', 'label', 'labelLog',
     'ls', 'labels', 'eventLabels',
+    'pd', 'printDir',
     'rp', 'rmp', 'rmPrint', 'removePrintDir',
     'c', 'clear', 'clearLog',
-    'rs', 'rls', 'reloadSettings',
+    'ra', 'reloadAll',
 )
+
+
+## Code Aliases
+daff = dataAndFirstFrame
 
 callFromCodeInterface = (
     'omropocs',
@@ -53,36 +55,13 @@ callFromCodeInterface = (
 
 __all__ = callFromCodeInterface
 
-def jamInterfaceIntoBuiltins(names=callFromShellInterface, _locals=locals()):
-    # type: (Tup[str, ...], Dic[str, Any]) -> None
+def jamInterfaceIntoBuiltins(interfaceNames=callFromShellInterface, reloading=False):
+    # type: (Tup[str, ...], bool) -> None
 
-    def printLog():
-        for entry in log:
-            print entry
-
-    setattr(__builtin__, 'printLog', printLog)
-
-    for name in names:
-        if not hasattr(__builtin__, name):
-            setattr(__builtin__, name, _locals[name])
+    _globals = globals()
+    for name in interfaceNames:
+        if not hasattr(__builtin__, name) or reloading:
+            setattr(__builtin__, name, _globals[name])
         else:
             print 'ERROR: COLLISION! :: {}'.format(name)
-
-def getModules():  # type: () -> Lst[ModuleType]
-    from . import block00_typing
-    from . import block01_settings
-    from . import block02_commonData
-    from . import block03_log
-    from . import block04_pathOps
-    from . import block05_stampOps
-    from . import block06_creatingMroCallChains
-    from . import block07_autoLocals
-    from . import block08_tracing
-    from . import block09_compression
-    from . import block10_parsingStdLogs
-    from . import block11_savingAllLogs
-
-    return locals().values()
-
-
 

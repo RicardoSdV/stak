@@ -1,5 +1,3 @@
-
-
 ## Labels
 eventLabels = ['PRE EVENT 1', 'POST EVENT 1']
 
@@ -7,16 +5,21 @@ eventLabels = ['PRE EVENT 1', 'POST EVENT 1']
 taskDir  = 'task'
 printDir = 'print'
 
+## Switches: they don't turn off log gathering, but avoid saving the referred entries if switched off.
+isOmrolocsOn = True
+isDaffOn     = True
+isTraceOn    = True
+
+## File prefixes
+stdLogPrefixes = ('stdLogA', 'stdLogB')
+stakLogPrefix  = 'stak'
+traceLogPrefix = 'trace'
+
 ## Dir paths: semi-static
 rootDir  = '.STAK'
 primiDir = 'primitives'
 variDir  = 'variants'
 stdDir   = ''
-
-## File prefixes
-stakLogPrefix  = 'stak'
-stdLogPrefixes = ('stdLogA', 'stdLogB')
-traceLogPrefix = 'trace'
 
 ## File suffixes
 primiSuffix             = ''
@@ -30,6 +33,4 @@ logFilesExt = '.log'
 ## Increases compress times exponentially
 maxCompressGroupSize = 100
 
-def reloadSettings():
-    from sys import modules
-    reload(modules[__name__])
+blockPrefix = 'block'
