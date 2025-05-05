@@ -1,39 +1,31 @@
+import json
 from functools import partial
+from itertools import izip
 
 from .block00_typing import *
-from .block03_commonData import pOmrolocsFlag, pDataFlag, pDateFlag, omrolocsFlag, daffFlag, labelFlag, dateFlag, pStdFlagsByStdFlags, pSetFlag, pCallFlag, pRetFlag, pDelFlag, setFlag, callFlag, retFlag, delFlag, allPflagsByFlags, traceFlags, callableNames, callFlags, retFlags
-from .block05_log import traceLog, log
-from .block06_pathOps import makeDirPaths, genPrimiStakPaths, genPrimiStdPaths, genCompStakPaths, genStdStakSplicePaths, genCompStdStakSplicePaths, genTracePaths, genCompactTracePaths
-from .block07_stampOps import tupleOfStrsToStr, unixStampToStr
-from .block09_creatingMroCallChains import joinFileLink, joinMroLink
+from .block02_settingObj import so
+from . import block03_constants as cs
+from .block04_log import log
+from .block05_pathOps import getPrimiStakPaths, getPrimiStdPaths, getCompStakPaths, getStdStakSplicePaths, getCompStdStakSplicePaths, getTracePaths, getCompactTracePaths, makeDirPaths, getJsonPath
+from .block06_stampOps import tupleOfStrsToStr, unixStampToStr, unixStampToTupleOfStrs
+from .block09_joinSplitLinks import joinLink, joinLinks
 from .block12_compression import compressLines, compressCallChains
 from .block13_parseStdLogs import parseStdLogs
-from .block14_fmtStakAndStd import preProcessStakLog, entriesWithLinksJoin, stdStakSplice
-from .block15_fmtTrace import formatTraceLog
+from .block14_fmtStakAndStd import stdStakSplice
+from .z_utils import write, redStr
 
 # In general the working theory is that we don't care too much about performance when saving logs, if in exchange
 # performance is gained when generating, because generation takes place during critical parts of the program
 # whereas saving is normally done during idle periods. This explains some of the wierd decisions.
 # Saving is quite slow though, but the main bottleneck is in compression not here.
 
-def fmtOmrolocsEntry(stamp, segFlag, theRest, toStr=tupleOfStrsToStr, callerFlag=pOmrolocsFlag):  # type: (Str4, str, str, Cal[[Str4], str], str) -> str
-    return toStr(stamp) + segFlag + callerFlag + ' <- '.join(theRest)
+def formatPrimiStak(strLinksStakLog, toStr=tupleOfStrsToStr):  # type: (Itrb[Tup[Str4, Uni[str, Tup[str, ...]]]], ...) -> Itrt[str]
+    for stamp, strLinks in strLinksStakLog:
+        if type(strLinks) is tuple:
+            strLinks = ' <- '.join(strLinks)
+        yield toStr(stamp) + ': ' + strLinks
 
-def fmtDataEntry(stamp, segFlag, theRest, toStr=tupleOfStrsToStr, flag=pDataFlag):  # type: (Str4, str, str, Cal[[Str4], str], str) -> str
-    return toStr(stamp) + segFlag + flag + theRest
-
-def fmtLabelEntry(_, theRest):  # type: (Str4, str) -> str
-    return theRest
-
-def fmtDateEntry(stamp, segFlag, theRest, toStr=tupleOfStrsToStr, flag=pDateFlag):  # type: (Str4, str, str, Cal[[Str4], str], str) -> str
-    return toStr(stamp) + segFlag + flag + theRest
-
-def formatPrimiStak(fullStrLinkCallChains, formattersByFlag={omrolocsFlag: fmtOmrolocsEntry, daffFlag: fmtDataEntry, labelFlag: fmtLabelEntry, dateFlag: fmtDateEntry}):
-    # type: (Tup[Tup[Str4, str, Uni[str, Lst[str]]], ...], Dic[str, Cal[[Str4, str, str], str]]) -> Itrt[str]
-    for stamp, segFlag, callerFlag, theRest in fullStrLinkCallChains:
-        yield formattersByFlag[callerFlag](stamp, segFlag, theRest)
-
-def formatPrimiStd(parsedStdLog, toStr=tupleOfStrsToStr, pFlags=pStdFlagsByStdFlags):
+def formatPrimiStd(parsedStdLog, toStr=tupleOfStrsToStr, pFlags=cs.pStdFlagsByStdFlags):
     # type: (Seq[Tup[Str4, str, str]], Cal[[Str4], str], Dic[str, str]) -> Itrt[str]
     for midStamp, stdFlag, theRest in parsedStdLog:
         yield toStr(midStamp) + pFlags[stdFlag] + theRest
@@ -45,77 +37,117 @@ def formatCompStak(callChainsWithCompressedStrLinks):  # type: (Tup[Tup[Str4, st
 
 def formatStdStakSplice(splicedLog, toStr=tupleOfStrsToStr):
     # type: (Lst[Lst[Tup[Str4, str, str]]], Cal[[Str4], str]) -> Itrt[str]
-    for stamp, segFlag, callerFlag, theRest in splicedLog:
-        yield toStr(stamp) + segFlag + callerFlag + theRest
+    for stamp, flag, theRest in splicedLog:
+        yield toStr(stamp) + flag + theRest
 
 def formatCompStdStakSplice(compressedStakSplice):  # type: (Lst[str]) -> Lst[str]
     return compressLines([el[-1] for el in compressedStakSplice])
 
-def joinSplitLink(splitLink):  # type: (Uni[Tup[str, int, str], Tup[Lst[str], str]]) -> str
-    if len(splitLink) == 3:
-        return joinFileLink(*splitLink)
-    return joinMroLink(*splitLink)
-
-def fmtSetEntry(stamp, splitLink, toStr=unixStampToStr, flag=pSetFlag, join=joinSplitLink):
+def fmtSetEntry(stamp, splitLink, toStr=unixStampToStr, flag=cs.pSetFlag, join=joinLink):
     # type: (float, Uni[Tup[str, int, str], Tup[Lst[str], str]], Cal[[float], str], str, Cal[[Uni[Tup[str, int, str], Tup[Lst[str], str]]], str]) -> str
     return toStr(stamp) + flag + join(splitLink)
 
-def fmtCallEntry(stamp, splitLink, toStr=unixStampToStr, flag=pCallFlag, join=joinSplitLink):
+def fmtCallEntry(stamp, splitLink, toStr=unixStampToStr, flag=cs.pCallFlag, join=joinLink):
     # type: (float, Uni[Tup[str, int, str], Tup[Lst[str], str]], Cal[[float], str], str, Cal[[Uni[Tup[str, int, str], Tup[Lst[str], str]]], str]) -> str
     return toStr(stamp) + flag + join(splitLink)
 
-def fmtRetEntry(stamp, splitLink, toStr=unixStampToStr, flag=pRetFlag, join=joinSplitLink):
+def fmtRetEntry(stamp, splitLink, toStr=unixStampToStr, flag=cs.pRetFlag, join=joinLink):
     # type: (float, Uni[Tup[str, int, str], Tup[Lst[str], str]], Cal[[float], str], str, Cal[[Uni[Tup[str, int, str], Tup[Lst[str], str]]], str]) -> str
     return toStr(stamp) + flag + join(splitLink)
 
-def fmtDelEntry(stamp, splitLink, toStr=unixStampToStr, flag=pDelFlag, join=joinSplitLink):
+def fmtDelEntry(stamp, splitLink, toStr=unixStampToStr, flag=cs.pDelFlag, join=joinLink):
     # type: (float, Uni[Tup[str, int, str], Tup[Lst[str], str]], Cal[[float], str], str, Cal[[Uni[Tup[str, int, str], Tup[Lst[str], str]]], str]) -> str
     return toStr(stamp) + flag + join(splitLink)
 
-def formatTrace(traceEntries, formattersByFlag={setFlag: fmtSetEntry, callFlag: fmtCallEntry, retFlag: fmtRetEntry, delFlag: fmtDelEntry}):
+def formatTrace(traceEntries, formattersByFlag={cs.setFlag: fmtSetEntry, cs.callFlag: fmtCallEntry, cs.retFlag: fmtRetEntry, cs.delFlag: fmtDelEntry}):
     for stamp, flag, theRest in traceEntries:
         yield formattersByFlag[flag](stamp, theRest)
 
 def formatCompactTrace(entries): return entries
 
-def writeLogsToFile(pathGen, formatter, *logs):  # type: (Itrt[str], Cal[[Itrb], Opt[Itrb[str]]], Itrb) -> None
-    for _log in logs:
-        with open(next(pathGen), 'w') as _file:
-            formattedLines = formatter(_log)
-            if formattedLines:
-                _file.writelines((
-                    line + '\n' for line in formattedLines
-                ))
+def writeLogsToFile(pathsGetter, formatter, *logs):  # type: (Cal[[], Itrb[str]], Cal[[Itrb], Opt[Itrb[str]]], Itrb) -> None
+    paths = pathsGetter()
+    for _log, path in izip(logs, paths):
+        formattedLines = formatter(_log)
+        if formattedLines:
+            # Yes, it's been tried, ONLY ADD NEW LINES AT THE END! it's been tried more than once
+            # for some reason it never ends well, just loop over the log once more, not a big
+            # deal, it's been tried, don't do IT! (I'll probably try a third time...)
+            lines = (line + '\n' for line in formattedLines)
+            write(path, lines)
 
+savePrimiStak         = partial(writeLogsToFile, getPrimiStakPaths        , formatPrimiStak)
+savePrimiStd          = partial(writeLogsToFile, getPrimiStdPaths         , formatPrimiStd)
+saveCompStak          = partial(writeLogsToFile, getCompStakPaths         , formatCompStak)
+saveStdStakSplice     = partial(writeLogsToFile, getStdStakSplicePaths    , formatStdStakSplice)
+saveCompStdStakSplice = partial(writeLogsToFile, getCompStdStakSplicePaths, formatCompStdStakSplice)
+saveTrace             = partial(writeLogsToFile, getTracePaths            , formatTrace)
+saveCompactTrace      = partial(writeLogsToFile, getCompactTracePaths     , formatCompactTrace)
 
-savePrimiStak         = partial(writeLogsToFile, genPrimiStakPaths        , formatPrimiStak)
-savePrimiStd          = partial(writeLogsToFile, genPrimiStdPaths         , formatPrimiStd)
-saveCompStak          = partial(writeLogsToFile, genCompStakPaths         , formatCompStak)
-saveStdStakSplice     = partial(writeLogsToFile, genStdStakSplicePaths    , formatStdStakSplice)
-saveCompStdStakSplice = partial(writeLogsToFile, genCompStdStakSplicePaths, formatCompStdStakSplice)
-saveTrace             = partial(writeLogsToFile, genTracePaths            , formatTrace)
-saveCompactTrace      = partial(writeLogsToFile, genCompactTracePaths     , formatCompactTrace)
+def saveRawLogAsJson():
+    logDict = {
+        'settings': so.toDict(),
+        'stakLog': log,
+    }
+    with open(getJsonPath(), 'w') as f:
+        json.dump(logDict, f)
 
+def entriesWithLinksJoin(stakLog, joinLinks=joinLinks, toTuple=unixStampToTupleOfStrs):  # type: (Lst[Tup[float, Uni[Tup[SplitLink, ...], str]]], ..., ...) -> Itrt[Tup[Str4, Uni[Tup[str, ...], str]]]
+    silenced = so.silencedFiles
+
+    for stamp, theRest in stakLog:
+        firstFrameFilePath = theRest[0][0]
+        if firstFrameFilePath in silenced and silenced[firstFrameFilePath]:
+            continue
+
+        if isinstance(theRest, tuple):  # Is splitLinks
+            theRest = tuple(joinLinks(theRest))
+
+        yield toTuple(stamp), theRest
+
+def saveStakLog():
+    saveRawLogAsJson()
+
+    strLinkStakLog = tuple(entriesWithLinksJoin(log))
+
+    if len(strLinkStakLog) <= 1:
+        print redStr('ERROR: Trying to save stak log but all silenced')
+        return
+
+    compCallChainsStakLog = tuple(compressCallChains(strLinkStakLog))
+    parsedStdLogs = tuple(parseStdLogs())
+    stakAndStdSplices = stdStakSplice(parsedStdLogs, compCallChainsStakLog)
+
+    savePrimiStak(strLinkStakLog)
+    saveCompStak(compCallChainsStakLog)
+    savePrimiStd(*parsedStdLogs)
+    saveStdStakSplice(*stakAndStdSplices)
+    saveCompStdStakSplice(*stakAndStdSplices)
 
 def saveAll():
     makeDirPaths()
 
     if len(log) > 1:
-        preProcessedStakLog = preProcessStakLog(log)
-        strLinkStakLog = tuple(entriesWithLinksJoin(preProcessedStakLog))
-        compCallChainsStakLog = tuple(compressCallChains(strLinkStakLog))
-        parsedStdLogs = tuple(parseStdLogs())
-        stakAndStdSplices = stdStakSplice(parsedStdLogs, compCallChainsStakLog)
+        saveStakLog()
 
-        savePrimiStak(strLinkStakLog)
-        saveCompStak(compCallChainsStakLog)
-        savePrimiStd(*parsedStdLogs)
-        saveStdStakSplice(*stakAndStdSplices)
-        saveCompStdStakSplice(*stakAndStdSplices)
-
-    if traceLog:
-        formattedTraceLog = formatTraceLog()
-        saveCompactTrace(formattedTraceLog)
+# def saveAll():
+#     makeDirPaths()
+#
+#     if len(log) > 1:
+#         strLinkStakLog = tuple(entriesWithLinksJoin(log))
+#         compCallChainsStakLog = tuple(compressCallChains(strLinkStakLog))
+#         parsedStdLogs = tuple(parseStdLogs())
+#         stakAndStdSplices = stdStakSplice(parsedStdLogs, compCallChainsStakLog)
+#
+#         savePrimiStak(strLinkStakLog)
+#         saveCompStak(compCallChainsStakLog)
+#         savePrimiStd(*parsedStdLogs)
+#         saveStdStakSplice(*stakAndStdSplices)
+#         saveCompStdStakSplice(*stakAndStdSplices)
+#
+#     if traceLog:
+#         formattedTraceLog = formatTraceLog(traceLog)
+#         saveCompactTrace(formattedTraceLog)
 
 
 

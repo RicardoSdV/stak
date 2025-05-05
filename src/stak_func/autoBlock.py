@@ -10,11 +10,11 @@ from os import rename
 from os.path import join
 
 from src.stak_func.stak.block00_typing import *
-from src.stak_func.stak.z_utils import getBlockNum, matchNumAndSuffix, readSortedBlockNames
+from src.stak_func.stak.z_utils import getBlockNum, matchNumAndSuffix, readSortedBlockNames, read, write
 
 ## Settings
 # In the format: {prefix or ''}{index}_{name}{suffix or ''}
-newBlockName = '02_import'
+newBlockName = '9_joinSplitLinks'
 blockPrefix = 'block'
 fileExtension = '.py'
 dirPath = 'stak'
@@ -37,10 +37,11 @@ def runAll():  # type: () -> None
     lineInjectors = {}
     fileInjectors = [partial(sortBlockNameImportsInPlace, blockNames)]
 
-    if not (linesInjectors or lineInjectors):
-        return
-
     linesByBlock = readBlocks(blockNames)
+    print 'linesByBlock', linesByBlock
+
+    if not linesInjectors and not lineInjectors:
+        return
 
     applyInjectorsMaybeToLinesInPlace(linesByBlock, linesInjectors, lineInjectors, fileInjectors)
 
@@ -95,8 +96,12 @@ def runAllBlockNameManip():  # type: () -> Lst[Cal[[str], str]]
             incrementGreaterThanNewBlockNums(gaplessBlockNames)
         )
 
+        paddedNewByOld = {}
+        for old, new in newByOldNames.iteritems():
+            paddedNewByOld[zeroPadName(old)] = zeroPadName(new)
+
         injectors.append(
-            partial(replaceOldBlockNamesWithNew, newByOldNames)
+            partial(replaceOldBlockNamesWithNew, paddedNewByOld)
         )
 
     return injectors
@@ -119,7 +124,7 @@ def strNumsFromBlockNames(names):  # type: (Itrb[str]) -> Lst[str]
 def longestNumLen(strNums):  # type: (Itrb[str]) -> int
     return max((len(num) for num in strNums))
 
-def zeroPadNames(names):  # type: (Lst[str]) -> Lst[str]
+def zeroPadNames(names):  # type: (Itrb[str]) -> Lst[str]
     strNums = strNumsFromBlockNames(names)
     maxNum = longestNumLen(strNums)
     paddedNums = (num.zfill(maxNum) for num in strNums)
@@ -202,8 +207,9 @@ def renameBlocks(oldNames, newNames):  # type: (Itrb[str], Itrb[str]) -> None
         renameBlock(oldName, newName)
 
 def readBlock(name):  # type: (str) -> Lst[str]
-    with open(join(dirPath, name), 'r') as block:
-        return block.readlines()
+    blockPath = join(dirPath, name)
+    blockLines = read(blockPath)
+    return blockLines
 
 def readBlocks(names):  # type: (Itrb[str]) -> Dic[str, Lst[str]]
     return {
@@ -213,12 +219,10 @@ def readBlocks(names):  # type: (Itrb[str]) -> Dic[str, Lst[str]]
 
 def writeBlocks(linesByBlock):  # type: (Dic[str, Lst[str]]) -> None
     for blockName, lines in linesByBlock.iteritems():
-        with open(join(dirPath, blockName), 'w') as blockFile:
-            blockFile.writelines(lines)
+        write(join(dirPath, blockName), lines)
 
 def createNewBlock(name):  # type: (str) -> None
-    with open(join(dirPath, name), 'w') as newBlockFile:
-        newBlockFile.write('from .block00_typing import *\n')
+    write(join(dirPath, name), ['from .block00_typing import *'])
 
 """ =============================================================================================================== """
 

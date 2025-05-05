@@ -1,0 +1,2 @@
+def omrolocs():
+    print 'Interface'

@@ -6,33 +6,13 @@ from .block00_typing import *
 def tupleOfStrsToStr(strsStamp):  # type: (Str4) -> str
     return '{}:{}:{}.{}'.format(*strsStamp)
 
-def unixStampToTupleOfStrs(
-        unixStamp,                    # type: float
-        dt = datetime.fromtimestamp,  # type: Cal[[float], datetime]
-):                                    # type: (...) -> Str4
-    dt = dt(unixStamp)
+def unixStampToTupleOfStrs(stamp, dt=datetime.fromtimestamp):  # type: (float, Cal[[float], datetime]) -> Str4
+    dt = dt(stamp)
     return '{:02}'.format(dt.hour), '{:02}'.format(dt.minute), '{:02}'.format(dt.second), '{:03}'.format(dt.microsecond//1000)
 
-def unixStampToStr(
-        unixStamp,                    # type: float
-        dt = datetime.fromtimestamp,  # type: Cal[[float], datetime]
-):                                    # type: (...) -> str
+def unixStampToStr(unixStamp, dt=datetime.fromtimestamp):  # type: (float, Cal[[float], datetime]) -> str
     dt = dt(unixStamp)
     return '{:02}:{:02}:{:02}.{:03}'.format(dt.hour, dt.minute, dt.second, dt.microsecond//1000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## Out of use

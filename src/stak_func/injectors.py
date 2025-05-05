@@ -1,44 +1,67 @@
 """
 Some stuff is more convenient if computed, but really it only needs to be computed once, not every time the program is run.
-So, the solution is to compute these things in this file & inject the results into the files where they are used.
-Also, removes some clutter from the already large code.
+So, the solution is to compute these things in this file & inject the results into stak.
+Also, removes some clutter from the code.
 """
+from time import time
+start = time()
 
 from collections import OrderedDict, defaultdict
+from functools import partial
 from itertools import izip
+from os.path import join
 
 from src.stak_func.stak.block00_typing import *
-from src.stak_func.stak.block02_loadAndReload import blocks
-from src.stak_func.stak.block03_commonData import stdFlags, stakFlags, cutoffFlag, traceFlags
-from src.stak_func.stak.block06_pathOps import getPackageName
-from src.stak_func.stak.z_utils import read, padFlags
+from src.stak_func.stak.block03_constants import stdFlags, stakFlags, cutoffFlag, traceFlags
+from src.stak_func.stak.z_utils import read, padFlags, write, loadBlocks, tryCall, packageName
 
+constsFileName = 'block03_constants.py'
+constsPath = join(packageName, constsFileName)
 
-dataFile = 'stak\\block02_commonData.py'
+readConstants = partial(read, constsPath)
+writeConstants = partial(write, constsPath)
 
 def runInjectors():
-    dataLines = read(dataFile)
+    # Settings injection must happen first
+    tryCall(injectSettings, errMess='Settings injection failed')
+
+    tryCall(injectConstants, errMess='Constants injection failed')
+
+    print 'Injection took: ', round(time() - start, 2), 's'
+
+def injectSettings():
+    from src.stak_func.autoSetting import readSettingObj, slottables, writeSettingObj
+
+    settingObjLines = readSettingObj()
+    insertInPlace(settingObjLines, '    __slots__ = ', tuple(slottables))
+    writeSettingObj(settingObjLines)
+
+def injectConstants():
+    constsLines = readConstants()
 
     # Flags
     paddedStdFlags   = tuple(padFlags(stdFlags))
     paddedStakFlags  = tuple(padFlags(stakFlags))
     paddedTraceFlags = tuple(padFlags(traceFlags))
 
-    insertInPlace(dataLines, 'pStakFlags = '         , paddedStakFlags)
-    insertInPlace(dataLines, 'paddedStdFlags = '     , paddedStdFlags)
-    insertInPlace(dataLines, 'pTraceFlags = '        , paddedTraceFlags)
-    insertInPlace(dataLines, 'pStdFlagsByStdFlags = ', {flag: pFlag for flag, pFlag in izip(stdFlags, paddedStdFlags)})
-    insertInPlace(dataLines, 'allPflagsByFlags = '   , allPaddedFlagsByAllFlags())
+    insertInPlace(constsLines, 'pStakFlags = '         , paddedStakFlags)
+    insertInPlace(constsLines, 'paddedStdFlags = '     , paddedStdFlags)
+    insertInPlace(constsLines, 'pTraceFlags = '        , paddedTraceFlags)
+    insertInPlace(constsLines, 'pStdFlagsByStdFlags = ', {flag: pFlag for flag, pFlag in izip(stdFlags, paddedStdFlags)})
+    insertInPlace(constsLines, 'allPflagsByFlags = '   , allPaddedFlagsByAllFlags())
 
     # Parsing standard logs
     cutoffCombos = tuple(uniqueFlagCutoffCombosByRepetitions())
-    insertInPlace(dataLines, 'cutoffCombos = ', 'OrderedDict({})'.format(cutoffCombos))
-    insertInPlace(dataLines, 'wholeEnoughs = ', wholeEnoughs(OrderedDict(cutoffCombos)))
+    insertInPlace(constsLines, 'cutoffCombos = ', 'OrderedDict({})'.format(cutoffCombos))
+    insertInPlace(constsLines, 'wholeEnoughs = ', wholeEnoughs(OrderedDict(cutoffCombos)))
 
-    write(dataLines, dataFile)
-    insertInPlace(dataLines, 'callableNames = ', '{' + str(set(getCallableNames())).lstrip('set([').rstrip('])') + '}')
+    writeConstants(constsLines)
 
-    write(dataLines, dataFile)
+    blocks = loadBlocks()
+    callableNames = getCallableNames(blocks)
+    insertInPlace(constsLines, 'callableNames = ', '{' + str(set(callableNames)).lstrip('set([').rstrip('])') + '}')
+
+    writeConstants(constsLines)
 
 def insertInPlace(lines, lookingFor, dataStructure):  # type: (Lst[str], str, Any) -> None
     for i, line in enumerate(lines):
@@ -80,17 +103,13 @@ def allPaddedFlagsByAllFlags():  # type: () -> Dic[str, str]
     pAllFlags = padFlags(allFlags)
     return {flag: pFlag for flag, pFlag in izip(allFlags, pAllFlags)}
 
-def getCallableNames():  # type: () -> Itrt[str]
+def getCallableNames(blocks):  # type: (Itrb[ModuleType]) -> Itrt[str]
     # Setting a trace implies that all the callables of STAK at some point might get traced
     # so, accumulate all their names to skip tracing.
-    for _, module in blocks:
+    for module in blocks:
         for name, val in module.__dict__.iteritems():
             if callable(val):
                 yield name
-
-def write(lines, fileName):  # type: (Itrb[str], str) -> None
-    with open(fileName, 'w') as f:
-        f.writelines(lines)
 
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ How to use:
     - In stak.__init__.callFromCodeInterface are all the names which are intended to be called
         from code. Import & call them to debug.
 
-    - Import or call jamInterfaceIntoBuiltins to have access to the callFromShellInterface, which
+    - Import and call jamInterfaceIntoBuiltins to have access to the callFromShellInterface, which
     are the user control callables for saving logs etc. Or, if no shell, call them from code.
 
 Known issues:
@@ -17,21 +17,17 @@ Known issues:
     - Seems like mro classes can't be found for prop setters, at least protected, which is a bigger issue that might appear
     since they are used to find out who in the inheritance tree is modifying protected attrs.
 
-    - A private property will default to filename & lineno.
-
     - If the object object autopassed to an instance method is not called 'self' defaults to filename & lineno
 
     - If the class object autopassed to a class method is not called 'cls' defaults to filename & lineno
 
-    - If a method contains cls or self & they are not the autopassed it breaks.
+    - If a method contains cls or self & they are not the autopassed it breaks. (not sure this should be fixed)
 
     - If methods defined in old style classes default to filename & lineno.
 
-    - Error if any of the spliced logs are empty, which they normally shouldn't but yeah
-
     - Due to the compression algorith some, potentially more profitable patterns are lost e.g. A, A, A, B, A, B -> 3A, BAB
 
-    - If someone feels the need to write his own cached property then this will break omrolocs and omropocs
+    - If someone feels the need to write his own cached property decorator then this will break omrolocs and omropocs
 
     - There seems to be a problem when the standard logs are empty
 
@@ -40,15 +36,68 @@ Known issues:
 Unknown Issues:
     - If the program crashes there might be a problem
 
-
 Cool potential features:
-    - (Hard) Too slow! sometimes too many calls will take up all the tick, make the normal meths faster & make specially
-    fast methods for this. For non tick bound debugging this is not an issue.
+    - Segregation:
+    The ability to easily turn off stak logging based on directory paths, file paths and origin class names
+    needs to be implemented.
+
+        - Flag approach: This was the current approach, which is to add a flag to a file and add it to the entry
+        based on retrieving the flag by climbing the stack. This is bad because:
+            1 - You have to write all the flags twice, one in the file and two in the settings to silence them
+
+            2 - You cant silence specific classes within a file
+
+            3 - It's slower than it could be, since it relies on finding the flag every time a stak func is called
+
+            4 - It relies on flagging stuff at gather time instead of filtering on save, which means that the situation
+            has to be reproduced as many times as silence combinations are needed. Which is not as bad as it sounds
+            since realistically new logging happens right after the last logging based on the last logging results,
+            but it still is a problem
+
+        - Gather more, filter on save: All links should have a filepath, lineNo, mro or None & caller name. In this way,
+        directories, files and classes can be silenced on save. This is still has some problems, mainly performance,
+        since the production approach is to substitute all the funcs in the interface for noop funcs on import, which
+        significantly improves performance when many logging funcs are called. Maybe both approaches can be combined,
+        cios
+
+        - Module replace at runtime: Make a copy of the module being debugged, add calls to stak there, and if gather
+        is turned on for this module replace the original module in sys.modules with the debug module. This is not at
+        odds with gather more and filter on save, since simply all modules can have gather be on, but it does make it
+        much easier to commit code and have debug versions in the same branch. And if automated injection of stak is
+        achieved also this will remove many problems.
+
+    - (Easy) If it's not too slow change time.time() for time.clock() for more accurate times, maybe? I don't really
+    need that accurate a time stamp but might be useful.
+
+    - (Easy) I need to keep a backup of all the logs, maybe every time a log is saved, go through the entire
+    dir, and save all the logs, or something, because having too many logs is also a problem.
+
+    - (Easy) Entirely tiered of going through files to get to the log, add the option to still add the .STAK
+    dir relative, but add like a -/+ num to do like current dir +/- some number of dirs.
+
+    - (Easy) Add something that denotes what is the initial logged callable that separates it from its callstack
+    to make Ctrl+F easier in logs.
+
+    - (Mid) When printing file paths sometimes you need longer paths and sometimes shorter, depending on how many
+    copies of the same paths exist in the project, so the solution is to compute all the paths and always be sure
+    to print unique paths, sometimes one file long and sometimes way longer.
+
+    - (Mid) There are certain calls, event calls specially which need to show the name of the reference called, rather
+    than the name of the callable itself, i.e. instead of EventClass.__call__ -> eventObj. Maybe this makes sense for
+    other things but for now I can only think of event calls.
+
+    - (Mid) There are certain stacks, specially related to async, which are completely redundant, abbreviate.
 
     - (Mid) Second pass when compressing to remove wierd compressions
 
-    - (Mid) When a class has attributes which is unclear who is modifying when, a good way of debugging them is to make them
-    into props & stak the prop setters & getters, maybe this process can be automated to a certain extent.
+    - (Mid) Add the ability to stak instance attributes:
+        Option1 - Turn attrs into props & stak the prop setters & getters, maybe this process can be automated to a certain extent.
+
+        Option2 - Override __getattr__ and __setattr__, with something like auto-delta-attrs, either all the attrs or some specific
+        one(s), the problem might be if __getattr__ and __setattr__ is already being used in the class.
+
+        (extra) - when an attr is for example, a dict, or some dataclass, there needs to be a way of debugging that, it can be done
+        manually by creating a debug dict and overriding its methods, could there be a better way?
 
     - (Hard) The work involved in maintaining accurate type hints its entirely too much for something which can be easily
     automated, all that is needed is a decorator or something which keeps track of the types of all the things being passed
@@ -57,35 +106,38 @@ Cool potential features:
 
     - (Easy) Stop stripping too many spaces e.g. indents in reprs are cut, bad.
 
-    - (Mid) When there is complex inheritance going on and multiple people are using the super classes simultaneously
-    it is very hard to know what's going on up there, the solution is to add an option to block all calls to super meths
-    from logs which don't originate in a specific sub-instance(s)
+    - When there is complex inheritance going on and multiple people are using the super classes simultaneously
+    it is very hard to know what's going on up there.
+
+        - (Easy) Option 1: Add an option to block super calls from logs which don't originate in a specific sub-instance(s)
+
+        - (Mid) Option 2: Somehow override automatically, log the call and call super, injection?, runtime?
+
+        - (Hard++) Option 3: Reconstruct a class based on inheritance, i.e. "superHelp" similar to the built-in help, but,
+            combine the code of all the classes into one & replace the original class with it such that the original can
+            be substituted for the output of superHelp & have it behave in the same way.
+            (This is by far the best option because it would be so much easier to understand what an aggregate class is doing
+            than a bunch of inherited classes)
 
     - (Hard) Reproducing is hard, pretty printing takes too much space when not targeted. The solution is to, once the log
     is saved, select the lines to be pretty-re-printed after save. Maybe, read the .log or use the log in ram or save master
     copy as json.
-
-    - (Easy) Add a command to remove the specific log set, for example set 4 in the current print and or the last set
+        (extra)(superHard): Log reader app, with a UI?
 
     - (Easy) Re-implement the log numbering system so that all logs saved by one command have the same number
     and always have an incrementing integer
-
-    - (Easy) Don't save empty logs
-
-    - (Hard) Add an effective reloader
+        - (extra) Add a command to remove the specific log set, for example set 4 in the current print and or the last set
 
     - (Easy) Add help func
 
     - (Mid) Sometimes a single task requires more than one set of prints, so, divide the prints by set, with name.
         - (extra) So, maybe add some logging levels, like quiet, mid & loud, and so different versions of the interface
-        can exist like qdaff, daff, ldaff, & depending on loudness for a particular file or something none, some or all
+        can exist like qdaff, ffad, ldaff, & depending on loudness for a particular file or something none, some or all
         of the calls are recorded, (maybe all recorded, only some saved?)
 
     - (Hard) Split the entire project into logical sections, make each section into a pip installable library,
     refactor the code to split the generic library code from the project specific. And make all python3 compatible.
     P.D. Really!? why? lol
-
-    - (Mid) delta-auto-attrs, log all the instance attrs on change, e.g. when initialised, when changed etc...
 
     - (Hard) Make a "class decorator" metaclass which omrolocsalads the entire class ??
 
@@ -117,7 +169,7 @@ Cool potential features:
 
     - (Mid) different outs:
         - When multiple processes are running the logs are separate, to have them joined write directly to file on entry & give a
-    flag name to each process to understand which process is producing the logs
+            flag name to each process to understand which process is producing the logs
 
     - (Mid) Given an object find the class who instantiated it, & the entire mro from it towards object, in the "auto", fashion, obj-auto-data
 
@@ -131,14 +183,13 @@ Cool potential features:
 
     - (Hard) Somehow better prints for wrappers, e.g. CallerCls(DefinerCls.@decoratorName.methNameToFindDefClsOf) (Look at closures? maybe?)
 
-    - (Hard) Reconstruct a class based on inheritance, i.e. "superHelp" similar to the built-in help, but print the code of all the methods
-    all into one class and save that into a .py file such that any class that inherits from any number of classes or uses a metaclass
-    can be substituted for the output of superHelp and have it behave in the same way
-
-    Facilitator - Doing this task will make future tasks easier
-    Easy - I definitely know how to do this, & shouldn't take long.
-    Mid  - Either I know how but will take a long time or there is some part I don't know how to do but recon it won't be too hard.
-    Hard - Either I don't know how to do this & I recon it'd be pretty hard or impossible or I kind of know & know it will take for-ever.
+    In hours:
+        0 < Easy < 4
+        4 < Mid < 16
+        16 < Hard < 32
+        Inc - This is an incremental job, not done or undone, but if I work one hour at it, it will get better, & if I do 10 it will get better,
+            but probably with diminishing returns
+    (If it takes more than 32 hours, it has to be broken down)
 
 """
 

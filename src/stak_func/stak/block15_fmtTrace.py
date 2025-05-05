@@ -1,8 +1,7 @@
 from .block00_typing import *
-from .block02_commonData import callableNames, callFlags, retFlags
-from .block04_log import traceLog
+from .block03_constants import callableNames, callFlags, retFlags
 from .block05_pathOps import pathSplitChar
-from .block07_creatingMroCallChains import joinFileLink, joinMroLink
+from .block09_joinSplitLinks import joinLinks
 
 def removeStakCallables(traceLog, calNames=callableNames):
     # type: (Lst[Tup[float, str, SplitLink]], Set[str]) -> Itrt[Tup[float, str, SplitLink]]
@@ -27,13 +26,14 @@ def makeOpenCalls(openCalls, _callFlags=callFlags, _retFlags=retFlags):
 
         yield calls[:]
 
-def joinTraceLinks(openCalls):  # type: (Itrt[Lst[Uni[Tup[str, int, str], Tup[Lst[str], str]]]]) -> Itrt[Lst[str]]
-    for links in openCalls:
-        yield list(
-            joinFileLink(*link) if len(link) == 3
-            else joinMroLink(*link)
-            for link in links
-        )
+# Deprecated in favour of one joiner in block09_joinFileLinks
+# def joinTraceLinks(openCalls):  # type: (Itrt[Lst[Uni[Tup[str, int, str], Tup[Lst[str], str]]]]) -> Itrt[Lst[str]]
+#     for links in openCalls:
+#         yield list(
+#             joinFileLink(*link) if len(link) == 3
+#             else joinMroLink(*link)
+#             for link in links
+#         )
 
 def makeMinMaxOpen(openCalls):  # type: (Itrt[Lst[str]]) -> Itrt[Lst[str]]
     prevLen   = 0
@@ -112,10 +112,11 @@ def joinEventGroups(minMaxDiff):  # type: (Itrt[Lst[Uni[str, int]]]) -> Itrt[str
         isCalling = not isCalling
 
 
-def formatTraceLog():  # type: () -> Itrt[str]
+def formatTraceLog(traceLog):  # type: (Lst[Tup[int, str, SplitLink]]) -> Itrt[str]
+
     trimTrace = removeStakCallables(traceLog)
     openCalls = makeOpenCalls(trimTrace)
-    joinedOpenCalls = joinTraceLinks(openCalls)
+    joinedOpenCalls = joinLinks(openCalls)
     minMaxOpen = makeMinMaxOpen(joinedOpenCalls)
     minMaxDiff = makeMinMaxDiff(minMaxOpen)
     joinedEventGroups = joinEventGroups(minMaxDiff)

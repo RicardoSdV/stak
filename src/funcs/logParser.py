@@ -1,7 +1,7 @@
 """
 Assuming that the log may be cutoff but the format won't change.
 If some or all the stamp is missing it is interpolated from the
-previous & next. If some flag of the flag is missing whatever flag
+previous & next. If some part of the flag is missing whatever flag
 is kept in the line and no further action is taken to recreate
 """
 

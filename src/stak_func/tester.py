@@ -1,13 +1,13 @@
-
 from src.stak_func.stak import jamInterfaceIntoBuiltins
 jamInterfaceIntoBuiltins()
 
 testingWhat = 'trace'
-
 segFlag = 'tester'
 
+# Add some sleep time to test splicing, 150 recommended
+maxSleepTime = 0
+
 if __name__ == '__main__':
-    import code
     from datetime import datetime
     from itertools import repeat
     from random import randint
@@ -34,17 +34,19 @@ if __name__ == '__main__':
                 omrolocsalad(someDatumForExtraLogging='420')
                 somePostOmrolocsaladLocal = 'yes this is post the salad'
                 omrolocs()
-                daff()
-                daff(someDatum=[1, 2, 3, 4])
-                daff(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
-                daff(pretty=False, someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+                ffad()
+                ffad(someDatum=[1, 2, 3, 4])
+                ffad(pretty=False, someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
                 omropocs()
-                autoLocals()
-                daff(SOME_SEPARATOR='================================================================================================')
+                ffadal()
+                ffad(SOME_SEPARATOR='================================================================================================')
             @property
             def __privProp(self): return self.test()
             def __testCaller(self): self.__privProp
-            def testCaller(self): localVar = 1; self.__testCaller()
+            def testCaller(self):
+                ffad(someDatum=[1, 2, 3, 4], someDatum2=[1, 2, 3, 4])
+                localVar = 1
+                self.__testCaller()
         class SomeCls(Daddy, Interface):
             @property
             def propCallerOfCallerOfCaller(self): return self.testCallerOfCaller()
@@ -148,7 +150,7 @@ if __name__ == '__main__':
             )
             maxNonCompLogLines = 53
             maxOmrolocs = 10
-            maxSleepTime = 150
+
 
             for _ in repeat(None, 40):
                 print 'Generating logs'
@@ -178,8 +180,8 @@ if __name__ == '__main__':
         def func2():
             a, b = 1, 2
             omrolocsalad()
-            daff(a=a, b=b)
-            autoLocals()
+            ffad(a=a, b=b)
+            ffadal()
         func2()
         Bro().forMethNameDupBug()
 
@@ -192,9 +194,9 @@ if __name__ == '__main__':
     elif testingWhat == 'trace':
 
         def A():
-            setTrace()
+            #setTrace()
             B()
-            delTrace()
+            #delTrace()
 
         def B():
             res = C(1, 1)
@@ -226,8 +228,6 @@ if __name__ == '__main__':
 
         A()
 
-
-variables = globals()
-variables.update(locals())
-shell = code.InteractiveConsole(variables)
+import code
+shell = code.InteractiveConsole(globals())
 shell.interact()

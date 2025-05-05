@@ -1,8 +1,8 @@
 from re import compile as compileRegexExpression
 
 from .block00_typing import *
-from .block03_commonData import cutoffFlag, stdFlags, cutoffCombos, wholeEnoughs
-from .block06_pathOps import getStdLogPaths
+from .block03_constants import cutoffFlag, stdFlags, cutoffCombos, wholeEnoughs
+from .block05_pathOps import getStdLogPaths
 from .z_utils import read
 
 
@@ -59,9 +59,9 @@ def trimTime(line, matchTuple, numTrimChar=(25, 20, 17, 14, 11, 8, 5, 0)):  # ty
 
 def parseLines(
         lines,                           # type: Lst[str]
-        _trimTime=trimTime,              # type: Cal[[str, OptStr8], str]
-        _trimFlag=trimFlag,              # type: Cal[[str], str]
-        _trimFlagIfPoss=trimFlagIfPoss,  # type: Cal[[str], Str2]
+        trimTime=trimTime,              # type: Cal[[str, OptStr8], str]
+        trimFlag=trimFlag,              # type: Cal[[str], str]
+        trimFlagIfPoss=trimFlagIfPoss,  # type: Cal[[str], Str2]
         none8=(None,)*8,                 # type: None8
 
         matcher=compileRegexExpression(
@@ -86,11 +86,11 @@ def parseLines(
             matchTuple = (None, None , None, None, matchTuple[3], matchTuple[5], matchTuple[6], matchTuple[7])
 
         if matchTuple[-1] is not None:
-            line = _trimTime(line, matchTuple)
-            line = _trimFlag(line)
+            line = trimTime(line, matchTuple)
+            line = trimFlag(line)
             yield matchTuple + (line.lstrip(': '),)
         else:
-            line, flag = _trimFlagIfPoss(line)
+            line, flag = trimFlagIfPoss(line)
             yield None, None, None, None, None, None, None, flag, line.lstrip(': ')
 
 def isStampCutoff(parsedLine, range6=tuple(xrange(6))):  # type: (OptStr9, Int6) -> bool
@@ -100,7 +100,7 @@ def isStampCutoff(parsedLine, range6=tuple(xrange(6))):  # type: (OptStr9, Int6)
     return False
 
 def parseAndInterpolLines(lines, none9=(None,)*9, interpol=interpolMissingStamps):
-    # type: (Lst[str], None9, Cal[[OptStr9, OptStr9, OptStr9, Int7], Itrt[str]]) -> Lst[OptStr9]
+    # type: (Lst[str], None9, Cal[[OptStr9, OptStr9, OptStr9], Itrt[str]]) -> Lst[OptStr9]
     parsedLines = list(parseLines(lines))
     lenLines = len(parsedLines)
 

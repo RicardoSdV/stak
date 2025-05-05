@@ -1,30 +1,19 @@
-from functools import partial
-
 from .block00_typing import *
-from .block01_settings import maxCompressGroupSize
-from .block03_commonData import omrolocsFlag
+from .block02_settingObj import so
 
 
-class CompressionFormatList(list):
-    # List that holds extra attributes for internal use in compression
-    # self.cnt -> Count of repetitions this list represents
-    # self.rep -> What does this list represent? some SplitLink s? some callChains?
-
-    def __init__(self, cnt=1, rep='', *args):  # type: (int, str, Any) -> None
-        super(CompressionFormatList, self).__init__(args)
+class CFL(list):
+    """ Compression Format List: with count of repetitions this list represents. """
+    def __init__(self, cnt=1, args=()):  # type: (int, Itrb) -> None
+        super(CFL, self).__init__(args)
         self.cnt = cnt
-        self.rep = rep
 
-def compress(
-        postPassCfl,               # type: CompressionFormatList
-        CFL=CompressionFormatList  # type: Typ[CompressionFormatList]
-):                                 # type: (...) -> CompressionFormatList
+def compress(postPassCfl, CFL=CFL):  # type: (CFL, Typ[CFL]) -> CFL
 
-    represents = postPassCfl.rep
-    for groupSize in xrange(1, min(len(postPassCfl) // 2, maxCompressGroupSize)):
+    for groupSize in xrange(1, min(len(postPassCfl) // 2, so.maxCompressGroupSize)):
 
         prePassCfl = postPassCfl
-        postPassCfl = CFL(cnt=prePassCfl.cnt, rep=prePassCfl.rep)
+        postPassCfl = CFL(prePassCfl.cnt)
 
         thisGroupStartI = 0
         thisGroupEndI = groupSize - 1
@@ -57,7 +46,7 @@ def compress(
 
                 else:  # There has been one or more repetitions of thisGroup
 
-                    compressedGroup = CompressionFormatList(groups_cnt, represents, *thisGroup)
+                    compressedGroup = CFL(groups_cnt, thisGroup)
                     postPassCfl.append(compressedGroup)
 
                     thisGroupStartI = nextGroupStartI
@@ -73,23 +62,19 @@ def compress(
 
     return postPassCfl
 
-isCfl = partial(isinstance, __class_or_tuple=CompressionFormatList)
-isStr = partial(isinstance, __class_or_tuple=str)
-
-def prettyfyLine(lineCfl, _isCfl=isCfl, _isStr=isStr):  # type: (CompressionFormatList, IsIns, IsIns) -> str
+def prettyfyLine(lineCfl):  # type: (CFL) -> str
     result = ''
 
     if lineCfl.cnt > 1:
-        result += '{}x['.format(lineCfl.cnt)
+        result += '%sx[' % lineCfl.cnt
 
     for el in lineCfl:
-        if _isCfl(el):
-            assert el.rep == 'line'
+        if isinstance(el, CFL):
             result += prettyfyLine(el)
-        elif _isStr(el):
+        elif isinstance(el, str):
             result += (el + ' <- ')
         else:
-            raise TypeError('Wrong type in compressed stack: type(el)', type(el))
+            raise TypeError('Wrong type in compressed callChain: type(el)', type(el))
 
     if lineCfl.cnt > 1:
         result = result.rstrip(' <- ')
@@ -98,34 +83,36 @@ def prettyfyLine(lineCfl, _isCfl=isCfl, _isStr=isStr):  # type: (CompressionForm
     return result
 
 def compressCallChains(
-        callChainsWithStrLinks,      # type: Itrb[Tup[Str4, str, str, Uni[str, Tup[str, ...]]]]
-        _omrolocsFlag=omrolocsFlag,  # type: str
-        pretty=prettyfyLine,         # type: Cal[[CompressionFormatList], str]
-        comp=compress,               # type: Cal[[CompressionFormatList], CompressionFormatList]
-        CFL=CompressionFormatList    # type: Typ[CompressionFormatList]
-):  # type: (...) -> Itrt[Tup[Str4, str, str, str]]
+        callChainsWithStrLinks,      # type: Itrb[Tup[Str4, Uni[str, Tup[str, ...]]]]
+        prettyfyLine=prettyfyLine,   # type: Cal[[CFL], str]
+        compress=compress,           # type: Cal[[CFL], CFL]
+        CFL=CFL                      # type: Typ[CFL]
+):                                   # type: (...) -> Itrt[Tup[Str4, Uni[str, Tup[str, ...]]]]
 
-    return (
-        (stamp, segFlag, callerFlag,
-         pretty(comp(CFL(1, 'line', *theRest))).rstrip(' <- ') if callerFlag == _omrolocsFlag else theRest)
-        for stamp, segFlag, callerFlag, theRest in callChainsWithStrLinks
-    )
+    for stamp, callChain in callChainsWithStrLinks:
+        if not isinstance(callChain, tuple):
+            yield stamp, callChain  # Is date entry or label
+            continue
 
-def prettyfyLines(linesCfl, depth=0, _isCfl=isCfl, _isStr=isStr):
-    # type: (CompressionFormatList, int, IsIns, IsIns) -> Lst[str]
+        cfl = CFL(1, callChain)
+        compressedCfl = compress(cfl)
+        prettyLine = prettyfyLine(compressedCfl).strip(' <- ')
+
+        yield stamp, prettyLine
+
+def prettyfyLines(linesCfl, depth=0):  # type: (CFL, int) -> Lst[str]
     indent = depth * '    '
     result = []
     appendToResult = result.append
     extendResult = result.extend
 
     if linesCfl.cnt > 1:
-        appendToResult('{}{}x'.format((depth - 1) * '    ', linesCfl.cnt))
+        appendToResult('%s%sx' % ((depth - 1) * '    ', linesCfl.cnt))
 
     for el in linesCfl:
-        if isCfl(el):
-            assert el.rep == 'parsedLines'
+        if isinstance(el, CFL):
             extendResult(prettyfyLines(el, depth + 1))
-        elif isStr(el):
+        elif isinstance(el, str):
             appendToResult(indent + el)
         else:
             raise TypeError('Wrong type in compressed list: ', type(el))
@@ -134,6 +121,6 @@ def prettyfyLines(linesCfl, depth=0, _isCfl=isCfl, _isStr=isStr):
 def compressLines(lines):  # type: (Lst[str]) -> Lst[str]
     return prettyfyLines(
         compress(
-            CompressionFormatList(1, 'parsedLines', *lines)
+            CFL(1, lines)
         )
     )

@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from _sre import SRE_Match
-    from itertools import partial
     from types import (
         CodeType,
         FrameType,
@@ -18,6 +17,7 @@ if TYPE_CHECKING:
         Iterable  as Itrb,
         Iterator  as Itrt,
         List      as Lst,
+        Literal   as Lit,
         Optional  as Opt,
         Sequence  as Seq,
         Set,
@@ -25,8 +25,6 @@ if TYPE_CHECKING:
         Type      as Typ,
         Union     as Uni,
     )
-
-    from .block05_log import Log
 
     # Type Aliases: Use to abbreviate simplicity, not hide complexity.
     OptStr8 = Tup[Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str], Opt[str]]
@@ -45,6 +43,8 @@ if TYPE_CHECKING:
     None8 = Tup[None, None, None, None, None, None, None, None]
     None9 = Tup[None, None, None, None, None, None, None, None, None]
 
+    TraceEvent = Uni[Lit['call'], Lit['line'], Lit['return'], Lit['exception']]
+
     App = Cal[[Any], None]            # list.append
     Time = Cal[[], float]             # time.time
     GF = Cal[[int], FrameType]        # sys._getframe
@@ -54,7 +54,11 @@ if TYPE_CHECKING:
 
     AnyCls = Typ[Any]
 
-    SplitLink = Uni[Tup[Lst[str], str], Tup[str, int, str]]
+#   splitLink = (filePath, lineno, mroClsNs or None, calName, strData or None)
+    SplitLink = Tup[str, int, Opt[Tup[str, ...]], str, Opt[Tup[str, str]]]
+
+#   stakLog = [(unixStamp, splitLink), ...]
+    StakLog = Lst[Tup[int, SplitLink]]
 
     Self = Cal[[Any], 'Self']
 
