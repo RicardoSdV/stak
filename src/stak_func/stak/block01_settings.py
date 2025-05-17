@@ -8,6 +8,7 @@ eventLabels = ['PRE EVENT 1', 'POST EVENT 1']
 taskDir  = 'task'
 printDir = 'print'
 
+silenceTrace = 0
 silencedFiles = {
     r'C:\prjs\stak\src\stak_func\tester.py': 0
 }
@@ -16,21 +17,41 @@ silencedFiles = {
 stdLogPrefixes = ('stdLogA', 'stdLogB')
 stakLogPrefix  = 'stak'
 traceLogPrefix = 'trace'
+jsonPrefix     = 'json'
+zippedPrefix   = 'zipped'
 
-# Omro(l/p)ocs formatting
-tryLogMro         = True
-alwaysLogFilePath = False
-alwaysLogLineno   = False
-defaultPathDepth  = 2
-maxMroClsNsDepth  = 2  # If falsy no limit
-includeData       = True
+## Increases compress times exponentially
+# reduce if saving takes too long.
+maxCompressGroupSize = 100
 
-## Save which?
-savePrimiStak  = True
-savePrimiStd   = True
-saveStakComp   = True
-saveSplice     = True
-saveCompSplice = True
+## Omro(l/p)ocs formatting
+tryLogMro         = 1
+alwaysLogFilePath = 1
+alwaysLogLineno   = 1
+includeData       = 1
+
+# Depths, if falsy no limit
+defaultPathDepth = 2
+maxMroClsNsDepth = 2
+
+## Stak log, save which?
+savePrimiStak = 1
+saveCompStak  = 1
+saveJsonStak  = 1
+saveZipStak   = 0
+
+## Standard log, save which?
+savePrimiStd = 1
+
+## Spliced logs, save which?
+saveStdStakSplice     = 1
+saveCompStdStakSplice = 1
+
+## Save which trace?
+saveTrace        = 1
+saveCompactTrace = 1
+saveJsonTrace    = 1
+saveZipTrace     = 0
 
 ## Dir paths: semi-static
 rootDir  = '.STAK'
@@ -45,8 +66,3 @@ compSuffix              = 'Compress'
 stdStakSpliceSuffix     = 'Splice'
 compStdStakSpliceSuffix = ''
 compactSuffix           = 'Compact'
-
-## Increases compress times exponentially
-maxCompressGroupSize = 100
-
-

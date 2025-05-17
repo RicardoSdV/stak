@@ -3,7 +3,8 @@ from time import time
 from types import FunctionType
 
 from .block00_typing import *
-from .block04_log import appendToLog
+from .block04_log import appendToStak
+from .block05_pathOps import pathsIgnoredOnLogGather
 
 # For some reason instance methods are FunctionType, at runtime, but not when testing
 # them out in the console, so isinstance(method, MethodType) is False at runtime, but
@@ -43,20 +44,40 @@ def iterMroUntilDefClsFound(calName, fLocals, codeObjToFindDefClsOf):
             if isinstance(clsAttr, classmethod) and clsAttr.__func__.__code__ is codeObjToFindDefClsOf:
                 return
 
-def makeSplitLink(frame, dataForLogging=None):  # type: (FrameType, Opt[Tup[Tup[str, str], ...]]) -> SplitLink
+def makeSplitLink(
+        frame,                                     # type: FrameType
+        dataForLogging = None,                     # type: Opt[Tup[Tup[str, str], ...]]
+        _ignorePaths   = pathsIgnoredOnLogGather,  # type: str
+):                                                 # type: (...) -> Opt[SplitLink]
+
     codeObj = frame.f_code
+    path = codeObj.co_filename
+    if path in _ignorePaths:
+        return None
+
     calName = codeObj.co_name
     mroClsNs = tuple(iterMroUntilDefClsFound(calName, frame.f_locals, codeObj)) or None
-    return codeObj.co_filename, frame.f_lineno, mroClsNs, calName, dataForLogging
+    return path, frame.f_lineno, mroClsNs, calName, dataForLogging
 
-def makeCallChain(frame, firstFrameData=None):  # type: (FrameType, Opt[Tup[Tup[str, str], ...]]) -> Itrt[SplitLink]
-    yield makeSplitLink(frame, firstFrameData)
+def makeCallChain(
+        frame,                           # type: FrameType
+        firstFrameData = None,           # type: Opt[Tup[Tup[str, str], ...]]
+        _makeSplitLink = makeSplitLink,  # type: Cal[[FrameType, Opt[Tup[Tup[str, str], ...]]], Opt[splitLink]]
+):                                       # type: (...) -> Itrt[SplitLink]
+    splitLink = _makeSplitLink(frame, firstFrameData)
+    if splitLink: yield splitLink
     frame = frame.f_back
 
     while frame:
-        yield makeSplitLink(frame)
+        splitLink = makeSplitLink(frame)
+        if splitLink: yield splitLink
         frame = frame.f_back
 
-def omrolocs(log=appendToLog, now=time, frame=_getframe, callChain=makeCallChain):  # type: (App, Time, GF, Cal[[FrameType], Itrt[SplitLink]]) -> None
-    """ Optional Method Resolution Order Logger Optional Call Stack """
-    log((now(), tuple(callChain(frame(1)))))
+# Optional Method Resolution Order Logger Optional Call Stack
+def omrolocs(
+        _log           = appendToStak,  # type: App
+        _now           = time,          # type: Time
+        _getFrame      = _getframe,     # type: GF
+        _makeCallChain = makeCallChain  # type: Cal[[FrameType], Itrt[SplitLink]]
+):                                      # type: (...) -> None
+    _log((_now(), tuple(_makeCallChain(_getFrame(1)))))

@@ -3,22 +3,18 @@ from time import time
 
 from .block00_typing import *
 from .block02_settingObj import so
-from .block05_pathOps import getStdLogPaths
+from .block05_pathOps import getStdLogPath
 
 
-class EventCounter(object):
-    __slots__ = ('cnt',)
-    def __init__(self):  # type: () -> None
-        self.cnt = 0
-
+class EventCounter(object): __slots__ = ('cnt',)
 eCnt = EventCounter()
+eCnt.cnt = 0
 
+stakLog = []  # type: StakLog
+appendToStak = stakLog.append
+extendStak   = stakLog.extend
 
-log = []  # type: Lst[Tup[float, Uni[Tup[SplitLink, ...], str]]]
-appendToLog = log.append
-extendLog   = log.extend
-
-traceLog = []  # type: Lst[Tup[float, str, SplitLink]]
+traceLog = []  # type: TraceLog
 appendToTrace = traceLog.append
 
 
@@ -26,7 +22,7 @@ def dateEntries():
     """ Since normal entries only log time, this one is used to log date, on logging session init & clear. """
 
     now = time()
-    appendToLog((now, datetime.now().strftime('%Y-%m-%d')))
+    appendToStak((now, datetime.now().strftime('%Y-%m-%d')))
     # appendToTrace()  # TODO: Implement dates in trace
 
 
@@ -44,17 +40,17 @@ def labelLogs(label):
                 '=========================================================\n'.format(label))
 
     now = time()
-    appendToLog((now, fmtLabel))
+    appendToStak((now, fmtLabel))
     # appendToTrace(now, labelFlag, fmtLabel)  # TODO: Labels in trace
 
 def clearLogs():
     """ DANGER: Clears current logs, stak, trace & std. Resets eventCnt (label print count) & more """
 
-    for path in getStdLogPaths():
-        with open(path, 'w') as _: pass
+    for prefix in so.stdLogPrefixes:
+        with open(getStdLogPath(prefix), 'w') as _: pass
 
     eCnt.cnt = 0
-    log[:] = []
+    stakLog [:] = []
     traceLog[:] = []
     dateEntries()
 

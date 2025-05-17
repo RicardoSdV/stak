@@ -13,19 +13,18 @@ from .block00_typing import *
 from .block02_settingObj import so
 from .block04_log import labelLogs, clearLogs
 from .block05_pathOps import removePrintDir
-from .block08_creatingMroCallChains import omrolocs
-from .block09_joinSplitLinks import omropocs
-from .block10_dataLinks import firstFrameAndData, omrolocsalad, firstFrameAndDataAndLocals
-from .block11_tracing import delTrace, setTrace
-from .block16_savingAllLogs import saveAll
-from .z_utils import redStr
+from .block07_creatingMroCallChains import omrolocs
+from .block08_joinSplitLinks import omropocs
+from .block09_dataLinks import firstFrameAndData, omrolocsalad, firstFrameAndDataAndLocals
+from .block10_tracing import delTrace, setTrace
+from .block14_saveOps import saveAll
+from .z_utils import E
 
 ## Shell Aliases
 s = save = saveAll
 l = label = labelLogs
 c = clear = clearLogs
 rmp = rmPrint = removePrintDir
-settingsObj = so
 rs = reloadSettings = so.reload
 
 callFromShellInterface = (
@@ -33,7 +32,6 @@ callFromShellInterface = (
     'l', 'label', 'labelLogs',
     'c', 'clear', 'clearLogs',
     'rmp', 'rmPrint', 'removePrintDir',
-    'so', 'settingsObj',
     'rs', 'reloadSettings',
 )
 
@@ -64,4 +62,4 @@ def jamInterfaceIntoBuiltins(interfaceNames=callFromShellInterface):  # type: (I
         if reloading or not hasattr(__builtin__, name):
             setattr(__builtin__, name, _globals[name])
         else:
-            print redStr('ERROR: COLLISION! in stak.__init__.jamInterfaceIntoBuiltins, name=%s' % name)
+            E('COLLISION!', name=name)

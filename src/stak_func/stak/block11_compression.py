@@ -1,6 +1,10 @@
 from .block00_typing import *
 from .block02_settingObj import so
 
+# TODO: This file really needs a refactoring and some perf testing and improvement
+#  since its the main bottleneck when saving. But its too complicated to remove the
+#  recursion in a performant way so I can't be bothered right now, but one day.
+
 
 class CFL(list):
     """ Compression Format List: with count of repetitions this list represents. """
@@ -84,43 +88,44 @@ def prettyfyLine(lineCfl):  # type: (CFL) -> str
 
 def compressCallChains(
         callChainsWithStrLinks,      # type: Itrb[Tup[Str4, Uni[str, Tup[str, ...]]]]
-        prettyfyLine=prettyfyLine,   # type: Cal[[CFL], str]
-        compress=compress,           # type: Cal[[CFL], CFL]
-        CFL=CFL                      # type: Typ[CFL]
-):                                   # type: (...) -> Itrt[Tup[Str4, Uni[str, Tup[str, ...]]]]
+
+        _prettyfyLine = prettyfyLine,  # type: Cal[[CFL], str]
+        _compress     = compress,      # type: Cal[[CFL], CFL]
+        _CFL          = CFL            # type: Typ[CFL]
+
+):  # type: (...) -> Itrt[Tup[Str4, Uni[str, Tup[str, ...]]]]
 
     for stamp, callChain in callChainsWithStrLinks:
         if not isinstance(callChain, tuple):
             yield stamp, callChain  # Is date entry or label
             continue
 
-        cfl = CFL(1, callChain)
-        compressedCfl = compress(cfl)
-        prettyLine = prettyfyLine(compressedCfl).strip(' <- ')
+        cfl = _CFL(1, callChain)
+        compressedCfl = _compress(cfl)
+        prettyLine = _prettyfyLine(compressedCfl).strip(' <- ')
 
         yield stamp, prettyLine
 
 def prettyfyLines(linesCfl, depth=0):  # type: (CFL, int) -> Lst[str]
     indent = depth * '    '
-    result = []
-    appendToResult = result.append
-    extendResult = result.extend
+    result = []; append = result.append; extend = result.extend
 
     if linesCfl.cnt > 1:
-        appendToResult('%s%sx' % ((depth - 1) * '    ', linesCfl.cnt))
+        append('%s%sx\n' % ((depth - 1) * '    ', linesCfl.cnt))
 
     for el in linesCfl:
-        if isinstance(el, CFL):
-            extendResult(prettyfyLines(el, depth + 1))
-        elif isinstance(el, str):
-            appendToResult(indent + el)
+        elClass = el.__class__
+        if elClass is CFL:
+            extend(prettyfyLines(el, depth + 1))
+        elif elClass is str:
+            append(indent + el + '\n')
         else:
-            raise TypeError('Wrong type in compressed list: ', type(el))
+            raise TypeError('Wrong type in compressed list: ', elClass)
     return result
 
-def compressLines(lines):  # type: (Lst[str]) -> Lst[str]
-    return prettyfyLines(
-        compress(
-            CFL(1, lines)
-        )
-    )
+def prettyCompressLines(entries):  # type: (Itrb[Tup[..., str]]) -> Lst[str]
+    cflLines = CFL(1, [entry[-1] for entry in entries])
+    compressedCfls = compress(cflLines)
+    prettyLines = prettyfyLines(compressedCfls)
+    return prettyLines
+

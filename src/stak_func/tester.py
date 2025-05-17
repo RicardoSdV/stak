@@ -2,6 +2,7 @@ from src.stak_func.stak import jamInterfaceIntoBuiltins
 jamInterfaceIntoBuiltins()
 
 testingWhat = 'trace'
+testingWhat = 'stak'
 segFlag = 'tester'
 
 # Add some sleep time to test splicing, 150 recommended
@@ -194,9 +195,9 @@ if __name__ == '__main__':
     elif testingWhat == 'trace':
 
         def A():
-            #setTrace()
+            setTrace()
             B()
-            #delTrace()
+            delTrace()
 
         def B():
             res = C(1, 1)

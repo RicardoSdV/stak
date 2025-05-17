@@ -24,7 +24,7 @@ from src.stak_func.stak import block01_settings
 settingsNames = [
     name
     for name in block01_settings.__dict__
-    if not name.startswith('__')
+    if not name.endswith('_')
 ]
 slottables = copy(settingsNames)  # For export
 

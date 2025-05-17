@@ -45,20 +45,27 @@ if TYPE_CHECKING:
 
     TraceEvent = Uni[Lit['call'], Lit['line'], Lit['return'], Lit['exception']]
 
-    App = Cal[[Any], None]            # list.append
-    Time = Cal[[], float]             # time.time
-    GF = Cal[[int], FrameType]        # sys._getframe
-    Zip = Cal                         # itertools.izip
-    IsIns = Cal[[Any], bool]          # isinstance
-    GetFrame = Cal[[int], FrameType]  # sys._getframe
+    App = Cal[[Any], None]                       # list.append
+    Time = Cal[[], float]                        # time.time
+    GF = Cal[[int], FrameType]                   # sys._getframe
+    Zip = Cal[[Itrb, Itrb], Itrt[Tup[Any, Any]]]  # itertools.izip
+    IsIns = Cal[[Any], bool]                     # isinstance
+    GetFrame = Cal[[int], FrameType]             # sys._getframe
 
     AnyCls = Typ[Any]
 
 #   splitLink = (filePath, lineno, mroClsNs or None, calName, strData or None)
     SplitLink = Tup[str, int, Opt[Tup[str, ...]], str, Opt[Tup[str, str]]]
 
-#   stakLog = [(unixStamp, splitLink), ...]
-    StakLog = Lst[Tup[int, SplitLink]]
+    SplitLinkChain = Tup[SplitLink, ...]
+
+    DataForLogging = Opt[Tup[Tup[str, str], ...]]
+
+#   stakLog = [(unixStamp, splitLinkChain), ...]
+    StakLog = Lst[Tup[int, SplitLinkChain]]
+
+#   traceLog = [(unixStamp, traceFlag, splitLink)]
+    TraceLog = Lst[Tup[int, str, SplitLink]]
 
     Self = Cal[[Any], 'Self']
 

@@ -1,41 +1,31 @@
 from .block00_typing import *
-from .block03_constants import callableNames, callFlags, retFlags
+from .block03_constants import callFlags, retFlags
 from .block05_pathOps import pathSplitChar
-from .block09_joinSplitLinks import joinLinks
+from .block08_joinSplitLinks import joinLink
 
-def removeStakCallables(traceLog, calNames=callableNames):
-    # type: (Lst[Tup[float, str, SplitLink]], Set[str]) -> Itrt[Tup[float, str, SplitLink]]
-    for entry in traceLog:
-        if entry[-1][-1] not in calNames:
-            yield entry
+# TODO: Yeah this is an initial implementation, all these functions should be one
+#  and its not really been tested other than with the tester.py.
 
-def makeOpenCalls(openCalls, _callFlags=callFlags, _retFlags=retFlags):
-    # type: (Itrt[Tup[float, str, SplitLink]], Set[str], Set[str]) -> Itrt[Lst[Uni[Tup[str, int, str], Tup[Lst[str], str]]]]
-    calls = []
-    appCalls = calls.append
-    popCalls = calls.pop
+
+def makeOpenCalls(
+        openCalls,             # type: Itrb[Tup[float, str, SplitLink]]
+        _joinLink=joinLink,    # type: Cal[[SplitLink], str]
+        _callFlags=callFlags,  # type: Set[str]
+        _retFlags=retFlags,    # type: Set[str]
+):                             # type: (...) -> Itrt[Lst[str]]
+    calls = []; append = calls.append; pop = calls.pop
 
     for stamp, flag, link in openCalls:
         if flag in _callFlags:
-            appCalls(link)
+            append(_joinLink(link))
         elif flag in _retFlags:
-            retLink = popCalls()
-            assert retLink[0] == link[0] and retLink[-1] == link[-1]
+            pop()
         else:
             raise NotImplementedError()
 
         yield calls[:]
 
-# Deprecated in favour of one joiner in block09_joinFileLinks
-# def joinTraceLinks(openCalls):  # type: (Itrt[Lst[Uni[Tup[str, int, str], Tup[Lst[str], str]]]]) -> Itrt[Lst[str]]
-#     for links in openCalls:
-#         yield list(
-#             joinFileLink(*link) if len(link) == 3
-#             else joinMroLink(*link)
-#             for link in links
-#         )
-
-def makeMinMaxOpen(openCalls):  # type: (Itrt[Lst[str]]) -> Itrt[Lst[str]]
+def makeMinMaxOpen(openCalls):  # type: (Itrb[Lst[str]]) -> Itrt[Lst[str]]
     prevLen   = 0
     prevDir   = 'call'
     prevCalls = []
@@ -54,7 +44,11 @@ def makeMinMaxOpen(openCalls):  # type: (Itrt[Lst[str]]) -> Itrt[Lst[str]]
 
     yield calls
 
-def replaceRedundantWithSpacesInPlace(calls, num, extra='' if pathSplitChar == '/' else ' '):  # type: (Lst[str], int, str) -> None
+def replaceRedundantWithSpacesInPlace(
+        calls,                                     # type: Lst[str]
+        num,                                       # type: int
+        extra='' if pathSplitChar == '/' else ' '  # type: str
+):                                                 # type: (...) -> None
     num = max(0, num-1)
     for i, call in enumerate(calls):
         if i < num:
@@ -93,9 +87,10 @@ def splitIntsFromStrs(iterable):  # type: (Itrb[Uni[str, int]]) -> Tup[Lst[str],
     appStrs, appInts = strs.append, ints.append
 
     for el in iterable:
-        if isinstance(el, str):
+        _class = el.__class__
+        if _class is str:
             appStrs(el)
-        elif isinstance(el, int):
+        elif _class is int:
             appInts(el)
         else:
             raise ValueError()
@@ -108,18 +103,64 @@ def joinEventGroups(minMaxDiff):  # type: (Itrt[Lst[Uni[str, int]]]) -> Itrt[str
     for diff in minMaxDiff:
         strLinks, spaceNums = splitIntsFromStrs(diff)
         joinedLinks = ' -> '.join(strLinks) if isCalling else ' <- '.join(strLinks)
-        yield (' ' * sum(spaceNums)) + ('    ' * (max(0, len(spaceNums)))) + joinedLinks
+        yield (' ' * sum(spaceNums)) + ('    ' * (max(0, len(spaceNums)))) + joinedLinks + '\n'
         isCalling = not isCalling
 
 
-def formatTraceLog(traceLog):  # type: (Lst[Tup[int, str, SplitLink]]) -> Itrt[str]
+def compactTraceLog(traceLog):  # type: (TraceLog) -> Itrt[str]
 
-    trimTrace = removeStakCallables(traceLog)
-    openCalls = makeOpenCalls(trimTrace)
-    joinedOpenCalls = joinLinks(openCalls)
-    minMaxOpen = makeMinMaxOpen(joinedOpenCalls)
+    openCalls = makeOpenCalls(traceLog)
+    minMaxOpen = makeMinMaxOpen(openCalls)
     minMaxDiff = makeMinMaxDiff(minMaxOpen)
     joinedEventGroups = joinEventGroups(minMaxDiff)
+
     return joinedEventGroups
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Deprecated in favour of one joiner in block09_joinFileLinks
+# def joinTraceLinks(openCalls):  # type: (Itrt[Lst[Uni[Tup[str, int, str], Tup[Lst[str], str]]]]) -> Itrt[Lst[str]]
+#     for links in openCalls:
+#         yield list(
+#             joinFileLink(*link) if len(link) == 3
+#             else joinMroLink(*link)
+#             for link in links
+#         )
+
+
+# Deprecated in favour of ignoring paths on log gather.
+# def removeStakCallables(traceLog, calNames=callableNames):
+#     # type: (Lst[Tup[float, str, SplitLink]], Set[str]) -> Itrt[Tup[float, str, SplitLink]]
+#     for entry in traceLog:
+#         if entry[-1][-1] not in calNames:
+#             yield entry
 
 

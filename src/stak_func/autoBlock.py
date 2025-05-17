@@ -14,7 +14,7 @@ from src.stak_func.stak.z_utils import getBlockNum, matchNumAndSuffix, readSorte
 
 ## Settings
 # In the format: {prefix or ''}{index}_{name}{suffix or ''}
-newBlockName = '9_joinSplitLinks'
+newBlockName = ''
 blockPrefix = 'block'
 fileExtension = '.py'
 dirPath = 'stak'

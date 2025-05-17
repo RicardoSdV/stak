@@ -2,6 +2,7 @@
 Some stuff is more convenient if computed, but really it only needs to be computed once, not every time the program is run.
 So, the solution is to compute these things in this file & inject the results into stak.
 Also, removes some clutter from the code.
+Also, settings are injected by running this.
 """
 from time import time
 start = time()
@@ -13,7 +14,7 @@ from os.path import join
 
 from src.stak_func.stak.block00_typing import *
 from src.stak_func.stak.block03_constants import stdFlags, stakFlags, cutoffFlag, traceFlags
-from src.stak_func.stak.z_utils import read, padFlags, write, loadBlocks, tryCall, packageName
+from src.stak_func.stak.z_utils import read, padFlags, write, loadBlocks, tryCall, packageName, P
 
 constsFileName = 'block03_constants.py'
 constsPath = join(packageName, constsFileName)
@@ -24,10 +25,9 @@ writeConstants = partial(write, constsPath)
 def runInjectors():
     # Settings injection must happen first
     tryCall(injectSettings, errMess='Settings injection failed')
-
     tryCall(injectConstants, errMess='Constants injection failed')
 
-    print 'Injection took: ', round(time() - start, 2), 's'
+    P('Injection took:', round(time() - start, 2), 's')
 
 def injectSettings():
     from src.stak_func.autoSetting import readSettingObj, slottables, writeSettingObj

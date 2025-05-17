@@ -3,7 +3,7 @@ from sys import _getframe
 from .block00_typing import *
 from .block02_settingObj import so
 from .block05_pathOps import pathSplitChar
-from .block08_creatingMroCallChains import makeCallChain
+from .block07_creatingMroCallChains import makeCallChain
 
 
 def joinLink(splitLink, splitChar=pathSplitChar):  # type: (SplitLink, str) -> str
@@ -56,13 +56,14 @@ def joinLink(splitLink, splitChar=pathSplitChar):  # type: (SplitLink, str) -> s
 def joinLinks(splitLinks, join=joinLink):  # type: (Itrb[SplitLink], ...) -> Itrt[str]
     return (join(link) for link in splitLinks)
 
+# Optional Method Resolution Order Printer Optional Call Stack
 def omropocs(
-        frame=_getframe,          # type: Cal[[int], FrameType]
-        callChain=makeCallChain,  # type: Cal[[FrameType], ...]
-        join=joinLinks,           # type: Cal
-):                                # type: (...) -> None
-    """ Optional Method Resolution Order Printer Optional Call Stack """
-    return
-    frame = frame(1)
-    print 'OMROPOCS: ' + ' <- '.join(join(callChain(frame)))
-
+        doPrint        = True,           # type: bool
+        _getFrame      = _getframe,      # type: Cal[[int], FrameType]
+        _makeCallChain = makeCallChain,  # type: Cal[[FrameType], ...]
+        _joinLinks     = joinLinks,      # type: Cal[[Itrb[SplitLink], Itrt[str]]]
+):                                       # type: (...) -> None
+    frame = _getFrame(1)
+    strLink = ' <- '.join(_joinLinks(_makeCallChain(frame)))
+    if doPrint: print 'OMROPOCS: ' + strLink
+    return strLink

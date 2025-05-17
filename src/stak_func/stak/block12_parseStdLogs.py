@@ -2,8 +2,6 @@ from re import compile as compileRegexExpression
 
 from .block00_typing import *
 from .block03_constants import cutoffFlag, stdFlags, cutoffCombos, wholeEnoughs
-from .block05_pathOps import getStdLogPaths
-from .z_utils import read
 
 
 def interpolMissingStamps(prevLine, thisLine, nextLine, expectedChars=(4, 2, 2, 2, 2, 2, 3)):
@@ -24,7 +22,7 @@ def interpolMissingStamps(prevLine, thisLine, nextLine, expectedChars=(4, 2, 2, 
     yield thisLine[-2]
     yield thisLine[-1]
 
-def splitStampFromTheRest(lines):  # type: (Lst[Str9]) -> Itrt[Tup[Str4, str, str]]
+def splitStampFromTheRest(lines):  # type: (Itrb[Str9]) -> Itrt[Tup[Str4, str, str]]
     for year, month, day, hour, minute, second, millisec, flag, theRest in lines:
         yield (
             (hour, minute, second, millisec),
@@ -58,11 +56,11 @@ def trimTime(line, matchTuple, numTrimChar=(25, 20, 17, 14, 11, 8, 5, 0)):  # ty
             return line[numTrimChar[i + 1] if i < 7 and matchTuple[i + 1] is None else numTrimChar[i]:]
 
 def parseLines(
-        lines,                           # type: Lst[str]
-        trimTime=trimTime,              # type: Cal[[str, OptStr8], str]
-        trimFlag=trimFlag,              # type: Cal[[str], str]
-        trimFlagIfPoss=trimFlagIfPoss,  # type: Cal[[str], Str2]
-        none8=(None,)*8,                 # type: None8
+        lines,                         # type: Itrb[str]
+        trimTime=trimTime,             # type: Cal[[str, OptStr8], str]
+        trimFlag=trimFlag,             # type: Cal[[str], str]
+        trimFlagIfPoss=trimFlagIfPoss, # type: Cal[[str], Str2]
+        none8=(None,)*8,               # type: None8
 
         matcher=compileRegexExpression(
             r'(?:(\d{4})-)?' 
@@ -99,9 +97,9 @@ def isStampCutoff(parsedLine, range6=tuple(xrange(6))):  # type: (OptStr9, Int6)
             return True
     return False
 
-def parseAndInterpolLines(lines, none9=(None,)*9, interpol=interpolMissingStamps):
-    # type: (Lst[str], None9, Cal[[OptStr9, OptStr9, OptStr9], Itrt[str]]) -> Lst[OptStr9]
-    parsedLines = list(parseLines(lines))
+def interpolLines(parsedLines, none9=(None,)*9, interpol=interpolMissingStamps):
+    # type: (..., None9, Cal[[OptStr9, OptStr9, OptStr9], Itrt[str]]) -> Lst[OptStr9]
+    parsedLines = list(parsedLines)
     lenLines = len(parsedLines)
 
     for parsedLine in parsedLines:
@@ -125,13 +123,8 @@ def parseAndInterpolLines(lines, none9=(None,)*9, interpol=interpolMissingStamps
 
     return parsedLines
 
-def parseStdLogs():  # type: () -> Itrt[Tup[Tup[Str4, str, str], ...]]
-    for path in getStdLogPaths():
-        lines = read(path)
-        yield tuple(
-            splitStampFromTheRest(
-                parseAndInterpolLines(
-                    lines
-                )
-            )
-        )
+def parseStdLog(rawLines):  # type: (Itrb[str]) -> Itrt[Tup[Str4, str, str]]
+    parsedLines = parseLines(rawLines)
+    interpoledLines = interpolLines(parsedLines)
+    splitStdLog = splitStampFromTheRest(interpoledLines)
+    return splitStdLog

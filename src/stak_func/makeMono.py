@@ -1,0 +1,7 @@
+
+keepSeparate = {
+    'settings'
+}
+
+dirName = 'stak'
+

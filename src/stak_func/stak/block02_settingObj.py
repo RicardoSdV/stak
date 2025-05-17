@@ -1,5 +1,7 @@
+from sys import modules
+
 from .block00_typing import *
-from .z_utils import tryCall
+from .z_utils import tryCall, E
 
 
 class Settings(object):
@@ -15,10 +17,10 @@ class Settings(object):
     Therefore, to keep settings dynamic reference the ones in the settings object, don't
     import settings from block01_settings. """
 
-    __slots__ = ('stakLogPrefix', 'compStdStakSpliceSuffix', 'maxMroClsNsDepth', 'tryLogMro', 'primiSuffix', 'defaultPathDepth', 'eventLabels', 'compactSuffix', 'traceLogPrefix', 'primiDir', 'variDir', 'alwaysLogFilePath', 'taskDir', 'compSuffix', 'stdLogPrefixes', 'printDir', 'stdStakSpliceSuffix', 'rootDir', 'silencedFiles', 'alwaysLogLineno', 'maxCompressGroupSize', 'stdDir', 'jsonDir', 'includeData', 'savePrimiStak', 'savePrimiStd', 'saveStakComp', 'saveSplice', 'saveCompSplice')  # This line was injected by injectors.py
+    __slots__ = ('stakLogPrefix', 'compStdStakSpliceSuffix', 'saveStdStakSplice', 'saveTrace', 'zippedPrefix', 'maxMroClsNsDepth', 'savePrimiStd', 'tryLogMro', 'primiSuffix', 'jsonDir', 'primiDir', 'jsonPrefix', 'saveCompStdStakSplice', 'saveCompStak', 'defaultPathDepth', 'eventLabels', 'compactSuffix', 'silenceTrace', 'traceLogPrefix', 'saveJsonStak', 'saveJsonTrace', 'variDir', 'saveZipStak', 'alwaysLogFilePath', 'taskDir', 'compSuffix', 'includeData', 'saveCompactTrace', 'saveZipTrace', 'stdLogPrefixes', 'printDir', 'stdStakSpliceSuffix', 'savePrimiStak', 'rootDir', 'silencedFiles', 'alwaysLogLineno', 'maxCompressGroupSize', 'stdDir')  # This line was injected by injectors.py
 
     def __init__(self):
-
+        self.compactSuffix           = 'Compact'
 
         ## Labels
         self.eventLabels = ['PRE EVENT 1', 'POST EVENT 1']
@@ -27,29 +29,50 @@ class Settings(object):
         self.taskDir  = 'task'
         self.printDir = 'print'
 
+        self.silenceTrace = 0
         self.silencedFiles = {
-
+            r'C:\prjs\stak\src\stak_func\tester.py': 0
         }
 
         ## File prefixes
         self.stdLogPrefixes = ('stdLogA', 'stdLogB')
         self.stakLogPrefix  = 'stak'
         self.traceLogPrefix = 'trace'
+        self.jsonPrefix     = 'json'
+        self.zippedPrefix   = 'zipped'
 
-        # Omro(l/p)ocs formatting
-        self.tryLogMro         = True
-        self.alwaysLogFilePath = False
-        self.alwaysLogLineno   = False
-        self.defaultPathDepth  = 2
-        self.maxMroClsNsDepth  = None
-        self.includeData       = True
+        ## Increases compress times exponentially
+        # reduce if saving takes too long.
+        self.maxCompressGroupSize = 100
 
-        ## Save which?
-        self.savePrimiStak  = True
-        self.savePrimiStd   = True
-        self.saveStakComp   = True
-        self.saveSplice     = True
-        self.saveCompSplice = True
+        ## Omro(l/p)ocs formatting
+        self.tryLogMro         = 1
+        self.alwaysLogFilePath = 1
+        self.alwaysLogLineno   = 1
+        self.includeData       = 1
+
+        # Depths, if falsy no limit
+        self.defaultPathDepth = 2
+        self.maxMroClsNsDepth = 2
+
+        ## Stak log, save which?
+        self.savePrimiStak = 1
+        self.saveCompStak  = 1
+        self.saveJsonStak  = 1
+        self.saveZipStak   = 0
+
+        ## Standard log, save which?
+        self.savePrimiStd = 1
+
+        ## Spliced logs, save which?
+        self.saveStdStakSplice     = 1
+        self.saveCompStdStakSplice = 1
+
+        ## Save which trace?
+        self.saveTrace        = 1
+        self.saveCompactTrace = 1
+        self.saveJsonTrace    = 1
+        self.saveZipTrace     = 0
 
         ## Dir paths: semi-static
         self.rootDir  = '.STAK'
@@ -64,21 +87,29 @@ class Settings(object):
         self.stdStakSpliceSuffix     = 'Splice'
         self.compStdStakSpliceSuffix = ''
         self.compactSuffix           = 'Compact'
-
-        ## Increases compress times exponentially
-        self.maxCompressGroupSize = 100
-
-
         ## Init finit (do not delete this comment)
 
     savePrimis = property(lambda self: self.savePrimiStak or self.savePrimiStd)
-    saveVaris  = property(lambda self: self.saveStakComp  or self.saveSplice)
+    saveVaris  = property(lambda self: self.saveCompStak  or self.saveCompStdStakSplice)
+    saveJson   = property(lambda self: self.saveJsonTrace or self.saveZipTrace)
 
     def reload(self):
         from . import block01_settings as s
-        for name, setting in reload(s).__dict__.iteritems():
-            if not name.startswith('__') and not name.endswith('__'):
-                tryCall(setattr, self, name, setting, errMess='If this error is raised by injectors.py, its fine, works anyway, (probably...)')
+        for name, newSetting in reload(s).__dict__.iteritems():
+            if name.endswith('_'):
+                continue
+
+            oldSetting = getattr(self, name, None)
+            if oldSetting == newSetting:
+                continue
+
+            tryCall(setattr, self, name, newSetting, errMess='If this error is raised by injectors.py, should be fine.')
+
+            if name not in deltaActionSettings:
+                continue
+
+            deltaCallable = deltaActionSettings[name]
+            deltaCallable(oldSetting, newSetting)
 
     def toDict(self):  # type: () -> Dic[str, Any]
         """ Serialize settings into a dict to save as json """
@@ -94,6 +125,20 @@ class Settings(object):
         for name, setting in settings.iteritems():
             tryCall(setattr, self, name, setting, errMess='Logs were saved with a setting which no longer exists, name=%s, setting=%s' % (name, setting))
 
+
+def onTraceSilenced(wasSilenced, isSilenced):
+    assert wasSilenced != isSilenced
+
+    from .block10_tracing import setTrace, delTrace, traceState
+
+    if not traceState.mayHave: return
+    if not wasSilenced and     isSilenced: delTrace(); return
+    if     wasSilenced and not isSilenced: setTrace(); return
+
+
+deltaActionSettings = {
+    'silenceTrace': onTraceSilenced
+}
 
 so = Settings()
 so.reload()
