@@ -9,40 +9,66 @@ Callables intended for shell use can be added to __builtins__ for easy calling
 by calling jamInterfaceIntoBuiltins.
 """
 
-from .block00_typing import *
-from .block02_settingObj import so
-from .block04_log import labelLogs, clearLogs
-from .block05_pathOps import removePrintDir
-from .block07_creatingMroCallChains import omrolocs
-from .block08_joinSplitLinks import omropocs
-from .block09_dataLinks import firstFrameAndData, omrolocsalad, firstFrameAndDataAndLocals
-from .block10_tracing import delTrace, setTrace
-from .block14_saveOps import saveAll
-from .z_utils import E
+from . import block15_injectors as injectors
+del injectors
+
+from         .block00_typing       import *; time = clock()
+from . import block01_settings     as settings
+from . import block02_settingObj   as settingsObj
+from . import block03_constants    as cs
+from . import block04_log          as log
+from . import block05_pathOps      as pathOps
+from . import block06_stampOps     as stampOps
+from . import block07_callChains   as callChains
+from . import block08_joinLinks    as joinSplitLinks
+from . import block09_dataLinks    as dataLinks
+from . import block10_tracing      as tracing
+from . import block11_compression  as compression
+from . import block12_parseStdLogs as parseStdLogs
+from . import block13_saveOps      as saveOps
+from . import block16_utils              as utils
+
 
 ## Shell Aliases
-s = save = saveAll
-l = label = labelLogs
-c = clear = clearLogs
-rmp = rmPrint = removePrintDir
-rs = reloadSettings = so.reload
-
-callFromShellInterface = (
-    's', 'save', 'saveAll',
-    'l', 'label', 'labelLogs',
-    'c', 'clear', 'clearLogs',
-    'rmp', 'rmPrint', 'removePrintDir',
-    'rs', 'reloadSettings',
-)
+s   = saveAll        = saveOps.saveAll
+lar = loadAndResave  = saveOps.loadAndResave
+l   = labelLogs      = log.labelLogs
+c   = clearLogs      = log.clearLogs
+rmp = removePrintDir = pathOps.removePrintDir
+rs  = reloadSettings = settingsObj.so.reload
+pt  = printTimings   = utils.printTimings
 
 ## Code Aliases
-ffad = firstFrameAndData
-ffadal = firstFrameAndDataAndLocals
+ffad         = dataLinks.firstFrameAndData
+ffadal       = dataLinks.firstFrameAndDataAndLocals
+omropocs     = dataLinks.omropocs
+omrolocs     = dataLinks.omrolocs
+omropocsalad = dataLinks.omropocsalad
+omrolocsalad = dataLinks.omrolocsalad
+omrolocsalar = dataLinks.omrolocsalar
+
+## Shell & Code Aliases.
+st = setTrace = tracing.setTrace
+dt = delTrace = tracing.delTrace
+
+callFromShellInterface = (
+    's'  , 'saveAll',
+    'l'  , 'labelLogs',
+    'c'  , 'clearLogs',
+    'rmp', 'removePrintDir',
+    'rs' , 'reloadSettings',
+    'lar', 'loadAndResave',
+    'st' , 'setTrace',
+    'dt' , 'delTrace',
+    'pt',  'printTimings',
+)
 
 callFromCodeInterface = (
     'omropocs',
     'omrolocs',
     'omrolocsalad',
+    'omropocsalad',
+    'omrolocsalar',
     'ffad',
     'ffadal',
     'setTrace',
@@ -52,7 +78,11 @@ callFromCodeInterface = (
 __all__ = callFromCodeInterface
 
 
-def jamInterfaceIntoBuiltins(interfaceNames=callFromShellInterface):  # type: (Itrb[str]) -> None
+def jamInterfaceIntoBuiltins(
+        interfaceNames=callFromShellInterface,
+        extras={},
+):  # type: (Itrb[str], Dic[str, ...]) -> None
+
     import __builtin__
     from sys import modules
 
@@ -62,4 +92,18 @@ def jamInterfaceIntoBuiltins(interfaceNames=callFromShellInterface):  # type: (I
         if reloading or not hasattr(__builtin__, name):
             setattr(__builtin__, name, _globals[name])
         else:
-            E('COLLISION!', name=name)
+            utils.E('COLLISION!', name=name)
+
+    for name, val in extras.iteritems():
+        if reloading or not hasattr(__builtin__, name):
+            setattr(__builtin__, name, val)
+        else:
+            utils.E('COLLISION!', name=name)
+
+jamInterfaceIntoBuiltins()
+
+
+print '[STAK]', __name__, 'import', clock() - time, 's'
+
+
+utils.timeAllCallables()

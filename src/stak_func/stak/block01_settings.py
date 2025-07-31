@@ -5,60 +5,64 @@ Modify this file & reload with so.reload() or aliases. """
 eventLabels = ['PRE EVENT 1', 'POST EVENT 1']
 
 ## Dir paths: Change often
-taskDir  = 'task'
+taskDir  = 'task_stak'
 printDir = 'print'
 
 silenceTrace = 0
-silencedFiles = {
-    r'C:\prjs\stak\src\stak_func\tester.py': 0
-}
+
+# Exclude paths that contain any part of the paths in here.
+silentFiles = []
+
+# If any, only allow paths that contain any part of paths here.
+loudFiles = []
+
+# TODO: Ideally pickles would all be in some backup file, and the
+#  path could be built dynamically based on the task name & print.
+loadAndResavePath = r'.STAK\task\print\pickle\pickle.pkl'
 
 ## File prefixes
 stdLogPrefixes = ('stdLogA', 'stdLogB')
 stakLogPrefix  = 'stak'
 traceLogPrefix = 'trace'
-jsonPrefix     = 'json'
+picklePrefix   = 'pickle'
 zippedPrefix   = 'zipped'
 
 ## Increases compress times exponentially
 # reduce if saving takes too long.
-maxCompressGroupSize = 100
+maxCompressGroupSize = 80
 
 ## Omro(l/p)ocs formatting
-tryLogMro         = 1
-alwaysLogFilePath = 1
-alwaysLogLineno   = 1
-includeData       = 1
+tryLogMro          = 1
+alwaysLogFilePath  = 1
+alwaysLogLineno    = 1
+includeData        = 1
+logCallsFromLineno = 1  # trace only
 
 # Depths, if falsy no limit
-defaultPathDepth = 2
-maxMroClsNsDepth = 2
+defaultPathDepth = 1
+maxMroClsNsDepth = 1
 
-## Stak log, save which?
-savePrimiStak = 1
-saveCompStak  = 1
-saveJsonStak  = 1
-saveZipStak   = 0
-
-## Standard log, save which?
-savePrimiStd = 1
-
-## Spliced logs, save which?
+## Save which stak?
+saveStdPrimi          = 1
 saveStdStakSplice     = 1
-saveCompStdStakSplice = 1
+saveStdStakSpliceComp = 1
+saveStakPrimi         = 1
+saveStakComp          = 1
+saveStakPickle        = 1
 
 ## Save which trace?
-saveTrace        = 1
-saveCompactTrace = 1
-saveJsonTrace    = 1
-saveZipTrace     = 0
+saveTrace             = 0
+saveTraceCompact      = 1
+saveTracePickle       = 1
+
+overrideSettingsOnLAR = 0
 
 ## Dir paths: semi-static
-rootDir  = '.STAK'
-primiDir = 'primitives'
-variDir  = 'variants'
-stdDir   = ''
-jsonDir  = 'json'
+rootDir    = '.STAK'
+primiDir   = 'primitives'
+variDir    = 'variants'
+stdDir     = ''
+pickleDir  = 'pickle'
 
 ## File suffixes
 primiSuffix             = ''

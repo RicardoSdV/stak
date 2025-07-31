@@ -1,7 +1,7 @@
-from sys import modules
+from .block00_typing       import *
+from . import block01_settings as settings
+from . import block16_utils    as ut
 
-from .block00_typing import *
-from .z_utils import tryCall, E
 
 
 class Settings(object):
@@ -12,74 +12,79 @@ class Settings(object):
     to modify block02_settings & the settings object will be modified on first import.
 
     To update the settings object once the interpreter is running, modify settings in block02_settings
-    & call so.reload() or its aliases found in stak.__init__, to update the settings object.
+    & call so.reload() or its aliases found in stak\__init__.py, to update the settings object.
 
     Therefore, to keep settings dynamic reference the ones in the settings object, don't
     import settings from block01_settings. """
 
-    __slots__ = ('stakLogPrefix', 'compStdStakSpliceSuffix', 'saveStdStakSplice', 'saveTrace', 'zippedPrefix', 'maxMroClsNsDepth', 'savePrimiStd', 'tryLogMro', 'primiSuffix', 'jsonDir', 'primiDir', 'jsonPrefix', 'saveCompStdStakSplice', 'saveCompStak', 'defaultPathDepth', 'eventLabels', 'compactSuffix', 'silenceTrace', 'traceLogPrefix', 'saveJsonStak', 'saveJsonTrace', 'variDir', 'saveZipStak', 'alwaysLogFilePath', 'taskDir', 'compSuffix', 'includeData', 'saveCompactTrace', 'saveZipTrace', 'stdLogPrefixes', 'printDir', 'stdStakSpliceSuffix', 'savePrimiStak', 'rootDir', 'silencedFiles', 'alwaysLogLineno', 'maxCompressGroupSize', 'stdDir')  # This line was injected by injectors.py
+    __slots__ = ['saveStakComp', 'loudFiles', 'stakLogPrefix', 'saveTraceCompact', 'saveTrace', 'zippedPrefix', 'maxMroClsNsDepth', 'tryLogMro', 'saveStdPrimi', 'primiSuffix', 'saveStakPickle', 'logCallsFromLineno', 'defaultPathDepth', 'eventLabels', 'saveStdStakSpliceComp', 'compStdStakSpliceSuffix', 'picklePrefix', 'silenceTrace', 'traceLogPrefix', 'overrideSettingsOnLAR', 'loadAndResavePath', 'primiDir', 'saveTracePickle', 'variDir', 'saveStdStakSplice', 'silentFiles', 'alwaysLogFilePath', 'taskDir', 'compSuffix', 'saveStakPrimi', 'includeData', 'compactSuffix', 'stdLogPrefixes', 'printDir', 'stdStakSpliceSuffix', 'rootDir', 'pickleDir', 'alwaysLogLineno', 'maxCompressGroupSize', 'stdDir']  # This line was injected by injectors.py
 
     def __init__(self):
-        self.compactSuffix           = 'Compact'
+        """ Settings i.e. can change without restarting interpreter.
+        Modify this file & reload with so.reload() or aliases. """
 
         ## Labels
         self.eventLabels = ['PRE EVENT 1', 'POST EVENT 1']
 
         ## Dir paths: Change often
-        self.taskDir  = 'task'
+        self.taskDir  = 'task_stak'
         self.printDir = 'print'
 
         self.silenceTrace = 0
-        self.silencedFiles = {
-            r'C:\prjs\stak\src\stak_func\tester.py': 0
-        }
+
+        # Exclude paths that contain any part of the paths in here.
+        self.silentFiles = []
+
+        # If any, only allow paths that contain any part of paths here.
+        self.loudFiles = []
+
+        # TODO: Ideally pickles would all be in some backup file, and the
+        #  path could be built dynamically based on the task name & print.
+        self.loadAndResavePath = r'.STAK\task\print\pickle\pickle.pkl'
 
         ## File prefixes
         self.stdLogPrefixes = ('stdLogA', 'stdLogB')
         self.stakLogPrefix  = 'stak'
         self.traceLogPrefix = 'trace'
-        self.jsonPrefix     = 'json'
+        self.picklePrefix   = 'pickle'
         self.zippedPrefix   = 'zipped'
 
         ## Increases compress times exponentially
         # reduce if saving takes too long.
-        self.maxCompressGroupSize = 100
+        self.maxCompressGroupSize = 80
 
         ## Omro(l/p)ocs formatting
-        self.tryLogMro         = 1
-        self.alwaysLogFilePath = 1
-        self.alwaysLogLineno   = 1
-        self.includeData       = 1
+        self.tryLogMro          = 1
+        self.alwaysLogFilePath  = 1
+        self.alwaysLogLineno    = 1
+        self.includeData        = 1
+        self.logCallsFromLineno = 1  # trace only
 
         # Depths, if falsy no limit
-        self.defaultPathDepth = 2
-        self.maxMroClsNsDepth = 2
+        self.defaultPathDepth = 1
+        self.maxMroClsNsDepth = 1
 
-        ## Stak log, save which?
-        self.savePrimiStak = 1
-        self.saveCompStak  = 1
-        self.saveJsonStak  = 1
-        self.saveZipStak   = 0
-
-        ## Standard log, save which?
-        self.savePrimiStd = 1
-
-        ## Spliced logs, save which?
+        ## Save which stak?
+        self.saveStdPrimi          = 1
         self.saveStdStakSplice     = 1
-        self.saveCompStdStakSplice = 1
+        self.saveStdStakSpliceComp = 1
+        self.saveStakPrimi         = 1
+        self.saveStakComp          = 1
+        self.saveStakPickle        = 1
 
         ## Save which trace?
-        self.saveTrace        = 1
-        self.saveCompactTrace = 1
-        self.saveJsonTrace    = 1
-        self.saveZipTrace     = 0
+        self.saveTrace             = 0
+        self.saveTraceCompact      = 1
+        self.saveTracePickle       = 1
+
+        self.overrideSettingsOnLAR = 0
 
         ## Dir paths: semi-static
-        self.rootDir  = '.STAK'
-        self.primiDir = 'primitives'
-        self.variDir  = 'variants'
-        self.stdDir   = ''
-        self.jsonDir  = 'json'
+        self.rootDir    = '.STAK'
+        self.primiDir   = 'primitives'
+        self.variDir    = 'variants'
+        self.stdDir     = ''
+        self.pickleDir  = 'pickle'
 
         ## File suffixes
         self.primiSuffix             = ''
@@ -87,43 +92,64 @@ class Settings(object):
         self.stdStakSpliceSuffix     = 'Splice'
         self.compStdStakSpliceSuffix = ''
         self.compactSuffix           = 'Compact'
+        self.compactSuffix           = 'Compact'
+        self.compStdStakSpliceSuffix = ''
         ## Init finit (do not delete this comment)
 
-    savePrimis = property(lambda self: self.savePrimiStak or self.savePrimiStd)
-    saveVaris  = property(lambda self: self.saveCompStak  or self.saveCompStdStakSplice)
-    saveJson   = property(lambda self: self.saveJsonTrace or self.saveZipTrace)
+    savePrimis = property(lambda self: self.saveStakPrimi or self.saveStdPrimi)
+    saveVaris  = property(lambda self: self.saveStakComp  or self.saveStdStakSpliceComp)
 
-    def reload(self):
-        from . import block01_settings as s
-        for name, newSetting in reload(s).__dict__.iteritems():
-            if name.endswith('_'):
-                continue
+so = Settings()
 
-            oldSetting = getattr(self, name, None)
-            if oldSetting == newSetting:
-                continue
+def reloadSettings(
+        so      = so,
+        tryCall = ut.tryCall,
+):
+    for name, newSetting in reload(settings).__dict__.iteritems():
+        if name.endswith('_'):
+            continue
 
-            tryCall(setattr, self, name, newSetting, errMess='If this error is raised by injectors.py, should be fine.')
+        oldSetting = getattr(so, name, None)
+        if oldSetting == newSetting:
+            continue
 
-            if name not in deltaActionSettings:
-                continue
+        tryCall(
+            setattr, so, name, newSetting,
+            errMess='If this error is raised by injectors.py, should be fine.'
+        )
 
-            deltaCallable = deltaActionSettings[name]
-            deltaCallable(oldSetting, newSetting)
+        if name not in deltaActionSettings:
+            continue
 
-    def toDict(self):  # type: () -> Dic[str, Any]
-        """ Serialize settings into a dict to save as json """
-        settings = {name: tryCall(getattr, self, name, errMess='Name form slots not initialized, run injectors.py') for name in self.__slots__}
+        deltaCallable = deltaActionSettings[name]
+        deltaCallable(oldSetting, newSetting)
 
-        from .block03_constants import stakVersion
-        settings['stakVersion'] = stakVersion
 
-        return settings
+def settingsObjToDict(
+        settingsObj = so,          # type: Settings
+        tryCall     = ut.tryCall,  # type: Cal
+):                                 # type: (...) -> Dic[str, Any]
+    return {
+        name: tryCall(
+            getattr, settingsObj, name,
+            errMess='Name form slots not initialized, run injectors.py'
+        )
+        for name in settingsObj.__slots__
+    }
 
-    def fromDict(self, settings):  # type: (Dic[str, Any]) -> None
-        """ Update settings object with settings from dict to recreate backed up json logs """
-        for name, setting in settings.iteritems():
-            tryCall(setattr, self, name, setting, errMess='Logs were saved with a setting which no longer exists, name=%s, setting=%s' % (name, setting))
+
+def dictToSettingsObj(
+        settingsDict,          # type: Dic[str, Any]
+        so      = so,          # type: Settings
+        tryCall = ut.tryCall,  # type: Cal
+):                             # type: (...) -> None
+
+    for k, v in settingsDict.iteritems():
+        tryCall(
+            setattr, so, k, v,
+            errMess='Logs were saved with a setting which no longer exists, '
+                    'name=%s, setting=%s' % (k, v)
+        )
 
 
 def onTraceSilenced(wasSilenced, isSilenced):
@@ -137,8 +163,8 @@ def onTraceSilenced(wasSilenced, isSilenced):
 
 
 deltaActionSettings = {
-    'silenceTrace': onTraceSilenced
+    'silenceTrace': onTraceSilenced,
 }
 
-so = Settings()
-so.reload()
+
+reloadSettings()

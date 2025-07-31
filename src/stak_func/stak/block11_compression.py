@@ -1,4 +1,4 @@
-from .block00_typing import *
+from .block00_typing     import *
 from .block02_settingObj import so
 
 # TODO: This file really needs a refactoring and some perf testing and improvement
@@ -87,24 +87,17 @@ def prettyfyLine(lineCfl):  # type: (CFL) -> str
     return result
 
 def compressCallChains(
-        callChainsWithStrLinks,      # type: Itrb[Tup[Str4, Uni[str, Tup[str, ...]]]]
-
+        callChainsWithStrLinks,        # type: Itrb[Tup[Str4, Uni[str, Tup[str, ...]]]]
         _prettyfyLine = prettyfyLine,  # type: Cal[[CFL], str]
         _compress     = compress,      # type: Cal[[CFL], CFL]
         _CFL          = CFL            # type: Typ[CFL]
-
-):  # type: (...) -> Itrt[Tup[Str4, Uni[str, Tup[str, ...]]]]
-
-    for stamp, callChain in callChainsWithStrLinks:
-        if not isinstance(callChain, tuple):
-            yield stamp, callChain  # Is date entry or label
-            continue
-
-        cfl = _CFL(1, callChain)
-        compressedCfl = _compress(cfl)
-        prettyLine = _prettyfyLine(compressedCfl).strip(' <- ')
-
-        yield stamp, prettyLine
+):                                     # type: (...) -> Lst[Tup[Str4, Uni[str, Tup[str, ...]]]]
+    return [
+        (stamp, _prettyfyLine(_compress(_CFL(1, callChain))).strip(' <- '))
+        if isinstance(callChain, tuple) else
+        (stamp, callChain)  # Is date entry or label
+        for stamp, callChain in callChainsWithStrLinks
+    ]
 
 def prettyfyLines(linesCfl, depth=0):  # type: (CFL, int) -> Lst[str]
     indent = depth * '    '
@@ -123,9 +116,9 @@ def prettyfyLines(linesCfl, depth=0):  # type: (CFL, int) -> Lst[str]
             raise TypeError('Wrong type in compressed list: ', elClass)
     return result
 
+
 def prettyCompressLines(entries):  # type: (Itrb[Tup[..., str]]) -> Lst[str]
     cflLines = CFL(1, [entry[-1] for entry in entries])
     compressedCfls = compress(cflLines)
     prettyLines = prettyfyLines(compressedCfls)
     return prettyLines
-

@@ -1,28 +1,62 @@
-"""
-Constants, i.e. they don't change during an interpreter run. Manually inputted or injected by ..injectors.py
-"""
-from collections import OrderedDict
+""" Constants, i.e. they don't change during an interpreter run. Not technically true, since now constants can change,
+when stak is first imported, but they remain static otherwise. Manually inputted or injected by block15_injectors. """
 
-stakVersion = 1
+runInjectors = 1
 
-stakFlags = ('OMROLOCS', 'LOCSALAD', 'DATE', 'DAFF', 'LABEL')
+## Manual input constants
+# ---------------------------------------------------------------------------------------------------------------------
+silenceTimers = 0
+
+# Changes to these will rename modules & all references to them.
+blockNames = (
+    'typing',
+    'settings',
+    'settingsObj',
+    'constants',
+    'log',
+    'pathOps',
+    'stampOps',
+    'callChains',
+    'joinLinks',
+    'dataLinks',
+    'newBlock'
+    'tracing',
+    'compression',
+    'parseStdLogs',
+    'saveOps',
+    'debugComponent',
+    'injectors',
+    'utils',
+)
+
+blockPrefix = 'block'
+
+stakFlags  = ('OMROLOCS', 'LOCSALAD', 'DATE', 'DAFF', 'LABEL')
+traceFlags = ('SET', 'CAL', 'RET', 'DEL')
+stdFlags   = ('DEBUG', 'INFO', 'NOTICE', 'WARNING', 'ERROR', 'CRITICAL', 'HACK', 'TRACE', 'ASSET', 'WWISE', 'DATA')
+
+pyExt     = '.py'
+pyCompExt = '.pyc'
+logExt    = '.log'
+pickleExt = '.pkl'
+
+# ---------------------------------------------------------------------------------------------------------------------
+
+## Computed constants
+# ---------------------------------------------------------------------------------------------------------------------
+lenPyExt     = len(pyExt)
+lenPyCompExt = len(pyCompExt)
+
+# os does not hold the correct path char for certain programs, when inspecting frames,
+# for saving should os.path.join, but for frame ops use pathSplitChar.
+pathSplitChar     = ''
+# ---------------------------------------------------------------------------------------------------------------------
+
+## Constants injected by injectors.py
+# ---------------------------------------------------------------------------------------------------------------------
 pStakFlags = (': OMROLOCS: ', ': LOCSALAD: ', ': DATE    : ', ': DAFF    : ', ': LABEL   : ')  # This line was injected by injectors.py
-
-omrolocsFlag , locsaladFlag, dateFlag , daffFlag , labelFlag  = stakFlags
-pOmrolocsFlag, pLocsalad, pDateFlag, pDataFlag, pLabelFlag = pStakFlags
-
-
-traceFlags  = ('SET', 'CAL', 'RET', 'DEL')
 pTraceFlags = (': SET: ', ': CAL: ', ': RET: ', ': DEL: ')  # This line was injected by injectors.py
 
-setFlag , callFlag , retFlag , delFlag  = traceFlags
-pSetFlag, pCallFlag, pRetFlag, pDelFlag = pTraceFlags
-
-callFlags = {setFlag, callFlag}
-retFlags  = {retFlag, delFlag }
-
-
-stdFlags = ('DEBUG', 'INFO', 'NOTICE', 'WARNING', 'ERROR', 'CRITICAL', 'HACK', 'TRACE', 'ASSET', 'WWISE', 'DATA')
 paddedStdFlags = (': DEBUG   : ', ': INFO    : ', ': NOTICE  : ', ': WARNING : ', ': ERROR   : ', ': CRITICAL: ', ': HACK    : ', ': TRACE   : ', ': ASSET   : ', ': WWISE   : ', ': DATA    : ')  # This line was injected by injectors.py
 
 pStdFlagsByStdFlags = {'INFO': ': INFO    : ', 'CRITICAL': ': CRITICAL: ', 'NOTICE': ': NOTICE  : ', 'TRACE': ': TRACE   : ', 'WWISE': ': WWISE   : ', 'HACK': ': HACK    : ', 'WARNING': ': WARNING : ', 'ASSET': ': ASSET   : ', 'ERROR': ': ERROR   : ', 'DEBUG': ': DEBUG   : ', 'DATA': ': DATA    : '}  # This line was injected by injectors.py
@@ -31,17 +65,15 @@ allPflagsByFlags = {'INFO': ': INFO    : ', 'DAFF': ': DAFF    : ', 'NOTICE': ':
 pStdFlagsByStdFlags['CUTOFF'] = ': CUTOFF  : '  # Manually padding ain't great
 cutoffFlag = 'CUTOFF'
 
-cutoffCombos = OrderedDict((('CRITICAL', 1), ('WARNING', 1), ('RITICAL', 1), ('NOTICE', 1), ('ITICAL', 1), ('ARNING', 1), ('RNING', 1), ('WWISE', 1), ('OTICE', 1), ('ASSET', 1), ('TICAL', 1), ('ERROR', 1), ('DEBUG', 1), ('TRACE', 1), ('HACK', 1), ('TICE', 1), ('RACE', 1), ('DATA', 1), ('NING', 1), ('RROR', 1), ('INFO', 1), ('SSET', 1), ('WISE', 1), ('ICAL', 1), ('EBUG', 1), ('ACE', 1), ('ATA', 1), ('ACK', 1), ('CAL', 1), ('ISE', 1), ('SET', 1), ('ICE', 1), ('ROR', 1), ('BUG', 1), ('NFO', 1), ('ING', 1), ('FO', 1), ('NG', 1), ('TA', 1), ('CK', 1), ('AL', 1), ('CE', 2), ('ET', 1), ('UG', 1), ('OR', 1), ('SE', 1), ('A', 1), ('E', 3), ('G', 2), ('K', 1), ('O', 1), ('L', 1), ('R', 1), ('T', 1)))  # This line was injected by injectors.py
-wholeEnoughs = {'A': 'DATA', 'NOTICE': 'NOTICE', 'RNING': 'WARNING', 'ACE': 'TRACE', 'ATA': 'DATA', 'ACK': 'HACK', 'WWISE': 'WWISE', 'HACK': 'HACK', 'EBUG': 'DEBUG', 'TICE': 'NOTICE', 'CAL': 'CRITICAL', 'OTICE': 'NOTICE', 'ASSET': 'ASSET', 'RACE': 'TRACE', 'ISE': 'WWISE', 'FO': 'INFO', 'SET': 'ASSET', 'DATA': 'DATA', 'ITICAL': 'CRITICAL', 'NG': 'WARNING', 'WARNING': 'WARNING', 'NING': 'WARNING', 'ROR': 'ERROR', 'BUG': 'DEBUG', 'TA': 'DATA', 'CK': 'HACK', 'CRITICAL': 'CRITICAL', 'TICAL': 'CRITICAL', 'NFO': 'INFO', 'K': 'HACK', 'AL': 'CRITICAL', 'O': 'INFO', 'L': 'CRITICAL', 'R': 'ERROR', 'ICE': 'NOTICE', 'ERROR': 'ERROR', 'DEBUG': 'DEBUG', 'ET': 'ASSET', 'ARNING': 'WARNING', 'INFO': 'INFO', 'SSET': 'ASSET', 'WISE': 'WWISE', 'TRACE': 'TRACE', 'T': 'ASSET', 'RITICAL': 'CRITICAL', 'ICAL': 'CRITICAL', 'UG': 'DEBUG', 'ING': 'WARNING', 'OR': 'ERROR', 'SE': 'WWISE', 'RROR': 'ERROR'}  # This line was injected by injectors.py
-
-callableNames = {'isStampCutoff', 'OrderedDict', 'makeDirPaths', 'chain', 'basename', 'datetime', 'partial', 'saveRawLogsToJson', 'getZippedPath', 'joinEventGroups', 'saveTraceLog', 'makeCallChain', 'izip', 'getVariDirPath', 'writeGzip', 'trimTime', 'read', 'isdir', 'iterMroUntilDefClsFound', 'parseStdLog', 'prettyfyLines', 'exists', 'splitIntsFromStrs', 'getPrintDirPath', 'prettyfyLine', 'replaceRedundantWithSpacesInPlace', 'dirname', 'isfile', 'getTracePath', 'tupleOfStrsToStr', 'makedirs', 'getStdLogPath', 'extendStak', 'removePrintDir', 'saveStakLog', 'interpolMissingStamps', 'getCompStakPath', 'firstFrameAndData', 'onTraceSilenced', 'Settings', 'clearLogs', 'prettyCompressLines', 'entriesWithLinksJoin', 'parseLines', 'getPrimiStdPath', 'compactTraceLog', '_getframe', 'delTrace', 'TraceState', 'splitext', 'walk', 'unixStampToStr', 'makeFilePathUnique', 'makeSplitLink', 'labelLogs', 'appendToStak', 'getStdStakSplicePath', 'writeJson', 'setTrace', 'compileRegexExpression', 'makeOpenCalls', 'serializeArgs', 'getCompStdStakSplicePath', 'omropocs', 'joinLink', 'getJsonPath', 'join', 'interpolLines', 'trimFlagIfPoss', 'appendToTrace', 'makeMinMaxDiff', 'FunctionType', 'tryCall', 'joinLinks', 'splitStampFromTheRest', 'addSuffix', 'compressCallChains', 'write', 'diffAndRedundant', 'EventCounter', 'omrolocs', 'E', 'trace', 'getCompactTracePath', 'trimFlag', 'compress', 'rmtree', 'getJsonDirPath', 'dateEntries', 'CFL', 'saveAll', 'firstFrameAndDataAndLocals', 'getPrimiDirPath', 'unixStampToTupleOfStrs', 'makeMinMaxOpen', 'time', 'omrolocsalad', 'getPrimiStakPath', 'walkDirForSuffix'}  # This line was injected by injectors.py
-
-defaultSegFlag = 'main'
-
-logFilesExt    = '.log'
-jsonFilesExt   = '.json'
-zippedFilesExt = '.json.gz'
-
-blockPrefix = 'block'
+wholeEnoughs = (('RITICAL', 7, 'CRITICAL'), ('ITICAL', 6, 'CRITICAL'), ('ARNING', 6, 'WARNING'), ('RNING', 5, 'WARNING'), ('OTICE', 5, 'NOTICE'), ('TICAL', 5, 'CRITICAL'), ('EBUG', 4, 'DEBUG'), ('TICE', 4, 'NOTICE'), ('RACE', 4, 'TRACE'), ('NING', 4, 'WARNING'), ('SSET', 4, 'ASSET'), ('WISE', 4, 'WWISE'), ('ICAL', 4, 'CRITICAL'), ('RROR', 4, 'ERROR'), ('ACE', 3, 'TRACE'), ('ATA', 3, 'DATA'), ('ACK', 3, 'HACK'), ('CAL', 3, 'CRITICAL'), ('ISE', 3, 'WWISE'), ('SET', 3, 'ASSET'), ('ICE', 3, 'NOTICE'), ('ROR', 3, 'ERROR'), ('BUG', 3, 'DEBUG'), ('NFO', 3, 'INFO'), ('ING', 3, 'WARNING'), ('FO', 2, 'INFO'), ('NG', 2, 'WARNING'), ('TA', 2, 'DATA'), ('CK', 2, 'HACK'), ('AL', 2, 'CRITICAL'), ('ET', 2, 'ASSET'), ('UG', 2, 'DEBUG'), ('OR', 2, 'ERROR'), ('SE', 2, 'WWISE'), ('A', 1, 'DATA'), ('K', 1, 'HACK'), ('O', 1, 'INFO'), ('L', 1, 'CRITICAL'), ('R', 1, 'ERROR'), ('T', 1, 'ASSET'))  # This line was injected by injectors.py
 
 backupsPath = r'C:\STAK_backups'
+
+osPath         = ''
+packagePath    = ''
+packageDotPath = ''
+
+ignorePaths = ''
+
+
+# ---------------------------------------------------------------------------------------------------------------------

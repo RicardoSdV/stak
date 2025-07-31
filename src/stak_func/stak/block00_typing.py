@@ -1,7 +1,10 @@
+from time import clock; startTypesImport = clock()
+
 from typing import TYPE_CHECKING
 
 
 if TYPE_CHECKING:
+    import os
     from _sre import SRE_Match
     from types import (
         CodeType,
@@ -13,6 +16,7 @@ if TYPE_CHECKING:
         Any,
         Callable  as Cal,
         Dict      as Dic,
+        Deque     as Deq,
         Generator as Gen,
         Iterable  as Itrb,
         Iterator  as Itrt,
@@ -45,30 +49,42 @@ if TYPE_CHECKING:
 
     TraceEvent = Uni[Lit['call'], Lit['line'], Lit['return'], Lit['exception']]
 
-    App = Cal[[Any], None]                       # list.append
-    Time = Cal[[], float]                        # time.time
-    GF = Cal[[int], FrameType]                   # sys._getframe
-    Zip = Cal[[Itrb, Itrb], Itrt[Tup[Any, Any]]]  # itertools.izip
-    IsIns = Cal[[Any], bool]                     # isinstance
-    GetFrame = Cal[[int], FrameType]             # sys._getframe
+    # Lib types
+    App      = Cal[[Any], None]                        # list.append
+    Time     = Cal[[], float]                          # time.time
+    Clock    = Time                                    # time.clock
+    GF       = Cal[[int], FrameType]                   # sys._getframe
+    Zip      = Cal[[Itrb, Itrb], Itrt[Tup[Any, Any]]]  # itertools.izip
+    IsIns    = Cal[[Any], bool]                        # isinstance
+    GetFrame = Cal[[int], FrameType]                   # sys._getframe
+    Join     = Cal[[Itrb[str]], str]                   # AnyStr.join
+
+    FileRename = Cal[[str, str], None]                 # os.rename
+    PathJoin   = os.path.join
 
     AnyCls = Typ[Any]
 
-#   splitLink = (filePath, lineno, mroClsNs or None, calName, strData or None)
-    SplitLink = Tup[str, int, Opt[Tup[str, ...]], str, Opt[Tup[str, str]]]
+#   splitLink      = (filePath, lineno, mroClsNs or None, calName, strData or None)
+    SplitLink      = Tup[str, int, Opt[Tup[str, ...]], str, Opt[Tup[str, str]]]
+    SplitLinkTrace = Tup[str, int, Opt[Tup[str, ...]], str, Opt[Tup[str, str]], Opt[int]]
 
     SplitLinkChain = Tup[SplitLink, ...]
 
     DataForLogging = Opt[Tup[Tup[str, str], ...]]
 
 #   stakLog = [(unixStamp, splitLinkChain), ...]
-    StakLog = Lst[Tup[int, SplitLinkChain]]
+    StakLog = Lst[Tup[float, SplitLinkChain]]
 
 #   traceLog = [(unixStamp, traceFlag, splitLink)]
-    TraceLog = Lst[Tup[int, str, SplitLink]]
+    TraceLog = Deq[Tup[float, str, SplitLink]]
 
     Self = Cal[[Any], 'Self']
 
     __all__ = locals().keys()
 else:
     __all__ = ()
+
+__all__ += ('clock', )
+
+
+print '[STAK]', __name__, 'import', clock() - startTypesImport, 's'

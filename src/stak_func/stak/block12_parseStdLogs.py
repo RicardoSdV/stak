@@ -1,7 +1,7 @@
 from re import compile as compileRegexExpression
 
-from .block00_typing import *
-from .block03_constants import cutoffFlag, stdFlags, cutoffCombos, wholeEnoughs
+from .block00_typing    import *
+from .block03_constants import cutoffFlag, stdFlags, wholeEnoughs
 
 
 def interpolMissingStamps(prevLine, thisLine, nextLine, expectedChars=(4, 2, 2, 2, 2, 2, 3)):
@@ -22,24 +22,6 @@ def interpolMissingStamps(prevLine, thisLine, nextLine, expectedChars=(4, 2, 2, 
     yield thisLine[-2]
     yield thisLine[-1]
 
-def splitStampFromTheRest(lines):  # type: (Itrb[Str9]) -> Itrt[Tup[Str4, str, str]]
-    for year, month, day, hour, minute, second, millisec, flag, theRest in lines:
-        yield (
-            (hour, minute, second, millisec),
-            flag,
-            theRest.rstrip('\n'),
-        )
-
-def trimFlagIfPoss(line):  # type: (str) -> Str2
-    line = line.lstrip()
-    for combo in cutoffCombos:
-        if line.startswith(combo):
-            line = line.lstrip(combo)
-            if cutoffCombos[combo] > 1:
-                return line, cutoffFlag
-            return line, wholeEnoughs[combo]
-    return line, cutoffFlag
-
 def trimFlag(line):  # type: (str) -> str
     for combo in stdFlags:
         if line.startswith(combo):
@@ -48,18 +30,18 @@ def trimFlag(line):  # type: (str) -> str
 
 def trimTime(line, matchTuple, numTrimChar=(25, 20, 17, 14, 11, 8, 5, 0)):  # type: (str, OptStr8, Int8) -> str
     for i, prefixEl in enumerate(matchTuple):
-        if prefixEl is not None:
+        if prefixEl is None:
+            continue
 
-            while not line.startswith(prefixEl):
-                line = line[1:]
+        while not line.startswith(prefixEl):
+            line = line[1:]
 
-            return line[numTrimChar[i + 1] if i < 7 and matchTuple[i + 1] is None else numTrimChar[i]:]
+        return line[numTrimChar[i + 1] if i < 7 and matchTuple[i + 1] is None else numTrimChar[i]:]
 
 def parseLines(
         lines,                         # type: Itrb[str]
         trimTime=trimTime,             # type: Cal[[str, OptStr8], str]
         trimFlag=trimFlag,             # type: Cal[[str], str]
-        trimFlagIfPoss=trimFlagIfPoss, # type: Cal[[str], Str2]
         none8=(None,)*8,               # type: None8
 
         matcher=compileRegexExpression(
@@ -88,7 +70,16 @@ def parseLines(
             line = trimFlag(line)
             yield matchTuple + (line.lstrip(': '),)
         else:
-            line, flag = trimFlagIfPoss(line)
+            # If flag is whole enough replace with the whole flag.
+            line = line.lstrip()
+            for combo, _len, whole in wholeEnoughs:
+                if line[:_len] == combo:
+                    line = line[_len:]
+                    flag = whole
+                    break
+            else:
+                flag = cutoffFlag
+
             yield None, None, None, None, None, None, None, flag, line.lstrip(': ')
 
 def isStampCutoff(parsedLine, range6=tuple(xrange(6))):  # type: (OptStr9, Int6) -> bool
@@ -122,9 +113,3 @@ def interpolLines(parsedLines, none9=(None,)*9, interpol=interpolMissingStamps):
             )
 
     return parsedLines
-
-def parseStdLog(rawLines):  # type: (Itrb[str]) -> Itrt[Tup[Str4, str, str]]
-    parsedLines = parseLines(rawLines)
-    interpoledLines = interpolLines(parsedLines)
-    splitStdLog = splitStampFromTheRest(interpoledLines)
-    return splitStdLog

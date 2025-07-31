@@ -3,10 +3,10 @@ from datetime import datetime
 from .block00_typing import *
 
 
-def tupleOfStrsToStr(strsStamp):  # type: (Str4) -> str
+def str4ToStr(strsStamp):  # type: (Str4) -> str
     return '{}:{}:{}.{}'.format(*strsStamp)
 
-def unixStampToTupleOfStrs(stamp, dt=datetime.fromtimestamp):  # type: (float, Cal[[float], datetime]) -> Str4
+def floatToStr4(stamp, dt=datetime.fromtimestamp):  # type: (float, Cal[[float], datetime]) -> Str4
     dt = dt(stamp)
     return '{:02}'.format(dt.hour), '{:02}'.format(dt.minute), '{:02}'.format(dt.second), '{:03}'.format(dt.microsecond//1000)
 

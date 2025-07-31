@@ -9,6 +9,24 @@ How to use:
     are the user control callables for saving logs etc. Or, if no shell, call them from code.
 
 Known issues:
+    - Due to how strings are interned in python and the giant number of paths which are stored in logs there's a massive amount
+    of memory being used in storing different string objects which are actually the same. And investigation needs to be carried
+    out on if it is better to intern the paths with intern() or make my own paths dict to intern them myself.
+
+    Related feature:
+        - (Mid) When printing file paths sometimes you need longer paths and sometimes shorter, depending on how many
+        copies of the same paths exist in the project, so the solution is to compute all the paths and always be sure
+        to print unique paths, sometimes one file long and sometimes way longer.
+
+        (So, maybe to implement both things at once might be worth it to keep my own dict of paths.)
+
+    - Save new line literals to logs not actual new lines (In the data section, I still want to save my own new lines,
+    also, add a flag to turn this off.).
+
+    - So, when tracing we don't know in what line a call event happens, so for example,
+    if A calls B and then B again first time in line 100 and next time in line 110,
+    then both calls will have a splitLink lineno of the function definition of A.
+
     - Caller & definer classes can't be found for partials.
 
     - Caller class cannot be found for wrapped methods & therefore definer class neither (with custom wrappers,
@@ -33,8 +51,10 @@ Known issues:
 
     - Seems like the std log parsing fails to parse the last entries
 
-Unknown Issues:
-    - If the program crashes there might be a problem
+    - If the program crashes all logs will be lost. Add a flag to hook onto sys.exit() to flush all the logs automatically
+    for this situation. Or, if this does not work to well, add an option to constantly write to file instead of keeping the
+    logs in RAM. Also, some tests need to be done on this, because if its not too slow it might actually just be worth it to
+    save everything to file straight away, specially for stak, trace already slow enough as it is.
 
 Cool potential features:
     - Segregation:
@@ -77,10 +97,6 @@ Cool potential features:
 
     - (Easy) Add something that denotes what is the initial logged callable that separates it from its callstack
     to make Ctrl+F easier in logs.
-
-    - (Mid) When printing file paths sometimes you need longer paths and sometimes shorter, depending on how many
-    copies of the same paths exist in the project, so the solution is to compute all the paths and always be sure
-    to print unique paths, sometimes one file long and sometimes way longer.
 
     - (Mid) There are certain calls, event calls specially which need to show the name of the reference called, rather
     than the name of the callable itself, i.e. instead of EventClass.__call__ -> eventObj. Maybe this makes sense for

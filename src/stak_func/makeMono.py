@@ -1,7 +1,0 @@
-
-keepSeparate = {
-    'settings'
-}
-
-dirName = 'stak'
-

@@ -1,32 +1,32 @@
-from datetime import datetime
-from time import time
+from collections import deque
+from datetime    import datetime
+from time        import time
 
-from .block00_typing import *
+from .block00_typing     import *
 from .block02_settingObj import so
-from .block05_pathOps import getStdLogPath
+from .block05_pathOps    import getStdLogPath, pathsByIds, idsByPaths
+from .block16_utils      import Cnt
 
-
-class EventCounter(object): __slots__ = ('cnt',)
-eCnt = EventCounter()
-eCnt.cnt = 0
+eCnt = Cnt()
 
 stakLog = []  # type: StakLog
 appendToStak = stakLog.append
 extendStak   = stakLog.extend
 
-traceLog = []  # type: TraceLog
+traceLog = deque()  # type: TraceLog
 appendToTrace = traceLog.append
 
 
 def dateEntries():
     """ Since normal entries only log time, this one is used to log date, on logging session init & clear. """
 
-    now = time()
-    appendToStak((now, datetime.now().strftime('%Y-%m-%d')))
+    appendToStak(
+        (time(), ((None, None, None, None, (('date', datetime.now().strftime('%Y-%m-%d')), )), ))
+    )
     # appendToTrace()  # TODO: Implement dates in trace
 
 
-def labelLogs(label):
+def labelLogs(label=None):
     """ Make a log entry with the passed label, else, with next label in eventLabels, if any, else print no-name label """
     if label is None:
         if eCnt.cnt < len(so.eventLabels):
@@ -36,11 +36,12 @@ def labelLogs(label):
 
         eCnt.cnt += 1
 
-    fmtLabel = ('\n========================================================= {} '
-                '=========================================================\n'.format(label))
+    fmtLabel = ('\n========================================================= '
+                + label + ' =========================================================\n')
 
-    now = time()
-    appendToStak((now, fmtLabel))
+    appendToStak(
+        (time(), ((None, None, None, None, (('label', fmtLabel), )), ))
+    )
     # appendToTrace(now, labelFlag, fmtLabel)  # TODO: Labels in trace
 
 def clearLogs():
@@ -50,9 +51,14 @@ def clearLogs():
         with open(getStdLogPath(prefix), 'w') as _: pass
 
     eCnt.cnt = 0
-    stakLog [:] = []
-    traceLog[:] = []
+    del stakLog[:]
+    traceLog.clear()
+
+    pathsByIds.clear()
+    idsByPaths.clear()
+
     dateEntries()
+
 
 
 
