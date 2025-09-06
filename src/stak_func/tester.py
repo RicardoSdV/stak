@@ -1,4 +1,4 @@
-testStak  = 1
+testStak  = 0
 testTrace = 0
 
 # Add some sleep time to test splicing, 150 recommended

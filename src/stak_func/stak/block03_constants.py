@@ -11,7 +11,7 @@ silenceTimers = 0
 blockNames = (
     'typing',
     'settings',
-    'settingsObj',
+    'settingObj',
     'constants',
     'log',
     'pathOps',
@@ -19,7 +19,7 @@ blockNames = (
     'callChains',
     'joinLinks',
     'dataLinks',
-    'newBlock'
+    'newBlock',
     'tracing',
     'compression',
     'parseStdLogs',
@@ -69,11 +69,8 @@ wholeEnoughs = (('RITICAL', 7, 'CRITICAL'), ('ITICAL', 6, 'CRITICAL'), ('ARNING'
 
 backupsPath = r'C:\STAK_backups'
 
-osPath         = ''
-packagePath    = ''
-packageDotPath = ''
-
+osPath = ''
 ignorePaths = ''
-
+packagePath = ''
 
 # ---------------------------------------------------------------------------------------------------------------------

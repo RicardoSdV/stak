@@ -3,7 +3,6 @@ from . import block01_settings as settings
 from . import block16_utils    as ut
 
 
-
 class Settings(object):
     """ The contents of __init__ is injected using the settings in block01_settings,
     so, add new settings in block01_settings & run ..injectors.py

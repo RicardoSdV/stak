@@ -9,6 +9,7 @@ running this file will rename the appropriate files when one of them is deleted
 & insert & rename when "newBlockName" is provided automatically.
 """
 import sys
+import os
 
 from collections import defaultdict
 from itertools   import chain, izip
@@ -30,66 +31,78 @@ abspath  = osPath.abspath
 joinPath = osPath.join
 
 ## Old & new paths
-dirname        = osPath.dirname
-oldOsPath      = cs.osPath
-newOsPath      = dirname(os.__file__)
-oldPackagePath = cs.packagePath
-newPackagePath = dirname(abspath(__file__))
-constsPath     = abspath(cs.__file__)
+dirname     = osPath.dirname
+packagePath = dirname(abspath(__file__))
+constsPath  = abspath(cs.__file__)
 
 oldPathSplitChar = '/' if '/' in sys._getframe(0).f_code.co_filename else '\\'
 newPathSplitChar = cs.pathSplitChar
 
 pyExt     = cs.pyExt
-nLenPyExt = -cs.lenPyCompExt
+nLenPyExt = -cs.lenPyExt
 
 def replaceInPlace(lines, lookingFor, dataStructure):  # type: (Lst[str], str, Any) -> None
     for i, line in enumerate(lines):
         if line.startswith(lookingFor):
-            lines[i] = lookingFor + str(dataStructure)
+            lines[i] = '%s%r' % (lookingFor, dataStructure)
             return
-    raise ValueError('Looking for "{}" prefix & not found!'.format(lookingFor))
+    print '[STAK] ERROR: Looking for', lookingFor, 'prefix & not found'
 
 
 ## On blocks changed run block injection
 # ---------------------------------------------------------------------------------------------------------------------
 listDir = os.listdir
-oldBlockNames = [
-    name[nLenPyExt:]
-    for name in listDir(newPackagePath)
+oldBlockFiles = [
+    name[:nLenPyExt]
+    for name in listDir(packagePath)
     if name[nLenPyExt:] == pyExt and name != '__init__.py'
 ]
+
+oldBlockNames = [name.split('_')[-1] for name in oldBlockFiles]
 newBlockNames = cs.blockNames
 
+blockPrefix = cs.blockPrefix
+
+print 'oldBlockNames', oldBlockNames
+print 'newBlockNames', newBlockNames
+
 if oldBlockNames != newBlockNames:
+    oldMaxBlockIdxLen = len(str(len(oldBlockNames) - 1))
+    newMaxBlockIdxLen = len(str(len(newBlockNames) - 1))
+
+    newBlockFiles = [
+        blockPrefix + str(i).zfill(newMaxBlockIdxLen) + '_' + name
+        for i, name in enumerate(newBlockNames)
+    ]
 
     ## Add / remove block names
     # -----------------------------------------------------------------------------------------------------------------
-    oldBlockNamesSet = set(oldBlockNames); newBlockNamesSet = set(newBlockNames)
+    oldBlockNamesSet = set(oldBlockNames)
+    newBlockNamesSet = set(newBlockNames)
 
     blocksToRemove = oldBlockNamesSet - newBlockNamesSet
     blocksToAdd    = newBlockNamesSet - oldBlockNamesSet
 
     if blocksToRemove and blocksToAdd:
-        print "[STAK] ERROR: Can't add & remove blocks at the same time"
-        blocksToRemove = blocksToAdd = {}
+        print "[STAK] ERROR: Can't add & remove blocks at the same time, blocksToAdd", blocksToAdd, 'blocksToRemove', blocksToRemove
+        sys.exit()
 
     removeFile = os.remove
+
     for name in blocksToRemove:
-        removeFile(joinPath(newPackagePath, name + pyExt))
+        fileName = oldBlockFiles[oldBlockNames.index(name)]
+        removeFile(joinPath(packagePath, fileName + pyExt))
 
     for name in blocksToAdd:
+        fileName = newBlockFiles[newBlockNames.index(name)]
         write(
-            joinPath(newPackagePath, name + pyExt),
+            joinPath(packagePath, name + pyExt),
             ('from .block00_typing import *\n',)
         )
     # -----------------------------------------------------------------------------------------------------------------
 
     ## Make new by old blocks
     # -----------------------------------------------------------------------------------------------------------------
-    oldMaxBlockIdxLen = len(str(len(oldBlockNames) - 1))
-    newMaxBlockIdxLen = len(str(len(newBlockNames) - 1))
-
     blockPrefix = cs.blockPrefix
     newByOldBlocks = []; append = newByOldBlocks.append
     enumOldBlockNames = list(enumerate(oldBlockNames))
@@ -116,8 +129,8 @@ if oldBlockNames != newBlockNames:
     renamePath = os.rename
     blockPaths = []; append = blockPaths.append
     for oldBlock, newBlock in newByOldBlocks:
-        oldBlockPath = joinPath(newPackagePath, oldBlock + pyExt)
-        newBlockPath = joinPath(newPackagePath, newBlock + pyExt)
+        oldBlockPath = joinPath(packagePath, oldBlock + pyExt)
+        newBlockPath = joinPath(packagePath, newBlock + pyExt)
         renamePath(oldBlockPath, newBlockPath)
         append(newBlockPath)
     # -----------------------------------------------------------------------------------------------------------------
@@ -161,35 +174,6 @@ if oldBlockNames != newBlockNames:
             print '[STAK] ERROR: Imports sorting. started', importsStarted, 'finished', importsFinished
 # ---------------------------------------------------------------------------------------------------------------------
 
-
-## Injection on paths changed
-# ---------------------------------------------------------------------------------------------------------------------
-if (
-        oldOsPath != newOsPath or
-        oldPackagePath != newPackagePath
-):
-    ## Make ignored paths
-    # -----------------------------------------------------------------------------------------------------------------
-    walk = os.walk
-    pathsIgnore = ['<console>', '<string>']
-    append = pathsIgnore.append
-    for path in (newOsPath, newPackagePath):
-        for root, dirs, files in walk(path):
-            root += newPathSplitChar
-            for _file in files:
-                if _file[nLenPyExt:] == pyExt:
-                    append(root + _file)
-    # -----------------------------------------------------------------------------------------------------------------
-
-    ## Inject lines in place
-    # -----------------------------------------------------------------------------------------------------------------
-    lines = read(constsPath)
-    replaceInPlace(lines, 'osPath      = ', newOsPath)
-    replaceInPlace(lines, 'packagePath = ', newPackagePath)
-    replaceInPlace(lines, 'osPaths = ', '{' + str(set(pathsIgnore)).lstrip('set([').rstrip('])') + '}')
-    write(constsPath, lines)
-    # -----------------------------------------------------------------------------------------------------------------
-# ---------------------------------------------------------------------------------------------------------------------
 
 ## Run manual injectors.
 # ---------------------------------------------------------------------------------------------------------------------

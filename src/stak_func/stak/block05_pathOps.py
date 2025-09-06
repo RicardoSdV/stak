@@ -1,5 +1,7 @@
+import os
+
 from os      import makedirs
-from os.path import basename, dirname, exists, isdir, join, splitext
+from os.path import basename, dirname, exists, isdir, join, splitext, abspath
 from shutil  import rmtree
 
 from .block00_typing        import *
@@ -134,3 +136,16 @@ def getIdFromPath(path, pathsByIds=pathsByIds, idsByPaths=idsByPaths, pathIdCnt=
 
     return ID
 # -------------------------------------------------------------------------------------------------
+
+osDir = dirname(dirname(os.__file__))
+lenOsDir = len(osDir)
+
+stakDir = dirname(abspath(__file__))
+lenStakDir = len(stakDir)
+
+
+def isIgnorePath(path):  # type: (str) -> bool
+    return (
+        path[:lenOsDir] != osDir and
+        path[:lenStakDir] != stakDir
+    )
