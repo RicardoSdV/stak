@@ -63,9 +63,6 @@ newBlockNames = cs.blockNames
 
 blockPrefix = cs.blockPrefix
 
-print 'oldBlockNames', oldBlockNames
-print 'newBlockNames', newBlockNames
-
 if oldBlockNames != newBlockNames:
     oldMaxBlockIdxLen = len(str(len(oldBlockNames) - 1))
     newMaxBlockIdxLen = len(str(len(newBlockNames) - 1))
@@ -80,32 +77,33 @@ if oldBlockNames != newBlockNames:
     oldBlockNamesSet = set(oldBlockNames)
     newBlockNamesSet = set(newBlockNames)
 
-    blocksToRemove = oldBlockNamesSet - newBlockNamesSet
-    blocksToAdd    = newBlockNamesSet - oldBlockNamesSet
+    blockNamesToRemove = oldBlockNamesSet - newBlockNamesSet
+    blockNamesToAdd    = newBlockNamesSet - oldBlockNamesSet
 
-    if blocksToRemove and blocksToAdd:
-        print "[STAK] ERROR: Can't add & remove blocks at the same time, blocksToAdd", blocksToAdd, 'blocksToRemove', blocksToRemove
+    if blockNamesToRemove and blockNamesToAdd:
+        print "[STAK] ERROR: Can't add & remove blocks at the same time, blockNamesToAdd", blockNamesToAdd, 'blockNamesToRemove', blockNamesToRemove
         sys.exit()
 
     removeFile = os.remove
 
-    for name in blocksToRemove:
+    for name in blockNamesToRemove:
         fileName = oldBlockFiles[oldBlockNames.index(name)]
         removeFile(joinPath(packagePath, fileName + pyExt))
 
-    for name in blocksToAdd:
+    for name in blockNamesToAdd:
         fileName = newBlockFiles[newBlockNames.index(name)]
         write(
-            joinPath(packagePath, name + pyExt),
+            joinPath(packagePath, fileName + pyExt),
             ('from .block00_typing import *\n',)
         )
     # -----------------------------------------------------------------------------------------------------------------
 
-    ## Make new by old blocks
+    ## Make new by old blocks. For renaming in files & therefore excludes new blocks.
     # -----------------------------------------------------------------------------------------------------------------
     blockPrefix = cs.blockPrefix
     newByOldBlocks = []; append = newByOldBlocks.append
     enumOldBlockNames = list(enumerate(oldBlockNames))
+
     for newIdx, newName in enumerate(newBlockNames):
         for oldIdx, oldName in enumOldBlockNames:
             if oldName == newName:
@@ -113,8 +111,8 @@ if oldBlockNames != newBlockNames:
         else:
             continue
 
-        oldIdxStr = str(newIdx).zfill(oldMaxBlockIdxLen)
-        newIdxStr = str(oldIdx).zfill(newMaxBlockIdxLen)
+        oldIdxStr = str(oldIdx).zfill(oldMaxBlockIdxLen)
+        newIdxStr = str(newIdx).zfill(newMaxBlockIdxLen)
 
         append(
             (
@@ -129,11 +127,17 @@ if oldBlockNames != newBlockNames:
     renamePath = os.rename
     blockPaths = []; append = blockPaths.append
     for oldBlock, newBlock in newByOldBlocks:
-        oldBlockPath = joinPath(packagePath, oldBlock + pyExt)
         newBlockPath = joinPath(packagePath, newBlock + pyExt)
-        renamePath(oldBlockPath, newBlockPath)
         append(newBlockPath)
+        if oldBlock != newBlock:
+            oldBlockPath = joinPath(packagePath, oldBlock + pyExt)
+            renamePath(oldBlockPath, newBlockPath)
     # -----------------------------------------------------------------------------------------------------------------
+
+    print 'blockPaths'
+    for path in blockPaths:
+        print path
+    sys.exit()
 
     ## Rename references to blocks, sortBlock imports.
     # -----------------------------------------------------------------------------------------------------------------

@@ -19,7 +19,7 @@ blockNames = (
     'callChains',
     'joinLinks',
     'dataLinks',
-    'newBlock',
+    # 'newBlock',
     'tracing',
     'compression',
     'parseStdLogs',
