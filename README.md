@@ -12,3 +12,5 @@ It works in several stages:
 - Line compression: This stage is designed to work with logs produced with the omropocs() from the stak repo, it
 applies the same compression principles to individual lines.
 
+
+TODO: Update this, completely out of date
