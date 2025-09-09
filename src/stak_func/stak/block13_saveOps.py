@@ -6,11 +6,11 @@ from . import block03_constants          as cs
 from         .block04_log            import stakLog, traceLog
 from . import block05_pathOps            as po
 from         .block06_stampOps       import str4ToStr, floatToStr4
-from         .block08_joinLinks import joinLinks
+from         .block08_joinLinks      import joinLinks
 from         .block10_tracing        import saveTraceLog
 from         .block11_compression    import compressCallChains, prettyCompressLines
 from         .block12_parseStdLogs   import parseLines, interpolLines
-from         .block16_utils                import write, writePickle, read, readPickle, log
+from         .block15_utils          import write, writePickle, read, readPickle, log
 
 
 def joinSplitLinksAndLeaveOutSilencedFiles(

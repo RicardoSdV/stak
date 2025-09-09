@@ -1,6 +1,6 @@
 from .block00_typing       import *
 from . import block01_settings as settings
-from . import block16_utils    as ut
+from . import block15_utils    as ut
 
 
 class Settings(object):
@@ -16,7 +16,7 @@ class Settings(object):
     Therefore, to keep settings dynamic reference the ones in the settings object, don't
     import settings from block01_settings. """
 
-    __slots__ = ['saveStakComp', 'loudFiles', 'stakLogPrefix', 'saveTraceCompact', 'saveTrace', 'zippedPrefix', 'maxMroClsNsDepth', 'tryLogMro', 'saveStdPrimi', 'primiSuffix', 'saveStakPickle', 'logCallsFromLineno', 'defaultPathDepth', 'eventLabels', 'saveStdStakSpliceComp', 'compStdStakSpliceSuffix', 'picklePrefix', 'silenceTrace', 'traceLogPrefix', 'overrideSettingsOnLAR', 'loadAndResavePath', 'primiDir', 'saveTracePickle', 'variDir', 'saveStdStakSplice', 'silentFiles', 'alwaysLogFilePath', 'taskDir', 'compSuffix', 'saveStakPrimi', 'includeData', 'compactSuffix', 'stdLogPrefixes', 'printDir', 'stdStakSpliceSuffix', 'rootDir', 'pickleDir', 'alwaysLogLineno', 'maxCompressGroupSize', 'stdDir']  # This line was injected by injectors.py
+    __slots__ = ['saveStakComp', 'loudFiles', 'stakLogPrefix', 'saveTraceCompact', 'saveTrace', 'zippedPrefix', 'maxMroClsNsDepth', 'tryLogMro', 'saveStdPrimi', 'primiSuffix', 'saveStakPickle', 'logCallsFromLineno', 'defaultPathDepth', 'eventLabels', 'saveStdStakSpliceComp', 'compStdStakSpliceSuffix', 'picklePrefix', 'silenceTrace', 'traceLogPrefix', 'overrideSettingsOnLAR', 'loadAndResavePath', 'primiDir', 'saveTracePickle', 'variDir', 'saveStdStakSplice', 'silentFiles', 'alwaysLogFilePath', 'taskDir', 'compSuffix', 'saveStakPrimi', 'includeData', 'compactSuffix', 'stdLogPrefixes', 'printDir', 'stdStakSpliceSuffix', 'rootDir', 'pickleDir', 'alwaysLogLineno', 'maxCompressGroupSize', 'stdDir']
 
     def __init__(self):
         """ Settings i.e. can change without restarting interpreter.

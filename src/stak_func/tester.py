@@ -1,4 +1,4 @@
-testStak  = 0
+testStak  = 1
 testTrace = 0
 
 # Add some sleep time to test splicing, 150 recommended
@@ -6,6 +6,7 @@ maxSleepTime = 0
 
 if __name__ != '__main__':
     import sys
+    print '[STAK] ERROR: Should not import this file at all. Run as script!'
     sys.exit()
 else:
     from datetime import datetime
@@ -14,7 +15,7 @@ else:
     from time import sleep
 
     from src.stak_func import stak
-    stak.jamInterfaceIntoBuiltins(extras={'stak': stak})
+    stak.jamInterfaceIntoBuiltins(extras=(('stak', stak), ))
 
     from src.funcs.someCode import SomeClass
     from src.stak_func.stak import *

@@ -1,3 +1,6 @@
+import someCode
+print someCode.__name__
+
 from sys import _getframe
 
 class A(object):

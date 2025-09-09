@@ -197,19 +197,18 @@ def printTimings():
             reps, timeSum, mean, funcName, module)
 
 
-def timeAllCallables():
+def timeAllCallables(modules):  # type: (Itrb[ModuleType]) -> None
     if cs.silenceTimers:
         return
 
-    modules = loadBlocks()
     for module in modules:
-        _dict = module.__dict__
-        for name, func in _dict.iteritems():
+        moduleDict = module.__dict__
+        for name, func in moduleDict.iteritems():
             if not isinstance(func, FunctionType):
                 continue
 
             func = timeCalls(func)
-            _dict[name] = func
+            moduleDict[name] = func
 
 
 class Cnt(object):

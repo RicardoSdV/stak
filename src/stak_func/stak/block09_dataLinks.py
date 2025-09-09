@@ -6,7 +6,7 @@ from .block00_typing     import *
 from .block04_log        import appendToStak
 from .block07_callChains import makeSplitLink, makeCallChain
 from .block08_joinLinks  import joinLinks
-from .block16_utils      import serializeArgs, argsToStr
+from .block15_utils      import serializeArgs, argsToStr
 
 
 # Log the data passed to it next to the fist link to know where it comes from.

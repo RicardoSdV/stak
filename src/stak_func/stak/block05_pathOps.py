@@ -7,7 +7,7 @@ from shutil  import rmtree
 from .block00_typing        import *
 from .block02_settingObj    import so
 from . import block03_constants as cs
-from .block16_utils         import E, Cnt
+from .block15_utils         import E, Cnt
 
 
 splitFilePath = __file__.split(cs.pathSplitChar)

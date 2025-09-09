@@ -2,15 +2,15 @@ from sys         import _getframe as getFrame, gettrace, settrace
 from itertools   import izip
 from time        import time
 
-from .                   import block03_constants as cs
 from .block00_typing     import *
 from .block02_settingObj import so
+from .                   import block03_constants as cs
 from .block04_log        import appendToTrace
 from .block05_pathOps    import getTracePath, getCompactTracePath
 from .block06_stampOps   import unixStampToStr
 from .block07_callChains import iterMroUntilDefClsFound
 from .block08_joinLinks  import joinLink
-from .block16_utils      import funcErr, listErr
+from .block15_utils      import funcErr, listErr
 
 setFlag , callFlag , retFlag , delFlag  = cs.traceFlags
 pSetFlag, pCallFlag, pRetFlag, pDelFlag = cs.pTraceFlags

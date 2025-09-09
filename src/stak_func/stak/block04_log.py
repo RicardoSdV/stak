@@ -5,7 +5,7 @@ from time        import time
 from .block00_typing     import *
 from .block02_settingObj import so
 from .block05_pathOps    import getStdLogPath, pathsByIds, idsByPaths
-from .block16_utils      import Cnt
+from .block15_utils      import Cnt
 
 eCnt = Cnt()
 

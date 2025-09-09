@@ -1,6 +1,6 @@
 from types import FunctionType
 
-from .block00_typing  import *
+from .block00_typing    import *
 from .block03_constants import ignorePaths
 
 # For some reason instance methods are FunctionType, at runtime, but not when testing

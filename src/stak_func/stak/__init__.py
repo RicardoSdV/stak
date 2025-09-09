@@ -9,7 +9,7 @@ Callables intended for shell use can be added to __builtins__ for easy calling
 by calling jamInterfaceIntoBuiltins.
 """
 
-from . import block15_injectors as injectors
+from . import z_injectors as injectors
 del injectors
 
 from         .block00_typing       import *; time = clock()
@@ -26,7 +26,7 @@ from . import block10_tracing      as tracing
 from . import block11_compression  as compression
 from . import block12_parseStdLogs as parseStdLogs
 from . import block13_saveOps      as saveOps
-from . import block16_utils              as utils
+from . import block15_utils        as utils
 
 
 ## Shell Aliases
@@ -35,7 +35,7 @@ lar = loadAndResave  = saveOps.loadAndResave
 l   = labelLogs      = log.labelLogs
 c   = clearLogs      = log.clearLogs
 rmp = removePrintDir = pathOps.removePrintDir
-rs  = reloadSettings = settingsObj.so.reload
+rs  = reloadSettings = settingsObj.reloadSettings
 pt  = printTimings   = utils.printTimings
 
 ## Code Aliases
@@ -79,14 +79,15 @@ __all__ = callFromCodeInterface
 
 
 def jamInterfaceIntoBuiltins(
-        interfaceNames=callFromShellInterface,
-        extras={},
-):  # type: (Itrb[str], Dic[str, ...]) -> None
+        allNames       = None,                    # type: Dic[str, Any]
+        interfaceNames = callFromShellInterface,  # type: Itrb[str]
+        extras         = (),                      # type: Itrb[Tup[str, Any]]
+):                                                # type: (...) -> None
 
     import __builtin__
     from sys import modules
 
-    _globals = globals()
+    _globals = allNames or globals()
     reloading = __name__ in modules
     for name in interfaceNames:
         if reloading or not hasattr(__builtin__, name):
@@ -94,16 +95,19 @@ def jamInterfaceIntoBuiltins(
         else:
             utils.E('COLLISION!', name=name)
 
-    for name, val in extras.iteritems():
+    for name, val in extras:
         if reloading or not hasattr(__builtin__, name):
             setattr(__builtin__, name, val)
         else:
             utils.E('COLLISION!', name=name)
 
-jamInterfaceIntoBuiltins()
+_locals = locals()
+jamInterfaceIntoBuiltins(_locals)
 
+
+from types import ModuleType
+utils.timeAllCallables((
+    v for v in _locals.itervalues() if isinstance(v, ModuleType)
+))
 
 print '[STAK]', __name__, 'import', clock() - time, 's'
-
-
-utils.timeAllCallables()
