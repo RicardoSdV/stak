@@ -1,2 +1,0 @@
-def omrolocs():
-    print 'Noface'
