@@ -1,82 +1,109 @@
-from .block00_autoImports import *
+from sys         import _getframe as getFrame, gettrace, settrace
+from itertools   import izip
+from time        import time
 
-setFlag , callFlag , retFlag , delFlag  = traceFlags
-pSetFlag, pCallFlag, pRetFlag, pDelFlag = pTraceFlags
+from .                              import block03_constants as cs
+from .block00_typing                import *
+from .block02_settingObj            import so
+from .block04_log                   import appendToTrace
+from .block05_pathOps               import pathsIgnoredOnLogGather, getTracePath, getCompactTracePath
+from .block06_stampOps              import unixStampToStr
+from .block07_creatingMroCallChains import iterMroUntilDefClsFound
+from .block08_joinSplitLinks        import joinLink
+from .z_utils                       import funcErr, timeCall, listErr
 
-_traceLinkWithLnBFs = pathBF | linenoBF | calNameBF | callFromLnBF
+
+def makeSplitLinkTrace(
+        frame,                                       # type: FrameType
+        dataForLogging   = None,                     # type: Opt[Tup[Tup[str, str], ...]]
+        calledFromLineno = None,                     # type: int
+        _ignorePaths     = pathsIgnoredOnLogGather,  # type: Set[str]
+):                                                   # type: (...) -> Opt[SplitLinkTrace]
+
+    codeObj = frame.f_code
+    path = codeObj.co_filename
+    if path in _ignorePaths:
+        return None
+
+    calName = codeObj.co_name
+    mroClsNs = tuple(iterMroUntilDefClsFound(calName, frame.f_locals, codeObj)) or None
+    return path, frame.f_lineno, mroClsNs, calName, dataForLogging, calledFromLineno
 
 def trace(
-        frame,                                         # type: FrameType
-        event,                                         # type: TraceEvent
-        arg,                                           # type: Any
-        _clock = clock,                                # type: Clock
-        _traceEntryBFs = strFlagBF | stampBF | linkBF, # type: int
-):                                                     # type: (...) -> 'trace'
-
+        frame,                           # type: FrameType
+        event,                           # type: TraceEvent
+        arg,                             # type: Any
+        _now             = time,         # type: Time
+        calledFromLineno = None,         # type: int
+        _callFlag        = cs.callFlag,  # type: str
+        _retFlag         = cs.retFlag,   # type: str
+):                                       # type: (...) -> 'trace'
     if event == 'call':
-        flag = callFlag
+        flag = _callFlag
         prevFrame = frame.f_back
-        if prevFrame:
-            splitLink = makeSplitLink(frame, None, _traceLinkWithLnBFs, extras=[prevFrame.f_lineno])
-        else:
-            splitLink = makeSplitLink(frame)
+        calledFromLineno = prevFrame.f_lineno if prevFrame else frame.f_lineno
     elif event == 'return':
-        flag = retFlag
-        splitLink = makeSplitLink(frame)
+        flag = _retFlag
     else:
         return trace
 
-    if not splitLink:
+    splitLinkTrace = makeSplitLinkTrace(frame, None, calledFromLineno)
+    if not splitLinkTrace:
         return trace
 
-    if printLiveTrace:
-        print 'STAK: TRACE:', flag, joinLink(splitLink)
-
-    traceLogExt((_traceEntryBFs, flag, _clock()))
-    traceLogExt(splitLink)
+    appendToTrace((_now(), flag, splitLinkTrace))
     return trace
 
 def setTrace():
     delTrace()
     traceState.mayHave = True
 
-    if not silenceTrace:
-        splitLink = makeSplitLink(sysGetFrame(1))
-        if splitLink:
-            appendToTrace((time(), setFlag, splitLink))
-        sysSetTrace(trace)
+    if so.silenceTrace:
+        return
+    print '[STAK] setTrace'
+
+    splitLink = makeSplitLinkTrace(getFrame(1))
+    if splitLink:
+        appendToTrace((time(), cs.setFlag, splitLink))
+    settrace(trace)
 
 def delTrace():
     traceState.mayHave = False
 
-    oldTrace = sysGetTrace()
+    oldTrace = gettrace()
+    print '[STAK] delTrace', oldTrace
+
     if oldTrace is not None:
-        splitLink = makeSplitLinkTrace(sysGetFrame(1))
+        splitLink = makeSplitLinkTrace(getFrame(1))
         if splitLink:
-            appendToTrace((time(), delFlag, splitLink))
-        sysSetTrace(None)
+            appendToTrace((time(), cs.delFlag, splitLink))
 
+    settrace(None)
 
+@timeCall
 def saveTraceLog(
         traceLog,                # type: TraceLog
-        _padByNot={noPad: pad for noPad, pad in izip(traceFlags, pTraceFlags)},
+        _toStr=unixStampToStr,   # type: Cal[[float], str]
+        joinLink=joinLink,       # type: Cal[[SplitLink], str]
+        _padByNot={noPad: pad for noPad, pad in izip(cs.traceFlags, cs.pTraceFlags)},
+        callFlag=cs.callFlag, retFlag=cs.retFlag, setFlag=cs.setFlag, delFlag=cs.delFlag,
         emptyJoin = ''.join, callsJoin = ' -> '.join,
         retsJoin = ' <- '.join, space4Join = '    '.join,
         direction=None, traceFile=None, compactFile=None,
 ):
-    if not traceLog or (not saveTrace and not saveTraceCompact):
+    if not traceLog or (not so.saveTrace and not so.saveTraceCompact):
         return
 
     try:
         popTrace = traceLog.popleft;
 
-        if saveTrace:
+        if so.saveTrace:
             traceFile = open(getTracePath(), 'w')
             writeTrace = traceFile.write
         else:
             writeTrace = None
 
-        if saveTraceCompact:
+        if so.saveTraceCompact:
             compactFile = open(getCompactTracePath(), 'w'); writeComp = compactFile.write
             calls    = []; appCalls    = calls.append   ; popCalls = calls.pop
             callLens = []; appCallLens = callLens.append; popCallLens = callLens.pop
@@ -101,7 +128,7 @@ def saveTraceLog(
             if traceFile is not None:
                 writeTrace(
                     emptyJoin(
-                        (unixStampToStr(stamp), _padByNot[flag], strLink, '\n')
+                        (_toStr(stamp), _padByNot[flag], strLink, '\n')
                     )
                 )
 
@@ -168,20 +195,18 @@ def saveTraceLog(
         if compactFile is not None: compactFile.close()
 
 
-def onSettingsReload_updateTracing(oldSettings, newSettings):
-    if not traceState.mayHave:
-        return
+class TraceState(object):
+    __slots__ = ('mayHave', )
 
-    wasSilenced = oldSettings['silenceTrace']
-    isSilenced = newSettings['silenceTrace']
+    def __init__(self):
+        # This is not weather or not a trace actually exists, it means,
+        # weather or not the trace would have existed if the trace had
+        # not been silenced.
+        self.mayHave = False
 
-    if wasSilenced == isSilenced:
-        return
+traceState = TraceState()
 
-    if isSilenced:
-        delTrace()
-    else:
-        setTrace()
+
 
 
 # For documentation about types

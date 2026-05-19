@@ -1,6 +1,5 @@
-from .block00_autoImports import *
-
-# TODO: Ok, so, we need to be able to stak both classes and instances with some sort of mixin, or decorator, or similar
+from .block00_typing    import *
+from .block09_dataLinks import omrolocsalad
 
 
 # Mixin to debug event classes

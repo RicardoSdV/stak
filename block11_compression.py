@@ -1,5 +1,5 @@
-from .block00_autoImports import *
-
+from .block00_typing     import *
+from .block02_settingObj import so
 
 # TODO: This file really needs a refactoring and some perf testing and improvement
 #  since its the main bottleneck when saving. But its too complicated to remove the
@@ -12,10 +12,9 @@ class CFL(list):
         super(CFL, self).__init__(args)
         self.cnt = cnt
 
-
 def compress(postPassCfl, CFL=CFL):  # type: (CFL, Typ[CFL]) -> CFL
 
-    for groupSize in xrange(1, min(len(postPassCfl) // 2, maxCompressGroupSize)):
+    for groupSize in xrange(1, min(len(postPassCfl) // 2, so.maxCompressGroupSize)):
 
         prePassCfl = postPassCfl
         postPassCfl = CFL(prePassCfl.cnt)

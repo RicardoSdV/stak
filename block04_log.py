@@ -1,10 +1,27 @@
-from .block00_autoImports import *
+from collections import deque
+from datetime    import datetime
+from time        import time
+
+from .block00_typing     import *
+from .block02_settingObj import so
+from .block05_pathOps    import getStdLogPath, pathsByIds, idsByPaths
+from .z_utils            import Cnt
+
+eCnt = Cnt()
+
+stakLog = []  # type: StakLog
+appendToStak = stakLog.append
+extendStak   = stakLog.extend
+
+traceLog = deque()  # type: TraceLog
+appendToTrace = traceLog.append
+
 
 def dateEntries():
     """ Since normal entries only log time, this one is used to log date, on logging session init & clear. """
 
     appendToStak(
-        (time(), ((None, None, None, None, (('date', DateTimeNow().strftime('%Y-%m-%d')), )), ))
+        (time(), ((None, None, None, None, (('date', datetime.now().strftime('%Y-%m-%d')), )), ))
     )
     # appendToTrace()  # TODO: Implement dates in trace
 
@@ -12,10 +29,10 @@ def dateEntries():
 def labelLogs(label=None):
     """ Make a log entry with the passed label, else, with next label in eventLabels, if any, else print no-name label """
     if label is None:
-        if eCnt.cnt < len(eventLabels):
-            label = eventLabels[eCnt.cnt]
+        if eCnt.cnt < len(so.eventLabels):
+            label = so.eventLabels[eCnt.cnt]
         else:
-            label = 'NO-NAME LABEL' + str(len(eventLabels) - eCnt.cnt)
+            label = 'NO-NAME LABEL' + str(len(so.eventLabels) - eCnt.cnt)
 
         eCnt.cnt += 1
 
@@ -30,30 +47,17 @@ def labelLogs(label=None):
 def clearLogs():
     """ DANGER: Clears current logs, stak, trace & std. Resets eventCnt (label print count) & more """
 
+    for prefix in so.stdLogPrefixes:
+        with open(getStdLogPath(prefix), 'w') as _: pass
+
     eCnt.cnt = 0
     del stakLog[:]
     traceLog.clear()
 
-    # TODO: Intern paths in logs
-    # pathsByIds.clear()
-    # idsByPaths.clear()
+    pathsByIds.clear()
+    idsByPaths.clear()
 
     dateEntries()
-
-
-"""
-What is log?
-
-log = [
-    entryID1, part1, part2, ...,
-    entryID2, part1, ...
-]
-
-entryID: 32 bit signed integer = int(entryFlag, elCount)
-
-
-
-"""
 
 
 
