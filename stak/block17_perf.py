@@ -40,7 +40,7 @@ def timeAllCallables():
                 gSpace[k] = timeCalls(v)
 
 def printTimings():
-    print '[STAK] printing timings'
+    INFO('printing timings')
 
     timesSum = DefaultDict(float)
     callsSum = DefaultDict(int)
@@ -61,5 +61,5 @@ def printTimings():
     means.sort(key=getItem4, reverse=True)
 
     for module, funcName, timeSum, reps, mean in means:
-        print '[STAK] calls: {:>6} | sum: {:>12.8f}s | mean: {:>12.8f}s | {:<25} | {:<25}'.format(
-            reps, timeSum, mean, funcName, module)
+        INFO('calls: {:>6} | sum: {:>12.8f}s | mean: {:>12.8f}s | {:<25} | {:<25}'.format(
+            reps, timeSum, mean, funcName, module))

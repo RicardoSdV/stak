@@ -32,7 +32,7 @@ def makeMroClsNs(frame):  # type: (Frame) -> Opt[Lst[str]]
     for cls in mro:
         mroClsNsApp(cls.__name__)
 
-        mangledMaybeName = '_' + cls.__name__.rstrip('_') + calName if isPriv else calName
+        mangledMaybeName = '_' + cls.__name__.lstrip('_') + calName if isPriv else calName
         if mangledMaybeName not in cls.__dict__:
             continue
 
@@ -52,53 +52,53 @@ def makeMroClsNs(frame):  # type: (Frame) -> Opt[Lst[str]]
 
     # If we exhaust the mro we haven't found the definer class. So, we return None, in case this bug
     # should be fixed return here the entire mro & post process, or fix this function. I'm not sure why
-    # there's edge cases where the class is not found.
+    # there's edge cases where the definer class is not found.
+    assert DEBUG('Definer class not found! locals=%s' % locals())
     return None
 
-def makeSplitLink(frame, _hash=hash, _headByHash=splitLinks_headIdxByPathLnHash):
+def makeSplitLink(frame):  # type: (Frame) -> int
     codeObj = frame.f_code
     path = codeObj.co_filename
     lineno = frame.f_lineno
-    _hash = _hash((path, lineno))
-    if _hash in _headByHash:
-        return _hash
 
     mroClsNs = makeMroClsNs(frame)
-    flag = mroLinkEntry if mroClsNs else fileLinkEntry
+    flag = mroLinkEntryFlag if mroClsNs else fileLinkEntryFlag
+
     splitLink = [flag, path, lineno, codeObj.co_name]
     if mroClsNs:
         splitLink.append(len(mroClsNs))
         splitLink.extend(mroClsNs)
 
-    headIdx = len(splitLinks)
-    splitLinksExt(splitLink)
-    _headByHash[_hash] = headIdx
-    return _hash
-
-def getSplitLink(linkHash, _head=splitLinks_headIdxByPathLnHash, _splitLinks=splitLinks, _len=baseEntryLens, _cntIdxs=cntIdxsByEntryFlag):
-    _head = _head[linkHash]
-    flag = _splitLinks[_head]
-    _len = _len[flag]
-    for cntIdx in _cntIdxs[flag]:
-        _len += _splitLinks[cntIdx]
-    return _splitLinks[_head : _head + _len]
-
-
-def makeCallChain(frame, entryData=None, _clock=clock):
-    if entryData:
-        callChain = [dataChainEntry, _clock(), len(entryData)]
-        callChain.extend(entryData)
+    splitLink = tuple(splitLink)
+    if splitLink in IdsBySplitLink:
+        ID = IdsBySplitLink[splitLink]
     else:
-        callChain = [callChainEntry, _clock()]
+        ID = len(splitLinksById)
+        splitLinksByIdApp(splitLink)
+        IdsBySplitLink[splitLink] = ID
 
-    callChainApp = callChain.append
-    linkCntIdx = len(callChain)
-    callChainApp(None)
+    return ID
+
+def makeDataEntry(frame, keyValPairsForLogging, kwargsForLogging):
+    # type: (Opt[Frame], Tup[str, Any, ...], Dic[str, Any]) -> tuple
+    data = tuple(serializeArgs(frame, keyValPairsForLogging, kwargsForLogging))
+    return (dataEntryFlag, clock(), len(data)) + data
+
+def makeCallChainEntry(frame, entryData=None):
+    if entryData:
+        callChainEntry = [dataChainEntryFlag, clock(), len(entryData)]
+        callChainEntry.extend(entryData)
+    else:
+        callChainEntry = [callChainEntryFlag, clock()]
+
+    callChainEntryApp = callChainEntry.append
+    linkCntIdx = len(callChainEntry)
+    callChainEntryApp(None)
 
     while frame:
-        linkHash = makeSplitLink(frame)
-        callChainApp(linkHash)
+        splitLinkID = makeSplitLink(frame)
+        callChainEntryApp(splitLinkID)
         frame = frame.f_back
 
-    callChain[linkCntIdx] = len(callChain) - linkCntIdx - 1
-    return callChain
+    callChainEntry[linkCntIdx] = len(callChainEntry) - linkCntIdx - 1
+    return callChainEntry

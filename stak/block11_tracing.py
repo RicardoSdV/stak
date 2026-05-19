@@ -3,14 +3,14 @@ from .block00_autoImports import *
 setFlag , callFlag , retFlag , delFlag  = traceFlags
 pSetFlag, pCallFlag, pRetFlag, pDelFlag = pTraceFlags
 
-_traceLinkWithLnBFs = pathBF | linenoBF | calNameBF | callFromLnBF
+# TODO: Tracing needs to be updated to the new flat-log standard.
+
 
 def trace(
         frame,                                         # type: FrameType
         event,                                         # type: TraceEvent
         arg,                                           # type: Any
         _clock = clock,                                # type: Clock
-        _traceEntryBFs = strFlagBF | stampBF | linkBF, # type: int
 ):                                                     # type: (...) -> 'trace'
 
     if event == 'call':
@@ -30,7 +30,7 @@ def trace(
         return trace
 
     if printLiveTrace:
-        print 'STAK: TRACE:', flag, joinLink(splitLink)
+        print('STAK: TRACE: %s %s' % (flag, joinLink(splitLink)))
 
     traceLogExt((_traceEntryBFs, flag, _clock()))
     traceLogExt(splitLink)

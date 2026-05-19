@@ -40,7 +40,7 @@ def removePrintDir():  # type: () -> None
     """ MUCH DANGER: Remove current print dir & all its logs """
     path = getPrintDirPath()
     if not osPathExists(path):
-        E('Path = %s does not exist', path)
+        ERROR('Path = %s does not exist', path)
         return
 
     if bool(input('Are you sure of deleting: %s ?' % path)):
@@ -80,29 +80,11 @@ def getPicklePath():  # type: () -> str
     )
 # -------------------------------------------------------------------------------------------------
 
-# In house intern of paths.  # TODO: Make paths unique in logs.
-# -------------------------------------------------------------------------------------------------
-# pathsByIds = {}
-# idsByPaths = {}
-# pathIdCnt  = Cnt()
-#
-# def getIdFromPath(path):
-#     path = intern(path)
-#     if path in idsByPaths:
-#         return idsByPaths[path]
-#
-#     ID = pathIdCnt.cnt
-#     pathsByIds[ID] = path
-#     idsByPaths[path] = ID
-#     pathIdCnt.cnt += 1
-#
-#     return ID
-# -------------------------------------------------------------------------------------------------
 
 def isIgnorePath(path):  # type: (str) -> bool
     return (
         path[:lenOsAbsPath] != osAbsPath and
-        path[:lenAbsPackagePath] != absPackagePath
+        path[:lenPackagePath] != packagePath
     )
 
 def getAbsPathForBlockName(name):  # type: (str) -> str

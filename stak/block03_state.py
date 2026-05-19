@@ -2,9 +2,12 @@
 
 from .block00_autoImports import *
 
-class eCnt(object): __slots__ = ('cnt', )
-eCnt = eCnt()
-eCnt.cnt = 0
+class Cnt(object):
+    __slots__ = ('cnt', )
+    def __init__(self, initCnt=0):
+        self.cnt = 0
+
+eCnt = Cnt()
 
 stakLog    = []              # type: StakLog
 stakLogApp = stakLog.append  # type: Append
@@ -14,13 +17,11 @@ traceLog    = Deque()          # type: TraceLog
 traceLogApp = traceLog.append  # type: Append
 traceLogExt = traceLog.extend  # type: Extend
 
-splitLinks    = []
-splitLinksExt = splitLinks.extend
+IdsBySplitLink    = {}  # type: Dic[tuple, int]
+splitLinksById    = []  # type: Lst[tuple]
+splitLinksByIdApp = splitLinksById.append  # type: Append
 
-splitLinks_headIdxByPathLnHash = {}
-
-jointLinks = []
-jointLinksApp = jointLinks.append
+jointLinksById    = {}  # type: Dic[int, str]
 
 jointLinks_strByPathLnHash = {}
 
@@ -34,6 +35,9 @@ traceState.mayHave = False
 class interceptState(object): __slots__ = ('intercept', )
 interceptState = interceptState()
 interceptState.intercept = 0
+
+absRefStamp = time()
+clockRefStamp = clock()  # Clock call needed to start the clock if no one called it yet.
 
 ogLoggers = {}
 

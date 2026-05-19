@@ -51,10 +51,14 @@ def compressAndSaveStak(compCallChainsStak):
         writeLines(path, prettyCompressedLines)
 
 def saveStakLog():
+    joinAllLinks()
+
+
+def saveStakLogOG():
     strLinkStakLog = joinSplitLinksAndLeaveOutSilencedFiles()
 
     if len(strLinkStakLog) <= 1:
-        print '[STAK] ERROR: Trying to save stak log but all silenced: silent=%s, loud=%s' % (silentFiles, loudFiles)
+        INFO('Trying to save stak log but all silenced: silent=%s, loud=%s' % (silentFiles, loudFiles))
         return
 
     savePrimitiveStak(strLinkStakLog)
@@ -71,7 +75,7 @@ def saveAll():
     if traceLog:
         saveTraceLog(traceLog)
 
-    print '[STAK] saveAll finished, lines=%s, took=%s, silentFiles=%s, loudFiles=%s' % (len(stakLog), clock() - start, silentFiles, loudFiles)
+    INFO('saveAll finished, lines=%s, took=%s, silentFiles=%s, loudFiles=%s' % (len(stakLog), clock() - start, silentFiles, loudFiles))
 
 
 # TODO: There is now no settings object, must rethink pickling, what about saving an entire copy of stak?

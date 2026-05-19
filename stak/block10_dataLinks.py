@@ -3,11 +3,14 @@ from .block00_autoImports import *
 
 # Log the data passed to it next to the fist link to know where it comes from.
 # ---------------------------------------------------------------------------------------------------------------------
-def firstFrameAndData(locals=False, *keyValPairsForLogging, **kwargsForLogging):  # type: (...) -> None
-    frame = sysGetFrame(1)
-    data = tuple(serializeArgs(frame if locals else None, keyValPairsForLogging, kwargsForLogging))
-    splitLink = makeSplitLink(frame, data)
-    if splitLink: appendToStak((time(), (splitLink, )))
+@logExcept
+def firstFrameAndData(__locals__=False, *keyValPairsForLogging, **kwargsForLogging):  # type: (...) -> None
+    if not keyValPairsForLogging and not kwargsForLogging:
+        return
+    dataEntry = makeDataEntry(sysGetFrame(1) if __locals__ else None, keyValPairsForLogging, kwargsForLogging)
+    stakLogExt(dataEntry)
+
+    # TODO: Print data entry?
 
 firstFrameAndDataAndLocals = Partial(firstFrameAndData, True)
 # ---------------------------------------------------------------------------------------------------------------------
@@ -15,9 +18,15 @@ firstFrameAndDataAndLocals = Partial(firstFrameAndData, True)
 
 # Optional Method Resolution Order Optional Callstack Optional Locals Auto Data Optional Extra Data.
 #
-# __print__: To decide weather to print or append
+# __log__   : If True, will add entry to log in RAM for formatting & saving later on.
 #
-# __locals__: If true logs locals from frame from which it was called.
+# __print__ : If True, will print formatted entry
+#
+# __locals__: If True, logs locals from frame from which it was called.
+#
+# __return__: If True, returns formatted entry for processing in the outer scope
+#
+# __depth__ : Int to understand what frame we should start at in the call chain, take locals from, etc.
 #
 # Extra data that passed as:
 #     - keyValPairsForLogging: So that str keys can be passed & order is kept, one key followed by
@@ -25,30 +34,32 @@ firstFrameAndDataAndLocals = Partial(firstFrameAndData, True)
 #
 #     - kwargsForLogging: For when keys can be regular key-words & you don't care about order.
 # ---------------------------------------------------------------------------------------------------------------------
+@logExcept
 def omrolocsoladoed(__log__, __print__, __locals__, __return__, __depth__, *keyValPairsForLog, **kwargsForLog):
     # type: (int, int, int, int, int, *Any, **Any) -> Opt[str]
 
     frame = sysGetFrame(__depth__)
-    data = tuple(serializeArgs(frame if __locals__ else None, keyValPairsForLog, kwargsForLog))
 
-    callChain = makeCallChain(frame, data)
+    if keyValPairsForLog or kwargsForLog or __locals__:
+        data = tuple(serializeArgs(frame if __locals__ else None, keyValPairsForLog, kwargsForLog))
+        callChainEntry = makeCallChainEntry(frame, data)
+    else:
+        callChainEntry = makeCallChainEntry(frame)
 
     if __print__ or __return__:
         # Normally printing to std out is done for some quick logging with few entries,
-        # and returning is used to print in the outer scope, so we don't care about performance.
+        # & returning is used to print in the outer scope, so we don't care about performance.
         # That is to say, don't use this if you expect any sort of performance during logging.
-        joinedChains = ' <- '.join(joinLinks(callChain))
+        jointCallChainEntry = ' <- '.join(joinLinks(callChainEntry))
 
     if __print__:
-        makeSplitLinks()
+        print(jointCallChainEntry)
 
     if __log__:
-        stakApp(stampBF | chainBF)
-        stakApp(clock())
-        stakExt(callChain)
+        stakLogExt(callChainEntry)
 
     if __return__:
-        return joinedChains
+        return jointCallChainEntry
 
 
 # Interface:
@@ -61,8 +72,9 @@ omrolpocs    = Partial(omrolocsoladoed, 1, 1, 0, 0, 1)
 # ---------------------------------------------------------------------------------------------------------------------
 
 
-# Similar to _omrolocsoladoed but it's a wrapper and, it logs the return. Use the partials not this one.
+# Similar to _omrolocsoladoed but it's a wrapper & logs the return. Use the partials not this one.
 # ---------------------------------------------------------------------------------------------------------------------
+@logExcept
 def _omrolocsalaraa(__log__, __print__, __locals__, __args__, __return__, __depth__, wrapable):
     # type: (int, int, int, int, int, int, Cal) -> Cal
 

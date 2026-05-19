@@ -4,9 +4,6 @@ from .block00_autoImports import *
 
 ## Manual input constants
 # ---------------------------------------------------------------------------------------------------------------------
-ignorePaths = set()   # TODO: Theres references to this around, but I have no idea why theres no definition
-
-silenceTimers = 0
 
 # Changes to these will rename/add/delete modules & all references to them.
 blockNames = (
@@ -25,27 +22,37 @@ blockNames = (
     'interceptor',
     'compression',
     'saveOps',
-    'debugComponent',
     'injectors',
     'meta',
     'perf',
-    'computed',
+    'wrapC',
+    'compile',
+    'events',
 )
 
+staticBlockNames = ('state', 'wrapC')
+
+validOSs = {'linux', }
+validPys = {'27', }
+
 blockPrefix = 'block'
-
-stakFlags  = ('OMROLOCS', 'LOCSALAD', 'DATE', 'DAFF', 'LABEL')
-traceFlags = ('SET', 'CAL', 'RET', 'DEL')
-
+lenBlockPrefix = len(blockPrefix)
 
 pyExt     = '.py'
 pycExt    = '.pyc'
 logExt    = '.log'
 pickleExt = '.pkl'
 
+lenPyExt  = len(pyExt)
+nLenPyExt = -lenPyExt
+lenPycExt = len(pycExt)
+
 exclFromLocals = {'self', 'cls'}
 
-backupsPath = r'C:\STAK_backups'  # TODO: !
+stakFlags  = ('OMROLOCS', 'LOCSALAD', 'DATE', 'DAFF', 'LABEL')
+traceFlags = ('SET', 'CAL', 'RET', 'DEL')
+
+silenceTimers = 0
 
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -55,29 +62,6 @@ pStakFlags = [': OMROLOCS: ', ': LOCSALAD: ', ': DATE    : ', ': DAFF    : ', ':
 pTraceFlags = [': SET: ', ': CAL: ', ': RET: ', ': DEL: ']  # Injected
 # ---------------------------------------------------------------------------------------------------------------------
 
-## Entry ID masks
-elCountMask   = 63    # 000 0000 0000 0000 0000 0000 0011 1111
-entryFlagMask = 4032  # 000 0000 0000 0000 0000 1111 1100 0000
-
-# Entry spec bin flags (32-bit signed)
-specCntBF    = 1     # 000 0000 0000 0000 0000 0000 0000 0001
-strFlagBF    = 2     # 000 0000 0000 0000 0000 0000 0000 0010
-stampBF      = 4     # 000 0000 0000 0000 0000 0000 0000 0100
-chainBF      = 8     # 000 0000 0000 0000 0000 0000 0000 1000
-linkBF       = 16    # 000 0000 0000 0000 0000 0000 0001 0000
-pathBF       = 32    # 000 0000 0000 0000 0000 0000 0010 0000
-linenoBF     = 64    # 000 0000 0000 0000 0000 0000 0100 0000
-calNameBF    = 128   # 000 0000 0000 0000 0000 0000 1000 0000
-mroClsNsBF   = 256   # 000 0000 0000 0000 0000 0001 0000 0000
-logDataBF    = 512   # 000 0000 0000 0000 0000 0010 0000 0000
-keySpecBF    = 1024  # 000 0000 0000 0000 0000 0100 0000 0000
-valSpecBF    = 2048  # 000 0000 0000 0000 0000 1000 0000 0000
-strSpecBF    = 4096  # 000 0000 0000 0000 0001 0000 0000 0000
-callFromLnBF = 8192  # 000 0000 0000 0000 0010 0000 0000 0000
-
-# Entry masks (identifiers for types of entries. They could contain more elements.)
-splitLinkBFs = pathBF | linenoBF | calNameBF
-
 # Level would have been the depth of nesting had this been nested.
 # Using binary flags was tried, but binary operations in python are too slow,
 # so, packing the information implicitly in incrementing integers is faster,
@@ -86,64 +70,98 @@ splitLinkBFs = pathBF | linenoBF | calNameBF
 
 (
 # Level 1 Entry Flags
-dateEntry,
-labelEntry,
-callChainEntry,
-dataChainEntry,
+labelEntryFlag,
+callChainEntryFlag,
+dataChainEntryFlag,
+dataEntryFlag,
 
 # Level 2 Entry Flags
-mroLinkEntry,
-fileLinkEntry,
+mroLinkEntryFlag,
+fileLinkEntryFlag,
 
 ) = range(6)
 
+callChainLinkFlags = {
+    mroLinkEntryFlag,
+    fileLinkEntryFlag,
+}
+
+# These are the fixed lens, the entries themselves can be dynamically longer based on the count entries.
 baseEntryLens = {
-    mroLinkEntry: 5,
-    fileLinkEntry: 4,
+    # dateEntryFlag   : 3,  # [..., flag, absStamp, clockStamp, ...]
+    labelEntryFlag    : 2,  # [..., flag, stamp, labelStr, ...]
+    callChainEntryFlag: 3,  # [..., flag, stamp, linkCnt, ...]
+    dataChainEntryFlag: 4,  # [..., flag, stamp, dataCnt, linkCnt, ...]
+    dataEntryFlag     : 3,  # [..., flag, stamp, dataCnt, ...]
+
+    mroLinkEntryFlag  : 5,  # [..., flag, path, lineno, calName, clsCnt, ...]
+    fileLinkEntryFlag : 4,  # [..., flag, path, lineno, calName, ...]
 }
 
 cntIdxsByEntryFlag = {
-    mroLinkEntry: (4, ),
-    fileLinkEntry: (),
+    mroLinkEntryFlag: (4, ),
+    fileLinkEntryFlag: (),
 }
 
 # Stak Log example
+# A thing to consider is that no data entry is possible without a call chain, now,
+# sometimes the entire chain is not desired, in this case we still have a chain but
+# with one link only. This means that data can be linked to entries implicitly by order.
+# However, they share time stamp, the data and its chain I mean, so how to solve this problem?
+
+
 # stakLog = [
-#     dateEntry, '2024-01-01',
-#     labelEntry, '============== SOME LABEL ================',
-#     callChainEntry,
-#         stamp,
-#         lnkCnt=2,
-#         lnkHash1=hash('\path', 123),
-#         lnkHash2=hash(hash('\path', 234)),
-#
-#     dataChainEntry,
-#         stamp,
-#         dataCnt=4,
-#         'key1',
-#         'val1',
-#         'key2',
-#         'val2',
-#         lnkCnt=2,
-#         lnkHash1=hash('\path', 123),
-#         lnkHash2=hash(hash('\path', 234))
+#     entryID = 0,
+#     entryID = 1,
+#     entryID = 2,
+#     entryID = 0,
 # ]
-#
-#
-# splitLinks = [
-#     mroLinkEntry, '\path', 123, 'calName', 3, 'Cls1', 'Cls2', 'Cls3',
-#     fileLinkEntry, '\path', 234, 'calName',
+
+# clockStamps = [  # Linked by Idx to stakLog
+#     clockStamp = 2514.0686976,
+#     clockStamp = 2515.8576039,
+#     clockStamp = 2516.3113509,
+#     clockStamp = 2516.7229875,
 # ]
-#
-#
-# splitLinks_headIdxByPathLnHash = {
-#     hash(('\path', 123)): 0,
-#     hash(('\path', 234)): 8,
+
+# stakLogEntriesById = [  # Where Idx is ID
+#     (labelEntryFlag, '============== SOME LABEL ================'),
+#     (callChainEntryFlag, callChainID=0),
+#     (dataChainEntryFlag, dataID=0, callChainID=0),
+# ]
+
+# idsByStakLogEntries = {
+#     (labelEntryFlag, '============== SOME LABEL ================'): 0,
+#     (callChainEntryFlag, callChainID=0): 1,
+#     (dataChainEntryFlag, dataID=0, callChainID=0): 2,
 # }
-#
-# jointLinks = ['strLink1', 'strLink2', ..]
-#
-# jointLinks_idxByPathLnHash = {
-#    hash(('\path', 123)): 0
-#    hash(('\path', 234)): 1
+
+# dataById = [
+#     ('key1', 'val1', 'key2', 'val2'),
+# ]
+
+# callChainsById = [
+#     (linkID=0, linkID=1),
+# ]
+
+# idsByCallChain = {
+#     (linkID=0, linkID=1): 0,
+# }
+
+# splitLinksById = [  # Where Idx is ID
+#     (mroLinkEntryFlag, '\path', 123, 'calName', 0),  # ID = 0
+#     (fileLinkEntryFlag, '\path', 234, 'calName'),  # ID = 1
+# ]
+
+# idsBySplitLink = {
+#     (mroLinkEntryFlag, '\path', 123, 'calName', 0): 0,
+#     (fileLinkEntryFlag, '\path', 234, 'calName'): 1,
+# }
+
+# mrosById = [
+#     ('Cls1', 'Cls2', 'Cls3'),
+# ]
+
+# idsByMro = {
+#     ('Cls1', 'Cls2', 'Cls3'): 0,
 # }

@@ -3,12 +3,25 @@ Finally, auto import all type hints when TYPE_CHECKING.
 
 This module can be imported by any, but itself should not import.
 """
-from typing import TYPE_CHECKING
-
-
 ## Lib imports py2/3 compatible
 import __builtin__
 builtins = __builtin__.__dict__
+
+import collections
+Deque       = collections.deque
+DefaultDict = collections.defaultdict
+
+import copy as copyM
+copy = copyM.copy
+
+import ctypes as cTypes
+cByte    = cTypes.c_byte
+cInt     = cTypes.c_int
+cSizeT   = cTypes.c_size_t
+cCharPtr = cTypes.c_char_p
+cDLL     = cTypes.CDLL
+cArr     = cTypes.Array
+cPtr     = cTypes.POINTER
 
 import sys
 sysGetFrame = sys._getframe
@@ -16,24 +29,39 @@ sysGetTrace = sys.gettrace
 sysSetTrace = sys.settrace
 sysModules  = sys.modules
 sysVersion  = sys.version
+pyVersion   = sysVersion.split(' ')[0]
+pyVerJoint  = ''.join(pyVersion.split('.')[:2])
 isPy3       = sysVersion.startswith('3')
 isPy2       = not isPy3
+sysPlatform = sys.platform
+osName      = 'linux' if sysPlatform[:5] == 'linux' else sysPlatform
+binaryExt   = '.so' if osName == 'linux' else osName
+sysPath     = sys.path
+
+import subprocess
+openSubProcess = subprocess.Popen
+subProcessPipe = subprocess.PIPE
 
 import os
-osMakeDirs     = os.makedirs
-osListDir      = os.listdir
-osRename       = os.rename
-osPath         = os.path
-osPathJoin     = osPath.join
-osPathSplit    = osPath.split
-osPathBaseName = osPath.basename
-osPathDirName  = osPath.dirname
-osPathExists   = osPath.exists
-osPathIsDir    = osPath.isdir
-osPathSplitExt = osPath.splitext
-osPathAbsPath  = osPath.abspath
-osAbsPath      = osPathDirName(osPathDirName(os.__file__))
-lenOsAbsPath   = len(osAbsPath)
+osMakeDirs       = os.makedirs
+osListDir        = os.listdir
+osRename         = os.rename
+osPath           = os.path
+osWalk           = os.walk
+osPathJoin       = osPath.join
+osPathSplit      = osPath.split
+osPathBaseName   = osPath.basename
+osPathDirName    = osPath.dirname
+osPathExists     = osPath.exists
+osPathIsDir      = osPath.isdir
+osPathSplitExt   = osPath.splitext
+osPathAbsPath    = osPath.abspath
+osPathGetModTime = osPath.getmtime
+osAbsPath        = osPathDirName(osPathDirName(os.__file__))
+lenOsAbsPath     = len(osAbsPath)
+
+import distutils.sysconfig as sysConfig
+getConfigVar = sysConfig.get_config_var
 
 import math
 floor = math.floor
@@ -45,7 +73,15 @@ Module   = types.ModuleType
 
 import time as timeM
 time  = timeM.time
-clock = timeM.clock if isPy2 else timeM.perf_counter
+if isPy2:
+    if osName == 'linux':
+        clock = time  # Best time in linux py2 (a bit shit)
+    else:
+        assert osName == 'win', 'Only Windows & linux supported.'
+        clock = timeM.clock
+else:
+    assert isPy3
+    clock = time.perf_counter
 
 import itertools
 chain     = itertools.chain
@@ -59,10 +95,6 @@ import functools
 Partial = functools.partial
 wraps   = functools.wraps
 
-import collections
-Deque       = collections.deque
-DefaultDict = collections.defaultdict
-
 import datetime
 DateTime      = datetime.datetime
 DateTimeNow   = DateTime.now
@@ -74,26 +106,59 @@ shutilRmTree = shutil.rmtree
 import importlib
 importModule = importlib.import_module
 
-import copy as copyM
-copy = copyM.copy
-
 import traceback
-printStack = traceback.print_stack
-formatExc  = traceback.format_exc
+formatStack = traceback.format_stack
+formatExc   = traceback.format_exc
+printExc    = traceback.print_exception
 
-from lib import io, packageUnite as pu
-read       = io.read
-write      = io.write
-readLines  = io.readLines
-writeLines = io.writeLines
+from . import lib
+reloadModByNameGetDiff = lib.reloadModByNameGetDiff
+reloadUnited           = lib.reloadUnited
+read       = lib.read
+write      = lib.write
+readLines  = lib.readLines
+writeLines = lib.writeLines
 
-reloadModByNameGetDiff = pu.reloadModByNameGetDiff
-reloadUnited           = pu.reloadUnited
+import logging
+PY_CRITICAL_LVL = logging.CRITICAL
+PY_FATAL_LVL    = logging.FATAL
+PY_ERROR_LVL    = logging.ERROR
+PY_WARNING_LVL  = logging.WARNING
+PY_WARN_LVL     = logging.WARN
+PY_INFO_LVL     = logging.INFO
+PY_DEBUG_LVL    = logging.DEBUG
+PY_NOTSET_LVL   = logging.NOTSET
+
+import pybind11
+
+
+# os does not hold the correct path char for certain programs, when inspecting frames,
+# for os file ops should os.path.join, but for frame ops use pathSplitChar.
+pathSplitChar = '/' if '/' in sysGetFrame(0).f_code.co_filename else '\\'
+
+splitPackageDotPath = __name__.split('.')[:-1]
+packageName         = splitPackageDotPath[-1]
+
+packagePath       = osPathDirName(osPathAbsPath(__file__))      # stak/stak
+stakCPath         = osPathJoin(packagePath, 'c')                # stak/stak/c
+stakIncludePath   = osPathJoin(stakCPath, 'include')            # stak/stak/c/include
+stakSrcPath       = osPathJoin(stakCPath, 'src')                # stak/stak/c/src
+stakBuildPath     = osPathJoin(packagePath, 'lib', 'build')     # stak/stak/lib/build
+stakBinaryDirPath = osPathJoin(stakBuildPath, osName, 'py' + pyVerJoint)
+stakBinaryPath    = osPathJoin(stakBinaryDirPath, 'c_stak' + binaryExt)
+sourceModTimePath = osPathJoin(stakBuildPath, 'lastSourceModTime.txt')
+
+packagePathLen = len(packagePath)
+
+
+try:  # Vanilla python27 does not support typing
+    from typing import TYPE_CHECKING
+except ImportError:
+    TYPE_CHECKING = False
 
 if TYPE_CHECKING:
 
     ## Import all the names of stak for the editor.
-    # TODO: Inject these
     from .block01_settings       import *
     from .block02_constants      import *
     from .block03_state          import *
@@ -108,11 +173,12 @@ if TYPE_CHECKING:
     from .block12_interceptor    import *
     from .block13_compression    import *
     from .block14_saveOps        import *
-    from .block15_debugComponent import *
-    from .block16_injectors      import *
-    from .block17_meta           import *
-    from .block18_perf           import *
-    from .block19_computed       import *
+    from .block15_injectors      import *
+    from .block16_meta           import *
+    from .block17_perf           import *
+    from .block18_wrapC          import *
+    from .block19_compile        import *
+    from .block20_events         import *
 
     # In-house builtins 4 editor
     __unitedModPaths__ = []
@@ -171,3 +237,4 @@ if TYPE_CHECKING:
     Append = Cal[[Any], None]
     Extend = Cal[[Itrb], None]
 
+    __all__ = list(locals().keys())

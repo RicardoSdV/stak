@@ -1,12 +1,13 @@
 from .block00_autoImports import *
 
 def dateEntries():
-    """ Since normal entries only log time, this one is used to log date, on logging session init & clear. """
+    """ CPU time is used for log entry stamps, in order to have an accurate & absolute
+    stamp a reference is needed to calculate the diff from. This entry happens on logging
+    session init. """
 
-    appendToStak(
-        (time(), ((None, None, None, None, (('date', DateTimeNow().strftime('%Y-%m-%d')), )), ))
-    )
-    # appendToTrace()  # TODO: Implement dates in trace
+    dateEntry = (dateEntryFlag, time(), clock())
+    stakLogExt(dateEntry)
+    # TODO: Implement dates in trace
 
 
 def labelLogs(label=None):
@@ -22,44 +23,28 @@ def labelLogs(label=None):
     fmtLabel = ('\n========================================================= '
                 + label + ' =========================================================\n')
 
-    appendToStak(
-        (time(), ((None, None, None, None, (('label', fmtLabel), )), ))
-    )
-    # appendToTrace(now, labelFlag, fmtLabel)  # TODO: Labels in trace
+    labelEntry = (labelEntryFlag, clock(), fmtLabel)
+    stakLogExt(labelEntry)
+    # TODO: Labels in trace
 
 def clearLogs():
     """ DANGER: Clears current logs, stak, trace & std. Resets eventCnt (label print count) & more """
 
     eCnt.cnt = 0
     del stakLog[:]
-    traceLog.clear()
 
-    # TODO: Intern paths in logs
-    # pathsByIds.clear()
-    # idsByPaths.clear()
+    # TODO: Reconsider, why are we clearing these? just let em be no?
+    del splitLinksByIDs[:]
+    IDsBySplitLinks.clear()
+
+    # TODO: Tracing needs to be updated to the new flat log standard.
+    # traceLog.clear()
 
     dateEntries()
 
 
 """
-What is log?
-
-log = [
-    entryID1, part1, part2, ...,
-    entryID2, part1, ...
-]
-
-entryID: 32 bit signed integer = int(entryFlag, elCount)
-
-
-
-"""
-
-
-
-
-"""
-What is log?
+What is log?  This is outdated, but theres still some valuable info in here.
 
 log = [
     (unixStamp, seggregatorFlag, callerFlag, theRest),

@@ -1,4 +1,5 @@
 """ Settings: configurable parameters. Can be reloaded, dynamic references. """
+isDev = 1
 
 ## Labels
 eventLabels = ['PRE EVENT 1', 'POST EVENT 1']
@@ -14,12 +15,6 @@ silentFiles = []
 
 # If any, only allow paths that contain any part of paths here.
 loudFiles = []
-
-# TODO: Ideally pickles would all be in some backup file, and the
-#  path could be built dynamically based on the task name & print.
-loadAndResavePath = r'.STAK\task\print\pickle\pickle.pkl'
-
-isDev = 1
 
 ## File prefixes
 stakLogPrefix  = 'stak'
@@ -71,15 +66,15 @@ interceptSettings = (
     # Python standard logs:
     (
         'logging', (
-            (('Logger', ), (
-                ('debug'    , 'pyInterceptor', 1),
-                ('info'     , 'pyInterceptor', 1),
-                ('warning'  , 'pyInterceptor', 1),
-                ('warn'     , 'pyInterceptor', 1),
-                ('error'    , 'pyInterceptor', 1),
-                ('exception', 'pyInterceptor', 1),
-                ('critical' , 'pyInterceptor', 1),
-                ('log'      , 'pyInterceptor', 1),
+            ('Logger', (
+                ('debug'    , 'pyLogInterceptor', 1),
+                ('info'     , 'pyLogInterceptor', 1),
+                ('warning'  , 'pyLogInterceptor', 1),
+                ('warn'     , 'pyLogInterceptor', 1),
+                ('error'    , 'pyLogInterceptor', 1),
+                ('exception', 'pyLogInterceptor', 1),
+                ('critical' , 'pyLogInterceptor', 1),
+                ('log'      , 'pyLogInterceptor', 1),
             ),),
         ),
     ),
@@ -91,13 +86,26 @@ interceptedLogLinesIgnore = []
 overrideSettingsOnLAR = 0
 
 ## Dir paths: semi-static
-rootDir    = '.STAK'
-primiDir   = 'primitives'
-variDir    = 'variants'
-pickleDir  = 'pickle'
+rootDir   = '.STAK'
+primiDir  = 'primitives'
+variDir   = 'variants'
+pickleDir = 'pickle'
 
 ## File suffixes
-primiSuffix             = ''
-compSuffix              = 'Compress'
-stdStakSpliceSuffix     = 'Splice'
-compactSuffix           = 'Compact'
+primiSuffix         = ''
+compSuffix          = 'Compress'
+stdStakSpliceSuffix = 'Splice'
+compactSuffix       = 'Compact'
+
+## Dev tools
+logPyInternal  = isDev
+logCInternal   = isDev
+tryRecompile   = isDev
+forceRecompile = 0
+isRelease      = not isDev  # Set truthy for optimized binaries
+
+
+# TODO: Postponed!
+# TODO: Ideally pickles would all be in some backup file, and the
+#  path could be built dynamically based on the task name & print.
+loadAndResavePath = r'.STAK\task\print\pickle\pickle.pkl'

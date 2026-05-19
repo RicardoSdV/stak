@@ -1,6 +1,5 @@
 ## Test settings
-from test.t_settingReloader import runSettingReloadingTest
-testStak      = 0
+testStak      = 1
 testTrace     = 0
 testIntercept = 0
 testReloader  = 0
@@ -14,11 +13,13 @@ runRunTests = testStak or testIntercept
 from itertools import repeat
 from random import randint
 
+import stak
 from stak import *
 
 from test.t_omrols import runStakTest
 from test.t_interceptor import runInterceptTest
 from test.t_trace import runTraceTest
+from test.t_settingReloader import runSettingReloadingTest
 
 
 def runTests():
@@ -49,6 +50,7 @@ if testTrace:
 if testReloader:
     runSettingReloadingTest()
 
+
 import code
-shell = code.InteractiveConsole(globals())
+shell = code.InteractiveConsole(stak.__dict__)
 shell.interact()

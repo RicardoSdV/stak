@@ -10,3 +10,9 @@ def floatToStr4(stamp):  # type: (float) -> Str4
 def unixStampToStr(unixStamp):  # type: (float) -> str
     dt = fromTimeStamp(unixStamp)
     return '{:02}:{:02}:{:02}.{:03}'.format(dt.hour, dt.minute, dt.second, dt.microsecond//1000)
+
+def absStampToDateStr(unixStamp):  # type: (float) -> str
+    return fromTimeStamp(unixStamp).strftime('%Y-%m-%d')
+
+def clockStampToAbsStamp(clockStamp):
+    return absRefStamp + clockStamp

@@ -4,59 +4,49 @@ def stampToStr(stamp):
     return 'stamp-to-str-not-implemented'
 
 
-def joinLink(iterLinks, ): pass
+def joinLink(splitLink):  # type: (Itrb) -> str
+    iterLink = iter(splitLink)
 
+    flag = next(iterLink)
+    filePath = next(iterLink)
+    lineno = next(iterLink)
+    calName = next(iterLink)
 
-def joinLinks(iterLinks, _mroLink = mroLinkEntry, _strByHash = jointLinks_strByPathLnHash):
-    for flag in iterLinks:
-        filePath = next(iterLinks)
-        lineno = next(iterLinks)
-        calName = next(iterLinks)
-        if flag == _mroLink:
-            cnt = next(iterLinks)
-            mroClsNs = list(islice(iterLinks, cnt))
-        else:
-            mroClsNs = None
+    if flag == mroLinkEntryFlag:
+        cnt = next(iterLink)
+        mroClsNs = list(islice(iterLink, cnt))
+    else:
+        mroClsNs = None
 
-        linkHash = hash((filePath, lineno))
-        if linkHash in _strByHash:
-            return _strByHash[linkHash]
+    strLink = ''
 
-        strLink = ''
+    if alwaysLogFilePath or not mroClsNs:
+        if defaultPathDepth:
+            filePath = pathSplitChar.join(filePath.split(pathSplitChar)[-defaultPathDepth:])
+        strLink += filePath[:-3]  # Remove .py
+        strLink += ':'
 
-        if alwaysLogFilePath or not mroClsNs:
-            if defaultPathDepth:
-                filePath = pathSplitChar.join(filePath.split(pathSplitChar)[-defaultPathDepth:])
-            strLink += filePath[:-3]  # Remove .py
-            strLink += ':'
+    if alwaysLogLineno or not mroClsNs:
+        strLink += '%s:' % lineno
 
-        if alwaysLogLineno or not mroClsNs:
-            strLink += '%s:' % lineno
+    if mroClsNs and tryLogMro:
+        if maxMroClsNsDepth:
+            mroClsNs = mroClsNs[-maxMroClsNsDepth:]
+        mroClsNs[-1] = '%s.%s%s' % (mroClsNs[-1], calName, ')' * (len(mroClsNs) - 1))
+        strLink += '('.join(mroClsNs)
+    else:
+        strLink += calName
 
-        if mroClsNs and tryLogMro:
-            if maxMroClsNsDepth:
-                mroClsNs = mroClsNs[-maxMroClsNsDepth:]
-            mroClsNs[-1] = '%s.%s%s' % (mroClsNs[-1], calName, ')' * (len(mroClsNs) - 1))
-            strLink += '('.join(mroClsNs)
-        else:
-            strLink += calName
-
-        _strByHash[linkHash] = strLink
-        return strLink
-
-
-def getJointLink(linkHash, _strByHash = jointLinks_strByPathLnHash, _headByHash=splitLinks_headIdxByPathLnHash):
-    if linkHash in _strByHash:
-        return _strByHash[linkHash]
-
-    head = _headByHash[linkHash]
-    iterLinks = islice(splitLinks, head, len(splitLinks))
-    strLink = joinLinks(iterLinks)
     return strLink
 
+def joinAllLinks():
+    for _id, splitLink in enumerate(splitLinksById):
+        if _id in jointLinksById:
+            continue
 
-def joinLinksByHashes(linkHashes):  # type: (Itrb[int]) -> Lst[str]
-    return [getJointLink(linkHash) for linkHash in linkHashes]
+        jointLink = joinLink(splitLink)
+        jointLinksById[_id] = jointLink
+
 
 def joinKVData(iterData):  # type: (Itrt[str]) -> str
     strData = '::['
@@ -65,48 +55,46 @@ def joinKVData(iterData):  # type: (Itrt[str]) -> str
     return strData[:-2] + '] '
 
 
-def joinChains(callChains):
-    iterChains = iter(callChains)
+def joinStakLogEntries(log):
+    """ This func can join all the entries in stakLog or a subsection if
+    sliced in the right places can be joined too. """
+    joinAllLinks()
 
-    jointChains = []
-    jointChainsApp = jointChains.append
+    iterLog = iter(log)
 
-    for flag in iterChains:
-        if flag == callChainEntry:
-            stamp = next(iterChains)
-            linkCnt = next(iterChains)
-            iterHashes = islice(iterChains, linkCnt)
+    jointLog = []
+    jointLogApp = jointLog.append
+
+    for flag in iterLog:
+        if flag == callChainEntryFlag:
+            stamp = next(iterLog)
+            linkCnt = next(iterLog)
+            iterHashes = islice(iterLog, linkCnt)
             yield stampToStr(stamp) + ' <- '.join(joinLinksByHashes(iterHashes))
 
-        elif flag == dataChainEntry:
+        elif flag == dataChainEntryFlag:
             # TODO: figure out what to do with data so that data chains can get compressed too.
 
-            stamp = next(iterChains)
-            dataCnt = next(iterChains)
-            data = islice(iterChains, dataCnt)
+            stamp = next(iterLog)
+            dataCnt = next(iterLog)
+            data = islice(iterLog, dataCnt)
             strData = joinKVData(data)
-            linkCnt = next(iterChains)
-            iterHashes = islice(iterChains, linkCnt)
+            linkCnt = next(iterLog)
+            iterHashes = islice(iterLog, linkCnt)
             yield stampToStr(stamp) + ' <- '.join(joinLinksByHashes(iterHashes))
 
-        elif flag == labelEntry:
-            yield next(iterChains)
+        elif flag == labelEntryFlag:
+            stamp = next(iterLog)
+            label = next(iterLog)
+            yield stampToStr(stamp) + label
 
-        elif flag == dateEntry:
-            # TODO: I need the actual time given by time and the precision of clock somehow.
-            timeStamp = next(iterChains)
-            clockStamp = next(iterChains)
+        elif flag == 'TODO: Date entries':
+            absStamp = next(iterLog)
+            clockStamp = next(iterLog)
+            yield fromTimeStamp(absStamp).strftime('%Y-%m-%d')
 
         else:
             raise ValueError('Unknown flag = %s' % flag)
-
-
-
-
-
-
-
-
 
 
 

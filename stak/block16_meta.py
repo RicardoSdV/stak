@@ -1,28 +1,27 @@
 from .block00_autoImports import *
 
-def onStakLoads():
+def onStakLoads_runInjectors():
+    """ Only when isDev, may inject some code and reload stak
+    so the code can be used in the same interpreter run. """
     if isDev:
         runInjectors()
-        reloadUnited(__name__)
-
-    onStakLoads_intercept()
+        reloadStak()
 
 def reloadSettings():
     oldSettings, newSettings = reloadModByNameGetDiff(__name__, 'settings')
     gSpace.update(newSettings)
 
-    onSettingsReload_updateTracing(oldSettings, newSettings)
-    onSettingsReload_reIntercept(oldSettings, newSettings)
-
+    onSettingsReload(oldSettings, newSettings)
 
 def reloadStak():
-    """ This reload is when stak is running normally to avoid wiping state. """
+    """ This reload is when stak is running normally to avoid wiping state.
+    When reloading onStakLoads we don't care about state since its on interpreter init.  """
 
-    onStakPreReload_restoreLoggers()
+    onStakPreReload()
 
-    reloadUnited(__name__, staticModNames=('state', ))
+    reloadUnited(__name__, staticModNames=staticBlockNames)
 
-    onStakLoads_intercept()
+    onStakPostReload()
 
 
 def jamInterfaceIntoBuiltins(interfaceNames, allNames): # type: (Itrb[str], Dic[str, Any]) -> None

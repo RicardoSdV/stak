@@ -1,11 +1,5 @@
 from .block00_autoImports import *
 
-red = 31
-grey = 90
-
-def colorStr(code, _str):
-    return '\033[{code}m{_str}\033[0m'.format(code=code, _str=_str)
-
 def tryCall(_callable, *args, **kwargs):  # type: (Cal, *Any, **Any) -> Any
     errMess = kwargs.pop('errMess', None)
     try:
@@ -15,7 +9,7 @@ def tryCall(_callable, *args, **kwargs):  # type: (Cal, *Any, **Any) -> Any
         else      : E(exception=formatExc())
 
 def serializeArgs(frame, args, kwargs):
-    # type: (Opt[FrameType], Tup[Any, ...], Dic[str, Any]) -> Itrt[Tup[str, str]]
+    # type: (Opt[Frame], Tup[Any, ...], Dic[str, Any]) -> Itrt[Tup[str, str]]
 
     args = iter(args)
     while args:
@@ -55,24 +49,40 @@ def argsToStr(serializedArgs, commaJoin=', '.join):  # type: (Itrb[Tup[str, str]
         for k, v in serializedArgs
     )
 
-def LOG(tag, color, printStack, message='', *args, **kwargs):
-    serializedArgs = serializeArgs(None, args, kwargs)
-    strArgs = argsToStr(serializedArgs)
-    mess = ' '.join(('[STAK]', str(tag), str(message), str(strArgs)))
-    if printStack: printStack()
-    print colorStr(color, mess)
+def printStack(frameNum=1):
+    frame = sysGetFrame(frameNum)
+    for el in formatStack(frame):
+        print(('[STAK] FRAME: %s' % el).rstrip('\n'))
 
-P = Partial(LOG, '[PRINT]', grey, False)
-E = Partial(LOG, '[ERROR]', red , True )
+def INFO(message, *args):
+    print('[STAK] INFO : %s' % (message % args))
+    return True
 
+def DEBUG(message='', *args):
+    if logPyInternal:
+        print('[STAK] DEBUG: %s' % (message % args))
+    return True
+
+def ERROR(message='', *args):
+    print('[STAK] ERROR: %s' % (message % args))
+    printStack(2)
+    return True
+
+def EXCEPTION(message='', exc=None, *args):
+    if message:
+        print('[STAK] EXC  : %s' % (message % args))
+    if exc:
+        excType, excValue, excTb = sys.exc_info() if isPy2 else exc.__class__, exc, exc.__traceback__
+        printExc(excType, excValue, excTb)
+    return True
 
 def funcErr(*_, **__):
-    print ('ERROR: This noop function is here purely to avoid '
-           'squiggly lines in PyCharm, which make me very nervous, '
-           'but the code is supposed to fail if this is not '
-           'overridden, printing callstack now.')
-    printStack()
-    return
+    ERROR(
+        'This noop function is here purely to avoid '
+        'squiggly lines in PyCharm, which make me very nervous, '
+        'but the code is supposed to fail if this is not '
+        'overridden, printing callstack now.'
+    )
 
 def makeObjErr(_class):
     class ObjectError(_class): pass
@@ -96,6 +106,19 @@ def roundToSigFigs(x, sigFigs):
         return 0
     return round(x, sigFigs - int(floor(log10(abs(x)))) - 1)
 
+def logExcept(func):
+    @wraps(func)
+    def logExceptWrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as e:
+            EXCEPTION('Exception in logExcept', exc=e)
 
-def printTestSetting():
-    print testSetting
+    return logExceptWrapper
+
+
+def logPlaceholder(func):
+    @wraps(func)
+    def logPlaceholderWrapper(*args, **kwargs):
+        DEBUG('Call to un-replaced placeholder: %s(%s, %s)', func.__name__, args, kwargs)
+    return logPlaceholderWrapper

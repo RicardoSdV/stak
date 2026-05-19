@@ -27,11 +27,11 @@ def replaceInPlace(lines, lookingFor, dataStructure):  # type: (Lst[str], str, A
         if line.startswith(lookingFor):
             lines[i] = '%s%r  # Injected\n' % (lookingFor, dataStructure)
             return
-    print '[STAK] ERROR: Looking for', lookingFor, 'prefix, not found'
+    ERROR('Looking for %s prefix, not found' % lookingFor)
 
 
 def runInjectors():
-    print 'runInjectors'
+    INFO('runInjectors (it is recommended to set isDev = False so this does not run & more)')
 
     constsPath = getAbsPathForBlockName('constants')
     constLines = readLines(constsPath)
@@ -43,7 +43,7 @@ def runInjectors():
     nonBlockFiles = []; nonBlockFilesApp = nonBlockFiles.append
     oldBlockNames = []; oldBlockNamesApp = oldBlockNames.append
 
-    for path in os.listdir(absPackagePath):
+    for path in os.listdir(packagePath):
         if path[nLenPyExt:] != pyExt:
             continue
         path = path[:nLenPyExt]
@@ -70,8 +70,8 @@ def runInjectors():
     if oldBlockFiles != newBlockFiles:
         ## Add / remove block names
         # -------------------------------------------------------------------------------------------------------------
-        gSpace['__unitedModNames__'][:] = list(newBlockNames)
-        gSpace['__unitedModPaths__'][:] = [osPathJoin(absPackagePath, f + pyExt) for f in newBlockFiles]
+        __unitedModNames__[:] = list(newBlockNames)
+        __unitedModPaths__[:] = [osPathJoin(packagePath, f + pyExt) for f in newBlockFiles]
 
         oldBlockNamesSet = set(oldBlockNames)
         newBlockNamesSet = set(newBlockNames)
@@ -80,21 +80,21 @@ def runInjectors():
         blockNamesToAdd    = newBlockNamesSet - oldBlockNamesSet
 
         if blockNamesToRemove and blockNamesToAdd:
-            print "[STAK] ERROR: Can't add & remove blocks at the same time, blockNamesToAdd", blockNamesToAdd, 'blockNamesToRemove', blockNamesToRemove
-            sys.exit()
+            ERROR("Can't add & remove blocks at the same time, blockNamesToAdd=%s blockNamesToRemove=%s" % (blockNamesToAdd, blockNamesToRemove))
+            sys.exit(1)
 
         removeFile = os.remove
         for name in blockNamesToRemove:
             fileName = oldBlockFiles[oldBlockNames.index(name)]
 
             if not input('DANGER sure of removing: %s ??' % fileName):
-                sys.exit()
+                sys.exit(1)
 
-            removeFile(osPathJoin(absPackagePath, fileName + pyExt))
+            removeFile(osPathJoin(packagePath, fileName + pyExt))
 
         for name in blockNamesToAdd:
             fileName = newBlockFiles[newBlockNames.index(name)]
-            path = osPathJoin(absPackagePath, fileName + pyExt)
+            path = osPathJoin(packagePath, fileName + pyExt)
             writeLines(path, ('from .block00_autoImports import *\n',))
         # -------------------------------------------------------------------------------------------------------------
 
@@ -122,9 +122,9 @@ def runInjectors():
         ## Rename block files.
         # -------------------------------------------------------------------------------------------------------------
         for oldBlock, newBlock in newByOldBlocks:
-            newBlockPath = osPathJoin(absPackagePath, newBlock + pyExt)
+            newBlockPath = osPathJoin(packagePath, newBlock + pyExt)
             if oldBlock != newBlock:
-                oldBlockPath = osPathJoin(absPackagePath, oldBlock + pyExt)
+                oldBlockPath = osPathJoin(packagePath, oldBlock + pyExt)
                 osRename(oldBlockPath, newBlockPath)
         # -------------------------------------------------------------------------------------------------------------
 
@@ -139,8 +139,9 @@ def runInjectors():
         ('pStakFlags'  , paddedStakFlags ),
         ('pTraceFlags' , paddedTraceFlags),
     )
+    _globals = globals()
     for name, val in valsByNames:
         replaceInPlace(constLines, name + ' = ', val)
-        gSpace[name] = val
+        _globals[name] = val
 
     writeLines(getAbsPathForBlockName('constants'), constLines)

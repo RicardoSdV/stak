@@ -9,9 +9,15 @@ Callables intended for shell use can be added to __builtins__ for easy calling
 by calling jamInterfaceIntoBuiltins.
 """
 
-from lib.packageUnite import loadUnited
+from time import clock
+
+start = clock()
+
+from .lib import loadUnited
 stak = loadUnited()
 stak.onStakLoads()
+
+stak.INFO('Stak loaded! took: %s', clock() - start)
 
 ## Shell Aliases
 s   = saveAll        = stak.saveAll
@@ -36,10 +42,6 @@ omrolocsalar = stak.omrolocsalar
 ## Shell & Code Aliases.
 st = setTrace = stak.setTrace
 dt = delTrace = stak.delTrace
-
-def stakMe():
-    """ omrolocs all callables in file """
-    print 'Implement me lazy bastard!'
 
 callFromShellInterface = (
     's'  , 'saveAll',

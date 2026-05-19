@@ -1,13 +1,21 @@
-""" Make a single virtual module out of all the modules found in the package. """
-from itertools import chain
-from traceback import print_stack
+"""
+Make a single virtual module out of all the modules found in the package.
+
+TODO: Python makes a .pyc file when importing to avoid compiling again,
+    This approach does not, this is bad for performance, it might be
+    possible to do the same thing.
+"""
 from types import ModuleType
 from sys import modules as sysModules, _getframe as sysGetFrame, exit as sysExit
 from os import listdir as osListDir
 from os.path import join as osPathJoin, split as osPathSplit
 
-import typing
-if typing.TYPE_CHECKING:
+try:
+    from typing import TYPE_CHECKING
+except ImportError:
+    TYPE_CHECKING = False
+
+if TYPE_CHECKING:
     from typing import Dict, Sequence as Seq, Tuple, Any, Iterable as Iterb, Container
     from types import FrameType
 
@@ -73,10 +81,13 @@ def loadModules(unitedDict, staticNames=(), staticModNames=()):
     # Read, compile & exec code in paths
     modNames = staticNames['__unitedModNames__']
     modPaths = staticNames['__unitedModPaths__']
-    for name, path in zip(modNames, modPaths):
-        with open(path, 'r') as f:
+    for modName, modPath in zip(modNames, modPaths):
+        if modName in staticModNames:
+            continue
+
+        with open(modPath, 'r') as f:
             src = f.read()
-        code = compile(src, path, 'exec')
+        code = compile(src, modPath, 'exec')
         exec(code, unitedDict)
 
     return unitedDict.copy()  # Copy to return a standard dict
