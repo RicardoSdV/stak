@@ -8,47 +8,42 @@ wildcard imported: from (...)stak import * or in the usual way.
 Callables intended for shell use can be added to __builtins__ for easy calling
 by calling jamInterfaceIntoBuiltins.
 """
+from sys import modules as sysModules
+from .save.ops import saveAll
+from .make.log import labelLogs, clearLogs
+from .utils.paths import removePrintDir
+from .meta import reloadConfig
+from .perf import printTimings
+from .lib import timeClock
+from .make.links import (
+    firstFrameAndData, firstFrameAndDataAndLocals, omropocs, omrolocs, omrolocsalad,
+    omrolocsalar, omrolpocs, omropocsalad, omrorocs)
+from .make.trace import setTrace, delTrace
 
-from time import clock
-
-start = clock()
-
-from .lib import loadUnited
-stak = loadUnited()
-stak.onStakLoads()
-
-stak.INFO('Stak loaded! took: %s', clock() - start)
+start = timeClock()
 
 ## Shell Aliases
-s   = saveAll        = stak.saveAll
-lar = loadAndResave  = stak.loadAndResave
-l   = labelLogs      = stak.labelLogs
-c   = clearLogs      = stak.clearLogs
-rmp = removePrintDir = stak.removePrintDir
-rs  = reloadSettings = stak.reloadSettings
-pt  = printTimings   = stak.printTimings
+s   = saveAll
+l   = labelLogs
+c   = clearLogs
+rmp = removePrintDir
+rs  = reloadConfig
+pt  = printTimings
 
 # Code Aliases
-ffad         = stak.firstFrameAndData
-ffadal       = stak.firstFrameAndDataAndLocals
-omropocs     = stak.omropocs
-omrorocs     = stak.omrorocs
-omrolocs     = stak.omrolocs
-omrolpocs    = stak.omrolpocs
-omropocsalad = stak.omropocsalad
-omrolocsalad = stak.omrolocsalad
-omrolocsalar = stak.omrolocsalar
+ffad   = firstFrameAndData
+ffadal = firstFrameAndDataAndLocals
 
 ## Shell & Code Aliases.
-st = setTrace = stak.setTrace
-dt = delTrace = stak.delTrace
+st = setTrace
+dt = delTrace
 
 callFromShellInterface = (
     's'  , 'saveAll',
     'l'  , 'labelLogs',
     'c'  , 'clearLogs',
     'rmp', 'removePrintDir',
-    'rs' , 'reloadSettings',
+    'rc' , 'reloadConfig',
     'lar', 'loadAndResave',
     'st' , 'setTrace',
     'dt' , 'delTrace',
@@ -70,5 +65,3 @@ callFromCodeInterface = (
 )
 
 __all__ = callFromCodeInterface
-
-stak.jamInterfaceIntoBuiltins(callFromShellInterface, globals())

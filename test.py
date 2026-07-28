@@ -10,6 +10,7 @@ rndTestRuns   = 10
 runRunTests = testStak or testIntercept
 
 
+import sys
 from itertools import repeat
 from random import randint
 
@@ -20,6 +21,8 @@ from test.t_omrols import runStakTest
 from test.t_interceptor import runInterceptTest
 from test.t_trace import runTraceTest
 from test.t_settingReloader import runSettingReloadingTest
+
+sys.dont_write_bytecode = True
 
 
 def runTests():
