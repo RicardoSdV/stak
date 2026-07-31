@@ -1,8 +1,8 @@
 from ..const import mroLinkEntryFlag, fileLinkEntryFlag, dataEntryFlag, dataChainEntryFlag, callChainEntryFlag
+from ..lib import timeClock, Function
 from ..state import idsBySplitLink, splitLinksById, splitLinksByIdApp
 from ..utils.serial import serializeArgs
 from ..utils.log import DEBUG
-from ..lib import timeClock, Function
 
 
 # For some reason instance methods are FunctionType, at runtime, but not when testing
@@ -10,7 +10,7 @@ from ..lib import timeClock, Function
 # True in the console, so, yeah, what's going on there?
 
 def makeMroClsNs(frame):
-    """ mroClsNs = (callerCls, ..., mroClasses, ..., definerCls) """
+    """ mroClsNs = [callerCls, ..., mroClasses, ..., definerCls] """
     fLocals = frame.f_locals
 
     if 'self' in fLocals:

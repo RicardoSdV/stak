@@ -9,15 +9,18 @@ from ..utils.exc import logExcept
 # Log the data passed to it next to the fist link to know where it comes from.
 # ---------------------------------------------------------------------------------------------------------------------
 @logExcept
-def firstFrameAndData(__log__, __print__, __locals__, __return__, __depth__, *keyValPairsForLogging, **kwargsForLogging):  # type: (...) -> None
-    if not keyValPairsForLogging and not kwargsForLogging:
+def _firstFrameAndData(__log__, __print__, __locals__, __return__, __depth__, *keyValPairsForLogging, **kwargsForLogging):
+    if not keyValPairsForLogging and not kwargsForLogging and not __locals__:
         return
-    dataEntry = makeDataEntry(sysGetFrame(1) if __locals__ else None, keyValPairsForLogging, kwargsForLogging)
+    
+    frame = sysGetFrame(__depth__) if __locals__ else None
+    dataEntry = makeDataEntry(frame, keyValPairsForLogging, kwargsForLogging)
     stakLogExt(dataEntry)
 
-    # TODO: Print data entry?
+    # TODO: Implemnt __print__, __return__
 
-firstFrameAndDataAndLocals = Partial(firstFrameAndData, True)
+firstFrameAndData          = Partial(_firstFrameAndData, 1, 0, 0, 0, 1)
+firstFrameAndDataAndLocals = Partial(_firstFrameAndData, 1, 0, 1, 0, 1)
 # ---------------------------------------------------------------------------------------------------------------------
 
 

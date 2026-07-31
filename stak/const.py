@@ -1,5 +1,3 @@
-""" Constants: Static hardcoded data. """
-
 exclFromLocals = {'self', 'cls'}
 
 stakFlags  = ('OMROLOCS', 'LOCSALAD', 'DATE', 'DAFF', 'LABEL')
@@ -7,13 +5,11 @@ traceFlags = ('SET', 'CAL', 'RET', 'DEL')
 
 silenceTimers = 0
 
-# ---------------------------------------------------------------------------------------------------------------------
-
-## Constants injected by injectors.py
-# ---------------------------------------------------------------------------------------------------------------------
 pStakFlags = [': OMROLOCS: ', ': LOCSALAD: ', ': DATE    : ', ': DAFF    : ', ': LABEL   : ']  # Injected
 pTraceFlags = [': SET: ', ': CAL: ', ': RET: ', ': DEL: ']  # Injected
-# ---------------------------------------------------------------------------------------------------------------------
+
+isDev = 1
+
 
 # Level would have been the depth of nesting had this been nested.
 # Using binary flags was tried, but binary operations in python are too slow,
@@ -44,7 +40,7 @@ callChainLinkFlags = {
 
 # These are the fixed lens, the entries themselves can be dynamically longer based on the count entries.
 baseEntryLens = {
-    dateEntryFlag   : 3,  # [..., flag, absStamp, clockStamp, ...]
+    dateEntryFlag   : 3,    # [..., flag, absStamp, clockStamp, ...]
     labelEntryFlag    : 2,  # [..., flag, stamp, labelStr, ...]
     callChainEntryFlag: 3,  # [..., flag, stamp, linkCnt, ...]
     dataChainEntryFlag: 4,  # [..., flag, stamp, dataCnt, linkCnt, ...]
@@ -59,65 +55,75 @@ cntIdxsByEntryFlag = {
     fileLinkEntryFlag: (),
 }
 
-# Stak Log example
-# A thing to consider is that no data entry is possible without a call chain, now,
-# sometimes the entire chain is not desired, in this case we still have a chain but
-# with one link only. This means that data can be linked to entries implicitly by order.
-# However, they share time stamp, the data and its chain I mean, so how to solve this problem?
+"""
+
+Stak Log example
+A thing to consider is that no data entry is possible without a call chain, now,
+sometimes the entire chain is not desired, in this case we still have a chain but
+with one link only. This means that data can be linked to entries implicitly by order.
+However, they share time stamp, the data and its chain I mean, so how to solve this problem?
 
 
-# stakLog = [
-#     entryID = 0,
-#     entryID = 1,
-#     entryID = 2,
-#     entryID = 0,
-# ]
+stakLog = [
+    entryID = 0,
+    entryID = 1,
+    entryID = 2,
+    entryID = 0,
+]
 
-# clockStamps = [  # Linked by Idx to stakLog
-#     clockStamp = 2514.0686976,
-#     clockStamp = 2515.8576039,
-#     clockStamp = 2516.3113509,
-#     clockStamp = 2516.7229875,
-# ]
+clockStamps = [  # Linked by Idx to stakLog
+    clockStamp = 2514.0686976,
+    clockStamp = 2515.8576039,
+    clockStamp = 2516.3113509,
+    clockStamp = 2516.7229875,
+]
 
-# stakLogEntriesById = [  # Where Idx is ID
-#     (labelEntryFlag, '============== SOME LABEL ================'),
-#     (callChainEntryFlag, callChainID=0),
-#     (dataChainEntryFlag, dataID=0, callChainID=0),
-# ]
+stakLogEntriesById = [  # Where Idx is ID
+    (labelEntryFlag, '============== SOME LABEL ================'),
+    (callChainEntryFlag, callChainID=0),
+    (dataChainEntryFlag, dataID=0, callChainID=0),
+]
 
-# idsByStakLogEntries = {
-#     (labelEntryFlag, '============== SOME LABEL ================'): 0,
-#     (callChainEntryFlag, callChainID=0): 1,
-#     (dataChainEntryFlag, dataID=0, callChainID=0): 2,
-# }
+idsByStakLogEntries = {
+    (labelEntryFlag, '============== SOME LABEL ================'): 0,
+    (callChainEntryFlag, callChainID=0): 1,
+    (dataChainEntryFlag, dataID=0, callChainID=0): 2,
+}
 
-# dataById = [
-#     ('key1', 'val1', 'key2', 'val2'),
-# ]
+dataById = [
+    ('key1', 'val1', 'key2', 'val2'),
+]
 
-# callChainsById = [
-#     (linkID=0, linkID=1),
-# ]
+callChainsById = [
+    (linkID=0, linkID=1),
+]
 
-# idsByCallChain = {
-#     (linkID=0, linkID=1): 0,
-# }
+idsByCallChain = {
+    (linkID=0, linkID=1): 0,
+}
 
-# splitLinksById = [  # Where Idx is ID
-#     (mroLinkEntryFlag, '\path', 123, 'calName', 0),  # ID = 0
-#     (fileLinkEntryFlag, '\path', 234, 'calName'),  # ID = 1
-# ]
+splitLinksById = [  # Where Idx is ID
+    (mroLinkEntryFlag, '\path', 123, 'calName', 0),  # ID = 0
+    (fileLinkEntryFlag, '\path', 234, 'calName'),  # ID = 1
+]
 
-# idsBySplitLink = {
-#     (mroLinkEntryFlag, '\path', 123, 'calName', 0): 0,
-#     (fileLinkEntryFlag, '\path', 234, 'calName'): 1,
-# }
+idsBySplitLink = {
+    (mroLinkEntryFlag, '\path', 123, 'calName', 0): 0,
+    (fileLinkEntryFlag, '\path', 234, 'calName'): 1,
+}
 
-# mrosById = [
-#     ('Cls1', 'Cls2', 'Cls3'),
-# ]
+mrosById = [
+    ('Cls1', 'Cls2', 'Cls3'),
+]
 
-# idsByMro = {
-#     ('Cls1', 'Cls2', 'Cls3'): 0,
-# }
+idsByMro = {
+    ('Cls1', 'Cls2', 'Cls3'): 0,
+}
+
+
+mros = {
+   ('Cls1', 'Cls2', 'Cls3'): 0,
+}
+
+
+"""

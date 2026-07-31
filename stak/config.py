@@ -1,5 +1,4 @@
 """ Settings: configurable parameters. Can be reloaded, dynamic references. """
-isDev = 1
 
 ## Labels
 eventLabels = ['PRE EVENT 1', 'POST EVENT 1']
@@ -101,10 +100,3 @@ stdStakSpliceSuffix = 'Splice'
 compactSuffix       = 'Compact'
 
 logExt = '.log'
-
-## Dev tools
-logPyInternal  = isDev
-logCInternal   = isDev
-tryRecompile   = isDev
-forceRecompile = 0
-isRelease      = not isDev  # Set truthy for optimized binaries
